@@ -67,14 +67,77 @@ document.addEventListener('DOMContentLoaded', () => {
 function renderLayout() {
   const root = document.querySelector('#app');
   root.innerHTML = `
+    <!-- AMBIENT & INTERACTIVE RAIOLABS LIGHTNING BOLTS OVERLAY (PALETTE FROM raiolabsllc.png) -->
+    <div class="raio-lightning-overlay" id="raio-lightning-overlay" aria-hidden="true">
+      <svg class="raio-lightning-svg" viewBox="0 0 1440 900" preserveAspectRatio="none">
+        <defs>
+          <!-- Golden-White Plasma Spear Glow (from raiolabsllc.png diagonal beam) -->
+          <linearGradient id="raio-gold-plasma" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.0" />
+            <stop offset="25%" stop-color="#fbbf24" stop-opacity="0.85" />
+            <stop offset="50%" stop-color="#fffbeb" stop-opacity="1" />
+            <stop offset="75%" stop-color="#fef08a" stop-opacity="0.9" />
+            <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.0" />
+          </linearGradient>
+          <!-- Electric Ice-Cyan Arc Gradient (from raiolabsllc.png shield arcs) -->
+          <linearGradient id="raio-cyan-arc" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#e0f2fe" stop-opacity="0.95" />
+            <stop offset="45%" stop-color="#38bdf8" stop-opacity="0.85" />
+            <stop offset="80%" stop-color="#0284c7" stop-opacity="0.45" />
+            <stop offset="100%" stop-color="#0d1f33" stop-opacity="0" />
+          </linearGradient>
+          <filter id="raio-bolt-glow" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="3.5" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+
+        <!-- Diagonal Golden Plasma Spear Beam (Echoing the logo's central gold lightning spear) -->
+        <path class="bolt-path gold-spear-beam" filter="url(#raio-bolt-glow)"
+          d="M 90 820 L 310 610 L 295 595 L 540 360 L 525 345 L 820 70" />
+
+        <!-- Top-Left Branching Electric Ice-Cyan Bolts -->
+        <path class="bolt-path cyan-arc-bolt bolt-1" filter="url(#raio-bolt-glow)"
+          d="M 40 0 L 95 75 L 72 95 L 145 180 L 118 205 L 195 310 L 175 335 L 240 430" />
+        <path class="bolt-path cyan-arc-branch bolt-1b"
+          d="M 145 180 L 210 215 L 245 205 L 295 250" />
+        <path class="bolt-path gold-arc-branch bolt-1c" filter="url(#raio-bolt-glow)"
+          d="M 95 75 L 45 135 L 60 165 L 22 225" />
+
+        <!-- Top-Center / Header Rim Electric Arcs -->
+        <path class="bolt-path cyan-arc-bolt bolt-2" filter="url(#raio-bolt-glow)"
+          d="M 520 0 L 560 52 L 540 72 L 610 135 L 590 155 L 665 230" />
+        <path class="bolt-path gold-arc-branch bolt-2b" filter="url(#raio-bolt-glow)"
+          d="M 560 52 L 635 80 L 625 102 L 705 145" />
+
+        <!-- Right-Side Companion Boundary Lightning Bolts -->
+        <path class="bolt-path cyan-arc-bolt bolt-3" filter="url(#raio-bolt-glow)"
+          d="M 860 15 L 825 95 L 850 118 L 795 220 L 820 250 L 765 370 L 790 395 L 740 520" />
+        <path class="bolt-path gold-arc-branch bolt-3b" filter="url(#raio-bolt-glow)"
+          d="M 825 95 L 895 145 L 880 175 L 945 235" />
+
+        <!-- Bottom-Left Cyber Shield Arc -->
+        <path class="bolt-path cyan-arc-bolt bolt-4" filter="url(#raio-bolt-glow)"
+          d="M 180 900 L 235 790 L 210 765 L 285 655 L 265 635 L 340 530" />
+      </svg>
+    </div>
+
     <!-- LEFT PANEL: USER WORKSPACE -->
     <main class="canvas-section">
       <header class="canvas-header">
         <div class="logo-container">
+          <div class="raio-header-emblem-wrap" id="raio-header-crest" title="Click to trigger a RaioLabs Lightning Surge! ⚡">
+            <span class="emblem-electric-ring"></span>
+            <img src="./raiolabsllc.png" alt="RaioLabs LLC Shield Logo" class="raio-header-logo-img" />
+            <span class="emblem-bolt-spark">⚡</span>
+          </div>
           <div>
-            <div style="display:flex; align-items:center; gap:12px;">
-              <h1 class="logo-text">RaioLabs <span style="font-weight:400; font-size:1.25rem; opacity:0.85;">// AetherOS</span></h1>
-              <span class="system-badge">AGENTIC IDE & SWARM HUB</span>
+            <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+              <h1 class="logo-text">RaioLabs <span class="logo-llc-tag">LLC</span> <span style="font-weight:400; font-size:1.15rem; opacity:0.85;">// AetherOS</span></h1>
+              <span class="system-badge">⚡ AGENTIC IDE & SWARM HUB</span>
             </div>
             <p style="font-size:0.8rem; color:var(--text-secondary); margin-top:4px;">
               Matt Raio, MSIS / CCNA • Agentic AI Architect, eBPF Security Builder & Multi-Agent Swarm Engineer
@@ -107,16 +170,33 @@ function renderLayout() {
 
       <!-- 1. GITHUB PROJECTS VIEW -->
       <div id="projects-view" class="stage-view-container">
-        <section class="hero-banner">
-          <div class="hero-banner-content">
-            <span class="hero-eyebrow">OPEN-SOURCE R&D • LINKEDIN BACKLOG & ACTIVE LABS</span>
-            <h2>Autonomous Swarms, Federal Compliance Bots & Kernel-Level Security</h2>
-            <p>
-              Explore Matt Raio's favorite GitHub repositories spanning <strong>Git-worktree AI Swarms</strong>,
-              <strong>NSA/FBI/CISA Compliance Subagents</strong>, <strong>Rust/eBPF CPU Guardians</strong>,
-              <strong>NetClaw BGP Automation</strong>, and <strong>3D Time / Post-Quantum Cryptography</strong>.
-            </p>
+        <section class="hero-banner raio-storm-banner">
+          <!-- Decorative SVG Lightning Arcs inside Hero Banner -->
+          <svg class="hero-bolt-decor" viewBox="0 0 800 320" preserveAspectRatio="none" aria-hidden="true">
+            <path class="hero-cyan-arc" d="M 480 0 L 520 65 L 495 82 L 555 160 L 530 180 L 600 270 L 580 320" />
+            <path class="hero-gold-spear" d="M 430 310 L 560 190 L 548 178 L 710 25" />
+            <path class="hero-cyan-arc-2" d="M 670 10 L 630 85 L 655 105 L 605 195 L 635 220 L 590 310" />
+          </svg>
+
+          <div class="hero-banner-top-split">
+            <div class="hero-banner-content">
+              <span class="hero-eyebrow">⚡ OPEN-SOURCE R&D • LINKEDIN BACKLOG & ACTIVE LABS</span>
+              <h2>Autonomous Swarms, Federal Compliance Bots & Kernel-Level Security</h2>
+              <p>
+                Explore Matt Raio's favorite GitHub repositories spanning <strong>Git-worktree AI Swarms</strong>,
+                <strong>NSA/FBI/CISA Compliance Subagents</strong>, <strong>Rust/eBPF CPU Guardians</strong>,
+                <strong>NetClaw BGP Automation</strong>, and <strong>3D Time / Post-Quantum Cryptography</strong>.
+              </p>
+            </div>
+
+            <!-- RaioLabs LLC Shield Emblem Centerpiece -->
+            <div class="hero-crest-showcase" id="hero-crest-showcase" title="Click for RaioLabs Plasma Lightning Surge! ⚡">
+              <div class="hero-crest-aura"></div>
+              <img src="./raiolabsllc.png" alt="RaioLabs LLC Cyber Shield & Lightning Spear" class="hero-crest-img" />
+              <span class="hero-crest-caption">⚡ RAIOLABS LLC • FIVE-STAR CYBER SHIELD</span>
+            </div>
           </div>
+
           <div class="hero-stats-grid">
             <div class="hero-stat-box">
               <span class="hero-stat-num">60+</span>
@@ -2763,8 +2843,40 @@ function stopAppearancePlayer() {
   state.activeAppearanceId = null;
 }
 
+function triggerRaioLightningSurge(announce = true) {
+  const overlay = document.getElementById('raio-lightning-overlay');
+  const headerCrest = document.getElementById('raio-header-crest');
+  const heroCrest = document.getElementById('hero-crest-showcase');
+
+  [overlay, headerCrest, heroCrest].forEach(el => {
+    if (!el) return;
+    el.classList.remove('lightning-surge-active');
+    void el.offsetWidth;
+    el.classList.add('lightning-surge-active');
+    setTimeout(() => el.classList.remove('lightning-surge-active'), 1100);
+  });
+
+  if (announce) {
+    setBotReaction(
+      'hype',
+      '⚡ RAIOLABS PLASMA SURGE!',
+      '⚡ "Raio" means Lightning! Engaging the Five-Star Cyber Shield, electric ice-cyan arcs, and golden plasma spear across all IDE worktrees! 🛡️⚡',
+      '⚡'
+    );
+    logToTerminal('action', 'RAIO_BOLT', 'Triggered RaioLabs LLC Golden Spear & Ice-Cyan Lightning Surge.');
+  }
+}
+
 function setupRaioLabsListeners() {
   renderCyberEventsGrid();
+
+  // Bind RaioLabs Shield Crest clicks to trigger Lightning Surge
+  ['raio-header-crest', 'hero-crest-showcase'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('click', () => triggerRaioLightningSurge(true));
+    }
+  });
 
   // --- RECENT APPEARANCES MODAL & FOREGROUND YOUTUBE PLAYER ---
   const openAppearancesBtn = document.getElementById('btn-open-appearances');

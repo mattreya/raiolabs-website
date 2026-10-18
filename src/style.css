@@ -4133,3 +4133,415 @@ body {
   font-size: 0.85rem;
   color: var(--text-secondary);
 }
+
+/* ==========================================================================
+   ⚡ RAIOLABS LLC SHIELD CREST (raiolabsllc.png) & ELECTRIC LIGHTNING PALETTE
+   - Storm Navy: #0d1f33 / #132a44
+   - Electric Ice-Cyan Arcs: #38bdf8 / #7dd3fc / #e0f2fe
+   - Golden-White Plasma Spear: #fef08a / #fbbf24 / #f59e0b
+   - Titanium Shield Silver: #cbd5e1 / #f8fafc
+   ========================================================================== */
+
+:root {
+  --raio-storm-navy: #0d1f33;
+  --raio-storm-deep: #07111e;
+  --raio-electric-cyan: #38bdf8;
+  --raio-ice-blue: #bae6fd;
+  --raio-gold-spear: #fbbf24;
+  --raio-plasma-white: #fef08a;
+  --raio-shield-silver: #cbd5e1;
+}
+
+/* Ambient & Interactive SVG Lightning Bolts Overlay */
+.raio-lightning-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+  opacity: 0.72;
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+.raio-lightning-overlay.lightning-surge-active {
+  opacity: 1;
+  filter: drop-shadow(0 0 18px rgba(250, 204, 21, 0.85)) drop-shadow(0 0 28px rgba(56, 189, 248, 0.9));
+}
+
+.raio-lightning-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.bolt-path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.gold-spear-beam {
+  stroke: url(#raio-gold-plasma);
+  stroke-width: 2.6;
+  stroke-dasharray: 260 900;
+  animation: raioGoldSpearShoot 7s ease-in-out infinite;
+}
+
+.cyan-arc-bolt {
+  stroke: url(#raio-cyan-arc);
+  stroke-width: 1.8;
+  stroke-dasharray: 140 600;
+  animation: raioCyanCrack 5.5s linear infinite;
+}
+
+.cyan-arc-bolt.bolt-2 {
+  animation-delay: 1.8s;
+  animation-duration: 6.2s;
+}
+
+.cyan-arc-bolt.bolt-3 {
+  animation-delay: 0.9s;
+  animation-duration: 5.1s;
+}
+
+.cyan-arc-bolt.bolt-4 {
+  animation-delay: 2.7s;
+  animation-duration: 6.8s;
+}
+
+.cyan-arc-branch {
+  stroke: #7dd3fc;
+  stroke-width: 1.2;
+  opacity: 0.38;
+  stroke-dasharray: 60 320;
+  animation: raioCyanCrack 4.8s ease-in-out infinite reverse;
+}
+
+.gold-arc-branch {
+  stroke: #fef08a;
+  stroke-width: 1.4;
+  opacity: 0.45;
+  stroke-dasharray: 70 360;
+  animation: raioGoldSpearShoot 5.4s ease-in-out infinite;
+}
+
+.raio-lightning-overlay.lightning-surge-active .bolt-path {
+  stroke-dasharray: none !important;
+  stroke-width: 3.4 !important;
+  opacity: 1 !important;
+  animation: boltFlashStrobe 0.18s steps(2) 5;
+}
+
+@keyframes raioGoldSpearShoot {
+  0%, 100% {
+    stroke-dashoffset: 950;
+    opacity: 0.15;
+  }
+  40% {
+    opacity: 0.85;
+  }
+  50% {
+    stroke-dashoffset: 0;
+    opacity: 0.95;
+  }
+  65% {
+    opacity: 0.2;
+  }
+}
+
+@keyframes raioCyanCrack {
+  0% {
+    stroke-dashoffset: 680;
+    opacity: 0.12;
+  }
+  35% {
+    opacity: 0.78;
+  }
+  52% {
+    opacity: 0.22;
+  }
+  70% {
+    opacity: 0.88;
+  }
+  100% {
+    stroke-dashoffset: -680;
+    opacity: 0.12;
+  }
+}
+
+@keyframes boltFlashStrobe {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+
+/* Ensure main workspace and companion panels sit cleanly above background bolts */
+.canvas-section,
+.agent-section {
+  position: relative;
+  z-index: 2;
+}
+
+/* Header Electric Plasma Border & Shield Emblem */
+.canvas-header {
+  position: relative;
+  border-bottom: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.canvas-header::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    #0284c7 18%,
+    #7dd3fc 38%,
+    #fef08a 50%,
+    #fbbf24 58%,
+    #38bdf8 80%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: plasmaBorderSweep 5s linear infinite;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.55), 0 0 18px rgba(251, 191, 36, 0.35);
+}
+
+@keyframes plasmaBorderSweep {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.raio-header-emblem-wrap {
+  position: relative;
+  width: 62px;
+  height: 62px;
+  border-radius: 14px;
+  padding: 3px;
+  background: linear-gradient(135deg, #38bdf8 0%, #fef08a 50%, #0d1f33 100%);
+  box-shadow:
+    0 0 18px rgba(56, 189, 248, 0.45),
+    0 0 26px rgba(251, 191, 36, 0.25);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+
+.raio-header-emblem-wrap:hover,
+.raio-header-emblem-wrap.lightning-surge-active {
+  transform: scale(1.08) rotate(-2deg);
+  box-shadow:
+    0 0 26px rgba(254, 240, 138, 0.85),
+    0 0 38px rgba(56, 189, 248, 0.8);
+}
+
+.emblem-electric-ring {
+  position: absolute;
+  inset: -3px;
+  border-radius: 16px;
+  border: 1.5px solid rgba(125, 211, 252, 0.65);
+  box-shadow: inset 0 0 10px rgba(254, 240, 138, 0.5);
+  animation: electricRingPulse 2.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes electricRingPulse {
+  0%, 100% { opacity: 0.45; transform: scale(0.98); }
+  50% { opacity: 1; transform: scale(1.04); border-color: #fef08a; }
+}
+
+.raio-header-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 11px;
+  display: block;
+  background: #0d1f33;
+}
+
+.emblem-bolt-spark {
+  position: absolute;
+  bottom: -5px;
+  right: -5px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #fef08a 0%, #f59e0b 100%);
+  border: 1.5px solid #fff;
+  color: #091524;
+  font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 10px #fbbf24;
+}
+
+/* Updated Logo Text & System Badge with raiolabsllc.png Titanium + Gold Spear + Ice Cyan colors */
+.logo-text {
+  background: linear-gradient(135deg, #f8fafc 10%, #7dd3fc 48%, #fef08a 78%, #fbbf24 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 10px rgba(56, 189, 248, 0.22));
+}
+
+.logo-llc-tag {
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #cbd5e1;
+  -webkit-text-fill-color: #cbd5e1;
+}
+
+.system-badge {
+  background: linear-gradient(135deg, rgba(13, 31, 51, 0.9), rgba(56, 189, 248, 0.18));
+  border: 1px solid rgba(125, 211, 252, 0.45);
+  color: #fef08a;
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.22);
+}
+
+/* Hero Banner Storm-Navy & Lightning Crest Showcase */
+.hero-banner.raio-storm-banner {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 82% 38%, rgba(56, 189, 248, 0.24) 0%, transparent 48%),
+    radial-gradient(circle at 75% 50%, rgba(251, 191, 36, 0.18) 0%, transparent 42%),
+    linear-gradient(135deg, #091524 0%, #0d1f33 52%, #132a44 100%);
+  border: 1px solid rgba(125, 211, 252, 0.35);
+  box-shadow:
+    0 14px 40px rgba(0, 0, 0, 0.65),
+    inset 0 0 35px rgba(56, 189, 248, 0.12);
+}
+
+.hero-bolt-decor {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-cyan-arc,
+.hero-cyan-arc-2 {
+  fill: none;
+  stroke: rgba(125, 211, 252, 0.32);
+  stroke-width: 1.8;
+  stroke-dasharray: 90 260;
+  animation: raioCyanCrack 5s linear infinite;
+}
+
+.hero-cyan-arc-2 {
+  stroke: rgba(56, 189, 248, 0.25);
+  animation-delay: 2.2s;
+}
+
+.hero-gold-spear {
+  fill: none;
+  stroke: rgba(254, 240, 138, 0.45);
+  stroke-width: 2.4;
+  filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.7));
+  stroke-dasharray: 180 420;
+  animation: raioGoldSpearShoot 6s ease-in-out infinite;
+}
+
+.hero-banner-top-split {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 1.75rem;
+}
+
+@media (max-width: 820px) {
+  .hero-banner-top-split {
+    grid-template-columns: 1fr;
+  }
+}
+
+.hero-eyebrow {
+  color: #fef08a !important;
+  text-shadow: 0 0 12px rgba(251, 191, 36, 0.4);
+}
+
+.hero-crest-showcase {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 18px;
+  background: rgba(9, 21, 36, 0.75);
+  border: 1.5px solid rgba(125, 211, 252, 0.45);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.65),
+    0 0 25px rgba(56, 189, 248, 0.3),
+    0 0 35px rgba(251, 191, 36, 0.15);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.hero-crest-showcase:hover,
+.hero-crest-showcase.lightning-surge-active {
+  transform: translateY(-3px) scale(1.03);
+  border-color: #fef08a;
+  box-shadow:
+    0 14px 36px rgba(0, 0, 0, 0.8),
+    0 0 32px rgba(254, 240, 138, 0.65),
+    0 0 45px rgba(56, 189, 248, 0.65);
+}
+
+.hero-crest-aura {
+  position: absolute;
+  inset: -8px;
+  border-radius: 24px;
+  background: radial-gradient(circle, rgba(254, 240, 138, 0.25) 0%, rgba(56, 189, 248, 0.2) 50%, transparent 75%);
+  filter: blur(10px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-crest-img {
+  position: relative;
+  z-index: 1;
+  width: 148px;
+  height: 148px;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 1.5px solid rgba(203, 213, 225, 0.55);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+}
+
+.hero-crest-caption {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: #fef08a;
+  background: rgba(13, 31, 51, 0.92);
+  border: 1px solid rgba(251, 191, 36, 0.45);
+  padding: 3px 9px;
+  border-radius: 99px;
+  white-space: nowrap;
+}
+
+.hero-stats-grid {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-stat-box {
+  border-color: rgba(125, 211, 252, 0.25) !important;
+  background: rgba(9, 21, 36, 0.72) !important;
+}
+
+.hero-stat-num {
+  background: linear-gradient(135deg, #fef08a 0%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
