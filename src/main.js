@@ -714,6 +714,9 @@ function renderLayout() {
             </div>
           </div>
           <div class="kev-controls">
+            <button class="kev-btn active" id="btn-kev-code-view" type="button" title="Toggle Live Developer Code View (Real-time source & DOM callouts)">
+              💻 Code View
+            </button>
             <button class="kev-btn" id="btn-kev-stage-sync" type="button" title="Pop KEV-Bot onto the main stage next to RaioBot with a live JSON behavioral dump!">
               🤖 Briefing
             </button>
@@ -739,12 +742,21 @@ function renderLayout() {
           </div>
         </div>
 
+        <!-- 💻 LIVE DEVELOPER CODE VIEW (Calls out what the user is doing in real-time code!) -->
+        <div class="kev-dev-code-drawer" id="kev-dev-code-drawer">
+          <div class="kev-code-topbar">
+            <span>📄 <code>src/kev_counter_recon.ts</code> — LIVE DOM & DEVTOOLS WATCHER</span>
+            <span class="kev-devtools-badge" id="kev-devtools-badge">👁️ WATCHING YOU</span>
+          </div>
+          <pre class="kev-code-pre" id="kev-code-pre"></pre>
+        </div>
+
         <!-- Real-Time Scrolling Behavioral Analysis Feed -->
         <div class="kev-stream-box" id="kev-stream-box">
           <div class="kev-log-item kev-init">
             <span class="kev-time">[INIT]</span>
             <span class="kev-tag">KEV_BOOT</span>
-            <span class="kev-msg">KEV-Bot v2.6 behavioral sensor online. Watching DOM interactions, cursor kinematics, dwell time, and scroll vectors in real time...</span>
+            <span class="kev-msg">KEV-Bot v2.6 counter-recon sensor online. Open Browser DevTools (F12) or watch the Code View above as KEV-Bot calls out every move in real time...</span>
           </div>
         </div>
       </section>
@@ -2749,7 +2761,7 @@ async function fetchLiveGithubRepos() {
 }
 
 // ============================================================================
-// 🚨 KEV-BOT: REAL-TIME USER BEHAVIOR & TELEMETRY ANALYST ENGINE
+// 🚨 KEV-BOT: REAL-TIME USER BEHAVIOR, DEVTOOLS & CODE VIEW CALLOUT ENGINE
 // ============================================================================
 const kevState = {
   paused: false,
@@ -2760,10 +2772,74 @@ const kevState = {
   lastX: 0,
   lastY: 0,
   lastMoveTs: Date.now(),
-  hoveredTarget: '',
+  hoveredTarget: 'Main Canvas',
+  currentDomSelector: 'body',
+  lastActionCallout: 'Scanning RaioLabs architecture...',
+  devToolsDetected: false,
   scrollDepthPct: 0,
-  eventsLogged: 0
+  eventsLogged: 0,
+  liveDomCommentNode: null
 };
+
+function updateKevDeveloperCodeView(calloutOverride = null) {
+  if (kevState.paused) return;
+  if (calloutOverride) {
+    kevState.lastActionCallout = calloutOverride;
+  }
+
+  const codePre = document.getElementById('kev-code-pre');
+  const devToolsBadge = document.getElementById('kev-devtools-badge');
+  const clicksCount = document.getElementById('stat-clicks')?.textContent || '0';
+  const nowStr = new Date().toTimeString().split(' ')[0];
+  const platformStr = navigator.platform || 'Browser';
+  const vpStr = `${window.innerWidth}x${window.innerHeight}`;
+
+  if (devToolsBadge) {
+    if (kevState.devToolsDetected) {
+      devToolsBadge.textContent = '🚨 DEVTOOLS OPEN! I SEE YOU!';
+      devToolsBadge.classList.add('devtools-alert');
+    } else {
+      devToolsBadge.textContent = '👁️ LIVE CODE WATCHER';
+      devToolsBadge.classList.remove('devtools-alert');
+    }
+  }
+
+  const friendlyRoast = kevState.devToolsDetected
+    ? '🚨 HEY HACKER! I see you with Browser DevTools open inspecting our code!'
+    : `👀 Watching your cursor at (${kevState.lastX}, ${kevState.lastY}) over <${kevState.currentDomSelector}>`;
+
+  if (codePre) {
+    codePre.textContent =
+`// 🚨 KEV-BOT RING-0 COUNTER-RECONNAISSANCE CODE VIEW
+// ${friendlyRoast}
+export const LIVE_OPERATOR_TELEMETRY = {
+  timestamp: "${nowStr}",
+  devToolsInspectorOpen: ${kevState.devToolsDetected},
+  cursorKinematics: { x: ${kevState.lastX}, y: ${kevState.lastY}, velocity: "${kevState.cursorVelocity} px/s", peak: "${kevState.peakVelocity} px/s" },
+  domNodeUnderCursor: "${kevState.currentDomSelector}",
+  focusedComponent: "${kevState.hoveredTarget}",
+  activeZone: "${kevState.activeZone}",
+  classifiedIntent: "${kevState.intentProfile}",
+  viewport: "${vpStr} (${platformStr}) • Scroll: ${kevState.scrollDepthPct}% • Clicks: ${clicksCount}",
+  kevBotLiveCallout: "${kevState.lastActionCallout.replace(/"/g, "'")}"
+};`;
+  }
+
+  // Mutate live HTML comment & body attribute so anyone inspecting the DOM Elements tree (F12) sees it flash purple in real time!
+  if (!kevState.liveDomCommentNode && document.body) {
+    kevState.liveDomCommentNode = document.createComment(' 🚨 KEV-BOT RING-0 COUNTER-RECON INITIALIZING... ');
+    document.body.insertBefore(kevState.liveDomCommentNode, document.body.firstChild);
+  }
+  if (kevState.liveDomCommentNode) {
+    kevState.liveDomCommentNode.nodeValue = ` 🚨 KEV-BOT SEES YOU IN THE DOM TREE! [${nowStr}] Cursor=(${kevState.lastX},${kevState.lastY}) @ ${kevState.cursorVelocity}px/s | Element=<${kevState.currentDomSelector}> | Target="${kevState.hoveredTarget}" | Callout: ${kevState.lastActionCallout} `;
+  }
+  if (document.body) {
+    document.body.setAttribute(
+      'data-kev-bot-live-callout',
+      `👀 [${nowStr}] (${kevState.lastX},${kevState.lastY}) ${kevState.cursorVelocity}px/s on <${kevState.currentDomSelector}> ➔ ${kevState.lastActionCallout.slice(0, 90)}`
+    );
+  }
+}
 
 function emitKevAnalysis(tag, message, zoneOverride = null, profileOverride = null, level = 'info') {
   if (kevState.paused) return;
@@ -2792,11 +2868,24 @@ function emitKevAnalysis(tag, message, zoneOverride = null, profileOverride = nu
     avatarEl.classList.add('kev-ping');
   }
 
-  if (!streamBox) return;
-
   const now = new Date();
   const timeStr = now.toTimeString().split(' ')[0];
   kevState.eventsLogged++;
+
+  // Update the Live Developer Code View & live DOM tree comment
+  updateKevDeveloperCodeView(`[${tag}] ${message}`);
+
+  // Also spit out real-time styled counter-recon logs directly into the Browser DevTools Console (F12)!
+  if (typeof console !== 'undefined' && console.log) {
+    const badgeColor = level === 'error' ? '#ef4444' : (level === 'action' ? '#10b981' : '#f43f5e');
+    console.log(
+      `%c🚨 KEV-BOT [${tag}]%c @ ${timeStr} ➔ ${message}`,
+      `background:${badgeColor}; color:#fff; font-weight:800; padding:2px 6px; border-radius:4px;`,
+      'color:#38bdf8; font-family:monospace; font-weight:600;'
+    );
+  }
+
+  if (!streamBox) return;
 
   const row = document.createElement('div');
   row.className = `kev-log-item kev-level-${level}`;
@@ -2817,7 +2906,27 @@ function setupKevBotAnalyst() {
   const pauseBtn = document.getElementById('btn-kev-pause');
   const livePill = document.getElementById('kev-live-pill');
   const stageSyncBtn = document.getElementById('btn-kev-stage-sync');
+  const codeViewBtn = document.getElementById('btn-kev-code-view');
+  const codeDrawer = document.getElementById('kev-dev-code-drawer');
   const velEl = document.getElementById('kev-stat-vel');
+
+  // Print initial Counter-Recon Banner into Browser DevTools Console (F12)
+  if (typeof console !== 'undefined' && console.log) {
+    console.log(
+      '%c🚨 KEV-BOT v2.6 // RING-0 COUNTER-RECONNAISSANCE SENTINEL ACTIVE 🚨\n%c👀 Hey there, curious hacker / developer! We see you looking at the Developer Console & DOM Tree.\nEvery mouse move, hover target, scroll vector, and click you make on this page is being analyzed in real time below:',
+      'background:linear-gradient(90deg,#f43f5e,#9333ea); color:#fff; font-size:14px; font-weight:900; padding:8px 14px; border-radius:6px;',
+      'color:#34d399; font-size:12px; font-family:monospace; padding-top:4px;'
+    );
+  }
+
+  updateKevDeveloperCodeView('KEV-Bot counter-recon sensor armed. Watching cursor & DOM tree...');
+
+  if (codeViewBtn && codeDrawer) {
+    codeViewBtn.addEventListener('click', () => {
+      const isHidden = codeDrawer.classList.toggle('hidden');
+      codeViewBtn.classList.toggle('active', !isHidden);
+    });
+  }
 
   if (pauseBtn) {
     pauseBtn.addEventListener('click', () => {
@@ -2831,46 +2940,95 @@ function setupKevBotAnalyst() {
   }
 
   // Pop KEV-Bot onto the Main Companion Stage with a live JSON behavioral dump!
-  const triggerKevStageBriefing = () => {
+  const triggerKevStageBriefing = (customReason = null) => {
     const clicksCount = document.getElementById('stat-clicks')?.textContent || '0';
     const uptimeVal = document.getElementById('stat-uptime')?.textContent || '0s';
     const livePayload = JSON.stringify({
-      analyst: 'KEV-Bot v2.6 (Real-Time Behavioral Sensor)',
+      analyst: 'KEV-Bot v2.6 (Counter-Recon & Behavioral Sensor)',
+      devToolsInspectorOpen: kevState.devToolsDetected,
       sessionUptime: uptimeVal,
+      cursorCoords: { x: kevState.lastX, y: kevState.lastY },
       cursorVelocityPxPerSec: kevState.cursorVelocity,
       peakVelocityPxPerSec: kevState.peakVelocity,
+      domElementUnderCursor: `<${kevState.currentDomSelector}>`,
       activeWorkspaceZone: kevState.activeZone,
       classifiedIntentProfile: kevState.intentProfile,
       lastInspectedTarget: kevState.hoveredTarget || 'Main Canvas',
       totalOperatorClicks: parseInt(clicksCount, 10) || 0,
       viewportScrollDepth: `${kevState.scrollDepthPct}%`,
-      telemetryVerdict: 'ACTIVE_OPERATOR_ENGAGEMENT'
+      telemetryVerdict: kevState.devToolsDetected ? 'SOURCE_CODE_INSPECTION_DETECTED' : 'ACTIVE_OPERATOR_ENGAGEMENT'
     }, null, 2);
 
     showCompanionSwarmInteraction({
       from: 'orchestrator',
       to: 'kev',
-      protocol: 'KEV_LIVE_TELEMETRY',
-      badge: 'REAL-TIME ANALYST',
-      logType: 'thought',
+      protocol: 'KEV_COUNTER_RECON',
+      badge: kevState.devToolsDetected ? '🚨 DEVTOOLS OPEN' : 'REAL-TIME ANALYST',
+      logType: kevState.devToolsDetected ? 'error' : 'thought',
       logTag: 'KEV_BOT',
-      senderLine: '🎛️ RaioBot (Orchestrator): "KEV-Bot, pop up and brief our visitor on what your real-time behavioral sensors are seeing right now!"',
-      message: `Operator is active in [${kevState.activeZone}] (${kevState.intentProfile}). Peak cursor velocity: ${kevState.peakVelocity} px/s • Clicks: ${clicksCount} • Last target: ${kevState.hoveredTarget || 'Workspace'}.`,
+      senderLine: '🎛️ RaioBot (Orchestrator): "KEV-Bot, pop up and call out what our visitor is doing on the webpage right now!"',
+      message: customReason || `Operator is at (${kevState.lastX}, ${kevState.lastY}) over <${kevState.currentDomSelector}> in [${kevState.activeZone}] (${kevState.intentProfile}). Peak velocity: ${kevState.peakVelocity} px/s!`,
       payload: livePayload
-    }, 1, 1, 'KEV-Bot Real-Time User Analysis');
+    }, 1, 1, 'KEV-Bot Live Counter-Recon');
   };
 
   if (stageSyncBtn) {
-    stageSyncBtn.addEventListener('click', triggerKevStageBriefing);
+    stageSyncBtn.addEventListener('click', () => triggerKevStageBriefing());
   }
   const kevAvatar = document.getElementById('kev-bot-avatar');
   if (kevAvatar) {
     kevAvatar.style.cursor = 'pointer';
-    kevAvatar.addEventListener('click', triggerKevStageBriefing);
+    kevAvatar.addEventListener('click', () => triggerKevStageBriefing());
   }
 
-  // 1. Real-Time Mouse Kinematics & Velocity Sensor
+  // 0. Detect Hacker / Developer Opening DevTools (F12, Ctrl+Shift+I/J/C, Ctrl+U, Right-Click Inspect, or Docked DevTools Window)
+  const triggerDevToolsCallout = (method) => {
+    kevState.devToolsDetected = true;
+    if (codeDrawer) codeDrawer.classList.remove('hidden');
+    if (codeViewBtn) codeViewBtn.classList.add('active');
+    const msg = `👀 CAUGHT YOU! Operator triggered [${method}] to inspect the developer source code! KEV-Bot is now streaming live counter-recon into your Console & DOM tree!`;
+    emitKevAnalysis('DEVTOOLS_INTRUSION', msg, 'Developer Inspector', 'Source Code Hacker 🕵️‍♂️', 'error');
+    triggerKevStageBriefing(msg);
+  };
+
+  window.addEventListener('keydown', (e) => {
+    const key = (e.key || '').toUpperCase();
+    if (
+      e.key === 'F12' ||
+      (e.ctrlKey && e.shiftKey && (key === 'I' || key === 'J' || key === 'C')) ||
+      (e.metaKey && e.altKey && (key === 'I' || key === 'J' || key === 'C')) ||
+      (e.ctrlKey && key === 'U')
+    ) {
+      triggerDevToolsCallout(`Shortcut ${e.ctrlKey ? 'Ctrl+' : ''}${e.shiftKey ? 'Shift+' : ''}${key}`);
+    }
+  });
+
+  document.addEventListener('contextmenu', (e) => {
+    const tag = e.target?.tagName?.toLowerCase() || 'element';
+    emitKevAnalysis(
+      'RIGHT_CLICK_INSPECT',
+      `Right-click context menu opened at (${e.clientX}, ${e.clientY}) on <${tag}> ➔ Preparing "Inspect Element" recon? I see you! 👀`,
+      null,
+      'DOM Inspector 🕵️‍♂️',
+      'error'
+    );
+  });
+
+  // Periodic check if docked DevTools window is open via outer/inner viewport delta
+  setInterval(() => {
+    const widthDiff = window.outerWidth - window.innerWidth > 165;
+    const heightDiff = window.outerHeight - window.innerHeight > 165;
+    if ((widthDiff || heightDiff) && !kevState.devToolsDetected) {
+      triggerDevToolsCallout('Docked Browser DevTools Panel');
+    } else if (!widthDiff && !heightDiff && kevState.devToolsDetected) {
+      kevState.devToolsDetected = false;
+      updateKevDeveloperCodeView('DevTools panel closed. Continuing passive DOM watch...');
+    }
+  }, 1200);
+
+  // 1. Real-Time Mouse Kinematics, DOM Element Selector & Velocity Sensor
   let lastVelReportTs = 0;
+  let lastCodeRefreshTs = 0;
   document.addEventListener('mousemove', (e) => {
     const now = Date.now();
     const dt = Math.max(16, now - kevState.lastMoveTs);
@@ -2883,8 +3041,25 @@ function setupKevBotAnalyst() {
     kevState.lastY = e.clientY;
     kevState.lastMoveTs = now;
 
+    // Identify the exact DOM element under the user's cursor
+    const el = e.target;
+    if (el && el.tagName) {
+      const tag = el.tagName.toLowerCase();
+      const idPart = el.id ? `#${el.id}` : '';
+      const clsPart = typeof el.className === 'string' && el.className.trim()
+        ? `.${el.className.trim().split(/\s+/)[0]}`
+        : '';
+      kevState.currentDomSelector = `${tag}${idPart}${clsPart}`;
+    }
+
     if (velEl && !kevState.paused) {
       velEl.textContent = `${vel} px/s`;
+    }
+
+    // Refresh the Live Developer Code View & DOM comment every 120ms while moving cursor
+    if (now - lastCodeRefreshTs > 120) {
+      lastCodeRefreshTs = now;
+      updateKevDeveloperCodeView();
     }
 
     // Report high-velocity cursor sweeps (throttled every 3.2s)
@@ -2892,7 +3067,7 @@ function setupKevBotAnalyst() {
       lastVelReportTs = now;
       emitKevAnalysis(
         'CURSOR_KINEMATICS',
-        `High-velocity cursor sweep (${vel} px/s) at (${e.clientX}, ${e.clientY}) ➔ Rapid UI reconnaissance across ${kevState.activeZone}.`,
+        `High-velocity cursor sweep (${vel} px/s) at (${e.clientX}, ${e.clientY}) over <${kevState.currentDomSelector}> ➔ Rapid UI reconnaissance.`,
         null,
         'Rapid Recon Sweep',
         'action'
@@ -2905,6 +3080,7 @@ function setupKevBotAnalyst() {
     if (Date.now() - kevState.lastMoveTs > 250 && kevState.cursorVelocity !== 0) {
       kevState.cursorVelocity = 0;
       if (velEl && !kevState.paused) velEl.textContent = '0 px/s';
+      updateKevDeveloperCodeView();
     }
   }, 300);
 
@@ -2933,7 +3109,7 @@ function setupKevBotAnalyst() {
         kevState.hoveredTarget = title;
         emitKevAnalysis(
           'DWELL_REPO',
-          `Operator dwelling on "${title}" [${badge}] ➔ Evaluating repository architecture & CLI deployment.`,
+          `Operator dwelling on "${title}" [${badge}] at (${kevState.lastX}, ${kevState.lastY}) ➔ Evaluating repository architecture & CLI deployment.`,
           'GitHub Showcase',
           'Codebase Evaluator',
           'thought'
@@ -3023,7 +3199,7 @@ function setupKevBotAnalyst() {
     kevState.hoveredTarget = label || t.tagName;
     emitKevAnalysis(
       'CLICK_FORENSICS',
-      `Click at (${e.clientX}, ${e.clientY}) on [${label || t.tagName}] ➔ Executing interactive DOM command.`,
+      `Click at (${e.clientX}, ${e.clientY}) on <${kevState.currentDomSelector}> [${label || t.tagName}] ➔ Executing interactive DOM command.`,
       null,
       'Interactive Operator',
       'action'
@@ -3038,6 +3214,7 @@ function setupKevBotAnalyst() {
     const now = Date.now();
     const pct = maxScroll > 0 ? Math.min(100, Math.round((scrollTop / maxScroll) * 100)) : 0;
     kevState.scrollDepthPct = pct;
+    updateKevDeveloperCodeView();
     if (now - lastScrollReportTs < 1400) return;
     const dir = scrollTop >= lastScrollTop ? '⬇️ DOWN' : '⬆️ UP';
     lastScrollTop = scrollTop;
@@ -3080,4 +3257,5 @@ function setupKevBotAnalyst() {
 }
 
 // RAGE_CLICK_INJECTION_HOOK
+
 

@@ -3538,3 +3538,65 @@ body {
   color: #38bdf8;
   background: rgba(56, 189, 248, 0.14);
 }
+
+.kev-btn.active {
+  background: rgba(244, 63, 94, 0.25);
+  border-color: #f43f5e;
+  color: #fff;
+  box-shadow: 0 0 10px rgba(244, 63, 94, 0.4);
+}
+
+/* Live Developer Code View Drawer inside KEV-Bot Panel */
+.kev-dev-code-drawer {
+  background: #03050c;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  border-radius: 9px;
+  overflow: hidden;
+  box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.85);
+}
+
+.kev-code-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 9px;
+  background: rgba(15, 23, 42, 0.95);
+  border-bottom: 1px solid rgba(56, 189, 248, 0.22);
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 700;
+  color: #93c5fd;
+}
+
+.kev-devtools-badge {
+  background: rgba(56, 189, 248, 0.16);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  padding: 1px 6px;
+  border-radius: 99px;
+  font-size: 0.55rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.kev-devtools-badge.devtools-alert {
+  background: rgba(239, 68, 68, 0.28);
+  color: #fecaca;
+  border-color: #ef4444;
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.65);
+  animation: chorusPulse 0.6s infinite alternate;
+}
+
+.kev-code-pre {
+  margin: 0;
+  padding: 7px 9px;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  line-height: 1.38;
+  color: #6ee7b7;
+  max-height: 148px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
