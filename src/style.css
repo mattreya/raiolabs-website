@@ -3600,3 +3600,536 @@ body {
   white-space: pre-wrap;
   word-break: break-word;
 }
+
+/* ==========================================================================
+   🎬 RECENT APPEARANCES & 🛡️ EVENTS / OWASP FOREGROUND BLURRED MODALS
+   ========================================================================== */
+
+.header-actions-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.header-modal-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-sans);
+  font-size: 0.84rem;
+  font-weight: 600;
+  padding: 7px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.appearances-header-btn {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.18) 0%, rgba(168, 85, 247, 0.22) 100%);
+  border: 1px solid rgba(239, 68, 68, 0.45);
+  color: #fecaca;
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.18);
+}
+
+.appearances-header-btn:hover {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.32) 0%, rgba(168, 85, 247, 0.35) 100%);
+  border-color: #f87171;
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.32);
+}
+
+.events-header-btn {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.16) 0%, rgba(59, 130, 246, 0.22) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.45);
+  color: #bae6fd;
+  box-shadow: 0 4px 14px rgba(6, 182, 212, 0.18);
+}
+
+.events-header-btn:hover {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.3) 0%, rgba(59, 130, 246, 0.35) 100%);
+  border-color: #38bdf8;
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(6, 182, 212, 0.32);
+}
+
+.header-settings-pill {
+  padding: 7px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.header-settings-pill:hover {
+  border-color: var(--accent);
+  background: rgba(168, 85, 247, 0.1);
+}
+
+/* Enhanced Foreground Blur Backdrop (Matches & Elevates System Settings Blur) */
+.modal-overlay.backdrop-blur-heavy {
+  background: rgba(6, 8, 16, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 1.5rem;
+}
+
+.modal-card.modal-card-wide {
+  width: 960px;
+  max-width: 95vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 1.75rem 2rem;
+  border: 1px solid rgba(168, 85, 247, 0.32);
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.78), 0 0 40px rgba(168, 85, 247, 0.16);
+}
+
+.modal-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.modal-eyebrow-pill {
+  display: inline-block;
+  width: fit-content;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: #fca5a5;
+  background: rgba(239, 68, 68, 0.16);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  padding: 2px 9px;
+  border-radius: 99px;
+}
+
+.modal-eyebrow-pill.events-eyebrow-pill {
+  color: #7dd3fc;
+  background: rgba(6, 182, 212, 0.16);
+  border-color: rgba(56, 189, 248, 0.4);
+}
+
+.modal-subtitle-text {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.25rem;
+}
+
+/* Selectable YouTube Appearance Cards */
+.appearances-selector-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+@media (max-width: 780px) {
+  .appearances-selector-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.appearance-choice-card {
+  background: rgba(15, 19, 34, 0.88);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.25s ease;
+}
+
+.appearance-choice-card:hover {
+  border-color: rgba(239, 68, 68, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+}
+
+.appearance-choice-card.active-appearance {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.35), 0 12px 30px rgba(239, 68, 68, 0.22);
+}
+
+.appearance-thumb-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #050711;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.appearance-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease, filter 0.35s ease;
+}
+
+.appearance-thumb-wrap:hover .appearance-thumb-img {
+  transform: scale(1.04);
+  filter: brightness(0.75);
+}
+
+.appearance-play-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.65) 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: background 0.25s ease;
+}
+
+.play-circle-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(220, 38, 38, 0.92);
+  border: 2px solid #fff;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  padding-left: 3px;
+  box-shadow: 0 6px 20px rgba(220, 38, 38, 0.6);
+  transition: transform 0.25s ease;
+}
+
+.appearance-thumb-wrap:hover .play-circle-icon {
+  transform: scale(1.12);
+}
+
+.play-overlay-lbl {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(9, 12, 24, 0.85);
+  padding: 3px 10px;
+  border-radius: 99px;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.appearance-badge-pill {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  font-weight: 800;
+  background: rgba(9, 12, 24, 0.9);
+  color: #fca5a5;
+  border: 1px solid rgba(239, 68, 68, 0.5);
+  padding: 3px 9px;
+  border-radius: 99px;
+}
+
+.appearance-card-body {
+  padding: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.appearance-channel-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.76rem;
+  color: var(--text-secondary);
+}
+
+.appearance-channel-name {
+  font-weight: 600;
+  color: #38bdf8;
+}
+
+.appearance-date-lbl {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-dim);
+}
+
+.appearance-card-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.35;
+}
+
+.appearance-card-desc {
+  font-size: 0.83rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  margin: 0;
+}
+
+.appearance-url-pill {
+  background: rgba(5, 7, 17, 0.85);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: 7px;
+  padding: 5px 9px;
+  font-size: 0.72rem;
+  color: #a7f3d0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.appearance-tags-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 2px;
+}
+
+.appearance-tag-chip {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  background: rgba(168, 85, 247, 0.12);
+  border: 1px solid rgba(168, 85, 247, 0.28);
+  color: #d8b4fe;
+  padding: 2px 7px;
+  border-radius: 6px;
+}
+
+.appearance-card-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+.btn-play-appearance {
+  flex: 1;
+  background: linear-gradient(135deg, #dc2626 0%, #9333ea 100%);
+  box-shadow: 0 4px 14px rgba(220, 38, 38, 0.3);
+}
+
+.appearance-ext-link {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  font-size: 0.8rem;
+}
+
+/* Foreground YouTube Player Stage inside Modal */
+.foreground-player-stage {
+  margin-top: 1.5rem;
+  background: #050711;
+  border: 1.5px solid rgba(239, 68, 68, 0.55);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75), 0 0 25px rgba(239, 68, 68, 0.2);
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.player-stage-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 10px 14px;
+  background: rgba(15, 23, 42, 0.95);
+  border-bottom: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.player-now-playing {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.86rem;
+  color: #fff;
+}
+
+.live-dot-pulse {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #ef4444;
+  box-shadow: 0 0 10px #ef4444;
+  animation: pulse-red 1s infinite;
+}
+
+.player-stage-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.player-yt-direct-link {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: #38bdf8;
+  text-decoration: none;
+}
+
+.player-yt-direct-link:hover {
+  text-decoration: underline;
+}
+
+.player-stop-btn {
+  background: rgba(239, 68, 68, 0.18);
+  border: 1px solid rgba(239, 68, 68, 0.5);
+  color: #fecaca;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.player-stop-btn:hover {
+  background: #ef4444;
+  color: #fff;
+}
+
+.video-aspect-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+}
+
+.video-aspect-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Events & Cybersecurity / OWASP Modal Styles */
+.events-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 1.25rem;
+}
+
+.cyber-events-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.15rem;
+}
+
+@media (max-width: 780px) {
+  .cyber-events-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cyber-event-card {
+  background: rgba(15, 19, 34, 0.88);
+  border: 1px solid var(--border-color);
+  border-top: 3px solid var(--evt-accent, #38bdf8);
+  border-radius: 14px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.cyber-event-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--evt-accent, #38bdf8);
+}
+
+.cyber-event-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.cyber-event-badge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: 99px;
+}
+
+.cyber-event-meta {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-dim);
+}
+
+.cyber-event-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-top: 2px;
+}
+
+.cyber-event-org {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #38bdf8;
+}
+
+.cyber-event-summary {
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  margin: 0;
+}
+
+.cyber-event-highlights {
+  margin: 4px 0 6px 1.1rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.78rem;
+  color: #cbd5e1;
+}
+
+.cyber-event-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+.cyber-event-actions .btn-watch-event-video {
+  flex: 1;
+  width: auto;
+  font-size: 0.8rem;
+  padding: 8px 12px;
+}
+
+.cyber-event-ext-btn {
+  text-decoration: none;
+  font-size: 0.78rem;
+  padding: 8px 12px;
+}
+
+.events-modal-footer {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}

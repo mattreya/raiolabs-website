@@ -479,3 +479,128 @@ export const SWARM_SCENARIOS = {
     ]
   }
 };
+
+export const RECENT_APPEARANCES = [
+  {
+    id: 'vibeops-lounge-003',
+    title: 'VibeOps Lounge 003: The Five Types of Bots with Matt Raio',
+    channel: 'John Capobianco • VibeOps Lounge',
+    badge: 'FEATURED PODCAST • FULL EPISODE',
+    date: '2026',
+    videoId: 'QvMkjnUBapA',
+    startSeconds: 0,
+    url: 'https://www.youtube.com/watch?v=QvMkjnUBapA',
+    embedUrl: 'https://www.youtube.com/embed/QvMkjnUBapA?autoplay=1&rel=0',
+    thumbnail: 'https://i.ytimg.com/vi/QvMkjnUBapA/hqdefault.jpg',
+    summary: 'Matt Raio joins John Capobianco in the VibeOps Lounge to break down the 5 Kinds of Bots (Hurricane Scale Category 1–5), NIST/CISA SP 800-53 guardrails, NetClaw BGP automation, and multi-agent IDE swarms.',
+    tags: ['VibeOps Lounge', '5 Kinds of Bots', 'NIST / CISA Overlay', 'NetClaw BGP', 'IDE Swarms']
+  },
+  {
+    id: 'owasp-vegas-2026',
+    title: 'OWASP Vegas: Agentic AI Security, SPVS & Autonomous Bot Defense',
+    channel: 'OWASP Las Vegas Chapter (@OWASP-Vegas)',
+    badge: 'OWASP VEGAS • LIVE SESSION',
+    date: 'Sept 12, 2026',
+    videoId: 'VKrsoqkPLhQ',
+    startSeconds: 0,
+    url: 'https://youtu.be/VKrsoqkPLhQ',
+    embedUrl: 'https://www.youtube.com/embed/VKrsoqkPLhQ?autoplay=1&rel=0',
+    thumbnail: 'https://i.ytimg.com/vi/VKrsoqkPLhQ/hqdefault.jpg',
+    summary: 'Recorded live at OWASP Las Vegas (9/12/2026): Matt Raio presents hands-on architectures for securing autonomous AI agents, enforcing OWASP SPVS in CI/CD pipelines, and policing Category 4/5 bot swarms at ring-0 with eBPF.',
+    tags: ['OWASP Vegas', 'AppSec & DevSecOps', 'OWASP SPVS', 'eBPF Ring-0', 'Agentic AI']
+  }
+];
+
+export const CYBER_OWASP_EVENTS = [
+  {
+    id: 'evt-owasp-vegas',
+    title: 'OWASP Las Vegas Chapter — Agentic AI & Autonomous Bot Security',
+    org: 'OWASP Las Vegas (@OWASP-Vegas)',
+    category: 'OWASP & AppSec',
+    date: 'September 12, 2026',
+    location: 'Las Vegas, NV',
+    badge: '🛡️ OWASP SPEAKER',
+    color: '#ef4444',
+    videoRef: 'owasp-vegas-2026',
+    externalUrl: 'https://youtu.be/VKrsoqkPLhQ',
+    summary: 'Featured chapter talk dissecting how security engineers transition from reactive vulnerability patching to orchestrating Shift-Left DevSecOps subagents in the IDE.',
+    highlights: [
+      'Live demo of OWASP Secure Pipeline Verification Standard (SPVS) Level-1 automated scanner',
+      'Mitigating Confused Deputy & prompt-injection escalation in Category 4 ("Bot Overlord") swarms',
+      'Independent ring-0 kernel verification of autonomous agent syscalls via eBPF_CPU_Guardian'
+    ]
+  },
+  {
+    id: 'evt-nist-cisa-overlay',
+    title: 'NIST / CISA SP 800-53 AI Working Group & Federal Bot Overlay',
+    org: 'NIST / CISA Working Group Collaboration & DoW / USAF Review',
+    category: 'Federal & Cyber Policy',
+    date: 'October 2025 – 2026',
+    location: 'National / Federal Working Group',
+    badge: '🏛️ NIST / CISA OVERLAY',
+    color: '#a855f7',
+    videoRef: 'vibeops-lounge-003',
+    externalUrl: 'https://github.com/mattreya/Agentic_AI_Services_NSA_FBI_compliance_bots',
+    summary: 'Invited contributor to the NIST/CISA working group channel authoring "The 5 Kinds of Bots: NIST/CISA SP 800-53 Overlay"—categorizing autonomous AI agents on the Category 1–5 Hurricane Scale.',
+    highlights: [
+      'Mapped Category 1–5 bot autonomy to NIST SP 800-53 controls (AC-6, SC-8, IA-3, SI-7, AU-12)',
+      'Built the 5 NSA/FBI/CISA IDE compliance subagents (/auditor, /guardrail, /identity, /oversight, /evaluator)',
+      'Reviewed with Department of the Air Force, DoW PQC labs, and WaCTC AI Task Force leadership'
+    ]
+  },
+  {
+    id: 'evt-vibeops-lounge',
+    title: 'VibeOps Lounge Ep. 003: The Five Types of Bots & NetClaw Mesh',
+    org: 'Hosted by John Capobianco',
+    category: 'NetSec & VibeOps',
+    date: '2026',
+    location: 'Live Broadcast / YouTube',
+    badge: '🎙️ VIBEOPS LOUNGE',
+    color: '#06b6d4',
+    videoRef: 'vibeops-lounge-003',
+    externalUrl: 'https://www.youtube.com/watch?v=QvMkjnUBapA',
+    summary: 'Featured guest appearance exploring protocol-first network automation, NetClaw multi-AI BGP routing meshes, and constitutional SOUL.md guardrails for autonomous engineering.',
+    highlights: [
+      'Deep dive into Category 3 Solo Task Managers vs. Category 4 Coordinated Multi-Agent Teams',
+      'Demonstrated Hermes + Google Antigravity IDE bridge with NetBox MCP & pyATS verification',
+      'Discussed eBPF ring-0 observability as the "Severity" counterbalance to generative "Mercy"'
+    ]
+  },
+  {
+    id: 'evt-cyroot-academy',
+    title: 'Cyroot Academy & Military/Veteran Cybersecurity Accelerators',
+    org: 'Cyroot Academy • Las Vegas, NV',
+    category: 'Cyber Workforce & Labs',
+    date: '2025 – 2026 Ongoing',
+    location: 'Las Vegas, NV',
+    badge: '🎖️ VETERAN CYBER OPS',
+    color: '#10b981',
+    videoRef: null,
+    externalUrl: 'https://github.com/mattreya',
+    summary: 'Pivotal collaboration in Las Vegas equipping transitioning military service members and veterans with "Navy SEAL" GNS3 sandbox architecture, formal binary logic, and Agentic AI engineering.',
+    highlights: [
+      'Hands-on CCNA/CCNP ENCOR & DevSecOps fault-injection labs powered by GNS3 and MCP',
+      'Bottom-up OSI Forensic Triage: proving Layers 1–4 before touching Layer 7 application logic',
+      'Based on Matt Raio\'s book & curriculum "Project Self: Strategies to Mastering IT and Coding with Agentic AI"'
+    ]
+  },
+  {
+    id: 'evt-ramps-wactc',
+    title: 'RAMPS Cybersecurity Grant & WaCTC AI Task Force Briefings',
+    org: 'Washington State Higher-Ed & WaCTC AI Task Force',
+    category: 'Federal & Cyber Policy',
+    date: '2025 – 2026',
+    location: 'Washington State',
+    badge: '🎓 RAMPS & HIGHER-ED SEC',
+    color: '#f59e0b',
+    videoRef: null,
+    externalUrl: 'https://github.com/mattreya/gemini-cli_devsecops_agents_for_your_IDE',
+    summary: 'Academic and institutional cybersecurity leadership bridging RAMPS grant workforce initiatives, Washington State AI governance (SB 1168 / SB 1170), and secure campus AI adoption.',
+    highlights: [
+      'Authored institutional "Securing AI" NIST SP 800-53 overlays for college IT & cybersecurity programs',
+      'Led 8-hour intensive workshops on Gemini-CLI, Git Worktree swarms, and Post-Quantum Cryptography (FIPS 203)',
+      'Trained students and staff to build zero-trust guardrails and HIPAA/FERPA compliance bots (Aricon)'
+    ]
+  }
+];
+

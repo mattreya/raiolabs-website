@@ -3,7 +3,9 @@ import {
   FEATURED_PROJECTS,
   HURRICANE_BOT_CATEGORIES,
   WORKSHOP_TRACKS,
-  SWARM_SCENARIOS
+  SWARM_SCENARIOS,
+  RECENT_APPEARANCES,
+  CYBER_OWASP_EVENTS
 } from './raiolabsData.js';
 
 // Active configuration state
@@ -30,7 +32,9 @@ const state = {
   swarmRunning: false,
   swarmTimers: [],
   activeSwarmScenario: 'spvs_audit',
-  activeHurricaneCat: 3
+  activeHurricaneCat: 3,
+  activeAppearanceId: null,
+  activeEventCategory: 'All'
 };
 
 // API Base URL
@@ -77,11 +81,17 @@ function renderLayout() {
             </p>
           </div>
         </div>
-        <div style="display:flex; align-items:center; gap:10px;">
+        <div class="header-actions-bar">
           <a href="https://github.com/mattreya" target="_blank" rel="noopener noreferrer" class="github-header-link">
             🐙 github.com/mattreya ↗
           </a>
-          <button class="settings-btn" id="btn-open-settings" style="font-size: 0.9rem;">
+          <button class="header-modal-btn appearances-header-btn" id="btn-open-appearances" type="button">
+            🎬 Recent Appearances
+          </button>
+          <button class="header-modal-btn events-header-btn" id="btn-open-events" type="button">
+            🛡️ Events & OWASP
+          </button>
+          <button class="settings-btn header-settings-pill" id="btn-open-settings" type="button" style="font-size: 0.9rem;">
             ⚙️ System Settings
           </button>
         </div>
@@ -895,6 +905,125 @@ function renderLayout() {
           </div>
         </div>
         <button class="btn-primary" id="btn-save-settings">Save Config</button>
+      </div>
+    </div>
+
+    <!-- RECENT APPEARANCES MODAL (YOUTUBE FOREGROUND PLAYER + BLURRED BACKGROUND) -->
+    <div class="modal-overlay backdrop-blur-heavy hidden" id="appearances-modal">
+      <div class="modal-card modal-card-wide">
+        <div class="modal-title">
+          <div class="modal-title-group">
+            <span class="modal-eyebrow-pill">🎬 FOREGROUND MEDIA DECK</span>
+            <span>Recent Appearances — Choose a YouTube Broadcast</span>
+          </div>
+          <button class="close-btn" id="btn-close-appearances" title="Close Recent Appearances">&times;</button>
+        </div>
+        <p class="modal-subtitle-text">
+          Select a featured appearance below to launch the YouTube player right here in the foreground while the AetherOS workspace stays blurred in the background.
+        </p>
+
+        <!-- Selectable YouTube Appearance Cards -->
+        <div class="appearances-selector-grid" id="appearances-selector-grid">
+          ${RECENT_APPEARANCES.map(app => `
+            <div class="appearance-choice-card" data-appearance-id="${app.id}">
+              <div class="appearance-thumb-wrap" data-play-id="${app.id}">
+                <img src="${app.thumbnail}" alt="${app.title}" class="appearance-thumb-img" loading="lazy" />
+                <div class="appearance-play-overlay">
+                  <span class="play-circle-icon">▶</span>
+                  <span class="play-overlay-lbl">Play in Foreground</span>
+                </div>
+                <span class="appearance-badge-pill">${app.badge}</span>
+              </div>
+              <div class="appearance-card-body">
+                <div class="appearance-channel-row">
+                  <span class="appearance-channel-name">📺 ${app.channel}</span>
+                  <span class="appearance-date-lbl">${app.date}</span>
+                </div>
+                <h4 class="appearance-card-title">${app.title}</h4>
+                <p class="appearance-card-desc">${app.summary}</p>
+                <div class="appearance-url-pill">
+                  🔗 <code>${app.url}</code>
+                </div>
+                <div class="appearance-tags-row">
+                  ${app.tags.map(t => `<span class="appearance-tag-chip">${t}</span>`).join('')}
+                </div>
+                <div class="appearance-card-actions">
+                  <button class="btn-primary btn-play-appearance" type="button" data-play-id="${app.id}">
+                    ▶ Watch in Foreground Player
+                  </button>
+                  <a href="${app.url}" target="_blank" rel="noopener noreferrer" class="btn-secondary appearance-ext-link">
+                    YouTube ↗
+                  </a>
+                </div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+
+        <!-- Foreground YouTube Player Stage (Revealed / Updated when a link is chosen) -->
+        <div class="foreground-player-stage hidden" id="appearances-player-stage">
+          <div class="player-stage-topbar">
+            <div class="player-now-playing">
+              <span class="live-dot-pulse"></span>
+              <strong id="player-active-title">Now Playing...</strong>
+            </div>
+            <div class="player-stage-actions">
+              <a href="#" target="_blank" rel="noopener noreferrer" class="player-yt-direct-link" id="player-active-ext-url">
+                Open Direct Link on YouTube ↗
+              </a>
+              <button class="player-stop-btn" type="button" id="btn-stop-player">
+                ⏹ Close Player
+              </button>
+            </div>
+          </div>
+          <div class="video-aspect-frame">
+            <iframe
+              id="appearances-youtube-iframe"
+              src=""
+              title="RaioLabs YouTube Appearance Player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EVENTS & CYBERSECURITY / OWASP APPEARANCES MODAL (BLURRED BACKGROUND) -->
+    <div class="modal-overlay backdrop-blur-heavy hidden" id="events-modal">
+      <div class="modal-card modal-card-wide">
+        <div class="modal-title">
+          <div class="modal-title-group">
+            <span class="modal-eyebrow-pill events-eyebrow-pill">🛡️ CYBERSECURITY, OWASP & FEDERAL BRIEFINGS</span>
+            <span>Events & Cybersecurity / OWASP Appearances</span>
+          </div>
+          <button class="close-btn" id="btn-close-events" title="Close Events & OWASP">&times;</button>
+        </div>
+        <p class="modal-subtitle-text">
+          Explore Matt Raio's speaking engagements, OWASP chapter sessions, NIST/CISA SP 800-53 working group overlays, and hands-on cybersecurity & autonomous swarm workshops.
+        </p>
+
+        <!-- Category Filter Bar inside Events Modal -->
+        <div class="events-filter-bar" id="events-filter-bar">
+          <button class="pill-btn active" type="button" data-event-cat="All">All Appearances (${CYBER_OWASP_EVENTS.length})</button>
+          <button class="pill-btn" type="button" data-event-cat="OWASP & AppSec">🛡️ OWASP & AppSec</button>
+          <button class="pill-btn" type="button" data-event-cat="Federal & Cyber Policy">🏛️ NIST / CISA & Federal</button>
+          <button class="pill-btn" type="button" data-event-cat="NetSec & VibeOps">🌐 NetSec & VibeOps</button>
+          <button class="pill-btn" type="button" data-event-cat="Cyber Workforce & Labs">🎖️ Veteran & Cyber Labs</button>
+        </div>
+
+        <!-- Events & Appearances Grid -->
+        <div class="cyber-events-grid" id="cyber-events-grid"></div>
+
+        <!-- Bottom Quick-Switch Bar to Foreground Video Player -->
+        <div class="events-modal-footer">
+          <span>🎬 Want to watch the recorded sessions right over the blurred workspace?</span>
+          <button class="btn-secondary" type="button" id="btn-switch-to-appearances">
+            🎬 Open Foreground YouTube Player
+          </button>
+        </div>
       </div>
     </div>
   `;
@@ -1865,7 +1994,7 @@ function setupEventListeners() {
 
   // Global document click counter
   document.addEventListener('click', (e) => {
-    if(e.target.id === 'rage-click-tester' || e.target.closest('aside') || e.target.closest('#settings-modal')) return;
+    if(e.target.id === 'rage-click-tester' || e.target.closest('aside') || e.target.closest('.modal-overlay')) return;
     document.getElementById('stat-clicks').textContent = parseInt(document.getElementById('stat-clicks').textContent) + 1;
     recordInteraction({ type: 'click', element: e.target.tagName + (e.target.id ? `#${e.target.id}` : '') });
   });
@@ -2533,7 +2662,213 @@ function renderWorkshopsCurriculum() {
   `).join('');
 }
 
+function renderCyberEventsGrid() {
+  const grid = document.getElementById('cyber-events-grid');
+  if (!grid) return;
+
+  const filtered = CYBER_OWASP_EVENTS.filter(evt => {
+    return state.activeEventCategory === 'All' || evt.category === state.activeEventCategory;
+  });
+
+  grid.innerHTML = filtered.map(evt => `
+    <article class="cyber-event-card" style="--evt-accent: ${evt.color};">
+      <div class="cyber-event-top">
+        <span class="cyber-event-badge" style="background: ${evt.color}22; color: ${evt.color}; border: 1px solid ${evt.color}66;">
+          ${evt.badge}
+        </span>
+        <span class="cyber-event-meta">📍 ${evt.location} • 📅 ${evt.date}</span>
+      </div>
+      <h4 class="cyber-event-title">${evt.title}</h4>
+      <div class="cyber-event-org">🏛️ ${evt.org}</div>
+      <p class="cyber-event-summary">${evt.summary}</p>
+      <ul class="cyber-event-highlights">
+        ${evt.highlights.map(h => `<li>${h}</li>`).join('')}
+      </ul>
+      <div class="cyber-event-actions">
+        ${evt.videoRef ? `
+          <button class="btn-primary btn-watch-event-video" type="button" data-video-ref="${evt.videoRef}">
+            🎬 Watch Recording in Foreground Player
+          </button>
+        ` : ''}
+        <a href="${evt.externalUrl}" target="_blank" rel="noopener noreferrer" class="btn-secondary cyber-event-ext-btn">
+          ${evt.videoRef ? 'YouTube Link ↗' : 'Explore Project / Resource ↗'}
+        </a>
+      </div>
+    </article>
+  `).join('');
+
+  grid.querySelectorAll('.btn-watch-event-video').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const videoRef = btn.getAttribute('data-video-ref');
+      const eventsModal = document.getElementById('events-modal');
+      const appearancesModal = document.getElementById('appearances-modal');
+      if (eventsModal) eventsModal.classList.add('hidden');
+      if (appearancesModal) appearancesModal.classList.remove('hidden');
+      playAppearanceInForeground(videoRef);
+    });
+  });
+}
+
+function playAppearanceInForeground(appearanceId) {
+  const app = RECENT_APPEARANCES.find(a => a.id === appearanceId) || RECENT_APPEARANCES[0];
+  if (!app) return;
+
+  state.activeAppearanceId = app.id;
+
+  // Highlight selected card
+  document.querySelectorAll('.appearance-choice-card').forEach(card => {
+    card.classList.toggle('active-appearance', card.getAttribute('data-appearance-id') === app.id);
+  });
+
+  const playerStage = document.getElementById('appearances-player-stage');
+  const iframe = document.getElementById('appearances-youtube-iframe');
+  const activeTitle = document.getElementById('player-active-title');
+  const activeExtUrl = document.getElementById('player-active-ext-url');
+
+  if (playerStage) {
+    playerStage.classList.remove('hidden');
+  }
+  if (activeTitle) {
+    activeTitle.textContent = `${app.title} (${app.channel})`;
+  }
+  if (activeExtUrl) {
+    activeExtUrl.href = app.url;
+  }
+  if (iframe) {
+    iframe.src = app.embedUrl;
+  }
+
+  if (playerStage && typeof playerStage.scrollIntoView === 'function') {
+    setTimeout(() => {
+      playerStage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 80);
+  }
+
+  logToTerminal('action', 'YOUTUBE_PLAYER', `Streaming "${app.title}" in foreground player (${app.url})`);
+  recordInteraction({ type: 'appearance_play', video: app.id });
+}
+
+function stopAppearancePlayer() {
+  const playerStage = document.getElementById('appearances-player-stage');
+  const iframe = document.getElementById('appearances-youtube-iframe');
+  if (iframe) {
+    iframe.src = '';
+  }
+  if (playerStage) {
+    playerStage.classList.add('hidden');
+  }
+  document.querySelectorAll('.appearance-choice-card').forEach(card => {
+    card.classList.remove('active-appearance');
+  });
+  state.activeAppearanceId = null;
+}
+
 function setupRaioLabsListeners() {
+  renderCyberEventsGrid();
+
+  // --- RECENT APPEARANCES MODAL & FOREGROUND YOUTUBE PLAYER ---
+  const openAppearancesBtn = document.getElementById('btn-open-appearances');
+  const closeAppearancesBtn = document.getElementById('btn-close-appearances');
+  const appearancesModal = document.getElementById('appearances-modal');
+  const stopPlayerBtn = document.getElementById('btn-stop-player');
+
+  const closeAppearancesModal = () => {
+    stopAppearancePlayer();
+    if (appearancesModal) appearancesModal.classList.add('hidden');
+  };
+
+  if (openAppearancesBtn && appearancesModal) {
+    openAppearancesBtn.addEventListener('click', () => {
+      appearancesModal.classList.remove('hidden');
+      logToTerminal('info', 'APPEARANCES', 'Opened Recent Appearances foreground media deck.');
+      recordInteraction({ type: 'open_modal', modal: 'recent_appearances' });
+    });
+  }
+
+  if (closeAppearancesBtn) {
+    closeAppearancesBtn.addEventListener('click', closeAppearancesModal);
+  }
+
+  if (stopPlayerBtn) {
+    stopPlayerBtn.addEventListener('click', stopAppearancePlayer);
+  }
+
+  document.querySelectorAll('[data-play-id]').forEach(el => {
+    el.addEventListener('click', () => {
+      const playId = el.getAttribute('data-play-id');
+      if (playId) playAppearanceInForeground(playId);
+    });
+  });
+
+  // --- EVENTS & CYBERSECURITY / OWASP MODAL ---
+  const openEventsBtn = document.getElementById('btn-open-events');
+  const closeEventsBtn = document.getElementById('btn-close-events');
+  const eventsModal = document.getElementById('events-modal');
+  const switchToAppearancesBtn = document.getElementById('btn-switch-to-appearances');
+
+  const closeEventsModal = () => {
+    if (eventsModal) eventsModal.classList.add('hidden');
+  };
+
+  if (openEventsBtn && eventsModal) {
+    openEventsBtn.addEventListener('click', () => {
+      renderCyberEventsGrid();
+      eventsModal.classList.remove('hidden');
+      logToTerminal('info', 'CYBER_EVENTS', 'Opened Events & Cybersecurity / OWASP Appearances overlay.');
+      recordInteraction({ type: 'open_modal', modal: 'events_owasp' });
+    });
+  }
+
+  if (closeEventsBtn) {
+    closeEventsBtn.addEventListener('click', closeEventsModal);
+  }
+
+  if (switchToAppearancesBtn) {
+    switchToAppearancesBtn.addEventListener('click', () => {
+      closeEventsModal();
+      if (appearancesModal) appearancesModal.classList.remove('hidden');
+      playAppearanceInForeground('owasp-vegas-2026');
+    });
+  }
+
+  document.querySelectorAll('#events-filter-bar .pill-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#events-filter-bar .pill-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      state.activeEventCategory = btn.getAttribute('data-event-cat') || 'All';
+      renderCyberEventsGrid();
+    });
+  });
+
+  // Close any blurred modal overlay on backdrop click or Escape key
+  const settingsModal = document.getElementById('settings-modal');
+  [appearancesModal, eventsModal, settingsModal].forEach(modalEl => {
+    if (!modalEl) return;
+    modalEl.addEventListener('click', (e) => {
+      if (e.target === modalEl) {
+        if (modalEl === appearancesModal) {
+          closeAppearancesModal();
+        } else {
+          modalEl.classList.add('hidden');
+        }
+      }
+    });
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (appearancesModal && !appearancesModal.classList.contains('hidden')) {
+        closeAppearancesModal();
+      }
+      if (eventsModal && !eventsModal.classList.contains('hidden')) {
+        closeEventsModal();
+      }
+      if (settingsModal && !settingsModal.classList.contains('hidden')) {
+        settingsModal.classList.add('hidden');
+      }
+    }
+  });
+
   // Category filter pills
   document.querySelectorAll('#project-category-pills .pill-btn').forEach(btn => {
     btn.addEventListener('click', () => {
