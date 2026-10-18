@@ -999,7 +999,7 @@ function renderLayout() {
           <button class="close-btn" id="btn-close-appearances" title="Close Recent Appearances">&times;</button>
         </div>
         <p class="modal-subtitle-text">
-          Select a featured appearance below to launch the YouTube player right here in the foreground while the AetherOS workspace stays blurred in the background.
+          Click on any of the appearances below.
         </p>
 
         <!-- Selectable YouTube Appearance Cards -->
