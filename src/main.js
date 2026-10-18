@@ -534,6 +534,9 @@ function renderLayout() {
             <button class="swarm-bot-chip" data-swarm-bot="hippocampus" title="Click to pop up The Hippocampus (summary.md + SOUL.md)">
               🧠 <span>Hippocampus</span>
             </button>
+            <button class="swarm-bot-chip kev-chip" data-swarm-bot="kev" title="Click to pop up KEV-Bot (Real-Time User Behavior Analyst)">
+              🚨 <span>KEV-Bot</span>
+            </button>
           </div>
         </div>
 
@@ -694,6 +697,58 @@ function renderLayout() {
         </div>
       </section>
 
+      <!-- 🚨 KEV-BOT: REAL-TIME USER BEHAVIOR & TELEMETRY ANALYST -->
+      <section class="kev-bot-panel" id="kev-bot-panel">
+        <div class="kev-bot-header">
+          <div class="kev-bot-identity">
+            <div class="kev-bot-avatar" id="kev-bot-avatar" title="KEV-Bot: Real-Time User Behavior & Telemetry Analyst">
+              <span class="kev-radar-pulse"></span>
+              <span class="kev-bot-face">🚨</span>
+            </div>
+            <div>
+              <div class="kev-title-row">
+                <h4>KEV-BOT // LIVE USER ANALYST</h4>
+                <span class="kev-live-pill" id="kev-live-pill">● REAL-TIME</span>
+              </div>
+              <p class="kev-subtitle" id="kev-current-verdict">Monitoring operator cursor, dwell targets & DOM vectors...</p>
+            </div>
+          </div>
+          <div class="kev-controls">
+            <button class="kev-btn" id="btn-kev-stage-sync" type="button" title="Pop KEV-Bot onto the main stage next to RaioBot with a live JSON behavioral dump!">
+              🤖 Briefing
+            </button>
+            <button class="kev-btn" id="btn-kev-pause" type="button" title="Pause or resume KEV-Bot real-time analysis stream">
+              ⏸
+            </button>
+          </div>
+        </div>
+
+        <!-- Live Telemetry Strip -->
+        <div class="kev-metrics-strip">
+          <div class="kev-metric-cell">
+            <span class="kev-m-lbl">VELOCITY</span>
+            <strong id="kev-stat-vel">0 px/s</strong>
+          </div>
+          <div class="kev-metric-cell">
+            <span class="kev-m-lbl">ACTIVE ZONE</span>
+            <strong id="kev-stat-zone">GitHub Showcase</strong>
+          </div>
+          <div class="kev-metric-cell">
+            <span class="kev-m-lbl">INTENT PROFILE</span>
+            <strong id="kev-stat-profile">Reconnaissance</strong>
+          </div>
+        </div>
+
+        <!-- Real-Time Scrolling Behavioral Analysis Feed -->
+        <div class="kev-stream-box" id="kev-stream-box">
+          <div class="kev-log-item kev-init">
+            <span class="kev-time">[INIT]</span>
+            <span class="kev-tag">KEV_BOOT</span>
+            <span class="kev-msg">KEV-Bot v2.6 behavioral sensor online. Watching DOM interactions, cursor kinematics, dwell time, and scroll vectors in real time...</span>
+          </div>
+        </div>
+      </section>
+
       <!-- Interactive Patreon Donation & Support Card -->
       <section class="patreon-donate-card">
         <div class="patreon-card-header">
@@ -841,6 +896,7 @@ function renderLayout() {
   }, 1000);
 
   setupCompanionBot();
+  setupKevBotAnalyst();
 }
 
 // Companion Bot Mood & Speech Controller
@@ -897,7 +953,7 @@ const BOT_MOOD_CONFIG = {
 
 let swarmChatterTimers = [];
 
-// Personas for the 5 IDE Swarm Bots shown in the RaioBot Companion Stage
+// Personas for the IDE Swarm Bots (including KEV-Bot) shown in the RaioBot Companion Stage
 const SWARM_BOT_PERSONAS = {
   orchestrator: {
     key: 'orchestrator',
@@ -910,7 +966,7 @@ const SWARM_BOT_PERSONAS = {
     rightArm: '⚡',
     sampleProtocol: 'A2A_DISPATCH',
     sampleSenderLine: '🎛️ Orchestrator: "Initializing parallel Git worktrees and loading SOUL.md constitution!"',
-    sampleReceiverLine: '[SWARM_INIT] Ready to coordinate Coder-01, Auditor-02, eBPF Guardian, and Hippocampus.',
+    sampleReceiverLine: '[SWARM_INIT] Ready to coordinate Coder-01, Auditor-02, eBPF Guardian, Hippocampus, and KEV-Bot.',
     samplePayload: '{\n  "orchestrator": "antigravity-ide-cockpit",\n  "worktrees": ["main", "feat/jwt-auth", "sec/audit"],\n  "constitution": "SOUL.md (DefenseClaw Active)"\n}'
   },
   coder: {
@@ -968,6 +1024,20 @@ const SWARM_BOT_PERSONAS = {
     sampleSenderLine: '🎛️ RaioBot (Orchestrator): "Hippocampus, commit the verified worktree state and audit trail to summary.md!"',
     sampleReceiverLine: '[HIPPOCAMPUS] Merged worktree, signed commit 8f94a2c, and synchronized persistent memory to summary.md!',
     samplePayload: '## Active Session: Zero-Trust JWT Endpoint [COMPLETED]\n- **Worktree**: `worktrees/feat-jwt-auth` → Merged to `main` (`commit 8f94a2c`)\n- **A2A Iterations**: 2 (1 self-healed SPVS-L1 finding)\n- **eBPF Telemetry**: Verified Clean (0 anomalous syscalls)'
+  },
+  kev: {
+    key: 'kev',
+    icon: '🚨',
+    name: 'KEV-Bot Live Analyst',
+    shortTag: '🚨 KEV-Bot (Telemetry)',
+    port: 'DOM + KINEMATICS',
+    color: '#f43f5e',
+    leftArm: '📡',
+    rightArm: '🚨',
+    sampleProtocol: 'KEV_BEHAVIOR_STREAM',
+    sampleSenderLine: '🎛️ RaioBot (Orchestrator): "KEV-Bot, give me a real-time behavioral telemetry readout on what the operator is doing on the site right now!"',
+    sampleReceiverLine: '[KEV_BOT] Tracking operator cursor velocity, DOM dwell targets, scroll vector, and intent profile in real time!',
+    samplePayload: '{\n  "agent": "KEV-Bot v2.6",\n  "mode": "REAL_TIME_BEHAVIORAL_TELEMETRY",\n  "sensors": ["cursor_velocity", "dom_dwell_target", "scroll_vector", "click_forensics"]\n}'
   }
 };
 
@@ -1514,7 +1584,7 @@ function updateLineNumbers(codeText) {
   lineNumbersDiv.textContent = nums;
 }
 
-// Route all site events to RaioBot's expressive speech bubble & mood engine!
+// Route all site events to RaioBot's expressive speech bubble & KEV-Bot's real-time stream!
 function logToTerminal(type, tag, message) {
   let mood = 'happy';
   if (type === 'error' || tag.includes('ALERT') || tag.includes('DESTRUCTION') || tag.includes('HAMMER')) {
@@ -1528,6 +1598,7 @@ function logToTerminal(type, tag, message) {
   }
 
   setBotReaction(mood, `🤖 ${tag}`, message, mood === 'hype' ? '⚡' : '');
+  emitKevAnalysis(tag, message, null, null, type);
 }
 
 function escapeHtml(text) {
@@ -2677,4 +2748,336 @@ async function fetchLiveGithubRepos() {
   }
 }
 
+// ============================================================================
+// 🚨 KEV-BOT: REAL-TIME USER BEHAVIOR & TELEMETRY ANALYST ENGINE
+// ============================================================================
+const kevState = {
+  paused: false,
+  cursorVelocity: 0,
+  peakVelocity: 0,
+  activeZone: 'GitHub Showcase',
+  intentProfile: 'Reconnaissance',
+  lastX: 0,
+  lastY: 0,
+  lastMoveTs: Date.now(),
+  hoveredTarget: '',
+  scrollDepthPct: 0,
+  eventsLogged: 0
+};
+
+function emitKevAnalysis(tag, message, zoneOverride = null, profileOverride = null, level = 'info') {
+  if (kevState.paused) return;
+
+  const streamBox = document.getElementById('kev-stream-box');
+  const verdictEl = document.getElementById('kev-current-verdict');
+  const zoneEl = document.getElementById('kev-stat-zone');
+  const profileEl = document.getElementById('kev-stat-profile');
+  const avatarEl = document.getElementById('kev-bot-avatar');
+
+  if (zoneOverride) {
+    kevState.activeZone = zoneOverride;
+    if (zoneEl) zoneEl.textContent = zoneOverride;
+  }
+  if (profileOverride) {
+    kevState.intentProfile = profileOverride;
+    if (profileEl) profileEl.textContent = profileOverride;
+  }
+  if (verdictEl) {
+    verdictEl.textContent = message;
+  }
+
+  if (avatarEl) {
+    avatarEl.classList.remove('kev-ping');
+    void avatarEl.offsetWidth;
+    avatarEl.classList.add('kev-ping');
+  }
+
+  if (!streamBox) return;
+
+  const now = new Date();
+  const timeStr = now.toTimeString().split(' ')[0];
+  kevState.eventsLogged++;
+
+  const row = document.createElement('div');
+  row.className = `kev-log-item kev-level-${level}`;
+  row.innerHTML = `
+    <span class="kev-time">[${timeStr}]</span>
+    <span class="kev-tag">${escapeHtml(tag)}</span>
+    <span class="kev-msg">${escapeHtml(message)}</span>
+  `;
+  streamBox.prepend(row);
+
+  // Keep feed snappy (max 35 live entries)
+  while (streamBox.children.length > 35) {
+    streamBox.removeChild(streamBox.lastChild);
+  }
+}
+
+function setupKevBotAnalyst() {
+  const pauseBtn = document.getElementById('btn-kev-pause');
+  const livePill = document.getElementById('kev-live-pill');
+  const stageSyncBtn = document.getElementById('btn-kev-stage-sync');
+  const velEl = document.getElementById('kev-stat-vel');
+
+  if (pauseBtn) {
+    pauseBtn.addEventListener('click', () => {
+      kevState.paused = !kevState.paused;
+      pauseBtn.textContent = kevState.paused ? '▶' : '⏸';
+      if (livePill) {
+        livePill.textContent = kevState.paused ? '⏸ PAUSED' : '● REAL-TIME';
+        livePill.classList.toggle('paused', kevState.paused);
+      }
+    });
+  }
+
+  // Pop KEV-Bot onto the Main Companion Stage with a live JSON behavioral dump!
+  const triggerKevStageBriefing = () => {
+    const clicksCount = document.getElementById('stat-clicks')?.textContent || '0';
+    const uptimeVal = document.getElementById('stat-uptime')?.textContent || '0s';
+    const livePayload = JSON.stringify({
+      analyst: 'KEV-Bot v2.6 (Real-Time Behavioral Sensor)',
+      sessionUptime: uptimeVal,
+      cursorVelocityPxPerSec: kevState.cursorVelocity,
+      peakVelocityPxPerSec: kevState.peakVelocity,
+      activeWorkspaceZone: kevState.activeZone,
+      classifiedIntentProfile: kevState.intentProfile,
+      lastInspectedTarget: kevState.hoveredTarget || 'Main Canvas',
+      totalOperatorClicks: parseInt(clicksCount, 10) || 0,
+      viewportScrollDepth: `${kevState.scrollDepthPct}%`,
+      telemetryVerdict: 'ACTIVE_OPERATOR_ENGAGEMENT'
+    }, null, 2);
+
+    showCompanionSwarmInteraction({
+      from: 'orchestrator',
+      to: 'kev',
+      protocol: 'KEV_LIVE_TELEMETRY',
+      badge: 'REAL-TIME ANALYST',
+      logType: 'thought',
+      logTag: 'KEV_BOT',
+      senderLine: '🎛️ RaioBot (Orchestrator): "KEV-Bot, pop up and brief our visitor on what your real-time behavioral sensors are seeing right now!"',
+      message: `Operator is active in [${kevState.activeZone}] (${kevState.intentProfile}). Peak cursor velocity: ${kevState.peakVelocity} px/s • Clicks: ${clicksCount} • Last target: ${kevState.hoveredTarget || 'Workspace'}.`,
+      payload: livePayload
+    }, 1, 1, 'KEV-Bot Real-Time User Analysis');
+  };
+
+  if (stageSyncBtn) {
+    stageSyncBtn.addEventListener('click', triggerKevStageBriefing);
+  }
+  const kevAvatar = document.getElementById('kev-bot-avatar');
+  if (kevAvatar) {
+    kevAvatar.style.cursor = 'pointer';
+    kevAvatar.addEventListener('click', triggerKevStageBriefing);
+  }
+
+  // 1. Real-Time Mouse Kinematics & Velocity Sensor
+  let lastVelReportTs = 0;
+  document.addEventListener('mousemove', (e) => {
+    const now = Date.now();
+    const dt = Math.max(16, now - kevState.lastMoveTs);
+    const dist = Math.hypot(e.clientX - kevState.lastX, e.clientY - kevState.lastY);
+    const vel = Math.round((dist / dt) * 1000);
+
+    kevState.cursorVelocity = vel;
+    if (vel > kevState.peakVelocity) kevState.peakVelocity = vel;
+    kevState.lastX = e.clientX;
+    kevState.lastY = e.clientY;
+    kevState.lastMoveTs = now;
+
+    if (velEl && !kevState.paused) {
+      velEl.textContent = `${vel} px/s`;
+    }
+
+    // Report high-velocity cursor sweeps (throttled every 3.2s)
+    if (vel > 1650 && now - lastVelReportTs > 3200) {
+      lastVelReportTs = now;
+      emitKevAnalysis(
+        'CURSOR_KINEMATICS',
+        `High-velocity cursor sweep (${vel} px/s) at (${e.clientX}, ${e.clientY}) ➔ Rapid UI reconnaissance across ${kevState.activeZone}.`,
+        null,
+        'Rapid Recon Sweep',
+        'action'
+      );
+    }
+  });
+
+  // Decay displayed velocity to 0 when mouse stops moving
+  setInterval(() => {
+    if (Date.now() - kevState.lastMoveTs > 250 && kevState.cursorVelocity !== 0) {
+      kevState.cursorVelocity = 0;
+      if (velEl && !kevState.paused) velEl.textContent = '0 px/s';
+    }
+  }, 300);
+
+  // 2. Real-Time Hover / Dwell Target Forensics (420ms dwell threshold)
+  let dwellTimer = null;
+  let lastDwellKey = '';
+  document.addEventListener('mouseover', (e) => {
+    const target = e.target;
+    if (!target || target.closest('#kev-bot-panel')) return;
+
+    const projCard = target.closest('.project-card');
+    const swarmNode = target.closest('.swarm-node');
+    const hurricaneTab = target.closest('.hurricane-tab');
+    const tierCard = target.closest('.tier-card');
+    const navTab = target.closest('.nav-tab');
+    const workshopCard = target.closest('.workshop-track-card');
+
+    clearTimeout(dwellTimer);
+    dwellTimer = setTimeout(() => {
+      if (projCard) {
+        const title = projCard.querySelector('.project-title')?.textContent || 'GitHub Repo';
+        const badge = projCard.querySelector('.project-badge')?.textContent || 'R&D';
+        const key = `proj:${title}`;
+        if (key === lastDwellKey) return;
+        lastDwellKey = key;
+        kevState.hoveredTarget = title;
+        emitKevAnalysis(
+          'DWELL_REPO',
+          `Operator dwelling on "${title}" [${badge}] ➔ Evaluating repository architecture & CLI deployment.`,
+          'GitHub Showcase',
+          'Codebase Evaluator',
+          'thought'
+        );
+      } else if (swarmNode) {
+        const nodeName = swarmNode.querySelector('h4')?.textContent || swarmNode.id;
+        const port = swarmNode.querySelector('.swarm-node-port')?.textContent || 'A2A';
+        const key = `node:${nodeName}`;
+        if (key === lastDwellKey) return;
+        lastDwellKey = key;
+        kevState.hoveredTarget = nodeName;
+        emitKevAnalysis(
+          'SWARM_NODE_HOVER',
+          `Inspecting Swarm Node [${nodeName}] (${port}) ➔ Analyzing multi-agent protocol topology.`,
+          'IDE Swarm Cockpit',
+          'Swarm Architect',
+          'info'
+        );
+      } else if (hurricaneTab) {
+        const catName = hurricaneTab.textContent.trim().replace(/\s+/g, ' ');
+        const key = `cat:${catName}`;
+        if (key === lastDwellKey) return;
+        lastDwellKey = key;
+        kevState.hoveredTarget = catName;
+        emitKevAnalysis(
+          'NIST_CAT_SCAN',
+          `Hovering Hurricane Scale [${catName}] ➔ Reviewing NIST SP 800-53 autonomy blast radius.`,
+          'Agentic Workshops',
+          'SecOps Governance',
+          'thought'
+        );
+      } else if (tierCard) {
+        const tierName = tierCard.getAttribute('data-tier') || 'Support Tier';
+        const amt = tierCard.getAttribute('data-amount') || '';
+        const key = `tier:${tierName}`;
+        if (key === lastDwellKey) return;
+        lastDwellKey = key;
+        kevState.hoveredTarget = `$${amt} ${tierName}`;
+        emitKevAnalysis(
+          'PATREON_HOVER',
+          `Evaluating Patreon "$${amt} ${tierName}" card ➔ High-affinity supporter signal detected!`,
+          'Patreon Support',
+          'Prospective Patron 💖',
+          'action'
+        );
+      } else if (navTab) {
+        const tabLabel = navTab.textContent.trim();
+        const key = `nav:${tabLabel}`;
+        if (key === lastDwellKey) return;
+        lastDwellKey = key;
+        kevState.hoveredTarget = tabLabel;
+        emitKevAnalysis(
+          'NAV_VECTOR',
+          `Cursor poised over navigation tab [${tabLabel}] ➔ Preparing workspace context switch.`,
+          tabLabel,
+          'Active Navigator',
+          'info'
+        );
+      } else if (workshopCard) {
+        const wTitle = workshopCard.querySelector('h3')?.textContent || 'Workshop Track';
+        const key = `wk:${wTitle}`;
+        if (key === lastDwellKey) return;
+        lastDwellKey = key;
+        kevState.hoveredTarget = wTitle;
+        emitKevAnalysis(
+          'CURRICULUM_SCAN',
+          `Reading curriculum for "${wTitle}" ➔ Assessing hands-on agentic lab modules.`,
+          'Agentic Workshops',
+          'Workshop Learner',
+          'thought'
+        );
+      }
+    }, 420);
+  });
+
+  // 3. Real-Time Click Forensics
+  document.addEventListener('click', (e) => {
+    const t = e.target;
+    if (!t || t.closest('#kev-bot-panel')) return;
+
+    const btn = t.closest('button, a, .project-cmd-box, .swarm-node');
+    const label = (btn ? btn.textContent : t.textContent || t.tagName || 'Element')
+      .trim()
+      .replace(/\s+/g, ' ')
+      .slice(0, 48);
+
+    kevState.hoveredTarget = label || t.tagName;
+    emitKevAnalysis(
+      'CLICK_FORENSICS',
+      `Click at (${e.clientX}, ${e.clientY}) on [${label || t.tagName}] ➔ Executing interactive DOM command.`,
+      null,
+      'Interactive Operator',
+      'action'
+    );
+  });
+
+  // 4. Real-Time Scroll Vector & Viewport Depth
+  const canvasArea = document.querySelector('.canvas-area');
+  let lastScrollReportTs = 0;
+  let lastScrollTop = 0;
+  const handleScroll = (scrollTop, maxScroll) => {
+    const now = Date.now();
+    const pct = maxScroll > 0 ? Math.min(100, Math.round((scrollTop / maxScroll) * 100)) : 0;
+    kevState.scrollDepthPct = pct;
+    if (now - lastScrollReportTs < 1400) return;
+    const dir = scrollTop >= lastScrollTop ? '⬇️ DOWN' : '⬆️ UP';
+    lastScrollTop = scrollTop;
+    lastScrollReportTs = now;
+    emitKevAnalysis(
+      'SCROLL_VECTOR',
+      `Viewport scrolling ${dir} (${pct}% depth) in [${kevState.activeZone}] ➔ Scanning technical documentation.`,
+      null,
+      pct > 65 ? 'Deep-Dive Reader' : 'Content Scanner',
+      'info'
+    );
+  };
+
+  if (canvasArea) {
+    canvasArea.addEventListener('scroll', () => {
+      handleScroll(canvasArea.scrollTop, canvasArea.scrollHeight - canvasArea.clientHeight);
+    }, { passive: true });
+  }
+  window.addEventListener('scroll', () => {
+    handleScroll(window.scrollY, document.documentElement.scrollHeight - window.innerHeight);
+  }, { passive: true });
+
+  // 5. Real-Time Keystroke Cadence
+  let lastKeyReportTs = 0;
+  document.addEventListener('input', (e) => {
+    const now = Date.now();
+    if (now - lastKeyReportTs < 1000) return;
+    lastKeyReportTs = now;
+    const el = e.target;
+    const inputName = el.placeholder || el.id || 'input field';
+    const valLen = (el.value || '').length;
+    emitKevAnalysis(
+      'KEYSTROKE_CADENCE',
+      `Operator typing in "${inputName.slice(0, 32)}..." (${valLen} chars buffered) ➔ Live query synthesis.`,
+      null,
+      'Query Synthesizer',
+      'thought'
+    );
+  });
+}
+
 // RAGE_CLICK_INJECTION_HOOK
+
