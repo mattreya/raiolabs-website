@@ -899,14 +899,8 @@ function renderLayout() {
         </div>
       </section>
 
-      <!-- Talk to RaioBot / Self-Modifying Prompt Box -->
+      <!-- Telemetry Status & Reset Tray -->
       <section class="agent-chat-section">
-        <div class="chat-input-row">
-          <input type="text" id="agent-chat-input" placeholder="Chat with RaioBot or ask for a site theme edit...">
-          <button class="btn-send" id="agent-send-btn" title="Send message to RaioBot">
-            💬
-          </button>
-        </div>
         <div class="settings-tray">
           <span>Clicks: <strong id="stat-clicks">0</strong> • Mood: <strong id="stat-stress">Happy ✨</strong> • Up: <strong id="stat-uptime">0s</strong></span>
           <button class="settings-btn" id="btn-reset-codebase">🔄 Reset Site</button>
@@ -2122,24 +2116,6 @@ function setupEventListeners() {
 
     logToTerminal('system', 'SETTINGS', `Saved settings. API Connection Mode: ${state.settings.useGemini ? 'LIVE' : 'SIMULATED'}`);
     document.getElementById('settings-modal').classList.add('hidden');
-  };
-
-  // Chat/Send actions
-  const sendChat = () => {
-    const input = document.getElementById('agent-chat-input');
-    const prompt = input.value.trim();
-    if(!prompt || state.isGenerating) return;
-    
-    input.value = '';
-    logToTerminal('info', 'USER_PROMPT', prompt);
-    recordInteraction({ type: 'chat_instruction', prompt });
-    
-    triggerAgentSelfModification(prompt);
-  };
-
-  document.getElementById('agent-send-btn').onclick = sendChat;
-  document.getElementById('agent-chat-input').onkeydown = (e) => {
-    if(e.key === 'Enter') sendChat();
   };
 
   // Reset codebase event
