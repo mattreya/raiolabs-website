@@ -801,29 +801,36 @@ function renderLayout() {
 
         <!-- Dynamic Speech Bubble & Two-Bot Swarm Telemetry Dialog -->
         <div class="bot-speech-bubble" id="bot-speech-bubble">
-          <div class="speech-tag" id="bot-speech-tag">👋 HELLO FRIEND!</div>
-          <p id="bot-speech-text">
-            Hi! I'm <strong>RaioBot</strong>! Click <strong>▶ Re-Run Swarm Scenario</strong> to watch my specialist bots pop up next to me and exchange live A2A/MCP/eBPF telemetry payloads—or pledge below to unlock my Patreon animations! 💖
-          </p>
+          <div class="speech-bubble-topbar">
+            <div class="speech-tag" id="bot-speech-tag">👋 HELLO FRIEND!</div>
+            <button class="stage-window-toggle-btn" id="btn-toggle-speech-bubble" type="button" title="Collapse or Expand RaioBot Speech & Swarm Telemetry">
+              <span class="toggle-icon">−</span> <span class="toggle-text">Collapse</span>
+            </button>
+          </div>
+          <div class="speech-bubble-collapsible-body" id="speech-bubble-collapsible-body">
+            <p id="bot-speech-text">
+              Hi! I'm <strong>RaioBot</strong>! Click <strong>▶ Re-Run Swarm Scenario</strong> to watch my specialist bots pop up next to me and exchange live A2A/MCP/eBPF telemetry payloads—or pledge below to unlock my Patreon animations! 💖
+            </p>
 
-          <!-- Two-Bot Live Dialog + Actual Telemetry Wire Payload (Shown during Swarm Simulation) -->
-          <div class="companion-swarm-dialog hidden" id="companion-swarm-dialog">
-            <div class="dialog-exchange-row">
-              <div class="dialog-line sender-line" id="dialog-sender-line">
-                <span class="dialog-speaker" id="dialog-sender-name">🎛️ Orchestrator:</span>
-                <span class="dialog-utterance" id="dialog-sender-text">Dispatching task...</span>
+            <!-- Two-Bot Live Dialog + Actual Telemetry Wire Payload (Shown during Swarm Simulation) -->
+            <div class="companion-swarm-dialog hidden" id="companion-swarm-dialog">
+              <div class="dialog-exchange-row">
+                <div class="dialog-line sender-line" id="dialog-sender-line">
+                  <span class="dialog-speaker" id="dialog-sender-name">🎛️ Orchestrator:</span>
+                  <span class="dialog-utterance" id="dialog-sender-text">Dispatching task...</span>
+                </div>
+                <div class="dialog-line receiver-line" id="dialog-receiver-line">
+                  <span class="dialog-speaker" id="dialog-receiver-name">🛠️ Coder-01:</span>
+                  <span class="dialog-utterance" id="dialog-receiver-text">Acknowledged!</span>
+                </div>
               </div>
-              <div class="dialog-line receiver-line" id="dialog-receiver-line">
-                <span class="dialog-speaker" id="dialog-receiver-name">🛠️ Coder-01:</span>
-                <span class="dialog-utterance" id="dialog-receiver-text">Acknowledged!</span>
+              <div class="companion-payload-drawer">
+                <div class="payload-drawer-header">
+                  <span id="companion-payload-proto">📡 TELEMETRY WIRE PAYLOAD</span>
+                  <span class="payload-step-pill" id="companion-payload-step">STEP 1/6</span>
+                </div>
+                <pre class="companion-payload-pre" id="companion-payload-code"></pre>
               </div>
-            </div>
-            <div class="companion-payload-drawer">
-              <div class="payload-drawer-header">
-                <span id="companion-payload-proto">📡 TELEMETRY WIRE PAYLOAD</span>
-                <span class="payload-step-pill" id="companion-payload-step">STEP 1/6</span>
-              </div>
-              <pre class="companion-payload-pre" id="companion-payload-code"></pre>
             </div>
           </div>
         </div>
@@ -847,7 +854,10 @@ function renderLayout() {
           </div>
           <div class="kev-controls">
             <button class="kev-btn active" id="btn-kev-code-view" type="button" title="Toggle Live Developer Code View (Real-time source & DOM callouts)">
-              💻 Code View
+              💻 Code
+            </button>
+            <button class="kev-btn" id="btn-kev-expand-stream" type="button" title="Expand stream height for larger log reading viewport">
+              🗖 Expand
             </button>
             <button class="kev-btn" id="btn-kev-stage-sync" type="button" title="Pop KEV-Bot onto the main stage next to RaioBot with a live JSON behavioral dump!">
               🤖 Briefing
@@ -855,89 +865,99 @@ function renderLayout() {
             <button class="kev-btn" id="btn-kev-pause" type="button" title="Pause or resume KEV-Bot real-time analysis stream">
               ⏸
             </button>
+            <button class="kev-btn kev-btn-toggle" id="btn-kev-collapse" type="button" title="Collapse or Expand KEV-Bot panel to save screen space">
+              <span id="kev-collapse-icon">−</span> <span id="kev-collapse-text">Collapse</span>
+            </button>
           </div>
         </div>
 
-        <!-- Live Telemetry Strip -->
-        <div class="kev-metrics-strip">
-          <div class="kev-metric-cell">
-            <span class="kev-m-lbl">VELOCITY</span>
-            <strong id="kev-stat-vel">0 px/s</strong>
+        <div class="kev-collapsible-content" id="kev-collapsible-content">
+          <!-- Live Telemetry Strip -->
+          <div class="kev-metrics-strip">
+            <div class="kev-metric-cell">
+              <span class="kev-m-lbl">VELOCITY</span>
+              <strong id="kev-stat-vel">0 px/s</strong>
+            </div>
+            <div class="kev-metric-cell">
+              <span class="kev-m-lbl">ACTIVE ZONE</span>
+              <strong id="kev-stat-zone">GitHub Showcase</strong>
+            </div>
+            <div class="kev-metric-cell">
+              <span class="kev-m-lbl">INTENT PROFILE</span>
+              <strong id="kev-stat-profile">Reconnaissance</strong>
+            </div>
           </div>
-          <div class="kev-metric-cell">
-            <span class="kev-m-lbl">ACTIVE ZONE</span>
-            <strong id="kev-stat-zone">GitHub Showcase</strong>
-          </div>
-          <div class="kev-metric-cell">
-            <span class="kev-m-lbl">INTENT PROFILE</span>
-            <strong id="kev-stat-profile">Reconnaissance</strong>
-          </div>
-        </div>
 
-        <!-- 💻 LIVE DEVELOPER CODE VIEW (Calls out what the user is doing in real-time code!) -->
-        <div class="kev-dev-code-drawer" id="kev-dev-code-drawer">
-          <div class="kev-code-topbar">
-            <span>📄 <code>src/kev_counter_recon.ts</code> — LIVE DOM & DEVTOOLS WATCHER</span>
-            <span class="kev-devtools-badge" id="kev-devtools-badge">👁️ WATCHING YOU</span>
+          <!-- 💻 LIVE DEVELOPER CODE VIEW (Calls out what the user is doing in real-time code!) -->
+          <div class="kev-dev-code-drawer" id="kev-dev-code-drawer">
+            <div class="kev-code-topbar">
+              <span>📄 <code>src/kev_counter_recon.ts</code> — LIVE DOM & DEVTOOLS WATCHER</span>
+              <span class="kev-devtools-badge" id="kev-devtools-badge">👁️ WATCHING YOU</span>
+            </div>
+            <pre class="kev-code-pre" id="kev-code-pre"></pre>
           </div>
-          <pre class="kev-code-pre" id="kev-code-pre"></pre>
-        </div>
 
-        <!-- Real-Time Scrolling Behavioral Analysis Feed -->
-        <div class="kev-stream-box" id="kev-stream-box">
-          <div class="kev-log-item kev-init">
-            <span class="kev-time">[INIT]</span>
-            <span class="kev-tag">KEV_BOOT</span>
-            <span class="kev-msg">KEV-Bot v2.6 counter-recon sensor online. Open Browser DevTools (F12) or watch the Code View above as KEV-Bot calls out every move in real time...</span>
+          <!-- Real-Time Scrolling Behavioral Analysis Feed -->
+          <div class="kev-stream-box" id="kev-stream-box">
+            <div class="kev-log-item kev-init">
+              <span class="kev-time">[INIT]</span>
+              <span class="kev-tag">KEV_BOOT</span>
+              <span class="kev-msg">KEV-Bot v2.6 counter-recon sensor online. Open Browser DevTools (F12) or watch the Code View above as KEV-Bot calls out every move in real time...</span>
+            </div>
           </div>
         </div>
       </section>
 
       <!-- Interactive Patreon Donation & Support Card -->
-      <section class="patreon-donate-card">
+      <section class="patreon-donate-card" id="patreon-donate-card">
         <div class="patreon-card-header">
           <div>
             <h3>☕ Fuel Open-Source Swarms & Labs</h3>
-            <p>Choose a tier and make a pledge below to unlock RaioBot's special reward animations!</p>
+            <p id="patreon-header-desc">Choose a tier and make a pledge below to unlock RaioBot's special reward animations!</p>
           </div>
-        </div>
-
-        <!-- Tier Selector -->
-        <div class="patreon-tiers-grid" id="patreon-tiers-grid">
-          <button class="tier-card" data-amount="5" data-tier="Coffee Swarm (IDE Tips Collection)" data-billing="one-time" data-url="https://www.patreon.com/c/Mattraio/collections" data-mood="happy">
-            <span class="tier-emoji">☕</span>
-            <span class="tier-price">$5 <small style="font-size:0.65rem; opacity:0.8;">1-Time</small></span>
-            <span class="tier-name">Coffee Swarm (IDE Tips)</span>
-          </button>
-          <button class="tier-card active" data-amount="15" data-tier="Swarm Builder" data-billing="monthly" data-url="https://www.patreon.com/c/Mattraio/membership" data-mood="love">
-            <span class="tier-badge-popular">MONTHLY</span>
-            <span class="tier-emoji">🐝</span>
-            <span class="tier-price">$15<small style="font-size:0.65rem; opacity:0.8;">/mo</small></span>
-            <span class="tier-name">Swarm Builder</span>
-          </button>
-          <button class="tier-card" data-amount="50" data-tier="Bot Overlord" data-billing="monthly" data-url="https://www.patreon.com/c/Mattraio/membership" data-mood="party">
-            <span class="tier-emoji">👑</span>
-            <span class="tier-price">$50<small style="font-size:0.65rem; opacity:0.8;">/mo</small></span>
-            <span class="tier-name">Bot Overlord</span>
+          <button class="stage-window-toggle-btn" id="btn-toggle-patreon" type="button" title="Collapse or Expand Patreon section to utilize screen space">
+            <span class="toggle-icon" id="patreon-toggle-icon">−</span> <span class="toggle-text" id="patreon-toggle-text">Collapse</span>
           </button>
         </div>
 
-        <!-- Custom Amount & Note -->
-        <div class="patreon-custom-row">
-          <div class="custom-amount-input-wrap">
-            <span class="currency-prefix">$</span>
-            <input type="number" id="patreon-custom-amount" class="patreon-amount-input" value="15" min="1" max="10000" aria-label="Donation Amount">
+        <div class="patreon-collapsible-content" id="patreon-collapsible-content">
+          <!-- Tier Selector -->
+          <div class="patreon-tiers-grid" id="patreon-tiers-grid">
+            <button class="tier-card" data-amount="5" data-tier="Coffee Swarm (IDE Tips Collection)" data-billing="one-time" data-url="https://www.patreon.com/c/Mattraio/collections" data-mood="happy">
+              <span class="tier-emoji">☕</span>
+              <span class="tier-price">$5 <small style="font-size:0.65rem; opacity:0.8;">1-Time</small></span>
+              <span class="tier-name">Coffee Swarm (IDE Tips)</span>
+            </button>
+            <button class="tier-card active" data-amount="15" data-tier="Swarm Builder" data-billing="monthly" data-url="https://www.patreon.com/c/Mattraio/membership" data-mood="love">
+              <span class="tier-badge-popular">MONTHLY</span>
+              <span class="tier-emoji">🐝</span>
+              <span class="tier-price">$15<small style="font-size:0.65rem; opacity:0.8;">/mo</small></span>
+              <span class="tier-name">Swarm Builder</span>
+            </button>
+            <button class="tier-card" data-amount="50" data-tier="Bot Overlord" data-billing="monthly" data-url="https://www.patreon.com/c/Mattraio/membership" data-mood="party">
+              <span class="tier-emoji">👑</span>
+              <span class="tier-price">$50<small style="font-size:0.65rem; opacity:0.8;">/mo</small></span>
+              <span class="tier-name">Bot Overlord</span>
+            </button>
           </div>
-          <input type="text" id="patreon-supporter-msg" class="patreon-msg-input" placeholder="Leave a cheer for RaioBot (optional)...">
-        </div>
 
-        <button class="btn-patreon-donate" id="btn-patreon-donate">
-          <span>💖 Join <strong id="donate-btn-amount">$15/mo</strong> & Unlock Animation ↗</span>
-        </button>
+          <!-- Custom Amount & Note -->
+          <div class="patreon-custom-row">
+            <div class="custom-amount-input-wrap">
+              <span class="currency-prefix">$</span>
+              <input type="number" id="patreon-custom-amount" class="patreon-amount-input" value="15" min="1" max="10000" aria-label="Donation Amount">
+            </div>
+            <input type="text" id="patreon-supporter-msg" class="patreon-msg-input" placeholder="Leave a cheer for RaioBot (optional)...">
+          </div>
 
-        <div class="patreon-sub-note">
-          <span>🔒 <a href="https://www.patreon.com/c/Mattraio/collections" target="_blank" rel="noopener noreferrer" style="color:var(--accent-cyan); text-decoration:none; font-weight:700;">$5 1-Time IDE Tips Collection</a> • <a href="https://www.patreon.com/c/Mattraio/membership" target="_blank" rel="noopener noreferrer" style="color:var(--text-secondary); text-decoration:underline;">$15 & $50 Memberships</a></span>
-          <button class="settings-btn" id="btn-pet-bot" type="button">✨ Pet RaioBot</button>
+          <button class="btn-patreon-donate" id="btn-patreon-donate">
+            <span>💖 Join <strong id="donate-btn-amount">$15/mo</strong> & Unlock Animation ↗</span>
+          </button>
+
+          <div class="patreon-sub-note">
+            <span>🔒 <a href="https://www.patreon.com/c/Mattraio/collections" target="_blank" rel="noopener noreferrer" style="color:var(--accent-cyan); text-decoration:none; font-weight:700;">$5 1-Time IDE Tips Collection</a> • <a href="https://www.patreon.com/c/Mattraio/membership" target="_blank" rel="noopener noreferrer" style="color:var(--text-secondary); text-decoration:underline;">$15 & $50 Memberships</a></span>
+            <button class="settings-btn" id="btn-pet-bot" type="button">✨ Pet RaioBot</button>
+          </div>
         </div>
       </section>
 
@@ -1154,6 +1174,7 @@ function renderLayout() {
 
   setupCompanionBot();
   setupKevBotAnalyst();
+  setupCollapsibleWindows();
 }
 
 // Companion Bot Mood & Speech Controller
@@ -1825,6 +1846,85 @@ function setupCompanionBot() {
       setTimeout(() => {
         window.open(targetPatreonUrl, '_blank', 'noopener,noreferrer');
       }, 1800);
+    });
+  }
+}
+
+// Setup independent collapse/expand controls for the windows underneath the robot
+function setupCollapsibleWindows() {
+  // 1. RaioBot Speech Bubble & Swarm Telemetry Dialog Collapse Toggle
+  const toggleSpeechBtn = document.getElementById('btn-toggle-speech-bubble');
+  const speechBubble = document.getElementById('bot-speech-bubble');
+  if (toggleSpeechBtn && speechBubble) {
+    toggleSpeechBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isCollapsed = speechBubble.classList.toggle('window-collapsed');
+      const icon = toggleSpeechBtn.querySelector('.toggle-icon');
+      const text = toggleSpeechBtn.querySelector('.toggle-text');
+      if (icon) icon.textContent = isCollapsed ? '+' : '−';
+      if (text) text.textContent = isCollapsed ? 'Expand' : 'Collapse';
+    });
+  }
+
+  // 2. KEV-Bot Panel Collapse Toggle
+  const toggleKevBtn = document.getElementById('btn-kev-collapse');
+  const kevPanel = document.getElementById('kev-bot-panel');
+  if (toggleKevBtn && kevPanel) {
+    toggleKevBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isCollapsed = kevPanel.classList.toggle('window-collapsed');
+      const icon = document.getElementById('kev-collapse-icon');
+      const text = document.getElementById('kev-collapse-text');
+      if (icon) icon.textContent = isCollapsed ? '+' : '−';
+      if (text) text.textContent = isCollapsed ? 'Expand' : 'Collapse';
+    });
+  }
+
+  // 3. KEV-Bot Log Stream Maximize/Expand Viewport
+  const expandKevStreamBtn = document.getElementById('btn-kev-expand-stream');
+  const streamBox = document.getElementById('kev-stream-box');
+  if (expandKevStreamBtn && streamBox) {
+    expandKevStreamBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isExpanded = streamBox.classList.toggle('stream-box-expanded');
+      expandKevStreamBtn.classList.toggle('active', isExpanded);
+      expandKevStreamBtn.title = isExpanded ? 'Restore stream to compact height' : 'Expand stream height for deep reading';
+      expandKevStreamBtn.textContent = isExpanded ? '🗗 Compact' : '🗖 Expand';
+      
+      // Auto-collapse Patreon card if expanding stream to maximize log viewing estate
+      if (isExpanded) {
+        const patreonCard = document.getElementById('patreon-donate-card');
+        if (patreonCard && !patreonCard.classList.contains('window-collapsed')) {
+          patreonCard.classList.add('window-collapsed');
+          const pIcon = document.getElementById('patreon-toggle-icon');
+          const pText = document.getElementById('patreon-toggle-text');
+          if (pIcon) pIcon.textContent = '+';
+          if (pText) pText.textContent = 'Expand';
+        }
+      }
+    });
+  }
+
+  // 4. Patreon Donate Card Collapse Toggle
+  const togglePatreonBtn = document.getElementById('btn-toggle-patreon');
+  const patreonCard = document.getElementById('patreon-donate-card');
+  if (togglePatreonBtn && patreonCard) {
+    togglePatreonBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isCollapsed = patreonCard.classList.toggle('window-collapsed');
+      const icon = document.getElementById('patreon-toggle-icon');
+      const text = document.getElementById('patreon-toggle-text');
+      if (icon) icon.textContent = isCollapsed ? '+' : '−';
+      if (text) text.textContent = isCollapsed ? 'Expand' : 'Collapse';
+
+      // If user uncollapses Patreon, restore KEV stream to compact if needed
+      if (!isCollapsed && streamBox && streamBox.classList.contains('stream-box-expanded')) {
+        streamBox.classList.remove('stream-box-expanded');
+        if (expandKevStreamBtn) {
+          expandKevStreamBtn.classList.remove('active');
+          expandKevStreamBtn.textContent = '🗖 Expand';
+        }
+      }
     });
   }
 }
