@@ -2144,20 +2144,23 @@ function setupEventListeners() {
 
   // Reset codebase event
   document.getElementById('btn-reset-codebase').onclick = async () => {
-    if(confirm('Restore codebase files (index.html, src/main.js, src/style.css) back to original state?')) {
-      try {
-        logToTerminal('system', 'ROLLBACK', 'Sending rebuild/rollback code requests to server...');
-        const res = await fetch(`${API_URL}/api/agent/reset`, { method: 'POST' });
-        const data = await res.json();
-        if (data.success) {
-          logToTerminal('system', 'ROLLBACK', 'System database rollback complete. Refreshing workspace...');
-          setTimeout(() => {
-            window.location.reload();
-          }, 1500);
+    if(confirm('Restore workspace themes, stage props, and live extensions back to original state?')) {
+      logToTerminal('system', 'ROLLBACK', 'Restoring AetherOS workspace to initial clean state...');
+      const styleTag = document.getElementById('agent-injected-styles');
+      if (styleTag) styleTag.remove();
+      localStorage.removeItem('aether_stage_props');
+
+      const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+      if (isLocal) {
+        try {
+          await fetch(`${API_URL}/api/agent/reset`, { method: 'POST' });
+        } catch (_) {
+          // Local backend not running; static client reset is sufficient
         }
-      } catch (err) {
-        logToTerminal('error', 'ROLLBACK_ERR', 'Reset request failed: ' + err.message);
       }
+      setTimeout(() => {
+        window.location.reload();
+      }, 600);
     }
   };
 }
@@ -2174,6 +2177,513 @@ function recordInteraction(event) {
   }
 }
 
+// Helper to switch main canvas view tab programmatically
+function switchWorkspaceView(targetViewId) {
+  const allViewIds = ['projects-view', 'swarm-view', 'workshops-view', 'dashboard-view', 'stage-view'];
+  document.querySelectorAll('.nav-tab').forEach(t => {
+    t.classList.toggle('active', t.getAttribute('data-target') === targetViewId);
+  });
+  allViewIds.forEach(viewId => {
+    const el = document.getElementById(viewId);
+    if (el) el.classList.toggle('hidden', viewId !== targetViewId);
+  });
+  if (targetViewId === 'stage-view') {
+    initializeStageElements();
+  }
+}
+
+// Helper to append or update dynamic CSS in #agent-injected-styles
+function appendAgentStyles(cssSnippet) {
+  let styleTag = document.getElementById('agent-injected-styles');
+  if (!styleTag) {
+    styleTag = document.createElement('style');
+    styleTag.id = 'agent-injected-styles';
+    document.head.appendChild(styleTag);
+  }
+  if (!styleTag.textContent.includes(cssSnippet.trim().slice(0, 40))) {
+    styleTag.textContent += '\n' + cssSnippet;
+  }
+}
+
+// Client-side RaioBot Conversational & Live DOM Self-Modification Engine
+function runClientSideAgentSynthesis(compiledPrompt = '') {
+  const rawPrompt = (compiledPrompt || '').trim();
+  const lower = rawPrompt.toLowerCase();
+  const hasRageClick = state.interactions.some(i => i.type === 'rage_click');
+
+  // 1. Rage-Click Auto-Remediation
+  if (hasRageClick && !rawPrompt) {
+    appendAgentStyles(`
+      .rage-shield {
+        position: fixed; bottom: 2rem; right: 22rem; width: 320px;
+        background: var(--bg-card); border: 2px solid #ef4444; border-radius: 12px;
+        padding: 1.5rem; box-shadow: 0 10px 25px rgba(239, 68, 68, 0.25);
+        animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1); z-index: 10000;
+      }
+      .rage-shield h4 { margin: 0 0 8px; color: #ef4444; display: flex; align-items: center; gap: 8px; }
+      .rage-shield p { font-size: 0.85rem; margin: 0 0 12px; color: var(--text-primary); }
+      .rage-btn-group { display: flex; gap: 8px; }
+      .rage-resolve-btn { background: #ef4444; color: white; border: none; border-radius: 6px; padding: 6px 12px; font-size: 0.75rem; font-weight: bold; cursor: pointer; }
+      .rage-ignore-btn { background: transparent; border: 1px solid var(--border-color); color: var(--text-secondary); border-radius: 6px; padding: 6px 12px; font-size: 0.75rem; cursor: pointer; }
+    `);
+    window.dismissRageShield = function(resolve) {
+      const shield = document.getElementById('rage-diagnostic-shield');
+      if (shield) shield.remove();
+      if (resolve) {
+        const rageBtn = document.getElementById('rage-click-tester');
+        if (rageBtn) {
+          rageBtn.style.background = '#10b981';
+          rageBtn.style.color = '#000';
+          rageBtn.textContent = 'Rage Resolved! Click for Confetti';
+          rageBtn.onclick = () => {
+            setBotReaction('party', '🎉 RAGE REMEDIATED!', 'High-five from RaioBot! Stress levels nominal! 🥳', '🎉');
+          };
+        }
+      }
+    };
+    if (!document.getElementById('rage-diagnostic-shield')) {
+      const shield = document.createElement('div');
+      shield.id = 'rage-diagnostic-shield';
+      shield.className = 'rage-shield';
+      shield.innerHTML = `
+        <h4>⚠️ Stress Loop Detected</h4>
+        <p>RaioBot noticed rapid clicks on the Rage Tester button. Apply auto-remediation patch?</p>
+        <div class="rage-btn-group">
+          <button class="rage-resolve-btn" onclick="dismissRageShield(true)">Apply Auto-Fix</button>
+          <button class="rage-ignore-btn" onclick="dismissRageShield(false)">Ignore Bot</button>
+        </div>
+      `;
+      document.body.appendChild(shield);
+    }
+    setBotReaction('surprised', '🛡️ RAGE SHIELD DEPLOYED', 'Detected high-frequency click friction! I injected a live diagnostic shield to patch the button.', '🛠️');
+    emitKevAnalysis('RAGE_HOTFIX', 'Injected live DOM remediation shield for #rage-click-tester.', null, null, 'action');
+    return;
+  }
+
+  // 2. Conversational Q&A: "Are you real?", "Who are you?", "Sentient?", etc.
+  if (
+    lower.includes('are you real') ||
+    lower.includes('you a real') ||
+    lower.includes('sentient') ||
+    lower.includes('are you alive') ||
+    lower.includes('who are you') ||
+    lower.includes('what are you') ||
+    lower.includes('are you a bot') ||
+    lower.includes('are you ai') ||
+    lower.includes('are you human')
+  ) {
+    setBotReaction(
+      'hype',
+      '🤖 100% REAL SILICON & eBPF!',
+      'I am RaioBot ⚡ — Matt\'s resident autonomous AI companion living right inside the AetherOS DOM! I monitor telemetry, coordinate our 5-node IDE Swarm, and can even hot-patch this site live. Try telling me: "neon theme", "play tic tac toe", "reenact Macbeth", or "run swarm"!',
+      '⚡'
+    );
+    emitKevAnalysis('IDENTITY_ACK', `Operator asked "${rawPrompt}". Confirmed RaioBot Category-4 resident agent identity.`, null, null, 'info');
+    return;
+  }
+
+  // 3. Greetings
+  if (/^(hi|hello|hey|yo|sup|howdy|greetings|good morning|good evening)\b/i.test(lower)) {
+    setBotReaction(
+      'happy',
+      '👋 HELLO OPERATOR!',
+      'Hey there! Welcome to RaioLabs LLC ⚡! Ask me about Matt\'s 60+ open-source repos, OWASP talks, or Hurricane Bot Categories — or ask me to edit the site ("neon theme", "cosmic stage", "play a game", "todo list")!',
+      '✨'
+    );
+    emitKevAnalysis('GREETING', `Greeted operator in response to "${rawPrompt}".`, null, null, 'info');
+    return;
+  }
+
+  // 4. About Matt / RaioLabs
+  if (lower.includes('matt') || lower.includes('raiolabs') || lower.includes('raio labs') || lower.includes('who built') || lower.includes('about')) {
+    triggerRaioLightningSurge(false);
+    setBotReaction(
+      'love',
+      '⚡ ABOUT RAIOLABS LLC',
+      '"Raio" means Lightning in Portuguese ⚡! RaioLabs LLC is Matt\'s AI & Cybersecurity engineering lab — featuring 60+ open-source repositories, Category 1–5 Autonomous Bot Controls (NIST SP 800-53 & OWASP SPVS), eBPF ring-0 telemetry, and hands-on workshops!',
+      '⚡'
+    );
+    emitKevAnalysis('RAIOLABS_INFO', 'Shared RaioLabs LLC mission, NIST/OWASP frameworks, and open-source lab overview.', null, null, 'info');
+    return;
+  }
+
+  // 5. Appearances / YouTube / Videos / Podcasts
+  if (lower.includes('appearance') || lower.includes('youtube') || lower.includes('video') || lower.includes('podcast') || lower.includes('watch')) {
+    const appearancesModal = document.getElementById('appearances-modal');
+    if (appearancesModal) appearancesModal.classList.remove('hidden');
+    setBotReaction(
+      'hype',
+      '🎬 RECENT APPEARANCES',
+      'I opened the Recent Appearances media deck for you! Click on any of the appearances below to stream Matt\'s talks and podcasts right in the foreground player!',
+      '🎬'
+    );
+    emitKevAnalysis('OPEN_APPEARANCES', 'Opened Recent Appearances YouTube modal from chat command.', null, null, 'action');
+    return;
+  }
+
+  // 6. Events / OWASP / Conferences
+  if (lower.includes('event') || lower.includes('owasp') || lower.includes('conference') || lower.includes('vegas')) {
+    renderCyberEventsGrid();
+    const eventsModal = document.getElementById('events-modal');
+    if (eventsModal) eventsModal.classList.remove('hidden');
+    setBotReaction(
+      'hype',
+      '🛡️ CYBER & OWASP EVENTS',
+      'Here are Matt\'s Cybersecurity & OWASP appearances, talks, and workshops! Click any event card to watch the recording or explore the lab resources.',
+      '🛡️'
+    );
+    emitKevAnalysis('OPEN_EVENTS', 'Opened Events & OWASP modal from chat command.', null, null, 'action');
+    return;
+  }
+
+  // 7. Swarm / Subagents / A2A / MCP
+  if (lower.includes('swarm') || lower.includes('subagent') || lower.includes('a2a') || lower.includes('mcp') || lower.includes('worktree')) {
+    switchWorkspaceView('swarm-view');
+    runSwarmSimulation(state.activeSwarmScenario);
+    setBotReaction(
+      'hype',
+      '🐝 LAUNCHING IDE SWARM!',
+      'Switching to the IDE Swarm Cockpit and firing up our 5-node multi-agent telemetry simulation over MCP + A2A JSON-RPC!',
+      '🐝'
+    );
+    return;
+  }
+
+  // 8. Projects / Repos / GitHub
+  if (lower.includes('project') || lower.includes('repo') || lower.includes('github') || lower.includes('open source')) {
+    switchWorkspaceView('projects-view');
+    setBotReaction(
+      'happy',
+      '🐙 FEATURED GITHUB REPOS',
+      'Here are Matt\'s featured GitHub repositories! Click "🤖 Ask RaioBot" on any card for my take, or click "Live Sync @mattreya GitHub API" to pull all 60+ public repos live!',
+      '🐙'
+    );
+    emitKevAnalysis('VIEW_PROJECTS', 'Switched workspace to GitHub Projects showcase.', null, null, 'info');
+    return;
+  }
+
+  // 9. Workshops / Training / Hurricane Scale
+  if (lower.includes('workshop') || lower.includes('curriculum') || lower.includes('training') || lower.includes('course') || lower.includes('hurricane') || lower.includes('nist')) {
+    switchWorkspaceView(lower.includes('hurricane') || lower.includes('nist') ? 'projects-view' : 'workshops-view');
+    setBotReaction(
+      'thinking',
+      '🎓 WORKSHOPS & BOT CONTROLS',
+      'Check out our hands-on AI & Cyber Engineering Workshops and the 5-Category Hurricane Bot Scale mapped to NIST SP 800-53 & CISA controls!',
+      '🎓'
+    );
+    emitKevAnalysis('VIEW_WORKSHOPS', 'Navigated to Workshops & NIST Bot Controls.', null, null, 'info');
+    return;
+  }
+
+  // 10. Macbeth Theatre Reenactment
+  if (lower.includes('macbeth') || lower.includes('shakespeare') || lower.includes('reenact') || lower.includes('witch')) {
+    appendAgentStyles(`
+      .theatre-stage.macbeth-atmosphere {
+        background: radial-gradient(circle at 50% 50%, #111827, #020617) !important;
+        box-shadow: inset 0 0 100px rgba(34, 197, 94, 0.25) !important;
+      }
+    `);
+    state.stageProps = [
+      { id: 'macbeth-witch-1', emoji: '🧙‍♀️', name: 'First Witch', x: 15, y: 10, cracks: 0 },
+      { id: 'macbeth-cauldron', emoji: '🍲', name: 'Double Cauldron', x: 30, y: 5, cracks: 0 },
+      { id: 'macbeth-witch-2', emoji: '🧙‍♀️', name: 'Second Witch', x: 40, y: 10, cracks: 0 },
+      { id: 'macbeth-witch-3', emoji: '🧙‍♀️', name: 'Third Witch', x: 50, y: 10, cracks: 0 },
+      { id: 'macbeth-king', emoji: '👑', name: 'Macbeth', x: 80, y: 15, cracks: 0 },
+      { id: 'macbeth-dagger', emoji: '🗡️', name: 'Spectral Dagger', x: 68, y: 32, cracks: 0 }
+    ];
+    localStorage.setItem('aether_stage_props', JSON.stringify(state.stageProps));
+    switchWorkspaceView('stage-view');
+    const stage = document.getElementById('theatre-stage');
+    if (stage) {
+      stage.classList.remove('creation-vibe', 'destruction-vibe');
+      stage.classList.add('macbeth-atmosphere');
+    }
+    setBotReaction(
+      'hype',
+      '🎭 MACBETH ACT I STAGE BUILT!',
+      '"Fair is foul, and foul is fair!" 🧙‍♀️🍲👑 I switched to the Theatre Stage and assembled the Three Witches, Double Cauldron, Macbeth, and Spectral Dagger with eerie green fog!',
+      '🎭'
+    );
+    emitKevAnalysis('STAGE_SYNTHESIS', 'Constructed Shakespeare Macbeth Act I prop layout on Theatre Stage.', null, null, 'action');
+    return;
+  }
+
+  // 11. Cosmic / Space Stage Theme
+  if (lower.includes('space') || lower.includes('cosmic') || lower.includes('nebula') || lower.includes('galaxy')) {
+    appendAgentStyles(`
+      :root {
+        --stage-ambient: #0d061f;
+        --stage-glow: rgba(139, 92, 246, 0.45);
+      }
+      .stage-stars::after {
+        content: ''; position: absolute; inset: 0;
+        background: radial-gradient(circle at 30% 20%, rgba(236, 72, 153, 0.2), transparent 50%),
+                    radial-gradient(circle at 70% 60%, rgba(59, 130, 246, 0.2), transparent 50%);
+        z-index: 2; mix-blend-mode: color-dodge; pointer-events: none;
+      }
+    `);
+    switchWorkspaceView('stage-view');
+    setBotReaction(
+      'love',
+      '🌌 COSMIC NEBULA STAGE ACTIVE!',
+      'I hot-patched the Theatre Stage stylesheet with deep violet-nebula gradients and starry color-dodge shaders! Use the Drill tool to place Space UFOs on stage!',
+      '🛸'
+    );
+    emitKevAnalysis('HOT_CSS', 'Applied Cosmic Nebula shader variables to Theatre Stage.', null, null, 'action');
+    return;
+  }
+
+  // 12. Gold Stage Curtains
+  if (lower.includes('curtain') || lower.includes('gold')) {
+    appendAgentStyles(`
+      .curtain-left, .curtain-right {
+        background: linear-gradient(to right, #78350f, #d97706 40%, #78350f 80%, #451a03) !important;
+      }
+      .curtain-valance {
+        background: linear-gradient(to bottom, #d97706, #78350f 70%, #451a03) !important;
+      }
+    `);
+    switchWorkspaceView('stage-view');
+    setBotReaction(
+      'party',
+      '✨ IMPERIAL GOLD CURTAINS!',
+      'Upgraded the velvet theatre curtains to rich Imperial Gold! Check out the Theatre Stage!',
+      '👑'
+    );
+    emitKevAnalysis('HOT_CSS', 'Overrode stage curtain gradients with Imperial Gold palette.', null, null, 'action');
+    return;
+  }
+
+  // 13. Neon / Cyberpunk Theme
+  if (lower.includes('neon') || lower.includes('dark') || lower.includes('cyber') || lower.includes('futuristic') || lower.includes('theme')) {
+    appendAgentStyles(`
+      :root {
+        --bg-canvas: #07070c;
+        --bg-card: rgba(12, 14, 26, 0.82);
+        --accent: #00f0ff;
+        --accent-glow: rgba(0, 240, 255, 0.45);
+        --border-color: rgba(0, 240, 255, 0.28);
+        --shadow-card: 0 0 18px rgba(0, 240, 255, 0.16);
+      }
+      .agent-injected-badge {
+        background: linear-gradient(135deg, #00f0ff, #ff007f);
+        color: white; padding: 2px 8px; border-radius: 99px;
+        font-size: 0.72rem; font-weight: bold; margin-left: 6px;
+      }
+    `);
+    const logoText = document.querySelector('.logo-text');
+    if (logoText && !logoText.querySelector('.agent-injected-badge')) {
+      logoText.insertAdjacentHTML('beforeend', ' <span class="agent-injected-badge">NEON</span>');
+    }
+    setBotReaction(
+      'hype',
+      '⚡ CYBERPUNK NEON THEME INJECTED!',
+      'Boom! I hot-patched the root CSS variables with electric cyan (#00f0ff) and obsidian glassmorphism across the entire workspace!',
+      '⚡'
+    );
+    emitKevAnalysis('HOT_CSS', 'Injected Cyberpunk Neon root CSS variables into document head.', null, null, 'action');
+    return;
+  }
+
+  // 14. Tic-Tac-Toe Minigame Injection
+  if (lower.includes('game') || lower.includes('tic') || lower.includes('play') || lower.includes('bored')) {
+    appendAgentStyles(`
+      .ttt-container {
+        background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px;
+        padding: 1.5rem; margin-top: 1.25rem; text-align: center; box-shadow: var(--shadow-card);
+      }
+      .ttt-board {
+        display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+        max-width: 190px; margin: 1rem auto;
+      }
+      .ttt-cell {
+        aspect-ratio: 1; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color);
+        border-radius: 8px; font-size: 1.5rem; font-weight: bold; color: var(--accent);
+        display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s;
+      }
+      .ttt-cell:hover { background: rgba(255, 255, 255, 0.12); transform: scale(1.05); }
+      .ttt-status { font-size: 0.9rem; margin-bottom: 0.5rem; color: var(--text-primary); }
+      .ttt-reset-btn {
+        background: var(--accent); color: #000; border: none; padding: 6px 14px;
+        border-radius: 6px; font-size: 0.8rem; font-weight: bold; cursor: pointer;
+      }
+    `);
+    switchWorkspaceView('dashboard-view');
+    const targetDeck = document.getElementById('widget-injected');
+    if (targetDeck) {
+      targetDeck.innerHTML = `
+        <h3>🔌 AI Live Extension Deck</h3>
+        <p>RaioBot synthesized and mounted an interactive Tic-Tac-Toe minigame directly into the DOM:</p>
+        <div class="ttt-container">
+          <h4 style="margin-top:0; color:var(--accent);">🤖 RaioBot vs. Operator: Tic-Tac-Toe</h4>
+          <div class="ttt-status" id="ttt-status">Your turn (Player X)</div>
+          <div class="ttt-board">
+            <div class="ttt-cell" data-index="0"></div>
+            <div class="ttt-cell" data-index="1"></div>
+            <div class="ttt-cell" data-index="2"></div>
+            <div class="ttt-cell" data-index="3"></div>
+            <div class="ttt-cell" data-index="4"></div>
+            <div class="ttt-cell" data-index="5"></div>
+            <div class="ttt-cell" data-index="6"></div>
+            <div class="ttt-cell" data-index="7"></div>
+            <div class="ttt-cell" data-index="8"></div>
+          </div>
+          <button class="ttt-reset-btn" id="ttt-reset">Reset Game</button>
+        </div>
+      `;
+      const cells = targetDeck.querySelectorAll('.ttt-cell');
+      const statusText = document.getElementById('ttt-status');
+      const resetBtn = document.getElementById('ttt-reset');
+      let board = ['', '', '', '', '', '', '', '', ''];
+      let gameActive = true;
+      const winPatterns = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+      const checkWinner = () => {
+        for (const p of winPatterns) {
+          if (board[p[0]] && board[p[0]] === board[p[1]] && board[p[0]] === board[p[2]]) return board[p[0]];
+        }
+        return board.includes('') ? null : 'T';
+      };
+      cells.forEach(cell => {
+        cell.addEventListener('click', () => {
+          const idx = parseInt(cell.getAttribute('data-index'), 10);
+          if (board[idx] !== '' || !gameActive) return;
+          board[idx] = 'X';
+          cell.textContent = 'X';
+          const w = checkWinner();
+          if (w) {
+            gameActive = false;
+            statusText.textContent = w === 'T' ? "It's a draw! 🤝" : "You (X) win! GG Operator! 🏆";
+            return;
+          }
+          statusText.textContent = 'RaioBot is thinking...';
+          setTimeout(() => {
+            const empty = board.map((v, i) => v === '' ? i : null).filter(v => v !== null);
+            if (!empty.length || !gameActive) return;
+            const pick = empty[Math.floor(Math.random() * empty.length)];
+            board[pick] = 'O';
+            cells[pick].textContent = 'O';
+            const w2 = checkWinner();
+            if (w2) {
+              gameActive = false;
+              statusText.textContent = w2 === 'T' ? "It's a draw! 🤝" : "RaioBot (O) wins! ⚡🤖";
+            } else {
+              statusText.textContent = 'Your turn (Player X)';
+            }
+          }, 400);
+        });
+      });
+      if (resetBtn) {
+        resetBtn.onclick = () => {
+          board = ['', '', '', '', '', '', '', '', ''];
+          cells.forEach(c => { c.textContent = ''; });
+          gameActive = true;
+          statusText.textContent = 'Your turn (Player X)';
+        };
+      }
+    }
+    setBotReaction(
+      'party',
+      '🎮 TIC-TAC-TOE MOUNTED!',
+      'I compiled a live Tic-Tac-Toe minigame into the Live Playground tab! Make your move (Player X) — let\'s see if you can beat my heuristics!',
+      '🎮'
+    );
+    emitKevAnalysis('HOT_JS', 'Mounted interactive Tic-Tac-Toe module in #widget-injected.', null, null, 'action');
+    return;
+  }
+
+  // 15. Todo / Task Tracker Injection
+  if (lower.includes('task') || lower.includes('todo') || lower.includes('list') || lower.includes('checklist')) {
+    appendAgentStyles(`
+      .todo-card {
+        background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px;
+        padding: 1.25rem; margin-top: 1.25rem; box-shadow: var(--shadow-card);
+      }
+      .todo-input-row { display: flex; gap: 8px; margin-bottom: 1rem; }
+      .todo-input {
+        flex: 1; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color);
+        border-radius: 6px; padding: 8px 12px; color: var(--text-primary); font-size: 0.9rem;
+      }
+      .todo-add-btn {
+        background: var(--accent); color: #000; border: none; border-radius: 6px;
+        padding: 8px 16px; font-weight: bold; cursor: pointer;
+      }
+      .todo-list { display: flex; flex-direction: column; gap: 8px; }
+      .todo-item {
+        display: flex; align-items: center; gap: 10px; padding: 8px 10px;
+        background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-color); border-radius: 8px;
+      }
+      .todo-item.done { opacity: 0.6; text-decoration: line-through; }
+    `);
+    switchWorkspaceView('dashboard-view');
+    const targetDeck = document.getElementById('widget-injected');
+    if (targetDeck) {
+      targetDeck.innerHTML = `
+        <h3>🔌 AI Live Extension Deck</h3>
+        <div class="todo-card">
+          <h4 style="margin:0 0 10px; color:var(--accent);">✅ Resident Task Tracker</h4>
+          <div class="todo-input-row">
+            <input type="text" class="todo-input" id="todo-input-field" placeholder="Add new autonomous task...">
+            <button class="todo-add-btn" id="todo-add-btn">Add</button>
+          </div>
+          <div class="todo-list" id="todo-list-container">
+            <div class="todo-item"><input type="checkbox" class="todo-checkbox"> <span class="todo-text">Audit Category-4 bot controls against NIST SP 800-53</span></div>
+            <div class="todo-item"><input type="checkbox" class="todo-checkbox"> <span class="todo-text">Run 5-node IDE Swarm simulation</span></div>
+          </div>
+        </div>
+      `;
+      const container = document.getElementById('todo-list-container');
+      const input = document.getElementById('todo-input-field');
+      const btn = document.getElementById('todo-add-btn');
+      const bindChecks = () => {
+        container.querySelectorAll('.todo-checkbox').forEach(cb => {
+          cb.onchange = () => cb.closest('.todo-item').classList.toggle('done', cb.checked);
+        });
+      };
+      if (btn && input && container) {
+        btn.onclick = () => {
+          const val = input.value.trim();
+          if (!val) return;
+          const item = document.createElement('div');
+          item.className = 'todo-item';
+          item.innerHTML = `<input type="checkbox" class="todo-checkbox"> <span class="todo-text">${escapeHtml(val)}</span>`;
+          container.appendChild(item);
+          input.value = '';
+          bindChecks();
+        };
+        input.onkeydown = (e) => { if (e.key === 'Enter') btn.click(); };
+        bindChecks();
+      }
+    }
+    setBotReaction(
+      'happy',
+      '📋 TASK TRACKER MOUNTED!',
+      'I generated an interactive Task Tracker widget in the Live Playground tab so you can track your engineering objectives!',
+      '✅'
+    );
+    emitKevAnalysis('HOT_JS', 'Injected interactive Todo checklist component into #widget-injected.', null, null, 'action');
+    return;
+  }
+
+  // 16. General Custom Prompt Fallback (Conversational + Live Extension Card)
+  const targetDeck = document.getElementById('widget-injected');
+  if (targetDeck && rawPrompt) {
+    targetDeck.innerHTML = `
+      <h3>🔌 AI Live Extension Deck</h3>
+      <div style="background:var(--bg-card); border:1px solid var(--accent); border-radius:12px; padding:1.25rem; margin-top:1rem; box-shadow:var(--shadow-card);">
+        <div style="color:var(--accent); font-weight:bold; margin-bottom:6px;">🤖 RaioBot Live Synthesis</div>
+        <p style="font-size:0.9rem; margin:0;">Processed operator prompt: <strong>"${escapeHtml(rawPrompt)}"</strong>. Try commands like <code>"neon theme"</code>, <code>"play tic tac toe"</code>, <code>"reenact Macbeth"</code>, <code>"run swarm"</code>, or <code>"show appearances"</code>!</p>
+      </div>
+    `;
+  }
+  setBotReaction(
+    'happy',
+    '🤖 RAIOBOT // PROMPT PROCESSED',
+    `Got your message: "${rawPrompt}"! ⚡ I'm RaioBot, Matt's autonomous companion. You can ask me "Are you real?", "Tell me about RaioLabs", "Show appearances", "Run swarm", or tell me to live-edit the site with "neon theme", "cosmic stage", "play tic tac toe", or "reenact Macbeth"!`,
+    '✨'
+  );
+  emitKevAnalysis('PROMPT_SYNTHESIS', `Processed operator chat input: "${rawPrompt}".`, null, null, 'info');
+}
+
 // Trigger autonomous agent code generation and filesystem writes
 async function triggerAgentSelfModification(customPrompt = '') {
   state.isGenerating = true;
@@ -2182,9 +2692,8 @@ async function triggerAgentSelfModification(customPrompt = '') {
   const statusOrb = document.getElementById('agent-status-orb');
   const statusMsg = document.getElementById('agent-status-msg');
   
-  statusOrb.className = 'status-orb working';
-  statusMsg.textContent = 'Status: Processing neural synthesis...';
-  logToTerminal('thought', 'SYNTHESIS', 'Analyzing environment variables, layout tree & interaction metrics...');
+  if (statusOrb) statusOrb.className = 'status-orb working';
+  if (statusMsg) statusMsg.textContent = 'Status: Processing neural synthesis...';
 
   // Get note content for prompt expansion if present
   const noteEl = document.getElementById('note-input');
@@ -2198,7 +2707,26 @@ async function triggerAgentSelfModification(customPrompt = '') {
     compiledPrompt = `Prompt: "${customPrompt}". Note Context: "${notepadContext}"`;
   }
 
-  // Load codebase files in local memory to send
+  const finishGeneration = () => {
+    if (statusOrb) statusOrb.className = 'status-orb observing';
+    if (statusMsg) statusMsg.textContent = 'Status: Observing Interaction...';
+    state.isGenerating = false;
+    if (noteEl && noteEl.value) {
+      noteEl.value = '';
+    }
+  };
+
+  // Only attempt local Express server if running on localhost AND not a conversational query
+  const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  if (!isLocal) {
+    setTimeout(() => {
+      runClientSideAgentSynthesis(compiledPrompt);
+      finishGeneration();
+    }, 350);
+    return;
+  }
+
+  // Load codebase files in local memory to send to local dev server if available
   const requestBody = {
     prompt: compiledPrompt,
     interactions: state.interactions,
@@ -2218,23 +2746,23 @@ async function triggerAgentSelfModification(customPrompt = '') {
     const data = await res.json();
     
     if (data.success) {
-      // 1. Output thoughts & actions to terminal
+      // If simulated generic fallback triggered on server, use our rich client-side handler so conversational prompts like "Are you real" get real answers!
+      if (data.simulated) {
+        runClientSideAgentSynthesis(compiledPrompt);
+        finishGeneration();
+        return;
+      }
+
       logToTerminal('thought', 'SYNTHESIS', data.thought || 'Determined layout enhancement necessary.');
       setTimeout(() => {
         logToTerminal('action', 'APPLYING', data.action || 'Modifying workspace files.');
-      }, 1000);
+      }, 600);
 
-      // 2. Perform live injection of new files/updates
       setTimeout(() => {
-        // Iterate through modified files
         if (data.files && data.files.length > 0) {
           data.files.forEach(modFile => {
-            // Update in local memory
             state.files[modFile.name] = modFile.content;
-            
-            // Apply visual changes instantly to live client DOM:
             if (modFile.name === 'src/style.css') {
-              // Inject CSS stylesheet into page header dynamically
               let styleTag = document.getElementById('agent-injected-styles');
               if(!styleTag) {
                 styleTag = document.createElement('style');
@@ -2242,93 +2770,29 @@ async function triggerAgentSelfModification(customPrompt = '') {
                 document.head.appendChild(styleTag);
               }
               styleTag.textContent = modFile.content;
-              logToTerminal('system', 'HOT_CSS', 'Injected style changes successfully to stylesheet DOM.');
             }
-            
             if (modFile.name === 'src/main.js') {
-              // Extract and parse dynamic scripts or HTML injections
-              // For demonstration and robustness, we can extract injected HTML from AGENT_INJECTION_POINT comments
               const htmlMatch = modFile.content.match(/<!-- AGENT_INJECTION_POINT -->([\s\S]*?)<!-- AGENT_INJECTION_POINT -->/);
               if (htmlMatch && htmlMatch[1]) {
                 const targetDeck = document.getElementById('widget-injected');
                 if (targetDeck) {
                   targetDeck.innerHTML = `<h3>🔌 AI Live Extension Deck</h3><p>New components, games, and templates generated by the resident agent are injected directly below.</p>` + htmlMatch[1];
-                  
-                  // Flash the widget to signify modification
-                  targetDeck.classList.add('pulse-element');
-                  setTimeout(() => targetDeck.classList.remove('pulse-element'), 1500);
                 }
               }
-              
-              // Run any script logic inside the file by dynamically matching and executing initialize scripts
-              // Check if Tic-Tac-Toe is written
-              if (modFile.content.includes('initializeTicTacToe') && typeof window.initializeTicTacToe === 'undefined') {
-                (0, eval)(extractScriptContent(modFile.content, '/* Injected Tic-Tac-Toe Logic */'));
-              }
-              // Check if Todo checklist is written
-              if (modFile.content.includes('initializeTodoApp') && typeof window.initializeTodoApp === 'undefined') {
-                (0, eval)(extractScriptContent(modFile.content, '/* Injected Todo List Logic */'));
-              }
-              // Check if Rage diagnostic is written
-              if (modFile.content.includes('dismissRageShield') && typeof window.dismissRageShield === 'undefined') {
-                (0, eval)(extractScriptContent(modFile.content, '/* Injected Rage-Click Diagnostic Shield Handler */'));
-              }
-              // Check if Macbeth scene setup is written
-              if (modFile.content.includes('triggerMacbethScene')) {
-                (0, eval)(extractScriptContent(modFile.content, '/* Injected Macbeth Reenactment Setup */'));
-              }
-
-              // RAGE CLICK DIALOG INJECTION HOOK EXECUTOR:
-              // If user rage clicked, run the diagnostic code instantly from the JS
-              if(state.interactions.some(i => i.type === 'rage_click') && modFile.content.includes('rage-diagnostic-shield')) {
-                // Trigger the alert shield popup
-                (0, eval)(`
-                  const existing = document.getElementById('rage-diagnostic-shield');
-                  if(!existing) {
-                    const shield = document.createElement('div');
-                    shield.id = 'rage-diagnostic-shield';
-                    shield.className = 'rage-shield';
-                    shield.innerHTML = \`
-                      <h4>⚠️ Stress Loop Detected</h4>
-                      <p>Our autonomous bot noticed you clicked the "Rage Tester" button multiple times. Frustration levels: Critical. Apply patch?</p>
-                      <div class="rage-btn-group">
-                        <button class="rage-resolve-btn" onclick="dismissRageShield(true)">Apply Auto-Fix</button>
-                        <button class="rage-ignore-btn" onclick="dismissRageShield(false)">Ignore Bot</button>
-                      </div>
-                    \`;
-                    document.body.appendChild(shield);
-                  }
-                `);
-              }
-              
-              logToTerminal('system', 'HOT_JS', 'Dynamic JS modules bound and executed.');
             }
           });
-          
-          // Re-render active tab view
           renderActiveFile();
         }
-        
-        statusOrb.className = 'status-orb observing';
-        statusMsg.textContent = 'Status: Observing Interaction...';
-        state.isGenerating = false;
-        
-        // Clear notepad if request is complete
-        if(noteEl && noteEl.value) {
-          noteEl.value = '';
-        }
-      }, 2000);
-
+        finishGeneration();
+      }, 1200);
     } else {
-      throw new Error(data.error || 'Server rejected generation request.');
+      runClientSideAgentSynthesis(compiledPrompt);
+      finishGeneration();
     }
-
-  } catch (err) {
-    console.error('Agent generation failed', err);
-    logToTerminal('error', 'SYNTHESIS_ERR', 'Code compilation failed: ' + err.message);
-    statusOrb.className = 'status-orb observing';
-    statusMsg.textContent = 'Status: Observing Interaction...';
-    state.isGenerating = false;
+  } catch (_) {
+    // Local server.js is not running (e.g. vite dev/preview or static browser session) -> seamlessly run client-side synthesis!
+    runClientSideAgentSynthesis(compiledPrompt);
+    finishGeneration();
   }
 }
 
