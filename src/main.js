@@ -666,8 +666,8 @@ function renderLayout() {
             <button class="swarm-bot-chip" data-swarm-bot="hippocampus" title="Click to pop up The Hippocampus (summary.md + SOUL.md)">
               🧠 <span>Hippocampus</span>
             </button>
-            <button class="swarm-bot-chip kev-chip" data-swarm-bot="kev" title="Click to pop up KEV-Bot (Real-Time User Behavior Analyst)">
-              🚨 <span>KEV-Bot</span>
+            <button class="swarm-bot-chip kev-chip" data-swarm-bot="kev" title="Click to pop up KEV-Vader (Robot Darth Vader Telemetry Sentinel)">
+              🦹 <span>KEV-Vader</span>
             </button>
           </div>
         </div>
@@ -836,20 +836,41 @@ function renderLayout() {
         </div>
       </section>
 
-      <!-- 🚨 KEV-BOT: REAL-TIME USER BEHAVIOR & TELEMETRY ANALYST -->
+      <!-- 🦹 KEV-BOT: DARTH VADER SENTINEL & LIVE USER BEHAVIOR ANALYST -->
       <section class="kev-bot-panel" id="kev-bot-panel">
         <div class="kev-bot-header">
           <div class="kev-bot-identity">
-            <div class="kev-bot-avatar" id="kev-bot-avatar" title="KEV-Bot: Real-Time User Behavior & Telemetry Analyst">
+            <div class="kev-bot-avatar vader-avatar" id="kev-bot-avatar" title="KEV-Vader: Real-Time Ring-0 Behavioral Analyst">
               <span class="kev-radar-pulse"></span>
-              <span class="kev-bot-face">🚨</span>
+              <div class="vader-helmet-icon">
+                <svg viewBox="0 0 40 40" class="vader-svg" aria-label="Robot Darth Vader Helmet">
+                  <!-- Outer Flared Obsidian Helmet -->
+                  <path d="M 20 2 C 12 2 6 7 5 15 C 4 23 2 30 1 34 C 4 33 8 32 11 31 L 12 26 C 13 25 15 24 16 24 L 24 24 C 25 24 27 25 28 26 L 29 31 C 32 32 36 33 39 34 C 38 30 36 23 35 15 C 34 7 28 2 20 2 Z" fill="#090a12" stroke="#ef4444" stroke-width="1.2" />
+                  <!-- Helmet Brow & Central Ridge -->
+                  <path d="M 20 2 L 20 18" stroke="#f43f5e" stroke-width="1.8" stroke-linecap="round" />
+                  <path d="M 12 14 Q 20 16 28 14" stroke="#475569" stroke-width="1.2" fill="none" />
+                  <!-- Angled Crimson Sith Visor Eyes -->
+                  <polygon points="10,16 17,18 16,22 9,20" fill="#ef4444" class="vader-eye" />
+                  <polygon points="30,16 23,18 24,22 31,20" fill="#ef4444" class="vader-eye" />
+                  <!-- Nose Bridge Piece -->
+                  <polygon points="18,18 22,18 21,23 19,23" fill="#1e293b" stroke="#64748b" stroke-width="0.6" />
+                  <!-- Triangular Respirator / Vocoder Grille -->
+                  <polygon points="20,23 13,35 27,35" fill="#05070e" stroke="#ef4444" stroke-width="1.1" />
+                  <line x1="16" y1="26" x2="24" y2="26" stroke="#94a3b8" stroke-width="1" />
+                  <line x1="15" y1="29" x2="25" y2="29" stroke="#94a3b8" stroke-width="1" />
+                  <line x1="14" y1="32" x2="26" y2="32" stroke="#94a3b8" stroke-width="1" />
+                  <!-- Vocoder Chin Tusks -->
+                  <circle cx="12" cy="35" r="1.5" fill="#cbd5e1" stroke="#000" stroke-width="0.5" />
+                  <circle cx="28" cy="35" r="1.5" fill="#cbd5e1" stroke="#000" stroke-width="0.5" />
+                </svg>
+              </div>
             </div>
             <div>
               <div class="kev-title-row">
-                <h4>KEV-BOT // LIVE USER ANALYST</h4>
+                <h4>KEV-VADER // RING-0 ANALYST</h4>
                 <span class="kev-live-pill" id="kev-live-pill">● REAL-TIME</span>
               </div>
-              <p class="kev-subtitle" id="kev-current-verdict">Monitoring operator cursor, dwell targets & DOM vectors...</p>
+              <p class="kev-subtitle" id="kev-current-verdict">"I find your lack of SPVS governance disturbing..."</p>
             </div>
           </div>
           <div class="kev-controls">
@@ -1305,17 +1326,17 @@ const SWARM_BOT_PERSONAS = {
   },
   kev: {
     key: 'kev',
-    icon: '🚨',
-    name: 'KEV-Bot Live Analyst',
-    shortTag: '🚨 KEV-Bot (Telemetry)',
-    port: 'DOM + KINEMATICS',
-    color: '#f43f5e',
-    leftArm: '📡',
-    rightArm: '🚨',
-    sampleProtocol: 'KEV_BEHAVIOR_STREAM',
-    sampleSenderLine: '🎛️ RaioBot (Orchestrator): "KEV-Bot, give me a real-time behavioral telemetry readout on what the operator is doing on the site right now!"',
-    sampleReceiverLine: '[KEV_BOT] Tracking operator cursor velocity, DOM dwell targets, scroll vector, and intent profile in real time!',
-    samplePayload: '{\n  "agent": "KEV-Bot v2.6",\n  "mode": "REAL_TIME_BEHAVIORAL_TELEMETRY",\n  "sensors": ["cursor_velocity", "dom_dwell_target", "scroll_vector", "click_forensics"]\n}'
+    icon: '🦹',
+    name: 'KEV-Vader (Telemetry Sentinel)',
+    shortTag: '🖤 KEV-Vader (Ring-0)',
+    port: 'SITH RING-0',
+    color: '#ef4444',
+    leftArm: '⚔️',
+    rightArm: '📡',
+    sampleProtocol: 'IMPERIAL_COUNTER_RECON',
+    sampleSenderLine: '🎛️ RaioBot (Orchestrator): "KEV-Vader, report on the operator\'s live telemetry and threat posture!"',
+    sampleReceiverLine: '[KEV_VADER] "I find their lack of SPVS compliance disturbing... Cursor and DOM dwell telemetry locked in real time!"',
+    samplePayload: '{\n  "agent": "KEV-Bot v2.6 [Vader-Droid Sentinel]",\n  "mode": "IMPERIAL_BEHAVIORAL_COUNTER_RECON",\n  "sensors": ["cursor_velocity", "dom_dwell_target", "scroll_vector", "click_forensics"],\n  "threatAssessment": "I find your lack of zero-trust compliance disturbing."\n}'
   }
 };
 
@@ -3991,14 +4012,14 @@ function setupKevBotAnalyst() {
     showCompanionSwarmInteraction({
       from: 'orchestrator',
       to: 'kev',
-      protocol: 'KEV_COUNTER_RECON',
-      badge: kevState.devToolsDetected ? '🚨 DEVTOOLS OPEN' : 'REAL-TIME ANALYST',
+      protocol: 'IMPERIAL_COUNTER_RECON',
+      badge: kevState.devToolsDetected ? '🖤 DEVTOOLS INTRUSION' : '🖤 VADER SENTINEL',
       logType: kevState.devToolsDetected ? 'error' : 'thought',
-      logTag: 'KEV_BOT',
-      senderLine: '🎛️ RaioBot (Orchestrator): "KEV-Bot, pop up and call out what our visitor is doing on the webpage right now!"',
+      logTag: 'KEV_VADER',
+      senderLine: '🎛️ RaioBot (Orchestrator): "KEV-Vader, pop up and report on what our visitor is doing on the webpage right now!"',
       message: customReason || `Operator is at (${kevState.lastX}, ${kevState.lastY}) over <${kevState.currentDomSelector}> in [${kevState.activeZone}] (${kevState.intentProfile}). Peak velocity: ${kevState.peakVelocity} px/s!`,
       payload: livePayload
-    }, 1, 1, 'KEV-Bot Live Counter-Recon');
+    }, 1, 1, 'KEV-Vader Imperial Briefing');
   };
 
   if (stageSyncBtn) {
