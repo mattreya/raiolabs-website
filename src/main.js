@@ -595,8 +595,50 @@ function renderLayout() {
         </a>
       </header>
 
-      <!-- Animated Character Stage -->
+      <!-- Animated Character Stage (Bright Meadow & Sky Scenery) -->
       <section class="bot-character-stage" id="bot-character-stage">
+        <!-- Bright Sky & Cloud Scenery Layer -->
+        <div class="stage-sky-scenery" aria-hidden="true">
+          <div class="sky-sun-core"></div>
+          
+          <!-- Background Dark Thunder Cloud with Lightning Flicker -->
+          <div class="thunder-cloud-bg" title="⚡ RaioLabs Thunder Cloud">
+            <div class="thunder-cloud-shape"></div>
+            <div class="thunder-flash-overlay"></div>
+            <span class="thunder-bolt-glyph">⚡</span>
+          </div>
+
+          <!-- Moving Fluffy White Clouds Drifting Across Sky -->
+          <div class="drifting-cloud cloud-1">
+            <div class="fluffy-cloud-shape"></div>
+          </div>
+          <div class="drifting-cloud cloud-2">
+            <div class="fluffy-cloud-shape small"></div>
+          </div>
+          <div class="drifting-cloud cloud-3">
+            <div class="fluffy-cloud-shape alt"></div>
+          </div>
+        </div>
+
+        <!-- Rolling Meadow Grass Hills & Wildflowers Floor -->
+        <div class="stage-meadow-scenery" aria-hidden="true">
+          <div class="meadow-hill hill-distant"></div>
+          <div class="meadow-hill hill-mid"></div>
+          <div class="meadow-hill hill-front">
+            <div class="meadow-grass-texture"></div>
+            <div class="meadow-wildflowers">
+              <span class="flower f1">🌼</span>
+              <span class="flower f2">🌸</span>
+              <span class="flower f3">🌱</span>
+              <span class="flower f4">🌼</span>
+              <span class="flower f5">🌸</span>
+              <span class="flower f6">✨</span>
+              <span class="flower f7">🌱</span>
+              <span class="flower f8">🌼</span>
+            </div>
+          </div>
+        </div>
+
         <div class="bot-ambient-glow" id="bot-ambient-glow"></div>
         <div class="bot-particles-layer" id="bot-particles-layer"></div>
 

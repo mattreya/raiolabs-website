@@ -1995,6 +1995,10 @@ body {
   box-shadow: 0 6px 16px rgba(249, 104, 84, 0.55);
 }
 
+/* ==========================================================================
+   Bright Blue Sky & Lush Green Meadow Scenery for RaioBot
+   ========================================================================== */
+
 .bot-character-stage {
   position: relative;
   padding: 1.25rem 1.5rem 1rem;
@@ -2002,9 +2006,293 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 12px;
-  border-bottom: 1px solid var(--border-color);
-  background: radial-gradient(circle at 50% 35%, rgba(168, 85, 247, 0.16) 0%, rgba(7, 9, 19, 0.9) 75%);
+  border-bottom: 1px solid rgba(56, 189, 248, 0.4);
+  background: linear-gradient(180deg, #38bdf8 0%, #60a5fa 28%, #93c5fd 55%, #bae6fd 78%, #e0f2fe 100%);
   overflow: hidden;
+  box-shadow: inset 0 -6px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* Sky Scenery Layer */
+.stage-sky-scenery {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+/* Sun Glow */
+.sky-sun-core {
+  position: absolute;
+  top: -18px;
+  left: 14px;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fef08a 22%, #fde047 48%, rgba(253, 224, 71, 0.35) 72%, transparent 100%);
+  filter: blur(2px);
+  animation: sunRadiance 4s ease-in-out infinite alternate;
+}
+
+@keyframes sunRadiance {
+  0% { transform: scale(0.95); opacity: 0.85; }
+  100% { transform: scale(1.1); opacity: 1; }
+}
+
+/* Background Thunder Cloud with Subtle Lightning Flash */
+.thunder-cloud-bg {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  width: 110px;
+  height: 52px;
+  z-index: 1;
+  filter: drop-shadow(0 4px 12px rgba(15, 23, 42, 0.65));
+  animation: thunderCloudDrift 8s ease-in-out infinite alternate;
+}
+
+@keyframes thunderCloudDrift {
+  0% { transform: translateY(0px) scale(1); }
+  100% { transform: translateY(4px) scale(1.03); }
+}
+
+.thunder-cloud-shape {
+  position: relative;
+  width: 104px;
+  height: 38px;
+  background: linear-gradient(180deg, #334155 0%, #1e293b 55%, #0f172a 100%);
+  border-radius: 99px;
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.18), inset 0 -3px 8px rgba(0, 0, 0, 0.7);
+}
+
+.thunder-cloud-shape::before {
+  content: '';
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  top: -22px;
+  left: 18px;
+  background: #334155;
+  border-radius: 50%;
+  box-shadow: inset 0 2px 3px rgba(255, 255, 255, 0.15);
+}
+
+.thunder-cloud-shape::after {
+  content: '';
+  position: absolute;
+  width: 38px;
+  height: 38px;
+  top: -16px;
+  left: 54px;
+  background: #1e293b;
+  border-radius: 50%;
+  box-shadow: inset 0 2px 3px rgba(255, 255, 255, 0.1);
+}
+
+.thunder-flash-overlay {
+  position: absolute;
+  inset: -6px;
+  border-radius: 99px;
+  background: radial-gradient(circle, rgba(103, 232, 249, 0.95) 0%, rgba(168, 85, 247, 0.5) 60%, transparent 100%);
+  opacity: 0;
+  pointer-events: none;
+  animation: thunderLightningFlicker 6.5s infinite;
+}
+
+@keyframes thunderLightningFlicker {
+  0%, 89%, 93%, 97%, 100% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  90%, 92% {
+    opacity: 0.95;
+    transform: scale(1.2);
+    filter: brightness(2.2);
+  }
+  94%, 96% {
+    opacity: 0.75;
+    transform: scale(1.1);
+  }
+}
+
+.thunder-bolt-glyph {
+  position: absolute;
+  bottom: -16px;
+  left: 40px;
+  font-size: 1.25rem;
+  color: #fde047;
+  filter: drop-shadow(0 0 10px #00f0ff);
+  opacity: 0;
+  animation: thunderBoltFlicker 6.5s infinite;
+}
+
+@keyframes thunderBoltFlicker {
+  0%, 89%, 97%, 100% {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.6);
+  }
+  90%, 92% {
+    opacity: 1;
+    transform: translateY(2px) scale(1.25);
+    filter: drop-shadow(0 0 16px #67e8f9);
+  }
+  94%, 96% {
+    opacity: 0.85;
+    transform: translateY(0px) scale(1.1);
+  }
+}
+
+/* Moving Fluffy White Clouds Drifting Across Sky */
+.drifting-cloud {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.cloud-1 {
+  top: 16px;
+  animation: driftCloudsHorizontal 26s linear infinite;
+}
+
+.cloud-2 {
+  top: 48px;
+  animation: driftCloudsHorizontal 36s linear infinite -13s;
+}
+
+.cloud-3 {
+  top: 82px;
+  animation: driftCloudsHorizontal 31s linear infinite -6s;
+}
+
+@keyframes driftCloudsHorizontal {
+  0% { transform: translateX(-140px); }
+  100% { transform: translateX(420px); }
+}
+
+.fluffy-cloud-shape {
+  position: relative;
+  width: 82px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: 99px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.1);
+}
+
+.fluffy-cloud-shape::before {
+  content: '';
+  position: absolute;
+  width: 38px;
+  height: 38px;
+  top: -18px;
+  left: 14px;
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: 50%;
+}
+
+.fluffy-cloud-shape::after {
+  content: '';
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: -13px;
+  left: 42px;
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: 50%;
+}
+
+.fluffy-cloud-shape.small {
+  transform: scale(0.75);
+  opacity: 0.88;
+}
+
+.fluffy-cloud-shape.alt {
+  transform: scale(0.65);
+  opacity: 0.82;
+}
+
+/* Rolling Meadow Grass Hills & Wildflowers Floor */
+.stage-meadow-scenery {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.meadow-hill {
+  position: absolute;
+  border-radius: 50% 50% 0 0;
+}
+
+.hill-distant {
+  bottom: 72px;
+  left: -25%;
+  width: 150%;
+  height: 90px;
+  background: linear-gradient(180deg, #86efac 0%, #4ade80 55%, #22c55e 100%);
+  opacity: 0.78;
+}
+
+.hill-mid {
+  bottom: 44px;
+  right: -30%;
+  width: 160%;
+  height: 100px;
+  background: linear-gradient(180deg, #4ade80 0%, #22c55e 50%, #16a34a 100%);
+  opacity: 0.92;
+}
+
+.hill-front {
+  bottom: -6px;
+  left: -15%;
+  width: 130%;
+  height: 102px;
+  background: linear-gradient(180deg, #22c55e 0%, #16a34a 45%, #15803d 100%);
+  box-shadow: inset 0 3px 8px rgba(255, 255, 255, 0.35);
+  border-radius: 45% 45% 0 0;
+}
+
+.meadow-grass-texture {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 14px;
+  background: repeating-linear-gradient(90deg, transparent 0, transparent 6px, rgba(34, 197, 94, 0.6) 6px, #16a34a 8px);
+  opacity: 0.6;
+}
+
+.meadow-wildflowers {
+  position: absolute;
+  top: 14px;
+  left: 15%;
+  right: 15%;
+  display: flex;
+  justify-content: space-around;
+  font-size: 0.95rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.meadow-wildflowers .flower {
+  display: inline-block;
+  animation: flowerBreeze 3.5s ease-in-out infinite alternate;
+}
+
+.flower.f1 { animation-delay: 0s; font-size: 0.9rem; }
+.flower.f2 { animation-delay: 0.6s; font-size: 1rem; }
+.flower.f3 { animation-delay: 1.2s; font-size: 0.85rem; }
+.flower.f4 { animation-delay: 1.8s; font-size: 0.95rem; }
+.flower.f5 { animation-delay: 0.9s; font-size: 1rem; }
+.flower.f6 { animation-delay: 2.1s; font-size: 0.85rem; }
+.flower.f7 { animation-delay: 1.5s; font-size: 0.9rem; }
+.flower.f8 { animation-delay: 0.3s; font-size: 0.95rem; }
+
+@keyframes flowerBreeze {
+  0% { transform: rotate(-5deg) translateY(0); }
+  100% { transform: rotate(5deg) translateY(-2px); }
 }
 
 .bot-particles-layer {
@@ -2550,8 +2838,9 @@ body {
 }
 
 /* --- 1. $5 COFFEE SPARK TOAST ANIMATION --- */
-.bot-character-stage.stage-mode-coffee {
-  background: radial-gradient(circle at 50% 35%, rgba(245, 158, 11, 0.25) 0%, rgba(7, 9, 19, 0.92) 75%);
+.bot-character-stage.stage-mode-coffee .sky-sun-core {
+  background: radial-gradient(circle, #f59e0b 25%, #fbbf24 55%, rgba(245, 158, 11, 0.45) 80%, transparent 100%);
+  transform: scale(1.3);
 }
 
 .coffee-toast-banner {
@@ -2620,8 +2909,12 @@ body {
 }
 
 /* --- 2. $15 SWARM BUILDER REPLICATION & CHAT ANIMATION --- */
-.bot-character-stage.stage-mode-swarm {
-  background: radial-gradient(circle at 50% 40%, rgba(6, 182, 212, 0.22) 0%, rgba(168, 85, 247, 0.18) 50%, rgba(7, 9, 19, 0.95) 85%);
+.bot-character-stage.stage-mode-swarm .stage-sky-scenery::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 35%, rgba(6, 182, 212, 0.22), transparent 70%);
+  pointer-events: none;
 }
 
 .swarm-clone-unit {
