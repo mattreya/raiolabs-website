@@ -839,6 +839,26 @@ Cat 5: Halt! Verified logic is law!"></textarea>
         <div class="bot-ambient-glow" id="bot-ambient-glow"></div>
         <div class="bot-particles-layer" id="bot-particles-layer"></div>
 
+        <!-- SVG Lightning Strike Overlay from Thunder Cloud to RaioBot -->
+        <svg class="cloud-strike-svg hidden" id="cloud-strike-svg" aria-hidden="true">
+          <defs>
+            <filter id="strike-glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="4" result="blur1" />
+              <feGaussianBlur stdDeviation="9" result="blur2" />
+              <feMerge>
+                <feMergeNode in="blur2" />
+                <feMergeNode in="blur1" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+          <path class="strike-path cyan-strike" d="" />
+          <path class="strike-path core-strike" filter="url(#strike-glow)" d="" />
+          <path class="strike-branch branch-1" d="" />
+          <path class="strike-branch branch-2" d="" />
+          <path class="strike-branch branch-3" d="" />
+        </svg>
+
         <!-- Swarm Bot Types Bar (Illustrates IDE Multi-Agent Swarm Simulator in Companion) -->
         <div class="companion-swarm-roster" id="companion-swarm-roster">
           <div class="roster-top-row">
@@ -4638,7 +4658,273 @@ function stopWnitPlayer() {
   state.activeWnitId = null;
 }
 
+// ==========================================================================
+// ⚡ THUNDERCLAP AUDIO SYNTHESIS & CLOUD-TO-BOT LIGHTNING STRIKE
+// ==========================================================================
+
+let thunderAudioCtx = null;
+
+function getThunderAudioContext() {
+  if (!thunderAudioCtx) {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (AudioContextClass) {
+      thunderAudioCtx = new AudioContextClass();
+    }
+  }
+  if (thunderAudioCtx && thunderAudioCtx.state === 'suspended') {
+    thunderAudioCtx.resume();
+  }
+  return thunderAudioCtx;
+}
+
+// Synthesizes a realistic thunderclap using Web Audio API (zero external assets needed)
+function playThunderclapSound() {
+  try {
+    const ctx = getThunderAudioContext();
+    if (!ctx) return;
+
+    const now = ctx.currentTime;
+
+    // 1. Synthesize Pink / Brown Noise Buffer for sharp crack & rolling thunder rumble
+    const bufferSize = Math.floor(ctx.sampleRate * 2.4);
+    const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+
+    let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+    for (let i = 0; i < bufferSize; i++) {
+      const white = Math.random() * 2 - 1;
+      b0 = 0.99886 * b0 + white * 0.0555179;
+      b1 = 0.99332 * b1 + white * 0.0750759;
+      b2 = 0.96900 * b2 + white * 0.1538520;
+      b3 = 0.86650 * b3 + white * 0.3104856;
+      b4 = 0.55000 * b4 + white * 0.5329522;
+      b5 = -0.7616 * b5 - white * 0.0168980;
+      data[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.12;
+      b6 = white * 0.115926;
+    }
+
+    const noiseSource = ctx.createBufferSource();
+    noiseSource.buffer = buffer;
+
+    // 2. High-Frequency Lightning Crack / Electric Transient
+    const crackFilter = ctx.createBiquadFilter();
+    crackFilter.type = 'highpass';
+    crackFilter.frequency.setValueAtTime(850, now);
+    crackFilter.frequency.exponentialRampToValueAtTime(140, now + 0.18);
+
+    const crackGain = ctx.createGain();
+    crackGain.gain.setValueAtTime(0.001, now);
+    crackGain.gain.linearRampToValueAtTime(0.88, now + 0.015);
+    crackGain.gain.exponentialRampToValueAtTime(0.01, now + 0.22);
+
+    // 3. Low-Frequency Rolling Thunder Resonant Rumble
+    const rumbleFilter = ctx.createBiquadFilter();
+    rumbleFilter.type = 'lowpass';
+    rumbleFilter.frequency.setValueAtTime(450, now);
+    rumbleFilter.frequency.linearRampToValueAtTime(180, now + 1.2);
+    rumbleFilter.frequency.linearRampToValueAtTime(70, now + 2.2);
+
+    const rumbleGain = ctx.createGain();
+    rumbleGain.gain.setValueAtTime(0.001, now);
+    rumbleGain.gain.linearRampToValueAtTime(0.95, now + 0.04);
+    rumbleGain.gain.linearRampToValueAtTime(0.7, now + 0.35);
+    rumbleGain.gain.exponentialRampToValueAtTime(0.001, now + 2.3);
+
+    // 4. Sub-Bass Acoustic Punch (Triangle oscillator dropping 135Hz -> 28Hz)
+    const osc = ctx.createOscillator();
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(135, now);
+    osc.frequency.exponentialRampToValueAtTime(28, now + 0.5);
+
+    const oscGain = ctx.createGain();
+    oscGain.gain.setValueAtTime(0.75, now);
+    oscGain.gain.exponentialRampToValueAtTime(0.001, now + 0.65);
+
+    // Node connections
+    noiseSource.connect(crackFilter);
+    crackFilter.connect(crackGain);
+    crackGain.connect(ctx.destination);
+
+    noiseSource.connect(rumbleFilter);
+    rumbleFilter.connect(rumbleGain);
+    rumbleGain.connect(ctx.destination);
+
+    osc.connect(oscGain);
+    oscGain.connect(ctx.destination);
+
+    // Start playback
+    noiseSource.start(now);
+    osc.start(now);
+    osc.stop(now + 0.65);
+    noiseSource.stop(now + 2.35);
+  } catch (err) {
+    console.warn('Web Audio thunderclap error:', err);
+  }
+}
+
+let isBotEnergizedShockActive = false;
+
+// Triggers procedural cloud-to-bot lightning strike, shocked emoji hearts/lightning eyes, and energizes RaioBot
+function triggerCloudToBotLightning() {
+  const stage = document.getElementById('bot-character-stage');
+  const cloud = document.querySelector('.thunder-cloud-bg');
+  const botWrapper = document.getElementById('cute-bot-wrapper');
+  const antennaBulb = document.getElementById('bot-antenna-bulb');
+  const eyesRow = document.getElementById('bot-eyes-row');
+  const strikeSvg = document.getElementById('cloud-strike-svg');
+  const particlesLayer = document.getElementById('bot-particles-layer');
+
+  if (!stage || !cloud || !botWrapper || !antennaBulb || !strikeSvg) return;
+
+  // 1. Procedural Lightning Coordinates (Anchored from Cloud center to Bot Antenna)
+  const stageRect = stage.getBoundingClientRect();
+  const cloudRect = cloud.getBoundingClientRect();
+  const antRect = antennaBulb.getBoundingClientRect();
+
+  const startX = cloudRect.left + cloudRect.width * 0.45 - stageRect.left;
+  const startY = cloudRect.top + cloudRect.height * 0.7 - stageRect.top;
+
+  const endX = antRect.left + antRect.width * 0.5 - stageRect.left;
+  const endY = antRect.top + antRect.height * 0.2 - stageRect.top;
+
+  const dx = endX - startX;
+  const dy = endY - startY;
+  const segments = 6;
+  const points = [`M ${startX.toFixed(1)} ${startY.toFixed(1)}`];
+
+  for (let i = 1; i < segments; i++) {
+    const ratio = i / segments;
+    const jitterX = (Math.random() - 0.5) * 45;
+    const jitterY = (Math.random() - 0.5) * 18;
+    const px = startX + dx * ratio + jitterX;
+    const py = startY + dy * ratio + jitterY;
+    points.push(`L ${px.toFixed(1)} ${py.toFixed(1)}`);
+  }
+  points.push(`L ${endX.toFixed(1)} ${endY.toFixed(1)}`);
+  const pathD = points.join(' ');
+
+  // Update SVG paths
+  const corePath = strikeSvg.querySelector('.core-strike');
+  const cyanPath = strikeSvg.querySelector('.cyan-strike');
+  if (corePath) corePath.setAttribute('d', pathD);
+  if (cyanPath) cyanPath.setAttribute('d', pathD);
+
+  // Generate electric branches
+  const b1 = strikeSvg.querySelector('.branch-1');
+  const b2 = strikeSvg.querySelector('.branch-2');
+  const b3 = strikeSvg.querySelector('.branch-3');
+  if (b1) b1.setAttribute('d', `M ${(startX + dx * 0.28).toFixed(1)} ${(startY + dy * 0.28).toFixed(1)} L ${(startX + dx * 0.28 - 25).toFixed(1)} ${(startY + dy * 0.28 + 20).toFixed(1)} L ${(startX + dx * 0.28 - 40).toFixed(1)} ${(startY + dy * 0.28 + 32).toFixed(1)}`);
+  if (b2) b2.setAttribute('d', `M ${(startX + dx * 0.55).toFixed(1)} ${(startY + dy * 0.55).toFixed(1)} L ${(startX + dx * 0.55 + 28).toFixed(1)} ${(startY + dy * 0.55 + 18).toFixed(1)} L ${(startX + dx * 0.55 + 42).toFixed(1)} ${(startY + dy * 0.55 + 35).toFixed(1)}`);
+  if (b3) b3.setAttribute('d', `M ${(startX + dx * 0.78).toFixed(1)} ${(startY + dy * 0.78).toFixed(1)} L ${(startX + dx * 0.78 - 22).toFixed(1)} ${(startY + dy * 0.78 + 16).toFixed(1)}`);
+
+  // Activate Cloud discharge & Lightning SVG
+  cloud.classList.add('cloud-discharging');
+  strikeSvg.classList.remove('hidden', 'strike-active');
+  void strikeSvg.offsetWidth;
+  strikeSvg.classList.add('strike-active');
+
+  setTimeout(() => {
+    strikeSvg.classList.remove('strike-active');
+    strikeSvg.classList.add('hidden');
+    cloud.classList.remove('cloud-discharging');
+  }, 480);
+
+  // 2. Bot Shocked & Energized State
+  if (isBotEnergizedShockActive) return;
+  isBotEnergizedShockActive = true;
+
+  botWrapper.classList.add('bot-energized-shock');
+
+  // Save original eyes & antenna
+  const originalEyesHtml = eyesRow ? eyesRow.innerHTML : '';
+  const originalAntenna = antennaBulb ? antennaBulb.textContent : '💖';
+
+  if (antennaBulb) antennaBulb.textContent = '⚡';
+
+  // Eye Animation Sequence: alternating shocked lightning bolt eyes & cute heart eyes
+  const eyeStates = [
+    '<span class="shock-eye-glyph left">⚡</span><span class="shock-eye-glyph right">⚡</span>',
+    '<span class="shock-eye-glyph left">💖</span><span class="shock-eye-glyph right">💖</span>',
+    '<span class="shock-eye-glyph left">⚡</span><span class="shock-eye-glyph right">💖</span>',
+    '<span class="shock-eye-glyph left">💖</span><span class="shock-eye-glyph right">⚡</span>'
+  ];
+
+  let stateIdx = 0;
+  if (eyesRow) eyesRow.innerHTML = eyeStates[0];
+
+  const eyeInterval = setInterval(() => {
+    stateIdx = (stateIdx + 1) % eyeStates.length;
+    if (eyesRow) eyesRow.innerHTML = eyeStates[stateIdx];
+  }, 280);
+
+  // 3. Spawn Burst of Floating Emoji Hearts & Lightning Sparks from RaioBot
+  if (particlesLayer) {
+    const botRect = botWrapper.getBoundingClientRect();
+    const botCenterX = botRect.left + botRect.width * 0.5 - stageRect.left;
+    const botCenterY = botRect.top + botRect.height * 0.45 - stageRect.top;
+
+    const emojiPalette = ['⚡', '💖', '⚡', '💕', '⚡', '💓', '✨', '⚡', '💗', '⚡', '🌟', '💖', '⚡', '❤️', '⚡'];
+
+    for (let i = 0; i < 22; i++) {
+      setTimeout(() => {
+        const particle = document.createElement('span');
+        particle.className = 'shock-particle';
+        particle.textContent = emojiPalette[i % emojiPalette.length];
+        particle.style.left = `${botCenterX}px`;
+        particle.style.top = `${botCenterY}px`;
+
+        const dx = (Math.random() - 0.5) * 160;
+        const dy1 = -20 - Math.random() * 35;
+        const dy2 = -65 - Math.random() * 45;
+        const dy3 = -120 - Math.random() * 70;
+        const rot1 = (Math.random() - 0.5) * 40;
+        const rot2 = (Math.random() - 0.5) * 60;
+        const rot3 = (Math.random() - 0.5) * 100;
+
+        particle.style.setProperty('--p-dx', `${dx.toFixed(1)}px`);
+        particle.style.setProperty('--p-dy1', `${dy1.toFixed(1)}px`);
+        particle.style.setProperty('--p-dy2', `${dy2.toFixed(1)}px`);
+        particle.style.setProperty('--p-dy3', `${dy3.toFixed(1)}px`);
+        particle.style.setProperty('--p-rot1', `${rot1.toFixed(1)}deg`);
+        particle.style.setProperty('--p-rot2', `${rot2.toFixed(1)}deg`);
+        particle.style.setProperty('--p-rot3', `${rot3.toFixed(1)}deg`);
+
+        particlesLayer.appendChild(particle);
+
+        setTimeout(() => particle.remove(), 1650);
+      }, i * 45);
+    }
+  }
+
+  // 4. Speech Reaction & KEV Telemetry
+  setBotReaction(
+    'hype',
+    '⚡ BZZZZT! 💖 ENERGIZED TO 10,000 VOLTS!',
+    '⚡ BZZZZT! 💖 A bolt from the RaioLabs thundercloud energized my circuits! Running on 10,000 Volts of pure love, code, and lightning!',
+    '⚡'
+  );
+  emitKevAnalysis('LIGHTNING_ENERGIZED', 'Cloud-to-Bot lightning discharge energized RaioBot with emoji hearts & lightning eyes.', null, null, 'action');
+
+  // 5. Complete Shock & Transition to Ultra-Energized Happy Dance
+  setTimeout(() => {
+    clearInterval(eyeInterval);
+    if (eyesRow) eyesRow.innerHTML = originalEyesHtml;
+    if (antennaBulb) antennaBulb.textContent = originalAntenna || '💖';
+    botWrapper.classList.remove('bot-energized-shock');
+
+    // Trigger celebratory victory hop
+    botWrapper.classList.add('bot-bounce-once');
+    setTimeout(() => botWrapper.classList.remove('bot-bounce-once'), 600);
+
+    isBotEnergizedShockActive = false;
+  }, 1850);
+}
+
 function triggerRaioLightningSurge(announce = true) {
+  // 1. Play synthesized thunderclap sound effect (sharp snap + rumble + sub-bass)
+  playThunderclapSound();
+
+  // 2. Flash background lightning bolts & header/hero crests
   const overlay = document.getElementById('raio-lightning-overlay');
   const headerCrest = document.getElementById('raio-header-crest');
   const heroCrest = document.getElementById('hero-crest-showcase');
@@ -4651,14 +4937,11 @@ function triggerRaioLightningSurge(announce = true) {
     setTimeout(() => el.classList.remove('lightning-surge-active'), 1100);
   });
 
+  // 3. Shoot lightning bolt from dark cloud to RaioBot + trigger shocked emoji hearts/bolts animation
+  triggerCloudToBotLightning();
+
   if (announce) {
-    setBotReaction(
-      'hype',
-      '⚡ RAIOLABS PLASMA SURGE!',
-      '⚡ "Raio" means Lightning! Engaging the Five-Star Cyber Shield, electric ice-cyan arcs, and golden plasma spear across all IDE worktrees! 🛡️⚡',
-      '⚡'
-    );
-    logToTerminal('action', 'RAIO_BOLT', 'Triggered RaioLabs LLC Golden Spear & Ice-Cyan Lightning Surge.');
+    logToTerminal('action', 'THUNDERCLAP', '⚡ Raiolabs Logo Thunderclap: Cloud lightning bolt struck RaioBot with 10kV love surge!');
   }
 }
 
@@ -4676,13 +4959,27 @@ function setupRaioLabsListeners() {
     }
   };
 
-  // Bind RaioLabs Shield Crest clicks to trigger Lightning Surge
+  // Bind RaioLabs Shield Crest, Logo Container, and Dark Thunder Cloud clicks to trigger Lightning Surge + Thunderclap
   ['raio-header-crest', 'hero-crest-showcase'].forEach(id => {
     const el = document.getElementById(id);
     if (el) {
       el.addEventListener('click', () => triggerRaioLightningSurge(true));
     }
   });
+
+  const logoContainer = document.querySelector('.logo-container');
+  if (logoContainer) {
+    logoContainer.addEventListener('click', (e) => {
+      // Don't duplicate if header crest was directly clicked
+      if (e.target.closest('#raio-header-crest')) return;
+      triggerRaioLightningSurge(true);
+    });
+  }
+
+  const thunderCloud = document.querySelector('.thunder-cloud-bg');
+  if (thunderCloud) {
+    thunderCloud.addEventListener('click', () => triggerRaioLightningSurge(true));
+  }
 
   // --- RECENT APPEARANCES MODAL & FOREGROUND YOUTUBE PLAYER ---
   const openAppearancesBtn = document.getElementById('btn-open-appearances');
