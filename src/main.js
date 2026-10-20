@@ -566,6 +566,10 @@ function renderLayout() {
               <!-- Dynamic Stage Effects Overlay (Lightning, Spotlights) -->
               <div class="stage-lightning-flash" id="stage-lightning-flash"></div>
               <div class="stage-scene-badge" id="stage-scene-badge">Scene: The Backlit Stage of Silicon</div>
+              <div class="gamelan-music-indicator hidden" id="gamelan-music-indicator" title="Traditional Wayang Kulit Gamelan Slendro Music Active">
+                <span class="gamelan-pulse-icon">🎶</span>
+                <span>Gamelan Slendro (Java / Bali)</span>
+              </div>
 
               <!-- Puppets on Stage Container -->
               <div class="shadow-puppets-container" id="shadow-puppets-container">
@@ -636,6 +640,9 @@ function renderLayout() {
             </button>
             <button class="puppet-btn danger-puppet-btn" id="btn-puppet-reset" title="Reset Stage & Puppets">
               <span>⏹</span> Reset
+            </button>
+            <button class="puppet-btn gamelan-music-btn" id="btn-toggle-gamelan" type="button" title="Toggle Traditional Wayang Kulit Gamelan Music (Java/Bali Slendro Scale)">
+              <span id="gamelan-btn-icon">🎵</span> <span id="gamelan-btn-text">Gamelan: ON</span>
             </button>
 
             <div class="director-speed-wrap">
@@ -3655,6 +3662,10 @@ function bindShadowPuppetControls() {
   if (resetBtn) {
     resetBtn.onclick = () => resetPuppetTheatre();
   }
+  const gamelanToggleBtn = document.getElementById('btn-toggle-gamelan');
+  if (gamelanToggleBtn) {
+    gamelanToggleBtn.onclick = () => toggleGamelanMute();
+  }
   if (speedSel) {
     speedSel.onchange = (e) => {
       state.shadowPuppet.speed = parseFloat(e.target.value) || 1.0;
@@ -3908,6 +3919,268 @@ Narrator: When the bots build with joy and trust, wonderful creations blossom!
   }
 }
 
+// ============================================================================
+// 🎵 TRADITIONAL INDONESIAN WAYANG KULIT GAMELAN MUSIC ENGINE (SLENDRO SCALE)
+// Handcrafted bronze metallophone, kettle gong (kenong), and gong ageng synthesis
+// ============================================================================
+
+let gamelanAudioCtx = null;
+let gamelanTimer = null;
+let isGamelanPlaying = false;
+let isGamelanMuted = false;
+let gamelanBeat = 0;
+let gamelanMasterGain = null;
+
+// Slendro 5-tone scale base frequencies (Hz) in 3 octaves
+const GAMELAN_SLENDRO = {
+  // Bronze Metallophone (Saron / Peking)
+  saron: [327.0, 367.5, 412.0, 490.0, 550.0],
+  peking: [654.0, 735.0, 824.0, 980.0, 1100.0],
+  // Kettle gongs (Kenong / Ketuk)
+  kenong: [163.5, 183.8, 206.0, 245.0, 275.0],
+  // Deep Great Gong (Gong Ageng) & Hanging Gong (Kempul)
+  gongAgeng: 73.4,
+  kempul: 146.8
+};
+
+// Traditional Wayang Kulit Lancaran Melody pattern (16-beat cycle in Slendro scale)
+const GAMELAN_MELODY_PATTERN = [
+  0, 1, 2, 4,
+  3, 2, 1, 0,
+  2, 3, 4, 3,
+  2, 1, 0, 4
+];
+
+function getGamelanAudioContext() {
+  if (!gamelanAudioCtx) {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (AudioContextClass) {
+      gamelanAudioCtx = new AudioContextClass();
+    }
+  }
+  if (gamelanAudioCtx && gamelanAudioCtx.state === 'suspended') {
+    gamelanAudioCtx.resume();
+  }
+  return gamelanAudioCtx;
+}
+
+// Synthesizes a striking bronze metallophone note with inharmonic metallic partials
+function playBronzeMetallophone(freq, duration = 1.4, gainLevel = 0.22) {
+  try {
+    const ctx = getGamelanAudioContext();
+    if (!ctx || isGamelanMuted) return;
+
+    const now = ctx.currentTime;
+
+    // Bronze inharmonic partial ratios: fundamental, 2.76, 5.4, 8.92
+    const partials = [
+      { ratio: 1.0, gain: 1.0, decay: duration },
+      { ratio: 2.76, gain: 0.45, decay: duration * 0.65 },
+      { ratio: 5.40, gain: 0.25, decay: duration * 0.4 },
+      { ratio: 8.92, gain: 0.12, decay: duration * 0.25 }
+    ];
+
+    const noteGain = ctx.createGain();
+    noteGain.gain.setValueAtTime(gainLevel, now);
+    noteGain.connect(gamelanMasterGain || ctx.destination);
+
+    partials.forEach(p => {
+      const osc = ctx.createOscillator();
+      const pGain = ctx.createGain();
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq * p.ratio, now);
+
+      // Fast percussive mallet strike (3ms attack) with exponential ringing decay
+      pGain.gain.setValueAtTime(0.001, now);
+      pGain.gain.linearRampToValueAtTime(p.gain, now + 0.004);
+      pGain.gain.exponentialRampToValueAtTime(0.0001, now + p.decay);
+
+      osc.connect(pGain);
+      pGain.connect(noteGain);
+
+      osc.start(now);
+      osc.stop(now + p.decay);
+    });
+  } catch (e) {}
+}
+
+// Synthesizes the deep resonant Gong Ageng with acoustic beating ombak wave
+function playGongAgeng(freq = 73.4) {
+  try {
+    const ctx = getGamelanAudioContext();
+    if (!ctx || isGamelanMuted) return;
+
+    const now = ctx.currentTime;
+    const duration = 4.5;
+
+    // Dual slightly detuned oscillators produce the authentic Indonesian "ombak" wave (2.4 Hz beat)
+    const osc1 = ctx.createOscillator();
+    const osc2 = ctx.createOscillator();
+    const gongFilter = ctx.createBiquadFilter();
+    const gongGain = ctx.createGain();
+
+    osc1.type = 'sine';
+    osc2.type = 'sine';
+    osc1.frequency.setValueAtTime(freq, now);
+    osc2.frequency.setValueAtTime(freq + 2.4, now); // Natural ombak beating
+
+    gongFilter.type = 'lowpass';
+    gongFilter.frequency.setValueAtTime(320, now);
+    gongFilter.Q.setValueAtTime(3.5, now);
+
+    gongGain.gain.setValueAtTime(0.001, now);
+    gongGain.gain.linearRampToValueAtTime(0.55, now + 0.02);
+    gongGain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+    osc1.connect(gongFilter);
+    osc2.connect(gongFilter);
+    gongFilter.connect(gongGain);
+    gongGain.connect(gamelanMasterGain || ctx.destination);
+
+    osc1.start(now);
+    osc2.start(now);
+    osc1.stop(now + duration);
+    osc2.stop(now + duration);
+  } catch (e) {}
+}
+
+// Synthesizes tuned kettle gong (Kenong / Ketuk)
+function playKenongGong(freq = 245.0) {
+  try {
+    const ctx = getGamelanAudioContext();
+    if (!ctx || isGamelanMuted) return;
+
+    const now = ctx.currentTime;
+    const osc = ctx.createOscillator();
+    const oscHarmonic = ctx.createOscillator();
+    const kGain = ctx.createGain();
+
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(freq, now);
+    oscHarmonic.type = 'sine';
+    oscHarmonic.frequency.setValueAtTime(freq * 2.02, now);
+
+    kGain.gain.setValueAtTime(0.001, now);
+    kGain.gain.linearRampToValueAtTime(0.35, now + 0.005);
+    kGain.gain.exponentialRampToValueAtTime(0.0001, now + 2.2);
+
+    osc.connect(kGain);
+    oscHarmonic.connect(kGain);
+    kGain.connect(gamelanMasterGain || ctx.destination);
+
+    osc.start(now);
+    oscHarmonic.start(now);
+    osc.stop(now + 2.2);
+    oscHarmonic.stop(now + 2.2);
+  } catch (e) {}
+}
+
+function startGamelanMusic() {
+  if (isGamelanMuted) return;
+  const ctx = getGamelanAudioContext();
+  if (!ctx) return;
+
+  if (isGamelanPlaying) return;
+  isGamelanPlaying = true;
+  gamelanBeat = 0;
+
+  // Master gain for smooth fade-in
+  gamelanMasterGain = ctx.createGain();
+  gamelanMasterGain.gain.setValueAtTime(0.001, ctx.currentTime);
+  gamelanMasterGain.gain.linearRampToValueAtTime(0.55, ctx.currentTime + 1.2);
+  gamelanMasterGain.connect(ctx.destination);
+
+  const indicator = document.getElementById('gamelan-music-indicator');
+  if (indicator) indicator.classList.remove('hidden');
+
+  stepGamelanSequence();
+}
+
+function stopGamelanMusic() {
+  if (!isGamelanPlaying) return;
+  isGamelanPlaying = false;
+  clearTimeout(gamelanTimer);
+
+  if (gamelanMasterGain && gamelanAudioCtx) {
+    try {
+      const now = gamelanAudioCtx.currentTime;
+      gamelanMasterGain.gain.linearRampToValueAtTime(0.0001, now + 0.8);
+      setTimeout(() => {
+        if (!isGamelanPlaying && gamelanMasterGain) {
+          try { gamelanMasterGain.disconnect(); } catch (e) {}
+          gamelanMasterGain = null;
+        }
+      }, 900);
+    } catch (e) {}
+  }
+
+  const indicator = document.getElementById('gamelan-music-indicator');
+  if (indicator) indicator.classList.add('hidden');
+}
+
+function stepGamelanSequence() {
+  if (!isGamelanPlaying) return;
+
+  const speed = state.shadowPuppet.speed || 1.0;
+  // Standard tempo: ~320ms per beat, scaled by speed
+  const beatInterval = Math.max(160, Math.floor(320 / speed));
+  const beatIndex = gamelanBeat % 16;
+
+  // 1. Great Gong Ageng strikes on beat 0 (16-beat cycle completion)
+  if (beatIndex === 0) {
+    playGongAgeng(GAMELAN_SLENDRO.gongAgeng);
+  }
+
+  // 2. Kenong kettle gong marks every 4th beat
+  if (beatIndex % 4 === 0) {
+    const kenongNote = GAMELAN_SLENDRO.kenong[beatIndex % GAMELAN_SLENDRO.kenong.length];
+    playKenongGong(kenongNote);
+  }
+
+  // 3. Kempul hanging chime on off-beats (beat 8)
+  if (beatIndex === 8) {
+    playKenongGong(GAMELAN_SLENDRO.kempul);
+  }
+
+  // 4. Melodic Bronze Metallophone (Saron) on every beat
+  const melodyNoteIdx = GAMELAN_MELODY_PATTERN[beatIndex % GAMELAN_MELODY_PATTERN.length];
+  const saronFreq = GAMELAN_SLENDRO.saron[melodyNoteIdx];
+  playBronzeMetallophone(saronFreq, 1.2, 0.22);
+
+  // 5. Higher shimmering Peking metallophone on alternate beats
+  if (beatIndex % 2 === 0) {
+    const pekingFreq = GAMELAN_SLENDRO.peking[(melodyNoteIdx + 2) % GAMELAN_SLENDRO.peking.length];
+    playBronzeMetallophone(pekingFreq, 0.8, 0.12);
+  }
+
+  gamelanBeat++;
+  gamelanTimer = setTimeout(stepGamelanSequence, beatInterval);
+}
+
+function toggleGamelanMute() {
+  isGamelanMuted = !isGamelanMuted;
+  const btn = document.getElementById('btn-toggle-gamelan');
+  const icon = document.getElementById('gamelan-btn-icon');
+  const txt = document.getElementById('gamelan-btn-text');
+
+  if (isGamelanMuted) {
+    stopGamelanMusic();
+    if (btn) btn.classList.add('muted');
+    if (icon) icon.textContent = '🔇';
+    if (txt) txt.textContent = 'Gamelan: MUTED';
+    logToTerminal('info', 'GAMELAN_AUDIO', 'Muted traditional Indonesian Wayang Kulit Gamelan music.');
+  } else {
+    if (btn) btn.classList.remove('muted');
+    if (icon) icon.textContent = '🎵';
+    if (txt) txt.textContent = 'Gamelan: ON';
+    if (state.shadowPuppet.isPlaying) {
+      startGamelanMusic();
+    }
+    logToTerminal('info', 'GAMELAN_AUDIO', 'Enabled traditional Indonesian Wayang Kulit Gamelan music.');
+  }
+}
+
 function togglePuppetPlayback() {
   if (state.shadowPuppet.isPlaying) {
     pausePuppetPlayback();
@@ -3931,13 +4204,16 @@ function playPuppetPlayback() {
   state.shadowPuppet.isPlaying = true;
   updatePlayButtonUI(true);
 
+  // Start traditional Indonesian Gamelan music during the performance!
+  startGamelanMusic();
+
   // If at the end of story, wrap back to cue 0
   if (state.shadowPuppet.currentCueIndex >= state.shadowPuppet.cues.length - 1) {
     state.shadowPuppet.currentCueIndex = -1;
     resetPuppetPositions();
   }
 
-  logToTerminal('info', 'PUPPET_PLAY', `▶ Act out scene started (${state.shadowPuppet.cues.length} cues total).`);
+  logToTerminal('info', 'PUPPET_PLAY', `▶ Act out scene started with Gamelan Slendro music (${state.shadowPuppet.cues.length} cues total).`);
   scheduleNextCue();
 }
 
@@ -3946,6 +4222,10 @@ function pausePuppetPlayback() {
   clearTimeout(puppetPlayTimer);
   updatePlayButtonUI(false);
   document.querySelectorAll('.shadow-puppet-actor').forEach(p => p.classList.remove('speaking'));
+
+  // Pause Gamelan music
+  stopGamelanMusic();
+
   logToTerminal('info', 'PUPPET_PAUSE', '⏸ Performance paused.');
 }
 
@@ -4209,6 +4489,7 @@ function setSubtitleBanner(symbol, name, text, color) {
   }
   if (textBox) {
     textBox.textContent = text;
+    textBox.scrollTop = 0;
   }
 }
 
@@ -4228,12 +4509,14 @@ function typeSubtitleText(symbol, name, fullText, color) {
 
   let charIndex = 0;
   const speed = state.shadowPuppet.speed || 1.0;
-  const charDelay = Math.max(8, Math.floor(22 / speed));
+  const charDelay = Math.max(6, Math.floor(18 / speed));
 
   function stepType() {
     if (charIndex < fullText.length) {
       textBox.textContent += fullText.charAt(charIndex);
       charIndex++;
+      // Keep entire sentence in readable view as words type out
+      textBox.scrollTop = textBox.scrollHeight;
       typingTimeoutId = setTimeout(stepType, charDelay);
     }
   }
