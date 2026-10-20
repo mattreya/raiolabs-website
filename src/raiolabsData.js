@@ -610,3 +610,177 @@ export const CYBER_OWASP_EVENTS = [
   }
 ];
 
+// ==========================================================================
+// WHAT'S NEW IN TECH (WNIT) — GOOGLE DRIVE SHARED MEDIA VAULT
+// Complete media inventory from Google Drive Shared Folder
+// Share URL: https://drive.google.com/drive/folders/1g1XaBYTYRL0wgJ4nl8sH1EkTC2QG_aNP?usp=sharing
+// ==========================================================================
+
+export const WNIT_SHARED_FOLDER_URL = 'https://drive.google.com/drive/folders/1g1XaBYTYRL0wgJ4nl8sH1EkTC2QG_aNP?usp=sharing';
+
+export const WNIT_MEDIA_ITEMS = [
+  {
+    id: 'wnit-vol1-ep5-john-capobianco',
+    driveFileId: '1Iqy2KqCHmhA1eThhYDk0MR9jl5_627v5',
+    title: 'WNiT Volume 1 • Episode 5: John Capobianco — AI, Network Automation & VibeOps',
+    fileName: 'WNiT_Volume 1_Ep5_John Capobianco.mp4',
+    guest: 'John Capobianco',
+    series: "What's New In Tech (WNIT)",
+    mediaType: 'video',
+    format: 'MP4 Video (HD)',
+    badge: 'FEATURED GUEST • JOHN CAPOBIANCO',
+    episodeNumber: 'Vol 1 • Ep 5',
+    date: 'Volume 1 • Episode 5',
+    embedUrl: 'https://drive.google.com/file/d/1Iqy2KqCHmhA1eThhYDk0MR9jl5_627v5/preview',
+    directUrl: 'https://drive.google.com/file/d/1Iqy2KqCHmhA1eThhYDk0MR9jl5_627v5/view?usp=sharing',
+    folderUrl: WNIT_SHARED_FOLDER_URL,
+    summary: 'Matt Raio and guest John Capobianco (creator of Automate Your Network & VibeOps) dive deep into generative AI for engineers, autonomous network operations, and multi-agent bot swarms in production.',
+    tags: ['John Capobianco', 'VibeOps', 'Network Automation', 'AI Swarms', 'WNIT']
+  },
+  {
+    id: 'wnit-vol1-ep4-deepak-kakadia-video',
+    driveFileId: '1aK6Jde8VDK_DXisUaQ0Sb3L51rj5zIg7',
+    title: 'WNiT Season 1 • Episode 4: Deepak Kakadia — High-Scale Carrier Networks & Autonomous Systems',
+    fileName: 'WNiT_Season1_Ep4_Deepak Kakadia.mp4',
+    guest: 'Deepak Kakadia',
+    series: "What's New In Tech (WNIT)",
+    mediaType: 'video',
+    format: 'MP4 Video (HD)',
+    badge: 'FEATURED GUEST • DEEPAK KAKADIA',
+    episodeNumber: 'Season 1 • Ep 4',
+    date: 'Season 1 • Episode 4',
+    embedUrl: 'https://drive.google.com/file/d/1aK6Jde8VDK_DXisUaQ0Sb3L51rj5zIg7/preview',
+    directUrl: 'https://drive.google.com/file/d/1aK6Jde8VDK_DXisUaQ0Sb3L51rj5zIg7/view?usp=sharing',
+    folderUrl: WNIT_SHARED_FOLDER_URL,
+    summary: 'Matt Raio hosts telecom luminary Deepak Kakadia exploring high-scale carrier networks, edge compute resilience, autonomic routing, and next-gen infrastructure paradigms.',
+    tags: ['Deepak Kakadia', 'WNIT', 'Carrier Networks', 'Edge Compute', 'Autonomous Tech']
+  },
+  {
+    id: 'wnit-vol1-ep4-deepak-kakadia-audio',
+    driveFileId: '1JTsJtp3gce8GoXyusYNQWSlU8umbt6Mg',
+    title: 'WNiT Season 1 • Episode 4: Deepak Kakadia (Studio Audio Podcast Master)',
+    fileName: 'WNiT_audio_S1_E4_Deepak.mp3',
+    guest: 'Deepak Kakadia',
+    series: "What's New In Tech (WNIT)",
+    mediaType: 'audio',
+    format: 'MP3 Audio (Studio Master)',
+    badge: 'SEASON 1 • EPISODE 4 • AUDIO PODCAST',
+    episodeNumber: 'Season 1 • Ep 4 (Audio)',
+    date: 'Season 1 • Episode 4 Audio Master',
+    embedUrl: 'https://drive.google.com/file/d/1JTsJtp3gce8GoXyusYNQWSlU8umbt6Mg/preview',
+    directUrl: 'https://drive.google.com/file/d/1JTsJtp3gce8GoXyusYNQWSlU8umbt6Mg/view?usp=sharing',
+    folderUrl: WNIT_SHARED_FOLDER_URL,
+    summary: 'Direct studio audio podcast master of Episode 4 featuring Deepak Kakadia on modern distributed telecoms, cloud networks, and autonomous routing.',
+    tags: ['Deepak Kakadia', 'Audio Podcast', 'Telecoms', 'Autonomic Systems', 'WNIT']
+  },
+  {
+    id: 'wnit-vol1-ep4-cut2',
+    driveFileId: '1VhbeOyyCrr2zltXW9Qymo4cLVdvYVD0Z',
+    title: 'WNiT Volume 1 • Episode 4: Deep Dive Session (Full Video Master)',
+    fileName: 'WNiT_Vol1_Ep4.mp4',
+    guest: 'Deepak Kakadia',
+    series: "What's New In Tech (WNIT)",
+    mediaType: 'video',
+    format: 'MP4 Video (HD)',
+    badge: 'VOL 1 • EPISODE 4 • MASTER CUT',
+    episodeNumber: 'Vol 1 • Ep 4',
+    date: 'Volume 1 • Episode 4',
+    embedUrl: 'https://drive.google.com/file/d/1VhbeOyyCrr2zltXW9Qymo4cLVdvYVD0Z/preview',
+    directUrl: 'https://drive.google.com/file/d/1VhbeOyyCrr2zltXW9Qymo4cLVdvYVD0Z/view?usp=sharing',
+    folderUrl: WNIT_SHARED_FOLDER_URL,
+    summary: 'Extended video edition of WNiT Volume 1 Episode 4 examining carrier-grade resilience, edge telemetry, and autonomic architecture.',
+    tags: ['WNIT', 'Resilience', 'Edge Telemetry', 'Carrier Networks', 'Video Cut']
+  },
+  {
+    id: 'wnit-vol1-ep3-video',
+    driveFileId: '1RCQ8GAKhKACFB_EmLYgkwTEKAKB9ABqb',
+    title: 'WNiT Volume 1 • Episode 3: Advanced Cloud & Distributed Systems',
+    fileName: 'WNIT_Vol1_Ep3.mp4',
+    guest: 'Matt Raio & Guests',
+    series: "What's New In Tech (WNIT)",
+    mediaType: 'video',
+    format: 'MP4 Video (HD)',
+    badge: 'VOL 1 • EPISODE 3 • VIDEO',
+    episodeNumber: 'Vol 1 • Ep 3',
+    date: 'Volume 1 • Episode 3',
+    embedUrl: 'https://drive.google.com/file/d/1RCQ8GAKhKACFB_EmLYgkwTEKAKB9ABqb/preview',
+    directUrl: 'https://drive.google.com/file/d/1RCQ8GAKhKACFB_EmLYgkwTEKAKB9ABqb/view?usp=sharing',
+    folderUrl: WNIT_SHARED_FOLDER_URL,
+    summary: 'Full video broadcast exploring distributed systems, container workflows, and cloud-native scaling patterns with Matt Raio.',
+    tags: ['WNIT', 'Cloud Native', 'Distributed Systems', 'Video Broadcast', 'Containers']
+  },
+  {
+    id: 'wnit-vol1-ep3-audio',
+    driveFileId: '1YHGMMPnYsuvbSj0jGE5H7KFWw_ou6zdp',
+    title: 'WNiT Season 1 • Episode 3: Audio Podcast Edition',
+    fileName: 'WNiT_Season1_Ep3.mp3',
+    guest: 'Matt Raio',
+    series: "What's New In Tech (WNIT)",
+    mediaType: 'audio',
+    format: 'MP3 Audio (Studio Master)',
+    badge: 'SEASON 1 • EPISODE 3 • AUDIO PODCAST',
+    episodeNumber: 'Season 1 • Ep 3 (Audio)',
+    date: 'Season 1 • Episode 3 Audio Master',
+    embedUrl: 'https://drive.google.com/file/d/1YHGMMPnYsuvbSj0jGE5H7KFWw_ou6zdp/preview',
+    directUrl: 'https://drive.google.com/file/d/1YHGMMPnYsuvbSj0jGE5H7KFWw_ou6zdp/view?usp=sharing',
+    folderUrl: WNIT_SHARED_FOLDER_URL,
+    summary: 'High-fidelity audio podcast edition of Episode 3 for on-the-go streaming, commuting, and offline listening.',
+    tags: ['WNIT', 'Podcast', 'Audio Edition', 'Episode 3', 'Cloud Systems']
+  },
+  {
+    id: 'wnit-vol1-ep2-video',
+    driveFileId: '1hTJWEo6ST-8gDc0y_l3ihTcu13fQgDgj',
+    title: 'WNiT Volume 1 • Episode 2: Modern Tech Architectures & Observability',
+    fileName: 'WNIT_Vol1_Ep2.mp4',
+    guest: 'Matt Raio',
+    series: "What's New In Tech (WNIT)",
+    mediaType: 'video',
+    format: 'MP4 Video (HD)',
+    badge: 'VOL 1 • EPISODE 2 • VIDEO',
+    episodeNumber: 'Vol 1 • Ep 2',
+    date: 'Volume 1 • Episode 2',
+    embedUrl: 'https://drive.google.com/file/d/1hTJWEo6ST-8gDc0y_l3ihTcu13fQgDgj/preview',
+    directUrl: 'https://drive.google.com/file/d/1hTJWEo6ST-8gDc0y_l3ihTcu13fQgDgj/view?usp=sharing',
+    folderUrl: WNIT_SHARED_FOLDER_URL,
+    summary: 'Hands-on breakdown of system architecture patterns, observability stacks, and navigating enterprise production bottlenecks.',
+    tags: ['WNIT', 'Architecture', 'Observability', 'Systems Engineering']
+  },
+  {
+    id: 'wnit-vol1-ep1-video',
+    driveFileId: '1z8G5-bOxXX4vP40y9fClclePPN4vTuUO',
+    title: 'WNiT Volume 1 • Episode 1: What\'s New In Tech Inaugural Session',
+    fileName: 'WNIT_Vol1_Ep1.mp4',
+    guest: 'Matt Raio',
+    series: "What's New In Tech (WNIT)",
+    mediaType: 'video',
+    format: 'MP4 Video (HD)',
+    badge: 'VOL 1 • EPISODE 1 • INAUGURAL',
+    episodeNumber: 'Vol 1 • Ep 1',
+    date: 'Volume 1 • Episode 1',
+    embedUrl: 'https://drive.google.com/file/d/1z8G5-bOxXX4vP40y9fClclePPN4vTuUO/preview',
+    directUrl: 'https://drive.google.com/file/d/1z8G5-bOxXX4vP40y9fClclePPN4vTuUO/view?usp=sharing',
+    folderUrl: WNIT_SHARED_FOLDER_URL,
+    summary: 'The inaugural episode of What\'s New In Tech (WNIT) hosted by Matt Raio, setting the vision for emerging technology analysis, automation pipelines, and modern infrastructure.',
+    tags: ['WNIT', 'Inaugural', 'Automation', 'DevOps', 'Emerging Tech']
+  },
+  {
+    id: 'wnit-vol1-ep5-doc',
+    driveFileId: '1hk7iCVF0BnHrf-T7z0ZE3wcr4Gu3t-W5qM3wqVI6y8I',
+    title: 'WNiT Volume 1 • Episode 5: John Capobianco (Google Drive Document & Session Notes)',
+    fileName: 'WNiT_Volume 1_Ep5_John Capobianco',
+    guest: 'John Capobianco',
+    series: "What's New In Tech (WNIT)",
+    mediaType: 'doc',
+    format: 'Google Docs / Session Companion',
+    badge: 'EPISODE 5 • SESSION NOTES & DOC',
+    episodeNumber: 'Vol 1 • Ep 5 Notes',
+    date: 'Volume 1 • Episode 5 Notes',
+    embedUrl: 'https://docs.google.com/document/d/1hk7iCVF0BnHrf-T7z0ZE3wcr4Gu3t-W5qM3wqVI6y8I/preview',
+    directUrl: 'https://docs.google.com/document/d/1hk7iCVF0BnHrf-T7z0ZE3wcr4Gu3t-W5qM3wqVI6y8I/edit?usp=sharing',
+    folderUrl: WNIT_SHARED_FOLDER_URL,
+    summary: 'Accompanying session document and reference notes for WNiT Volume 1 Episode 5 with John Capobianco.',
+    tags: ['John Capobianco', 'Session Notes', 'Documentation', 'WNIT']
+  }
+];
+
+

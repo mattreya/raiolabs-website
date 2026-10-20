@@ -5,7 +5,9 @@ import {
   WORKSHOP_TRACKS,
   SWARM_SCENARIOS,
   RECENT_APPEARANCES,
-  CYBER_OWASP_EVENTS
+  CYBER_OWASP_EVENTS,
+  WNIT_SHARED_FOLDER_URL,
+  WNIT_MEDIA_ITEMS
 } from './raiolabsData.js';
 import {
   BOT_PUPPET_DEFS,
@@ -23,6 +25,8 @@ const state = {
   lastClickTime: 0,
   rageTimeout: null,
   isGenerating: false,
+  activeWnitId: 'wnit-vol1-ep5-john-capobianco',
+  activeWnitFilter: 'all',
   settings: {
     useGemini: false,
     apiKey: localStorage.getItem('aether_gemini_key') || ''
@@ -164,10 +168,13 @@ function renderLayout() {
           <a href="https://github.com/mattreya" target="_blank" rel="noopener noreferrer" class="github-header-link">
             🐙 github.com/mattreya ↗
           </a>
-          <button class="header-modal-btn appearances-header-btn" id="btn-open-appearances" type="button">
+          <button class="header-modal-btn appearances-header-btn" id="btn-open-appearances" type="button" title="Open Recent YouTube Appearances & Podcasts">
             🎬 Recent Appearances
           </button>
-          <button class="header-modal-btn events-header-btn" id="btn-open-events" type="button">
+          <button class="header-modal-btn wnit-header-btn" id="btn-open-wnit" type="button" title="Open What's New In Tech (WNIT) Google Drive Media Vault">
+            🎙️ What's New In Tech (WNIT)
+          </button>
+          <button class="header-modal-btn events-header-btn" id="btn-open-events" type="button" title="Open Events & OWASP Briefings">
             🛡️ Events & OWASP
           </button>
           <button class="settings-btn header-settings-pill" id="btn-open-settings" type="button" style="font-size: 0.9rem;">
@@ -1349,6 +1356,81 @@ Cat 5: Halt! Verified logic is law!"></textarea>
           <button class="btn-secondary" type="button" id="btn-switch-to-appearances">
             🎬 Open Foreground YouTube Player
           </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🎙️ WHAT'S NEW IN TECH (WNIT) MODAL (GOOGLE DRIVE FOREGROUND PLAYER + BLURRED BACKGROUND) -->
+    <div class="modal-overlay backdrop-blur-heavy hidden" id="wnit-modal">
+      <div class="modal-card modal-card-wide">
+        <div class="modal-title">
+          <div class="modal-title-group">
+            <span class="modal-eyebrow-pill wnit-eyebrow-pill">🎙️ GOOGLE DRIVE MEDIA VAULT</span>
+            <span>What's New In Tech (WNIT) — Shared Media Archive</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <a href="${WNIT_SHARED_FOLDER_URL}" target="_blank" rel="noopener noreferrer" class="wnit-drive-folder-link" title="Open complete Google Drive shared folder in new tab">
+              📂 Google Drive Folder ↗
+            </a>
+            <button class="close-btn" id="btn-close-wnit" title="Close What's New In Tech">&times;</button>
+          </div>
+        </div>
+        <p class="modal-subtitle-text">
+          Direct Google Drive media vault featuring Matt Raio's <strong>"What's New In Tech" (WNIT)</strong> broadcasts. Explore video episodes and audio podcast masters with guests including <strong>John Capobianco</strong> (VibeOps & automation) and <strong>Deepak Kakadia</strong> (carrier networks & autonomic tech).
+        </p>
+
+        <!-- WNIT Google Shared Folder Top Callout Banner -->
+        <div class="wnit-folder-banner">
+          <div class="wnit-folder-info">
+            <span class="wnit-drive-icon">📁</span>
+            <div>
+              <strong>Google Drive Shared Media Folder: "WNIT"</strong>
+              <p>Contains full HD MP4 master videos, MP3 studio podcast tracks, and accompanying session notes.</p>
+            </div>
+          </div>
+          <a href="${WNIT_SHARED_FOLDER_URL}" target="_blank" rel="noopener noreferrer" class="btn-primary wnit-banner-btn">
+            Open Entire Drive Vault ↗
+          </a>
+        </div>
+
+        <!-- Format / Category Filter Bar inside WNIT Modal -->
+        <div class="wnit-filter-bar" id="wnit-filter-bar">
+          <button class="pill-btn active" type="button" data-wnit-filter="all">All Media (${WNIT_MEDIA_ITEMS.length})</button>
+          <button class="pill-btn" type="button" data-wnit-filter="video">🎬 Videos (${WNIT_MEDIA_ITEMS.filter(m => m.mediaType === 'video').length})</button>
+          <button class="pill-btn" type="button" data-wnit-filter="audio">🎧 Audio Podcasts (${WNIT_MEDIA_ITEMS.filter(m => m.mediaType === 'audio').length})</button>
+          <button class="pill-btn" type="button" data-wnit-filter="doc">📄 Docs & Notes (${WNIT_MEDIA_ITEMS.filter(m => m.mediaType === 'doc').length})</button>
+        </div>
+
+        <!-- Selectable WNIT Media Cards Grid -->
+        <div class="appearances-selector-grid" id="wnit-selector-grid"></div>
+
+        <!-- Foreground WNIT Player Stage (Revealed / Updated when an item is chosen) -->
+        <div class="foreground-player-stage hidden" id="wnit-player-stage">
+          <div class="player-stage-topbar">
+            <div class="player-now-playing">
+              <span class="live-dot-pulse" style="background:#10b981; box-shadow:0 0 10px #10b981;"></span>
+              <strong id="wnit-player-active-title">Now Streaming...</strong>
+            </div>
+            <div class="player-stage-actions">
+              <a href="#" target="_blank" rel="noopener noreferrer" class="player-yt-direct-link" id="wnit-player-active-ext-url">
+                Open Direct in Google Drive ↗
+              </a>
+              <button class="player-stop-btn" type="button" id="btn-stop-wnit-player">
+                ⏹ Close Player
+              </button>
+            </div>
+          </div>
+          <div class="video-aspect-frame">
+            <iframe
+              id="wnit-media-iframe"
+              src=""
+              title="RaioLabs WNIT Google Drive Player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen>
+            </iframe>
+          </div>
         </div>
       </div>
     </div>
@@ -2615,10 +2697,31 @@ function runClientSideAgentSynthesis(compiledPrompt = '') {
     return;
   }
 
-  // 5. Appearances / YouTube / Videos / Podcasts
+  // 5. What's New In Tech (WNIT) / Google Drive Shared Media Vault
+  if (lower.includes('wnit') || lower.includes("what's new in tech") || lower.includes('whats new in tech') || lower.includes('deepak') || (lower.includes('capobianco') && !lower.includes('vibeops'))) {
+    renderWnitGrid();
+    const wnitModal = document.getElementById('wnit-modal');
+    if (wnitModal) {
+      wnitModal.classList.remove('hidden');
+      document.body.classList.add('website-blurred-bg');
+    }
+    setBotReaction(
+      'hype',
+      '🎙️ WHAT\'S NEW IN TECH (WNIT)',
+      'I opened the WNIT Google Drive Media Vault for you! Stream full HD videos and audio podcast episodes with John Capobianco and Deepak Kakadia right in the foreground player while keeping the workspace in view!',
+      '🎙️'
+    );
+    emitKevAnalysis('OPEN_WNIT', 'Opened What\'s New In Tech (WNIT) Google Drive modal from chat command.', null, null, 'action');
+    return;
+  }
+
+  // 6. Appearances / YouTube / Videos / Podcasts
   if (lower.includes('appearance') || lower.includes('youtube') || lower.includes('video') || lower.includes('podcast') || lower.includes('watch')) {
     const appearancesModal = document.getElementById('appearances-modal');
-    if (appearancesModal) appearancesModal.classList.remove('hidden');
+    if (appearancesModal) {
+      appearancesModal.classList.remove('hidden');
+      document.body.classList.add('website-blurred-bg');
+    }
     setBotReaction(
       'hype',
       '🎬 RECENT APPEARANCES',
@@ -2629,11 +2732,14 @@ function runClientSideAgentSynthesis(compiledPrompt = '') {
     return;
   }
 
-  // 6. Events / OWASP / Conferences
+  // 7. Events / OWASP / Conferences
   if (lower.includes('event') || lower.includes('owasp') || lower.includes('conference') || lower.includes('vegas')) {
     renderCyberEventsGrid();
     const eventsModal = document.getElementById('events-modal');
-    if (eventsModal) eventsModal.classList.remove('hidden');
+    if (eventsModal) {
+      eventsModal.classList.remove('hidden');
+      document.body.classList.add('website-blurred-bg');
+    }
     setBotReaction(
       'hype',
       '🛡️ CYBER & OWASP EVENTS',
@@ -4396,6 +4502,142 @@ function stopAppearancePlayer() {
   state.activeAppearanceId = null;
 }
 
+// --- WHAT'S NEW IN TECH (WNIT) GOOGLE DRIVE MEDIA VAULT & FOREGROUND PLAYER ---
+function renderWnitGrid(filter = state.activeWnitFilter || 'all') {
+  const grid = document.getElementById('wnit-selector-grid');
+  if (!grid) return;
+
+  const items = WNIT_MEDIA_ITEMS.filter(item => {
+    if (filter === 'all') return true;
+    return item.mediaType === filter;
+  });
+
+  grid.innerHTML = items.map(item => {
+    const isAudio = item.mediaType === 'audio';
+    const isDoc = item.mediaType === 'doc';
+    const icon = isAudio ? '🎧' : (isDoc ? '📄' : '🎬');
+    const playActionText = isAudio ? 'Listen in Foreground Player' : (isDoc ? 'Preview in Foreground Player' : 'Watch in Foreground Player');
+    const posterGradient = isAudio
+      ? 'linear-gradient(135deg, #064e3b 0%, #065f46 50%, #047857 100%)'
+      : (isDoc
+        ? 'linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #3730a3 100%)'
+        : 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0369a1 100%)');
+
+    return `
+      <div class="appearance-choice-card wnit-choice-card ${state.activeWnitId === item.id ? 'active-appearance' : ''}" data-wnit-id="${item.id}">
+        <div class="appearance-thumb-wrap wnit-thumb-wrap" data-play-wnit-id="${item.id}" style="background: ${posterGradient}; cursor: pointer;">
+          <div class="wnit-card-poster">
+            <span class="wnit-poster-icon">${icon}</span>
+            <div class="wnit-poster-meta">
+              <span class="wnit-poster-series">${item.series}</span>
+              <strong class="wnit-poster-ep">${item.episodeNumber}</strong>
+            </div>
+          </div>
+          <div class="appearance-play-overlay">
+            <span class="play-circle-icon">▶</span>
+            <span class="play-overlay-lbl">${playActionText}</span>
+          </div>
+          <span class="appearance-badge-pill" style="border-color:${isAudio ? '#34d399' : (isDoc ? '#818cf8' : '#38bdf8')}; color:${isAudio ? '#a7f3d0' : (isDoc ? '#c7d2fe' : '#e0f2fe')};">${item.badge}</span>
+        </div>
+        <div class="appearance-card-body">
+          <div class="appearance-channel-row">
+            <span class="appearance-channel-name">🎙️ ${item.series}</span>
+            <span class="appearance-date-lbl">${item.format}</span>
+          </div>
+          <h4 class="appearance-card-title">${item.title}</h4>
+          ${item.guest ? `<div class="wnit-guest-pill">👤 <strong>Guest / Host:</strong> ${item.guest}</div>` : ''}
+          <p class="appearance-card-desc">${item.summary}</p>
+          <div class="appearance-url-pill">
+            📁 <code>${item.fileName}</code>
+          </div>
+          <div class="appearance-tags-row">
+            ${item.tags.map(t => `<span class="appearance-tag-chip">${t}</span>`).join('')}
+          </div>
+          <div class="appearance-card-actions">
+            <button class="btn-primary btn-play-wnit" type="button" data-play-wnit-id="${item.id}">
+              ▶ ${playActionText}
+            </button>
+            <a href="${item.directUrl}" target="_blank" rel="noopener noreferrer" class="btn-secondary appearance-ext-link">
+              Google Drive ↗
+            </a>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  grid.querySelectorAll('[data-play-wnit-id]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const id = btn.getAttribute('data-play-wnit-id');
+      if (id) playWnitInForeground(id);
+    });
+  });
+}
+
+function playWnitInForeground(mediaId) {
+  const item = WNIT_MEDIA_ITEMS.find(m => m.id === mediaId) || WNIT_MEDIA_ITEMS[0];
+  if (!item) return;
+
+  state.activeWnitId = item.id;
+
+  // Highlight selected card
+  document.querySelectorAll('#wnit-selector-grid .appearance-choice-card').forEach(card => {
+    card.classList.toggle('active-appearance', card.getAttribute('data-wnit-id') === item.id);
+  });
+
+  const playerStage = document.getElementById('wnit-player-stage');
+  const iframe = document.getElementById('wnit-media-iframe');
+  const activeTitle = document.getElementById('wnit-player-active-title');
+  const activeExtUrl = document.getElementById('wnit-player-active-ext-url');
+
+  if (playerStage) {
+    playerStage.classList.remove('hidden');
+  }
+  if (activeTitle) {
+    const icon = item.mediaType === 'audio' ? '🎧' : (item.mediaType === 'doc' ? '📄' : '🎬');
+    activeTitle.textContent = `${icon} Now Playing: ${item.title}`;
+  }
+  if (activeExtUrl) {
+    activeExtUrl.href = item.directUrl;
+    activeExtUrl.textContent = 'Open Direct in Google Drive ↗';
+  }
+  if (iframe) {
+    iframe.src = item.embedUrl;
+  }
+
+  if (playerStage && typeof playerStage.scrollIntoView === 'function') {
+    setTimeout(() => {
+      playerStage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 80);
+  }
+
+  logToTerminal('action', 'WNIT_PLAYER', `Streaming WNIT Media: "${item.title}" (${item.fileName})`);
+  setBotReaction(
+    'hype',
+    '🎙️ STREAMING WNIT',
+    `Now streaming "${item.title}" in the foreground player! Enjoy What's New In Tech with Matt Raio!`,
+    item.mediaType === 'audio' ? '🎧' : '🎬'
+  );
+  emitKevAnalysis('PLAY_WNIT', `Operator streaming WNIT item: ${item.fileName}`, null, null, 'action');
+  recordInteraction({ type: 'wnit_play', mediaId: item.id });
+}
+
+function stopWnitPlayer() {
+  const playerStage = document.getElementById('wnit-player-stage');
+  const iframe = document.getElementById('wnit-media-iframe');
+  if (iframe) {
+    iframe.src = '';
+  }
+  if (playerStage) {
+    playerStage.classList.add('hidden');
+  }
+  document.querySelectorAll('#wnit-selector-grid .appearance-choice-card').forEach(card => {
+    card.classList.remove('active-appearance');
+  });
+  state.activeWnitId = null;
+}
+
 function triggerRaioLightningSurge(announce = true) {
   const overlay = document.getElementById('raio-lightning-overlay');
   const headerCrest = document.getElementById('raio-header-crest');
@@ -4422,6 +4664,17 @@ function triggerRaioLightningSurge(announce = true) {
 
 function setupRaioLabsListeners() {
   renderCyberEventsGrid();
+  renderWnitGrid();
+
+  // Helper to maintain website background blur whenever any media/system modal is open
+  const updateWebsiteBlur = () => {
+    const isAnyOpen = [appearancesModal, wnitModal, eventsModal, settingsModal].some(m => m && !m.classList.contains('hidden'));
+    if (isAnyOpen) {
+      document.body.classList.add('website-blurred-bg');
+    } else {
+      document.body.classList.remove('website-blurred-bg');
+    }
+  };
 
   // Bind RaioLabs Shield Crest clicks to trigger Lightning Surge
   ['raio-header-crest', 'hero-crest-showcase'].forEach(id => {
@@ -4440,11 +4693,13 @@ function setupRaioLabsListeners() {
   const closeAppearancesModal = () => {
     stopAppearancePlayer();
     if (appearancesModal) appearancesModal.classList.add('hidden');
+    updateWebsiteBlur();
   };
 
   if (openAppearancesBtn && appearancesModal) {
     openAppearancesBtn.addEventListener('click', () => {
       appearancesModal.classList.remove('hidden');
+      updateWebsiteBlur();
       logToTerminal('info', 'APPEARANCES', 'Opened Recent Appearances foreground media deck.');
       recordInteraction({ type: 'open_modal', modal: 'recent_appearances' });
     });
@@ -4465,6 +4720,51 @@ function setupRaioLabsListeners() {
     });
   });
 
+  // --- WHAT'S NEW IN TECH (WNIT) MODAL & GOOGLE DRIVE PLAYER ---
+  const openWnitBtn = document.getElementById('btn-open-wnit');
+  const closeWnitBtn = document.getElementById('btn-close-wnit');
+  const wnitModal = document.getElementById('wnit-modal');
+  const stopWnitBtn = document.getElementById('btn-stop-wnit-player');
+
+  const closeWnitModal = () => {
+    stopWnitPlayer();
+    if (wnitModal) wnitModal.classList.add('hidden');
+    updateWebsiteBlur();
+  };
+
+  if (openWnitBtn && wnitModal) {
+    openWnitBtn.addEventListener('click', () => {
+      renderWnitGrid(state.activeWnitFilter || 'all');
+      wnitModal.classList.remove('hidden');
+      updateWebsiteBlur();
+      logToTerminal('info', 'WNIT', 'Opened What\'s New In Tech (WNIT) Google Drive media vault.');
+      recordInteraction({ type: 'open_modal', modal: 'wnit_vault' });
+      setBotReaction(
+        'hype',
+        '🎙️ WHAT\'S NEW IN TECH (WNIT)',
+        'Welcome to the WNIT Media Vault! Choose any video or audio podcast to stream right in the foreground player while keeping the workspace in view!',
+        '🎙️'
+      );
+    });
+  }
+
+  if (closeWnitBtn) {
+    closeWnitBtn.addEventListener('click', closeWnitModal);
+  }
+
+  if (stopWnitBtn) {
+    stopWnitBtn.addEventListener('click', stopWnitPlayer);
+  }
+
+  document.querySelectorAll('#wnit-filter-bar .pill-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#wnit-filter-bar .pill-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      state.activeWnitFilter = btn.getAttribute('data-wnit-filter') || 'all';
+      renderWnitGrid(state.activeWnitFilter);
+    });
+  });
+
   // --- EVENTS & CYBERSECURITY / OWASP MODAL ---
   const openEventsBtn = document.getElementById('btn-open-events');
   const closeEventsBtn = document.getElementById('btn-close-events');
@@ -4473,12 +4773,14 @@ function setupRaioLabsListeners() {
 
   const closeEventsModal = () => {
     if (eventsModal) eventsModal.classList.add('hidden');
+    updateWebsiteBlur();
   };
 
   if (openEventsBtn && eventsModal) {
     openEventsBtn.addEventListener('click', () => {
       renderCyberEventsGrid();
       eventsModal.classList.remove('hidden');
+      updateWebsiteBlur();
       logToTerminal('info', 'CYBER_EVENTS', 'Opened Events & Cybersecurity / OWASP Appearances overlay.');
       recordInteraction({ type: 'open_modal', modal: 'events_owasp' });
     });
@@ -4491,7 +4793,10 @@ function setupRaioLabsListeners() {
   if (switchToAppearancesBtn) {
     switchToAppearancesBtn.addEventListener('click', () => {
       closeEventsModal();
-      if (appearancesModal) appearancesModal.classList.remove('hidden');
+      if (appearancesModal) {
+        appearancesModal.classList.remove('hidden');
+        updateWebsiteBlur();
+      }
       playAppearanceInForeground('owasp-vegas-2026');
     });
   }
@@ -4507,14 +4812,19 @@ function setupRaioLabsListeners() {
 
   // Close any blurred modal overlay on backdrop click or Escape key
   const settingsModal = document.getElementById('settings-modal');
-  [appearancesModal, eventsModal, settingsModal].forEach(modalEl => {
+  [appearancesModal, wnitModal, eventsModal, settingsModal].forEach(modalEl => {
     if (!modalEl) return;
     modalEl.addEventListener('click', (e) => {
       if (e.target === modalEl) {
         if (modalEl === appearancesModal) {
           closeAppearancesModal();
+        } else if (modalEl === wnitModal) {
+          closeWnitModal();
+        } else if (modalEl === eventsModal) {
+          closeEventsModal();
         } else {
           modalEl.classList.add('hidden');
+          updateWebsiteBlur();
         }
       }
     });
@@ -4525,11 +4835,15 @@ function setupRaioLabsListeners() {
       if (appearancesModal && !appearancesModal.classList.contains('hidden')) {
         closeAppearancesModal();
       }
+      if (wnitModal && !wnitModal.classList.contains('hidden')) {
+        closeWnitModal();
+      }
       if (eventsModal && !eventsModal.classList.contains('hidden')) {
         closeEventsModal();
       }
       if (settingsModal && !settingsModal.classList.contains('hidden')) {
         settingsModal.classList.add('hidden');
+        updateWebsiteBlur();
       }
     }
   });
