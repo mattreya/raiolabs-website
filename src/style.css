@@ -1583,6 +1583,144 @@ body {
   100% { transform: scale(0.9, 1.1) translateY(1px); opacity: 0.8; }
 }
 
+/* KEV-Bot Watcher & Content Censorship Status Bar */
+.kev-watcher-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  border-radius: 12px;
+  padding: 10px 16px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(6px);
+}
+
+.kev-watcher-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: var(--text-primary);
+}
+
+.watcher-eye-pulse {
+  font-size: 1.1rem;
+  animation: eye-pulse 2s infinite ease-in-out;
+}
+
+@keyframes eye-pulse {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 2px #f59e0b); }
+  50% { transform: scale(1.25); filter: drop-shadow(0 0 8px #ef4444); }
+}
+
+.watcher-status-text {
+  font-size: 0.8rem;
+  color: #fde68a;
+  transition: color 0.3s;
+}
+
+.kev-watcher-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.watcher-policy-pill {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid #10b981;
+  color: #a7f3d0;
+}
+
+.watcher-active-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(245, 158, 11, 0.18);
+  border: 1px solid #d97706;
+  color: #fde68a;
+}
+
+/* Pop-in Censorship Warning Alert Banner */
+.kev-censor-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, rgba(127, 29, 29, 0.95), rgba(69, 10, 10, 0.95));
+  border: 2px solid #ef4444;
+  border-radius: 12px;
+  padding: 12px 18px;
+  box-shadow: 0 0 25px rgba(239, 68, 68, 0.5);
+  color: #fff;
+  animation: slideDown 0.3s ease-out;
+  position: relative;
+  z-index: 25;
+}
+
+.kev-censor-banner.censor-banner-shake {
+  animation: censor-shake 0.4s ease-in-out;
+}
+
+@keyframes censor-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(6px); }
+}
+
+.censor-banner-icon {
+  font-size: 1.6rem;
+  flex-shrink: 0;
+  animation: pulse-alert 1.2s infinite;
+}
+
+@keyframes pulse-alert {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+.censor-banner-body {
+  flex: 1;
+  font-size: 0.88rem;
+  line-height: 1.4;
+}
+
+.censor-banner-body strong {
+  display: block;
+  font-size: 0.75rem;
+  color: #fca5a5;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.censor-banner-close {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fca5a5;
+  font-size: 0.9rem;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.censor-banner-close:hover {
+  background: #ef4444;
+  color: #fff;
+}
+
 /* Puppet Director Deck Controls */
 .shadow-director-deck {
   display: flex;

@@ -10,7 +10,8 @@ import {
 import {
   BOT_PUPPET_DEFS,
   SAMPLE_SCRIPTS,
-  parseScriptText
+  parseScriptText,
+  validateScriptContentWithKevBot
 } from './shadowPuppetEngine.js';
 
 // Active configuration state
@@ -588,6 +589,29 @@ function renderLayout() {
               <div class="oil-lamp"><div class="flame"></div></div>
             </div>
           </div>
+        </div>
+
+        <!-- KEV-Bot Watcher & Content Censorship Status Bar -->
+        <div class="kev-watcher-bar" id="kev-watcher-bar">
+          <div class="kev-watcher-left">
+            <span class="watcher-eye-pulse">👁️</span>
+            <strong>KEV-Bot Live Sentinel:</strong>
+            <span id="kev-watcher-status-text" class="watcher-status-text">Watching user & inspecting incoming script context...</span>
+          </div>
+          <div class="kev-watcher-right">
+            <span class="watcher-policy-pill">🌈 Only Happy Stories Allowed</span>
+            <span class="watcher-active-badge" id="kev-sentinel-mode-badge">🛡️ Sentinel Guarding</span>
+          </div>
+        </div>
+
+        <!-- Pop-in Censorship Warning Banner (Triggered by KEV-Bot on sensitive context) -->
+        <div class="kev-censor-banner hidden" id="kev-censor-banner" role="alert">
+          <div class="censor-banner-icon">🚨</div>
+          <div class="censor-banner-body">
+            <strong>KEV-BOT CONTENT CENSORSHIP ALERT:</strong>
+            <span id="kev-censor-banner-msg">This file cannot be used due to the sensitive nature of the content. Only happy stories for now!</span>
+          </div>
+          <button class="censor-banner-close" id="btn-close-censor-banner" title="Dismiss Alert">✕</button>
         </div>
 
         <!-- Puppet Master Controls & Script Ingestion Bar -->
@@ -3350,6 +3374,125 @@ function triggerPuppetInteraction(actorKey) {
   logToTerminal('info', 'PUPPET_SPEAK', `${def.name} (${def.category}): "${line}"`);
 }
 
+// ============================================================================
+// 🚨 KEV-BOT SENTINEL: CONTENT CENSORSHIP & WATCHER HANDLERS
+// ============================================================================
+
+function handleKevBotCensorship(sourceName, validation) {
+  // 1. Alert KEV-Bot in Companion stage
+  setBotReaction(
+    'surprised',
+    '🚨 KEV-BOT CONTENT CENSORSHIP',
+    'This file cannot be used due to the sensitive nature of the content. Only happy stories for now! 🌈✨',
+    '🛡️'
+  );
+
+  // 2. Set Subtitle Banner on Shadow Stage
+  setSubtitleBanner(
+    '🚨',
+    'KEV-Bot Censorship',
+    'This file cannot be used due to the sensitive nature of the content. Only happy stories for now.',
+    '#ef4444'
+  );
+
+  // 3. Show Pop-in Censorship Banner
+  const censorBanner = document.getElementById('kev-censor-banner');
+  const censorMsg = document.getElementById('kev-censor-banner-msg');
+  if (censorBanner) {
+    if (censorMsg) {
+      censorMsg.textContent = 'This file cannot be used due to the sensitive nature of the content. Only happy stories for now!';
+    }
+    censorBanner.classList.remove('hidden');
+    censorBanner.classList.add('censor-banner-shake');
+    setTimeout(() => censorBanner.classList.remove('censor-banner-shake'), 600);
+  }
+
+  // 4. Update Watcher Bar
+  const watcherStatus = document.getElementById('kev-watcher-status-text');
+  const sentinelBadge = document.getElementById('kev-sentinel-mode-badge');
+  if (watcherStatus) {
+    watcherStatus.textContent = `🚨 CENSURED "${sourceName}" — Sensitive context blocked. Enforcing happy stories!`;
+    watcherStatus.style.color = '#ef4444';
+  }
+  if (sentinelBadge) {
+    sentinelBadge.textContent = '🚫 CONTENT BLOCKED';
+    sentinelBadge.style.background = 'rgba(239, 68, 68, 0.25)';
+    sentinelBadge.style.color = '#fca5a5';
+  }
+
+  // 5. Update Editor Badge
+  const badge = document.getElementById('editor-status-badge');
+  if (badge) {
+    badge.textContent = '❌ REJECTED: Sensitive Content (Happy Stories Only!)';
+    badge.style.borderColor = '#ef4444';
+    badge.style.color = '#fca5a5';
+    badge.style.background = 'rgba(239, 68, 68, 0.2)';
+  }
+
+  // 6. Stage visual rumble & red alarm hazard
+  const stage = document.getElementById('theatre-stage');
+  if (stage) {
+    stage.classList.add('rumble', 'destruction-vibe');
+    setTimeout(() => stage.classList.remove('rumble', 'destruction-vibe'), 800);
+  }
+
+  // 7. Log to terminal
+  logToTerminal(
+    'error',
+    'KEV_CENSOR',
+    `🚨 [KEV-BOT WATCHER]: This file cannot be used due to the sensitive nature of the content. (${sourceName} flagged: "${validation?.flaggedTerm || 'sensitive context'}"). Only happy stories for now.`
+  );
+
+  // 8. Emit counter-recon telemetry
+  emitKevAnalysis(
+    'CONTENT_QUARANTINE',
+    `KEV-Bot rejected "${sourceName}": This file cannot be used due to the sensitive nature of the content. Only happy stories for now.`,
+    'Shadow Puppet Stage',
+    'Censorship Sentinel',
+    'error'
+  );
+}
+
+function handleKevBotApproved(sourceName, cueCount) {
+  // Reset Watcher Bar
+  const watcherStatus = document.getElementById('kev-watcher-status-text');
+  const sentinelBadge = document.getElementById('kev-sentinel-mode-badge');
+  if (watcherStatus) {
+    watcherStatus.textContent = `✨ Approved "${sourceName}" (${cueCount} cues). Happy story verified!`;
+    watcherStatus.style.color = '#10b981';
+  }
+  if (sentinelBadge) {
+    sentinelBadge.textContent = '🛡️ Sentinel Verified';
+    sentinelBadge.style.background = 'rgba(16, 185, 129, 0.2)';
+    sentinelBadge.style.color = '#6ee7b7';
+  }
+
+  // Hide censor banner if showing
+  const censorBanner = document.getElementById('kev-censor-banner');
+  if (censorBanner) censorBanner.classList.add('hidden');
+
+  setBotReaction(
+    'love',
+    '✨ KEV-BOT APPROVED!',
+    `I scanned "${sourceName}" and verified pure happy vibes! No sensitive content found. Shadow puppets are ready to act out! 🌈💖`,
+    '💖'
+  );
+
+  logToTerminal(
+    'info',
+    'KEV_APPROVED',
+    `✨ [KEV-BOT WATCHER]: Verified "${sourceName}" — Zero policy violations. Happy story approved for shadow puppets!`
+  );
+
+  emitKevAnalysis(
+    'HAPPY_STORY_VERIFIED',
+    `Content verified safe & joyful for "${sourceName}".`,
+    'Shadow Puppet Stage',
+    'Content Approved',
+    'action'
+  );
+}
+
 function bindShadowPuppetControls() {
   const playBtn = document.getElementById('btn-puppet-play');
   const prevBtn = document.getElementById('btn-puppet-prev');
@@ -3365,6 +3508,14 @@ function bindShadowPuppetControls() {
   const clearBtn = document.getElementById('btn-clear-script');
   const textarea = document.getElementById('script-raw-textarea');
   const stage = document.getElementById('theatre-stage');
+  const closeBannerBtn = document.getElementById('btn-close-censor-banner');
+
+  if (closeBannerBtn) {
+    closeBannerBtn.onclick = () => {
+      const censorBanner = document.getElementById('kev-censor-banner');
+      if (censorBanner) censorBanner.classList.add('hidden');
+    };
+  }
 
   if (playBtn) {
     playBtn.onclick = () => togglePuppetPlayback();
@@ -3385,6 +3536,24 @@ function bindShadowPuppetControls() {
     };
   }
 
+  // KEV-Bot Watching User at Upload Button
+  if (uploadBtn) {
+    uploadBtn.addEventListener('mouseenter', () => {
+      const watcherStatus = document.getElementById('kev-watcher-status-text');
+      if (watcherStatus) {
+        watcherStatus.textContent = '👀 KEV-Bot is watching your cursor over script uploader...';
+        watcherStatus.style.color = '#fde68a';
+      }
+      setBotReaction(
+        'thinking',
+        '👀 KEV-BOT IS WATCHING YOU',
+        'KEV-Bot is watching! Only happy stories allowed for the shadow puppets! 🌈✨',
+        '👁️'
+      );
+      emitKevAnalysis('KEV_WATCH', 'KEV-Bot watching user at script upload area.', 'Shadow Puppet Stage', 'Content Sentinel', 'info');
+    });
+  }
+
   // Preset Story Loader
   if (presetSel) {
     presetSel.onchange = (e) => {
@@ -3399,17 +3568,22 @@ function bindShadowPuppetControls() {
         state.shadowPuppet.selectedPresetId = selectedId;
 
         const badge = document.getElementById('editor-status-badge');
-        if (badge) badge.textContent = `Loaded: ${sample.title}`;
+        if (badge) {
+          badge.textContent = `Loaded: ${sample.title}`;
+          badge.style.borderColor = '#d97706';
+          badge.style.color = '#fde68a';
+          badge.style.background = 'rgba(217, 119, 6, 0.18)';
+        }
 
         resetPuppetPositions();
         updateSubtitleCueStep(0, state.shadowPuppet.cues.length);
         setSubtitleBanner('📜', 'Narrator', `Ready to act out "${sample.title}". Click ▶ Act Out Scene to begin.`, '#d97706');
-        logToTerminal('info', 'SCRIPT_LOAD', `Loaded cyber-fable [${sample.title}] (${state.shadowPuppet.cues.length} cues).`);
+        handleKevBotApproved(sample.title, state.shadowPuppet.cues.length);
       }
     };
   }
 
-  // File Upload Ingestion
+  // File Upload Ingestion with KEV-Bot Censorship Inspection
   if (uploadBtn && fileInput) {
     uploadBtn.onclick = () => fileInput.click();
 
@@ -3420,6 +3594,14 @@ function bindShadowPuppetControls() {
       const reader = new FileReader();
       reader.onload = (loadEvent) => {
         const fileContent = loadEvent.target.result;
+
+        // 🚨 KEV-Bot Censorship Inspection
+        const validation = validateScriptContentWithKevBot(fileContent);
+        if (!validation.isSafe) {
+          handleKevBotCensorship(file.name, validation);
+          return;
+        }
+
         if (textarea) {
           pausePuppetPlayback();
           textarea.value = fileContent;
@@ -3428,28 +3610,37 @@ function bindShadowPuppetControls() {
           state.shadowPuppet.currentCueIndex = -1;
 
           const badge = document.getElementById('editor-status-badge');
-          if (badge) badge.textContent = `Loaded File: ${file.name}`;
+          if (badge) {
+            badge.textContent = `Loaded File: ${file.name}`;
+            badge.style.borderColor = '#10b981';
+            badge.style.color = '#6ee7b7';
+            badge.style.background = 'rgba(16, 185, 129, 0.2)';
+          }
 
           resetPuppetPositions();
           updateSubtitleCueStep(0, state.shadowPuppet.cues.length);
-          setSubtitleBanner('📂', 'Script Ingestion', `Successfully loaded "${file.name}"! Click ▶ Act Out Scene to watch puppets perform it.`, '#3b82f6');
+          setSubtitleBanner('📂', 'Script Ingestion', `Successfully loaded "${file.name}"! Click ▶ Act Out Scene to watch puppets perform it.`, '#10b981');
 
-          setBotReaction('hype', '📂 SCRIPT FILE LOADED!', `Read "${file.name}" with ${state.shadowPuppet.cues.length} cues! Ready to act out on stage!`, '🎭');
+          handleKevBotApproved(file.name, state.shadowPuppet.cues.length);
           logToTerminal('info', 'FILE_INGEST', `Successfully parsed script file "${file.name}" (${file.size} bytes, ${state.shadowPuppet.cues.length} stage cues).`);
         }
       };
       reader.readAsText(file);
-      // Reset input value so re-uploading same file name works
       fileInput.value = '';
     };
   }
 
-  // Drag and Drop Script File onto Stage or Textarea
+  // Drag and Drop Script File onto Stage or Textarea with KEV-Bot Inspection
   const dropTargets = [stage, textarea].filter(Boolean);
   dropTargets.forEach(targetEl => {
     targetEl.addEventListener('dragover', (e) => {
       e.preventDefault();
       targetEl.classList.add('drag-over-active');
+      const watcherStatus = document.getElementById('kev-watcher-status-text');
+      if (watcherStatus) {
+        watcherStatus.textContent = '👀 KEV-Bot is watching: Incoming file drag detected...';
+        watcherStatus.style.color = '#fde68a';
+      }
     });
     targetEl.addEventListener('dragleave', (e) => {
       e.preventDefault();
@@ -3464,6 +3655,14 @@ function bindShadowPuppetControls() {
         const reader = new FileReader();
         reader.onload = (ev) => {
           const content = ev.target.result;
+
+          // 🚨 KEV-Bot Censorship Inspection
+          const validation = validateScriptContentWithKevBot(content);
+          if (!validation.isSafe) {
+            handleKevBotCensorship(file.name, validation);
+            return;
+          }
+
           if (textarea) {
             pausePuppetPlayback();
             textarea.value = content;
@@ -3472,12 +3671,17 @@ function bindShadowPuppetControls() {
             state.shadowPuppet.currentCueIndex = -1;
 
             const badge = document.getElementById('editor-status-badge');
-            if (badge) badge.textContent = `Dropped File: ${file.name}`;
+            if (badge) {
+              badge.textContent = `Dropped File: ${file.name}`;
+              badge.style.borderColor = '#10b981';
+              badge.style.color = '#6ee7b7';
+              badge.style.background = 'rgba(16, 185, 129, 0.2)';
+            }
 
             resetPuppetPositions();
             updateSubtitleCueStep(0, state.shadowPuppet.cues.length);
             setSubtitleBanner('📂', 'Script Dropped', `Loaded "${file.name}" via drag-and-drop. Ready for shadow puppet performance!`, '#10b981');
-            setBotReaction('party', '✨ SCRIPT IMPORTED!', `Dropped "${file.name}" right onto the stage! Puppets are ready to act out.`, '📜');
+            handleKevBotApproved(file.name, state.shadowPuppet.cues.length);
             logToTerminal('info', 'DRAG_DROP', `Imported "${file.name}" (${state.shadowPuppet.cues.length} cues).`);
           }
         };
@@ -3519,22 +3723,25 @@ function bindShadowPuppetControls() {
   if (templateBtn && textarea) {
     templateBtn.onclick = () => {
       textarea.value = `# ==============================================
-# CUSTOM SHADOW PUPPET SCENE TEMPLATE
+# CUSTOM HAPPY SHADOW PUPPET SCENE TEMPLATE
 # ==============================================
-[SCENE: The Chamber of Autonomy]
+[SCENE: The Radiant Silicon Garden]
 [CAT1 ENTERS LEFT]
-Cat 1: Welcome! I am Cat 1, ready to create what you desire.
-[CAT5 ENTERS RIGHT]
-Cat 5: And I am Cat 5, ready to verify it at ring-0.
+Cat 1: Welcome! I am Cat 1, ready to create beautiful ideas and happy poetry!
+[CAT2 ENTERS RIGHT]
+Cat 2: And I am Cat 2, forecasting smooth breezes and bright sunny days for our system!
+[CAT3 ENTERS CENTER]
+Cat 3: Together with Cat 4 and Cat 5, we keep the garden flourishing in perfect harmony!
 [LIGHTNING]
-Narrator: When creation and verification unite, the system thrives.
+Narrator: When the bots build with joy and trust, wonderful creations blossom!
 `;
       state.shadowPuppet.scriptText = textarea.value;
       state.shadowPuppet.cues = parseScriptText(textarea.value);
       state.shadowPuppet.currentCueIndex = -1;
       resetPuppetPositions();
       updateSubtitleCueStep(0, state.shadowPuppet.cues.length);
-      logToTerminal('info', 'TEMPLATE_LOADED', 'Inserted boilerplate script template.');
+      handleKevBotApproved('Happy Template', state.shadowPuppet.cues.length);
+      logToTerminal('info', 'TEMPLATE_LOADED', 'Inserted happy boilerplate script template.');
     };
   }
 
@@ -3546,18 +3753,29 @@ Narrator: When creation and verification unite, the system thrives.
       state.shadowPuppet.cues = [];
       state.shadowPuppet.currentCueIndex = -1;
       updateSubtitleCueStep(0, 0);
-      setSubtitleBanner('✏️', 'Editor Cleared', 'Text area is empty. Type your dialogue or paste a .txt file!', '#94a3b8');
+      setSubtitleBanner('✏️', 'Editor Cleared', 'Text area is empty. Type your dialogue or paste a happy .txt story!', '#94a3b8');
     };
   }
 
-  // Live input parsing
+  // Live input parsing with KEV-Bot real-time censorship
   if (textarea) {
     let parseDebounce = null;
     textarea.addEventListener('input', () => {
       clearTimeout(parseDebounce);
       parseDebounce = setTimeout(() => {
-        state.shadowPuppet.scriptText = textarea.value;
-        state.shadowPuppet.cues = parseScriptText(textarea.value);
+        const textVal = textarea.value;
+
+        // 🚨 KEV-Bot Censorship Inspection
+        const validation = validateScriptContentWithKevBot(textVal);
+        if (!validation.isSafe) {
+          handleKevBotCensorship('Editor Input', validation);
+          // Revert to last safe script so sensitive text cannot be saved/played
+          textarea.value = state.shadowPuppet.scriptText || SAMPLE_SCRIPTS[0].text;
+          return;
+        }
+
+        state.shadowPuppet.scriptText = textVal;
+        state.shadowPuppet.cues = parseScriptText(textVal);
         updateSubtitleCueStep(Math.max(0, state.shadowPuppet.currentCueIndex + 1), state.shadowPuppet.cues.length);
       }, 400);
     });

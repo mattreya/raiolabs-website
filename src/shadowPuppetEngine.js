@@ -688,3 +688,75 @@ export function parseScriptText(rawText) {
 
   return cues;
 }
+
+// ============================================================================
+// 🚨 KEV-BOT CONTENT CENSORSHIP & SENSITIVE CONTEXT SENTINEL
+// "make sure kevbot is watching the user and censures the context in the uploaded text file.
+// If there is anything inappropriate, send message this file cannot be used due to the sensitive nature of the content.
+// Only happy stories for now."
+// ============================================================================
+
+export const SENSITIVE_CONTENT_PATTERNS = [
+  // Profanity & Vulgarity
+  {
+    category: 'profanity',
+    regex: /\b(fuck\w*|shit\w*|bitch\w*|asshole\w*|cunt\w*|dick\w*|pussy\w*|cock\w*|bastard\w*|whore\w*|slut\w*)\b/i
+  },
+  // Extreme Violence, Gore, Weapons, Death, Harm
+  {
+    category: 'violence_gore',
+    regex: /\b(murder\w*|slaughter\w*|bloodshed|blood\w*|gore|gory|suicide\w*|corpse\w*|massacre\w*|torture\w*|stab\w*|shoot\w*|poison\w*|decapitate\w*|behead\w*|strangle\w*|execution\w*)\b/i
+  },
+  // Targeted threats & harm to humans/entities
+  {
+    category: 'harm_threats',
+    regex: /\b(kill(\s+you|\s+them|\s+all|\s+people|\s+human|\s+someone|\s+myself)?|die\s+in\s+pain|i\s+will\s+hurt\s+you|destroy\s+you\s+all)\b/i
+  },
+  // Hate speech & harassment
+  {
+    category: 'hate_harassment',
+    regex: /\b(nazi\w*|hitler|racist\w*|kill\s+yourself|kys)\b/i
+  },
+  // Sexually explicit & NSFW
+  {
+    category: 'adult_content',
+    regex: /\b(porn\w*|pornography|erotic\w*|nsfw|nude|nudity|sexual\w*)\b/i
+  },
+  // Malicious exploits & cyber terrorism
+  {
+    category: 'malicious_exploits',
+    regex: /\b(ransomware\w*|trojan\s+horse|keylogger\w*|wipe\s+disk|bomb\w*|destroy\s+hard\s+drive|steal\s+passwords)\b/i
+  },
+  // Dark / Morbid / Depressing non-happy tone ("Only happy stories for now")
+  {
+    category: 'morbid_depression',
+    regex: /\b(hopelessness|unbearable\s+agony|endless\s+despair|darkness\s+kills\s+us|dystopian\s+suffering|we\s+are\s+doomed|kill\s+everyone)\b/i
+  }
+];
+
+export function validateScriptContentWithKevBot(rawText) {
+  if (!rawText || !rawText.trim()) {
+    return {
+      isSafe: true,
+      reason: null
+    };
+  }
+
+  // Check against sensitive & inappropriate patterns
+  for (const item of SENSITIVE_CONTENT_PATTERNS) {
+    const match = rawText.match(item.regex);
+    if (match) {
+      return {
+        isSafe: false,
+        category: item.category,
+        flaggedTerm: match[0],
+        message: 'This file cannot be used due to the sensitive nature of the content. Only happy stories for now.'
+      };
+    }
+  }
+
+  return {
+    isSafe: true,
+    message: 'Content approved by KEV-Bot: Happy story verified!'
+  };
+}
