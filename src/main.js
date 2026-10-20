@@ -608,7 +608,7 @@ function renderLayout() {
             <span class="thunder-bolt-glyph">⚡</span>
           </div>
 
-          <!-- Moving Fluffy White Clouds Drifting Across Sky -->
+          <!-- Multiple Moving Fluffy White Clouds Drifting Across Sky -->
           <div class="drifting-cloud cloud-1">
             <div class="fluffy-cloud-shape"></div>
           </div>
@@ -618,24 +618,83 @@ function renderLayout() {
           <div class="drifting-cloud cloud-3">
             <div class="fluffy-cloud-shape alt"></div>
           </div>
+          <div class="drifting-cloud cloud-4">
+            <div class="fluffy-cloud-shape wide"></div>
+          </div>
+          <div class="drifting-cloud cloud-5">
+            <div class="fluffy-cloud-shape tiny"></div>
+          </div>
+          <div class="drifting-cloud cloud-6">
+            <div class="fluffy-cloud-shape puffy"></div>
+          </div>
+          <div class="drifting-cloud cloud-7">
+            <div class="fluffy-cloud-shape small"></div>
+          </div>
+          <div class="drifting-cloud cloud-8">
+            <div class="fluffy-cloud-shape alt"></div>
+          </div>
         </div>
 
-        <!-- Rolling Meadow Grass Hills & Wildflowers Floor -->
+        <!-- Rolling Green Hills & Meadow Grass Scenery in Background -->
         <div class="stage-meadow-scenery" aria-hidden="true">
-          <div class="meadow-hill hill-distant"></div>
-          <div class="meadow-hill hill-mid"></div>
-          <div class="meadow-hill hill-front">
-            <div class="meadow-grass-texture"></div>
-            <div class="meadow-wildflowers">
-              <span class="flower f1">🌼</span>
-              <span class="flower f2">🌸</span>
-              <span class="flower f3">🌱</span>
-              <span class="flower f4">🌼</span>
-              <span class="flower f5">🌸</span>
-              <span class="flower f6">✨</span>
-              <span class="flower f7">🌱</span>
-              <span class="flower f8">🌼</span>
-            </div>
+          <!-- Multi-Layered Natural Rolling Hills SVG -->
+          <svg class="rolling-hills-svg" viewBox="0 0 1000 360" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="hill-grad-1" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#bbf7d0" />
+                <stop offset="45%" stop-color="#86efac" />
+                <stop offset="100%" stop-color="#4ade80" />
+              </linearGradient>
+              <linearGradient id="hill-grad-2" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#4ade80" />
+                <stop offset="55%" stop-color="#22c55e" />
+                <stop offset="100%" stop-color="#16a34a" />
+              </linearGradient>
+              <linearGradient id="hill-grad-3" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#34d399" />
+                <stop offset="50%" stop-color="#16a34a" />
+                <stop offset="100%" stop-color="#15803d" />
+              </linearGradient>
+              <linearGradient id="hill-grad-front" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#22c55e" />
+                <stop offset="40%" stop-color="#16a34a" />
+                <stop offset="100%" stop-color="#14532d" />
+              </linearGradient>
+            </defs>
+
+            <!-- Layer 1: Distant Misty Rolling Hills Ridge -->
+            <path class="svg-hill hill-layer-1" fill="url(#hill-grad-1)" opacity="0.85"
+              d="M 0 125 Q 160 45, 380 95 T 760 70 Q 880 50, 1000 90 L 1000 360 L 0 360 Z" />
+
+            <!-- Layer 2: Mid-Distant Rolling Hills with Undulating Knolls -->
+            <path class="svg-hill hill-layer-2" fill="url(#hill-grad-2)" opacity="0.92"
+              d="M 0 160 Q 240 85, 520 145 Q 740 105, 1000 135 L 1000 360 L 0 360 Z" />
+
+            <!-- Layer 3: Near Rolling Green Slopes -->
+            <path class="svg-hill hill-layer-3" fill="url(#hill-grad-3)"
+              d="M 0 195 Q 310 135, 660 185 Q 860 140, 1000 170 L 1000 360 L 0 360 Z" />
+
+            <!-- Layer 4: Foreground Rolling Meadow Crest where Robots Stand -->
+            <path class="svg-hill hill-layer-front" fill="url(#hill-grad-front)"
+              d="M 0 235 Q 260 185, 540 220 Q 800 175, 1000 210 L 1000 360 L 0 360 Z" />
+          </svg>
+
+          <!-- Foreground Meadow Highlights, Grass Texture & Wildflowers -->
+          <div class="meadow-crest-highlight"></div>
+          <div class="meadow-grass-texture"></div>
+          <div class="meadow-wildflowers">
+            <span class="flower f1">🌼</span>
+            <span class="flower f2">🌸</span>
+            <span class="flower f3">🌱</span>
+            <span class="flower f4">🌻</span>
+            <span class="flower f5">🌸</span>
+            <span class="flower f6">✨</span>
+            <span class="flower f7">🌱</span>
+            <span class="flower f8">🌼</span>
+            <span class="flower f9">🌷</span>
+            <span class="flower f10">🍀</span>
+            <span class="flower f11">🌸</span>
+            <span class="flower f12">🌼</span>
           </div>
         </div>
 
