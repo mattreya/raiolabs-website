@@ -7,6 +7,11 @@ import {
   RECENT_APPEARANCES,
   CYBER_OWASP_EVENTS
 } from './raiolabsData.js';
+import {
+  BOT_PUPPET_DEFS,
+  SAMPLE_SCRIPTS,
+  parseScriptText
+} from './shadowPuppetEngine.js';
 
 // Active configuration state
 const state = {
@@ -34,7 +39,17 @@ const state = {
   activeSwarmScenario: 'spvs_audit',
   activeHurricaneCat: 3,
   activeAppearanceId: null,
-  activeEventCategory: 'All'
+  activeEventCategory: 'All',
+  shadowPuppet: {
+    isPlaying: false,
+    currentCueIndex: -1,
+    cues: [],
+    speed: 1.0,
+    timer: null,
+    activeActors: {},
+    scriptText: '',
+    selectedPresetId: 'fable-5-bots'
+  }
 };
 
 // API Base URL
@@ -165,7 +180,7 @@ function renderLayout() {
         <button class="nav-tab" data-target="swarm-view">🐝 IDE Swarm Systems</button>
         <button class="nav-tab" data-target="workshops-view">🎓 Agentic Workshops</button>
         <button class="nav-tab" data-target="dashboard-view">📊 AetherOS Sandbox</button>
-        <button class="nav-tab" data-target="stage-view">🎭 Prop Theatre Stage</button>
+        <button class="nav-tab" data-target="stage-view">🎭 Shadow Puppet Theatre</button>
       </nav>
 
       <!-- 1. GITHUB PROJECTS VIEW -->
@@ -506,73 +521,165 @@ function renderLayout() {
         </div>
       </div>
 
-      <!-- 5. THEATRE STAGE VIEW -->
+      <!-- 5. SHADOW PUPPET THEATRE VIEW -->
       <div id="stage-view" class="stage-view-container hidden">
-        <section class="canvas-intro">
-          <p>
-            Welcome to the <strong>Creative Theatre Stage</strong>. Pick a tool and design the scenery! 
-            The Resident Agent watches your actions and adapts the atmosphere dynamically to encourage construction or chaos.
-          </p>
+        <section class="canvas-intro shadow-intro">
+          <div class="shadow-intro-content">
+            <span class="hero-eyebrow">WAYANG KULIT CYBER-THEATRE • THE 5 TYPES OF BOTS • SCRIPT ENGINE</span>
+            <h2>The Shadow Puppet Theatre of Autonomy</h2>
+            <p>
+              Step behind the warm oil-lamp screen where ancient Wayang Kulit shadow puppetry meets the 
+              <strong>5 Types of Bots</strong> from the Hurricane Model of Autonomy. Load your own 
+              <code>.txt</code> story script or select a cyber-fable below—our articulated shadow puppets 
+              will slide across the backlit screen on their control rods and act out the entire scene in real time!
+            </p>
+          </div>
         </section>
 
-        <div class="theatre-stage active-stage" id="theatre-stage">
-          <div class="stage-stars"></div>
-          <div class="curtain-left"></div>
-          <div class="curtain-right"></div>
-          <div class="curtain-valance"></div>
-          <div class="stage-floor" id="stage-floor-target"></div>
-          <div class="stage-footlights">
-            <div class="footlight"></div>
-            <div class="footlight"></div>
-            <div class="footlight"></div>
-            <div class="footlight"></div>
-            <div class="footlight"></div>
-            <div class="footlight"></div>
-          </div>
-          <!-- Placed props will render dynamically -->
-          <div id="placed-props-container"></div>
-        </div>
-
-        <div class="stage-controls-bar">
-          
-          <!-- Tool Rack -->
-          <div class="tool-rack-container">
-            <div class="tool-label">Active Tool</div>
-            <div class="tool-buttons">
-              <button class="tool-btn active-tool" id="tool-pointer">
-                <span>🖱️</span> Pointer
-              </button>
-              <button class="tool-btn" id="tool-drill">
-                <span>🔌</span> Drill (Build)
-              </button>
-              <button class="tool-btn" id="tool-hammer">
-                <span>🔨</span> Hammer (Break)
-              </button>
-            </div>
-          </div>
-
-          <!-- Carousel Prop Selection -->
-          <div class="prop-carousel-container">
-            <div class="tool-label">Cardboard Prop Carousel</div>
-            <div class="carousel-body">
-              <button class="carousel-btn" id="carousel-prev">◀</button>
-              <div class="carousel-viewer">
-                <span id="carousel-item-emoji" style="font-size:1.4rem;">🌳</span>
-                <span id="carousel-item-name" class="prop-preview-lbl">Painted Tree</span>
+        <!-- The Backlit Shadow Screen Stage -->
+        <div class="shadow-theatre-box">
+          <div class="theatre-stage shadow-stage active-stage" id="theatre-stage">
+            <!-- Stage Wooden Archway Frame -->
+            <div class="shadow-arch-frame" aria-hidden="true">
+              <div class="arch-filigree-top">
+                <span class="arch-crest-gem">⚡ RAIO LABS SHADOW THEATRE ⚡</span>
               </div>
-              <button class="carousel-btn" id="carousel-next">▶</button>
+              <div class="arch-pillar-left"></div>
+              <div class="arch-pillar-right"></div>
+            </div>
+
+            <!-- Warm Glowing Canvas Screen -->
+            <div class="shadow-screen" id="shadow-screen">
+              <!-- Backlit Candle/Oil-Lamp Glow & Atmospheric Flickers -->
+              <div class="screen-lantern-glow"></div>
+              <div class="screen-canvas-grain"></div>
+              <div class="ambient-dust-container" id="shadow-dust-container"></div>
+              
+              <!-- Dynamic Stage Effects Overlay (Lightning, Spotlights) -->
+              <div class="stage-lightning-flash" id="stage-lightning-flash"></div>
+              <div class="stage-scene-badge" id="stage-scene-badge">Scene: The Backlit Stage of Silicon</div>
+
+              <!-- Puppets on Stage Container -->
+              <div class="shadow-puppets-container" id="shadow-puppets-container">
+                <!-- Puppets rendered dynamically with control rods and glowing halos -->
+              </div>
+            </div>
+
+            <!-- Subtitle / Speech Parchment Scroll at Base of Screen -->
+            <div class="shadow-scroll-subtitle" id="shadow-subtitle-banner">
+              <div class="subtitle-actor-pill" id="subtitle-actor-pill">
+                <span class="pill-symbol">📜</span>
+                <span class="pill-name">Narrator</span>
+              </div>
+              <div class="subtitle-text-box" id="subtitle-text-box">
+                "Welcome, travelers of the terminal. Before you lies the illuminated screen of autonomy, where five primal bot archetypes dwell..."
+              </div>
+              <div class="subtitle-cue-step" id="subtitle-cue-step">Cue 1 / 18</div>
+            </div>
+
+            <!-- Traditional Wayang Stage Footlights / Oil Lamps -->
+            <div class="shadow-stage-footlights" aria-hidden="true">
+              <div class="oil-lamp"><div class="flame"></div></div>
+              <div class="oil-lamp"><div class="flame"></div></div>
+              <div class="oil-lamp"><div class="flame"></div></div>
+              <div class="oil-lamp"><div class="flame"></div></div>
+              <div class="oil-lamp"><div class="flame"></div></div>
+              <div class="oil-lamp"><div class="flame"></div></div>
+              <div class="oil-lamp"><div class="flame"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Puppet Master Controls & Script Ingestion Bar -->
+        <div class="shadow-director-deck">
+          <!-- Playback Controls -->
+          <div class="director-playback-group">
+            <button class="puppet-btn primary-puppet-btn" id="btn-puppet-play" title="Play or Pause Story">
+              <span id="puppet-play-icon">▶</span> <span id="puppet-play-text">Act Out Scene</span>
+            </button>
+            <button class="puppet-btn" id="btn-puppet-prev" title="Step Back One Cue">
+              <span>⏮</span> Step
+            </button>
+            <button class="puppet-btn" id="btn-puppet-next" title="Step Forward One Cue">
+              Step <span>⏭</span>
+            </button>
+            <button class="puppet-btn danger-puppet-btn" id="btn-puppet-reset" title="Reset Stage & Puppets">
+              <span>⏹</span> Reset
+            </button>
+
+            <div class="director-speed-wrap">
+              <label for="sel-puppet-speed">Speed:</label>
+              <select id="sel-puppet-speed" class="director-select">
+                <option value="0.75">0.75x (Solemn)</option>
+                <option value="1" selected>1.0x (Normal)</option>
+                <option value="1.5">1.5x (Brisk)</option>
+                <option value="2">2.0x (Swift)</option>
+              </select>
             </div>
           </div>
 
+          <!-- Script Ingestion & File Upload Buttons -->
+          <div class="director-script-group">
+            <input type="file" id="file-script-upload" accept=".txt,.md,.json,.script" style="display:none;" />
+            <button class="puppet-btn upload-script-btn" id="btn-trigger-upload" title="Upload a .txt script file from your computer">
+              <span>📂</span> Upload .txt Script
+            </button>
+
+            <div class="preset-stories-wrap">
+              <label for="sel-preset-story">Fable:</label>
+              <select id="sel-preset-story" class="director-select">
+                <option value="fable-5-bots">1. The Legend of the 5 Bots (Epic Fable)</option>
+                <option value="overlord-vs-kernel">2. The Swarm Overlord & The Kernel Gate</option>
+                <option value="midnight-triage">3. The Midnight Zero-Day Triage</option>
+              </select>
+            </div>
+
+            <button class="puppet-btn" id="btn-download-script" title="Download current script as a .txt file">
+              <span>💾</span> Export .txt
+            </button>
+
+            <button class="puppet-btn" id="btn-toggle-editor" title="Toggle Script Text Editor">
+              <span>✏️</span> Edit Script
+            </button>
+          </div>
         </div>
 
-        <!-- Help Info -->
-        <div style="font-size: 0.85rem; color: var(--text-secondary); background: rgba(0,0,0,0.15); padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); display: flex; align-items: center; gap: 8px;">
-          <span>💡</span>
-          <span>
-            <strong>Drill Mode:</strong> Click anywhere on the stage floor to place the active cutout. Creations are stored locally so they persist.
-            <br><strong>Hammer Mode:</strong> Click on any placed cutout to strike it. It takes 3 hits to smash it entirely!
-          </span>
+        <!-- Collapsible / Interactive Script Editor Drawer -->
+        <div class="script-editor-drawer" id="script-editor-drawer">
+          <div class="editor-header">
+            <div class="editor-title">
+              <span>📜</span>
+              <strong>Script Studio & Text File Ingestion</strong>
+              <span class="editor-badge" id="editor-status-badge">Loaded: The Legend of the 5 Bots</span>
+            </div>
+            <div class="editor-actions">
+              <button class="editor-mini-btn" id="btn-sample-template" title="Load simple boilerplate format">Load Template</button>
+              <button class="editor-mini-btn" id="btn-clear-script" title="Clear text area">Clear</button>
+            </div>
+          </div>
+          <div class="editor-body">
+            <textarea id="script-raw-textarea" class="script-textarea" spellcheck="false" placeholder="Paste or type your script here, or drop a .txt file...
+Example:
+[Cat 1 ENTERS LEFT]
+Cat 1: In the beginning was the prompt!
+[Cat 5 ENTERS CENTER]
+Cat 5: Halt! Verified logic is law!"></textarea>
+            <div class="editor-syntax-hints">
+              <span>💡 <strong>Tips:</strong> Type <code>Cat 1:</code>, <code>Cat 2:</code>, <code>Cat 3:</code>, <code>Cat 4:</code>, <code>Cat 5:</code>, or <code>Narrator:</code> before dialogue lines.</span>
+              <span>Use stage cues like <code>[CAT1 ENTERS LEFT]</code>, <code>[CAT5 RAISES_SHIELD]</code>, <code>[LIGHTNING]</code>, or <code>[ALL GATHER]</code>. Any raw .txt will also play automatically!</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- The 5 Bot Archetypes / Puppet Master Quick-Cast Bar -->
+        <div class="shadow-cast-section">
+          <div class="cast-section-header">
+            <h3>🎭 The 5 Puppet Archetypes (Wayang Kulit Roster)</h3>
+            <span class="cast-subtitle">Click any puppet below to manually summon or gesture with them on stage</span>
+          </div>
+          <div class="shadow-cast-grid" id="shadow-cast-grid">
+            <!-- 5 bot cards rendered dynamically with puppet miniatures, roles, and quick-summon buttons -->
+          </div>
         </div>
       </div>
     </main>
@@ -2552,7 +2659,22 @@ function runClientSideAgentSynthesis(compiledPrompt = '') {
     return;
   }
 
-  // 10. Macbeth Theatre Reenactment
+  // 10. Shadow Puppet Theatre of the 5 Bots
+  if (lower.includes('shadow puppet') || lower.includes('puppet') || lower.includes('wayang') || lower.includes('shadow theatre') || lower.includes('act out') || lower.includes('story') || lower.includes('fable')) {
+    switchWorkspaceView('stage-view');
+    initShadowPuppetTheatre();
+    playPuppetPlayback();
+    setBotReaction(
+      'hype',
+      '🎭 SHADOW PUPPET THEATRE LIVE!',
+      'Switched to the Wayang Kulit Shadow Puppet Stage! The 5 Bot Archetypes are acting out the cyber-fable on the backlit screen with their shadow rods!',
+      '🎭'
+    );
+    emitKevAnalysis('SHADOW_THEATRE', 'Activated Wayang Kulit Shadow Puppet Theatre and began acting out scene.', null, null, 'action');
+    return;
+  }
+
+  // 11. Macbeth Theatre Reenactment
   if (lower.includes('macbeth') || lower.includes('shakespeare') || lower.includes('reenact') || lower.includes('witch')) {
     appendAgentStyles(`
       .theatre-stage.macbeth-atmosphere {
@@ -2980,247 +3102,806 @@ function extractScriptContent(fullJs, searchMarker) {
   return fullJs.slice(index);
 }
 
-// --- Theatre Stage Scenery Sandbox Helpers ---
-const STAGE_PROPS = [
-  { emoji: '🌳', name: 'Cardboard Tree' },
-  { emoji: '🏰', name: 'Miniature Castle' },
-  { emoji: '☁️', name: 'Paper Cloud' },
-  { emoji: '🐉', name: 'Cardboard Dragon' },
-  { emoji: '🏠', name: 'Painted Cottage' },
-  { emoji: '🛸', name: 'Space UFO' },
-  { emoji: '🦖', name: 'Cardboard Dinosaur' },
-  { emoji: '👾', name: 'Cardboard Alien' }
-];
+// --- Wayang Kulit Shadow Puppet Theatre Engine ---
+
+// Puppet Horizontal Positions on Stage (percentages)
+const SHADOW_POSITIONS = {
+  'offstage-left': -22,
+  'left': 18,
+  'center-left': 34,
+  'center': 50,
+  'center-right': 66,
+  'right': 82,
+  'offstage-right': 118
+};
+
+// Dynamic stage positions
+const puppetStageCoords = {
+  cat1: { pos: -22, onStage: false },
+  cat2: { pos: 118, onStage: false },
+  cat3: { pos: -22, onStage: false },
+  cat4: { pos: 118, onStage: false },
+  cat5: { pos: -22, onStage: false },
+  narrator: { pos: 50, onStage: true }
+};
+
+let puppetPlayTimer = null;
+let typingTimeoutId = null;
 
 function initializeStageElements() {
-  const container = document.getElementById('placed-props-container');
+  initShadowPuppetTheatre();
+}
+
+function initShadowPuppetTheatre() {
+  const container = document.getElementById('shadow-puppets-container');
   if (!container) return;
 
-  // Clear container
-  container.innerHTML = '';
+  // Render puppets onto stage if not already initialized
+  if (!container.dataset.initialized) {
+    container.innerHTML = '';
+    const actors = ['narrator', 'cat1', 'cat2', 'cat3', 'cat4', 'cat5'];
 
-  // Load from local storage
-  try {
-    const saved = localStorage.getItem('aether_stage_props');
-    if (saved) {
-      state.stageProps = JSON.parse(saved);
-    } else {
-      // Default initial layout
-      state.stageProps = [
-        { id: 'prop-def-1', emoji: '🌳', name: 'Cardboard Tree', x: 25, y: 15, cracks: 0 },
-        { id: 'prop-def-2', emoji: '🏰', name: 'Miniature Castle', x: 55, y: 20, cracks: 0 }
-      ];
+    actors.forEach(key => {
+      const def = BOT_PUPPET_DEFS[key];
+      if (!def) return;
+
+      const actorEl = document.createElement('div');
+      actorEl.id = `puppet-${key}`;
+      actorEl.className = 'shadow-puppet-actor';
+      actorEl.dataset.actor = key;
+      actorEl.style.setProperty('--puppet-accent', def.color);
+      actorEl.style.setProperty('--puppet-glow', def.glow);
+
+      const initialLeft = (key === 'narrator') ? 50 : (key.charCodeAt(3) % 2 === 0 ? 118 : -22);
+      actorEl.style.left = `${initialLeft}%`;
+      puppetStageCoords[key] = { pos: initialLeft, onStage: (key === 'narrator') };
+
+      actorEl.innerHTML = `
+        <div class="puppet-halo"></div>
+        <div class="puppet-figure-wrap">
+          ${def.svg}
+        </div>
+        <div class="puppet-name-tag">
+          <span>${def.symbol}</span> ${def.name}
+        </div>
+      `;
+
+      actorEl.addEventListener('click', (e) => {
+        e.stopPropagation();
+        triggerPuppetInteraction(key);
+      });
+
+      container.appendChild(actorEl);
+    });
+
+    // Populate cast grid
+    renderShadowCastGrid();
+
+    // Spawn ambient floating golden dust motes
+    spawnShadowDustMotes();
+
+    // Load initial story script into textarea & state
+    const textarea = document.getElementById('script-raw-textarea');
+    if (textarea && !textarea.value.trim()) {
+      textarea.value = SAMPLE_SCRIPTS[0].text;
+      state.shadowPuppet.scriptText = textarea.value;
+      state.shadowPuppet.cues = parseScriptText(textarea.value);
+      updateSubtitleCueStep(0, state.shadowPuppet.cues.length);
     }
-  } catch (e) {
-    state.stageProps = [];
-  }
 
-  // Render
-  state.stageProps.forEach(prop => {
-    renderPropOnStage(prop);
+    // Attach all director & playback controls
+    bindShadowPuppetControls();
+
+    container.dataset.initialized = 'true';
+  }
+}
+
+function spawnShadowDustMotes() {
+  const dustContainer = document.getElementById('shadow-dust-container');
+  if (!dustContainer) return;
+  dustContainer.innerHTML = '';
+
+  for (let i = 0; i < 16; i++) {
+    const mote = document.createElement('div');
+    mote.className = 'shadow-dust-mote';
+    mote.style.left = `${Math.random() * 96}%`;
+    mote.style.animationDuration = `${3.5 + Math.random() * 4.5}s`;
+    mote.style.animationDelay = `${Math.random() * 3}s`;
+    mote.style.setProperty('--mote-drift', `${-20 + Math.random() * 40}px`);
+    mote.style.opacity = (0.2 + Math.random() * 0.5).toString();
+    dustContainer.appendChild(mote);
+  }
+}
+
+function renderShadowCastGrid() {
+  const grid = document.getElementById('shadow-cast-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+
+  const castKeys = ['cat1', 'cat2', 'cat3', 'cat4', 'cat5', 'narrator'];
+
+  castKeys.forEach(key => {
+    const def = BOT_PUPPET_DEFS[key];
+    if (!def) return;
+
+    const card = document.createElement('div');
+    card.className = 'cast-card';
+    card.dataset.actor = key;
+    card.style.setProperty('--cast-color', def.color);
+
+    // Find matching hurricane category for additional risk/windspeed info
+    const hurrCat = HURRICANE_BOT_CATEGORIES.find(c => c.category.toLowerCase().replace(' ', '') === key);
+    const windInfo = hurrCat ? hurrCat.windSpeed : 'Universal Dalang Guide';
+
+    card.innerHTML = `
+      <div class="cast-card-header">
+        <div class="cast-card-badge" style="background: ${def.color}20; border-color: ${def.color}; color: ${def.color};">
+          <span>${def.symbol}</span> ${def.category}
+        </div>
+        <span class="cast-card-risk">${windInfo.split('(')[0].trim()}</span>
+      </div>
+      
+      <div class="cast-card-body">
+        <div class="cast-mini-silhouette">
+          ${def.svg}
+        </div>
+        <div class="cast-meta">
+          <h4 class="cast-name">${def.name}</h4>
+          <span class="cast-archetype" style="color: ${def.accent};">${def.archetype}</span>
+          <p class="cast-desc">${def.role}</p>
+        </div>
+      </div>
+
+      <div class="cast-actions">
+        <button class="cast-btn btn-summon" data-action="summon" data-actor="${key}">
+          <span>🎭</span> Summon to Stage
+        </button>
+        <button class="cast-btn btn-action" data-action="gesture" data-actor="${key}">
+          <span>⚡</span> Speak / Gesture
+        </button>
+      </div>
+    `;
+
+    // Click handler for card buttons
+    card.querySelectorAll('.cast-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const action = btn.dataset.action;
+        const actor = btn.dataset.actor;
+        if (action === 'summon') {
+          summonPuppetToStage(actor);
+        } else {
+          triggerPuppetInteraction(actor);
+        }
+      });
+    });
+
+    grid.appendChild(card);
   });
 }
 
-function renderPropOnStage(prop) {
-  const container = document.getElementById('placed-props-container');
-  if(!container) return;
+function summonPuppetToStage(actorKey) {
+  const el = document.getElementById(`puppet-${actorKey}`);
+  const def = BOT_PUPPET_DEFS[actorKey];
+  if (!el || !def) return;
 
-  const propEl = document.createElement('div');
-  propEl.id = prop.id;
-  propEl.className = 'placed-prop';
-  if (prop.cracks > 0) {
-    propEl.classList.add(`cracked-${prop.cracks}`);
-  }
-  
-  propEl.style.left = `${prop.x}%`;
-  propEl.style.bottom = `${60 + (prop.y || 0)}px`;
+  const targetLeft = def.defaultPos || 50;
+  el.style.left = `${targetLeft}%`;
+  puppetStageCoords[actorKey] = { pos: targetLeft, onStage: true };
 
-  propEl.innerHTML = `
-    <div class="prop-cutout">${prop.emoji}</div>
-    <div class="prop-stick"></div>
-  `;
+  el.classList.add('acting');
+  setTimeout(() => el.classList.remove('acting'), 800);
 
-  propEl.addEventListener('click', (e) => {
-    e.stopPropagation();
-    handlePropClick(prop, propEl);
-  });
+  setSubtitleBanner(
+    def.symbol,
+    def.name,
+    `[${def.name} glides smoothly onto the backlit shadow stage on their shadow rod]`,
+    def.color
+  );
 
-  container.appendChild(propEl);
+  logToTerminal('info', 'SHADOW_STAGE', `Summoned puppet [${def.name}] onto stage at coordinate X: ${targetLeft}%.`);
 }
 
-function handlePropClick(prop, propEl) {
-  if (state.stageActiveTool === 'pointer') {
-    propEl.classList.add('smashing');
-    logToTerminal('info', 'USER', `You inspected the cardboard ${prop.name}.`);
-    setTimeout(() => {
-      propEl.classList.remove('smashing');
-    }, 400);
-  } else if (state.stageActiveTool === 'hammer') {
-    strikeStageProp(prop, propEl);
-  } else if (state.stageActiveTool === 'drill') {
-    logToTerminal('info', 'USER', `Drill is active. Choose Hammer to break or Pointer to inspect.`);
-  }
-}
+function triggerPuppetInteraction(actorKey) {
+  const el = document.getElementById(`puppet-${actorKey}`);
+  const def = BOT_PUPPET_DEFS[actorKey];
+  if (!el || !def) return;
 
-function strikeStageProp(prop, propEl) {
-  prop.cracks = (prop.cracks || 0) + 1;
-  state.stageBreakCount = (state.stageBreakCount || 0) + 1;
-  
-  propEl.classList.add('smashing');
-  propEl.classList.remove('cracked-1', 'cracked-2');
-  if (prop.cracks === 1) propEl.classList.add('cracked-1');
-  if (prop.cracks === 2) propEl.classList.add('cracked-2');
-
-  spawnDebrisParticles(propEl);
-
-  const stage = document.getElementById('theatre-stage');
-  if(stage) {
-    stage.classList.add('rumble');
-    setTimeout(() => stage.classList.remove('rumble'), 150);
+  // If puppet is offstage, slide onto stage
+  if (!puppetStageCoords[actorKey]?.onStage || puppetStageCoords[actorKey]?.pos < 0 || puppetStageCoords[actorKey]?.pos > 100) {
+    const targetLeft = def.defaultPos || 50;
+    el.style.left = `${targetLeft}%`;
+    puppetStageCoords[actorKey] = { pos: targetLeft, onStage: true };
   }
 
-  logToTerminal('warn', 'HAMMER', `User struck cardboard "${prop.name}" with hammer. Damage: ${prop.cracks}/3.`);
-  recordInteraction({ type: 'stage_strike', prop: prop.name, cracks: prop.cracks });
+  // Animation classes
+  document.querySelectorAll('.shadow-puppet-actor').forEach(p => p.classList.remove('speaking'));
+  el.classList.add('speaking', 'acting');
+  setTimeout(() => el.classList.remove('acting'), 1200);
 
-  evaluateStageBehavior('break');
-
-  setTimeout(() => {
-    propEl.classList.remove('smashing');
-  }, 200);
-
-  if (prop.cracks >= 3) {
-    setTimeout(() => {
-      propEl.style.transition = 'all 0.3s';
-      propEl.style.opacity = '0';
-      propEl.style.transform = 'scale(0.3) translateY(30px)';
-      setTimeout(() => {
-        propEl.remove();
-        state.stageProps = state.stageProps.filter(p => p.id !== prop.id);
-        localStorage.setItem('aether_stage_props', JSON.stringify(state.stageProps));
-        logToTerminal('error', 'DESTRUCTION', `Cardboard "${prop.name}" completely broken and cleared from scene!`);
-        recordInteraction({ type: 'stage_break', prop: prop.name });
-      }, 300);
-    }, 200);
-  } else {
-    localStorage.setItem('aether_stage_props', JSON.stringify(state.stageProps));
-  }
-}
-
-function spawnDebrisParticles(parentEl) {
-  const stage = document.getElementById('theatre-stage');
-  if (!stage) return;
-
-  const rect = parentEl.getBoundingClientRect();
-  const stageRect = stage.getBoundingClientRect();
-
-  const originX = rect.left - stageRect.left + rect.width / 2;
-  const originY = rect.top - stageRect.top + rect.height / 2;
-
-  for (let i = 0; i < 8; i++) {
-    const particle = document.createElement('div');
-    particle.className = 'debris-particle';
-    particle.style.left = `${originX}px`;
-    particle.style.top = `${originY}px`;
-
-    const angle = Math.random() * Math.PI * 2;
-    const distance = 30 + Math.random() * 60;
-    const x = Math.cos(angle) * distance;
-    const y = Math.sin(angle) * distance - 20;
-
-    particle.style.setProperty('--debris-x', `${x}px`);
-    particle.style.setProperty('--debris-y', `${y}px`);
-    
-    const colors = ['#b45309', '#d97706', '#92400e', '#f59e0b'];
-    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-
-    stage.appendChild(particle);
-    setTimeout(() => particle.remove(), 500);
-  }
-}
-
-function handleStageFloorClick(e) {
-  if (state.stageActiveTool !== 'drill') return;
-
-  const stage = document.getElementById('theatre-stage');
-  if(!stage) return;
-
-  const rect = stage.getBoundingClientRect();
-  const clickX = e.clientX - rect.left;
-  const clickY = e.clientY - rect.top;
-
-  const xPercentage = Math.min(Math.max(((clickX / rect.width) * 100), 8), 92);
-  const yOffset = Math.min(Math.max((rect.height - 70 - clickY), 0), 40);
-
-  const currentProp = STAGE_PROPS[state.stageCurrentPropIndex];
-  const newProp = {
-    id: `prop-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
-    emoji: currentProp.emoji,
-    name: currentProp.name,
-    x: xPercentage,
-    y: yOffset,
-    cracks: 0
+  // Signature dialogue lines
+  const lines = {
+    cat1: '“Give me a prompt, and I shall weave entire worlds from silence!”',
+    cat2: '“I sense a disturbance in the telemetry... an anomaly approaches!”',
+    cat3: '“Task queued, triaged, and executed. Next workflow, please!”',
+    cat4: '“Across thirty git branches, my multi-agent swarm builds as one!”',
+    cat5: '“At ring-0, eBPF and formal logic guarantee absolute truth!”',
+    narrator: '“Listen closely to the shadow puppets—for in their play lies the future of agentic architecture.”'
   };
 
-  state.stageProps.push(newProp);
-  localStorage.setItem('aether_stage_props', JSON.stringify(state.stageProps));
+  const line = lines[actorKey] || def.role;
+  typeSubtitleText(def.symbol, def.name, line, def.color);
 
-  renderPropOnStage(newProp);
-  state.stageBuildCount = (state.stageBuildCount || 0) + 1;
+  // Companion bot reaction
+  const botReactions = {
+    cat1: { mood: 'happy', title: '📜 CAT 1 SCRIBE INSPIRED!', desc: 'The Resident Agent appreciates creative code synthesis.' },
+    cat2: { mood: 'observing', title: '🔮 CAT 2 TELEMETRY PREDICTION!', desc: 'Telemetry radar eye analyzing upcoming incident vectors.' },
+    cat3: { mood: 'working', title: '⚙️ CAT 3 AUTOMATION ACTIVE!', desc: 'Triage loop running with mechanical precision.' },
+    cat4: { mood: 'hype', title: '👑 CAT 4 SWARM DEPLOYED!', desc: 'Multi-agent Git worktrees coordinating via MCP bridges.' },
+    cat5: { mood: 'alert', title: '🛡️ CAT 5 RING-0 SHIELD!', desc: 'Kernel eBPF guardrails guarding against memory mutations.' },
+    narrator: { mood: 'love', title: '🎭 WAYANG KULIT DALANG!', desc: 'The sacred cyber-fable resonates across the stage.' }
+  };
 
-  logToTerminal('info', 'DRILL', `Assembled cardboard cutout "${newProp.name}" at coordinate X: ${xPercentage.toFixed(1)}%, Y: ${yOffset.toFixed(0)}px.`);
-  recordInteraction({ type: 'stage_build', prop: newProp.name });
+  const r = botReactions[actorKey];
+  if (r) {
+    setBotReaction(r.mood, r.title, r.desc, def.symbol);
+  }
 
-  evaluateStageBehavior('build');
+  logToTerminal('info', 'PUPPET_SPEAK', `${def.name} (${def.category}): "${line}"`);
 }
 
-function spawnSparkles(stage) {
-  document.querySelectorAll('.ambient-sparkle').forEach(s => s.remove());
-  for (let i = 0; i < 15; i++) {
-    const sparkle = document.createElement('div');
-    sparkle.className = 'ambient-sparkle';
-    sparkle.style.left = `${Math.random() * 95}%`;
-    
-    const duration = 2 + Math.random() * 3;
-    const delay = Math.random() * 2;
-    sparkle.style.animationDuration = `${duration}s`;
-    sparkle.style.animationDelay = `${delay}s`;
-    
-    const drift = -30 + Math.random() * 60;
-    sparkle.style.setProperty('--sparkle-drift', `${drift}px`);
+function bindShadowPuppetControls() {
+  const playBtn = document.getElementById('btn-puppet-play');
+  const prevBtn = document.getElementById('btn-puppet-prev');
+  const nextBtn = document.getElementById('btn-puppet-next');
+  const resetBtn = document.getElementById('btn-puppet-reset');
+  const speedSel = document.getElementById('sel-puppet-speed');
+  const presetSel = document.getElementById('sel-preset-story');
+  const uploadBtn = document.getElementById('btn-trigger-upload');
+  const fileInput = document.getElementById('file-script-upload');
+  const downloadBtn = document.getElementById('btn-download-script');
+  const toggleEditorBtn = document.getElementById('btn-toggle-editor');
+  const templateBtn = document.getElementById('btn-sample-template');
+  const clearBtn = document.getElementById('btn-clear-script');
+  const textarea = document.getElementById('script-raw-textarea');
+  const stage = document.getElementById('theatre-stage');
 
-    stage.appendChild(sparkle);
+  if (playBtn) {
+    playBtn.onclick = () => togglePuppetPlayback();
+  }
+  if (prevBtn) {
+    prevBtn.onclick = () => stepPuppetCue(-1);
+  }
+  if (nextBtn) {
+    nextBtn.onclick = () => stepPuppetCue(1);
+  }
+  if (resetBtn) {
+    resetBtn.onclick = () => resetPuppetTheatre();
+  }
+  if (speedSel) {
+    speedSel.onchange = (e) => {
+      state.shadowPuppet.speed = parseFloat(e.target.value) || 1.0;
+      logToTerminal('info', 'PUPPET_SPEED', `Adjusted shadow theatre performance speed to ${state.shadowPuppet.speed}x`);
+    };
+  }
+
+  // Preset Story Loader
+  if (presetSel) {
+    presetSel.onchange = (e) => {
+      const selectedId = e.target.value;
+      const sample = SAMPLE_SCRIPTS.find(s => s.id === selectedId);
+      if (sample && textarea) {
+        pausePuppetPlayback();
+        textarea.value = sample.text;
+        state.shadowPuppet.scriptText = sample.text;
+        state.shadowPuppet.cues = parseScriptText(sample.text);
+        state.shadowPuppet.currentCueIndex = -1;
+        state.shadowPuppet.selectedPresetId = selectedId;
+
+        const badge = document.getElementById('editor-status-badge');
+        if (badge) badge.textContent = `Loaded: ${sample.title}`;
+
+        resetPuppetPositions();
+        updateSubtitleCueStep(0, state.shadowPuppet.cues.length);
+        setSubtitleBanner('📜', 'Narrator', `Ready to act out "${sample.title}". Click ▶ Act Out Scene to begin.`, '#d97706');
+        logToTerminal('info', 'SCRIPT_LOAD', `Loaded cyber-fable [${sample.title}] (${state.shadowPuppet.cues.length} cues).`);
+      }
+    };
+  }
+
+  // File Upload Ingestion
+  if (uploadBtn && fileInput) {
+    uploadBtn.onclick = () => fileInput.click();
+
+    fileInput.onchange = (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (loadEvent) => {
+        const fileContent = loadEvent.target.result;
+        if (textarea) {
+          pausePuppetPlayback();
+          textarea.value = fileContent;
+          state.shadowPuppet.scriptText = fileContent;
+          state.shadowPuppet.cues = parseScriptText(fileContent);
+          state.shadowPuppet.currentCueIndex = -1;
+
+          const badge = document.getElementById('editor-status-badge');
+          if (badge) badge.textContent = `Loaded File: ${file.name}`;
+
+          resetPuppetPositions();
+          updateSubtitleCueStep(0, state.shadowPuppet.cues.length);
+          setSubtitleBanner('📂', 'Script Ingestion', `Successfully loaded "${file.name}"! Click ▶ Act Out Scene to watch puppets perform it.`, '#3b82f6');
+
+          setBotReaction('hype', '📂 SCRIPT FILE LOADED!', `Read "${file.name}" with ${state.shadowPuppet.cues.length} cues! Ready to act out on stage!`, '🎭');
+          logToTerminal('info', 'FILE_INGEST', `Successfully parsed script file "${file.name}" (${file.size} bytes, ${state.shadowPuppet.cues.length} stage cues).`);
+        }
+      };
+      reader.readAsText(file);
+      // Reset input value so re-uploading same file name works
+      fileInput.value = '';
+    };
+  }
+
+  // Drag and Drop Script File onto Stage or Textarea
+  const dropTargets = [stage, textarea].filter(Boolean);
+  dropTargets.forEach(targetEl => {
+    targetEl.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      targetEl.classList.add('drag-over-active');
+    });
+    targetEl.addEventListener('dragleave', (e) => {
+      e.preventDefault();
+      targetEl.classList.remove('drag-over-active');
+    });
+    targetEl.addEventListener('drop', (e) => {
+      e.preventDefault();
+      targetEl.classList.remove('drag-over-active');
+
+      const file = e.dataTransfer?.files?.[0];
+      if (file && (file.name.endsWith('.txt') || file.name.endsWith('.md') || file.name.endsWith('.json') || file.name.endsWith('.script') || file.type.startsWith('text/'))) {
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          const content = ev.target.result;
+          if (textarea) {
+            pausePuppetPlayback();
+            textarea.value = content;
+            state.shadowPuppet.scriptText = content;
+            state.shadowPuppet.cues = parseScriptText(content);
+            state.shadowPuppet.currentCueIndex = -1;
+
+            const badge = document.getElementById('editor-status-badge');
+            if (badge) badge.textContent = `Dropped File: ${file.name}`;
+
+            resetPuppetPositions();
+            updateSubtitleCueStep(0, state.shadowPuppet.cues.length);
+            setSubtitleBanner('📂', 'Script Dropped', `Loaded "${file.name}" via drag-and-drop. Ready for shadow puppet performance!`, '#10b981');
+            setBotReaction('party', '✨ SCRIPT IMPORTED!', `Dropped "${file.name}" right onto the stage! Puppets are ready to act out.`, '📜');
+            logToTerminal('info', 'DRAG_DROP', `Imported "${file.name}" (${state.shadowPuppet.cues.length} cues).`);
+          }
+        };
+        reader.readAsText(file);
+      }
+    });
+  });
+
+  // Download / Export .txt Script
+  if (downloadBtn && textarea) {
+    downloadBtn.onclick = () => {
+      const content = textarea.value || '';
+      const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'raiolabs_shadow_puppet_script.txt';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      logToTerminal('info', 'EXPORT_SCRIPT', 'Exported shadow puppet script to [raiolabs_shadow_puppet_script.txt].');
+    };
+  }
+
+  // Toggle Script Editor Drawer
+  if (toggleEditorBtn) {
+    toggleEditorBtn.onclick = () => {
+      const drawer = document.getElementById('script-editor-drawer');
+      if (drawer) {
+        drawer.classList.toggle('open');
+        toggleEditorBtn.classList.toggle('active');
+        toggleEditorBtn.innerHTML = drawer.classList.contains('open') ? '<span>✕</span> Close Editor' : '<span>✏️</span> Edit Script';
+      }
+    };
+  }
+
+  // Boilerplate Template Button
+  if (templateBtn && textarea) {
+    templateBtn.onclick = () => {
+      textarea.value = `# ==============================================
+# CUSTOM SHADOW PUPPET SCENE TEMPLATE
+# ==============================================
+[SCENE: The Chamber of Autonomy]
+[CAT1 ENTERS LEFT]
+Cat 1: Welcome! I am Cat 1, ready to create what you desire.
+[CAT5 ENTERS RIGHT]
+Cat 5: And I am Cat 5, ready to verify it at ring-0.
+[LIGHTNING]
+Narrator: When creation and verification unite, the system thrives.
+`;
+      state.shadowPuppet.scriptText = textarea.value;
+      state.shadowPuppet.cues = parseScriptText(textarea.value);
+      state.shadowPuppet.currentCueIndex = -1;
+      resetPuppetPositions();
+      updateSubtitleCueStep(0, state.shadowPuppet.cues.length);
+      logToTerminal('info', 'TEMPLATE_LOADED', 'Inserted boilerplate script template.');
+    };
+  }
+
+  // Clear Textarea
+  if (clearBtn && textarea) {
+    clearBtn.onclick = () => {
+      textarea.value = '';
+      state.shadowPuppet.scriptText = '';
+      state.shadowPuppet.cues = [];
+      state.shadowPuppet.currentCueIndex = -1;
+      updateSubtitleCueStep(0, 0);
+      setSubtitleBanner('✏️', 'Editor Cleared', 'Text area is empty. Type your dialogue or paste a .txt file!', '#94a3b8');
+    };
+  }
+
+  // Live input parsing
+  if (textarea) {
+    let parseDebounce = null;
+    textarea.addEventListener('input', () => {
+      clearTimeout(parseDebounce);
+      parseDebounce = setTimeout(() => {
+        state.shadowPuppet.scriptText = textarea.value;
+        state.shadowPuppet.cues = parseScriptText(textarea.value);
+        updateSubtitleCueStep(Math.max(0, state.shadowPuppet.currentCueIndex + 1), state.shadowPuppet.cues.length);
+      }, 400);
+    });
   }
 }
 
-function evaluateStageBehavior(actionType) {
-  const stage = document.getElementById('theatre-stage');
-  const statusOrb = document.getElementById('agent-status-orb');
-  const statusMsg = document.getElementById('agent-status-msg');
-  if (!stage || !statusOrb) return;
+function togglePuppetPlayback() {
+  if (state.shadowPuppet.isPlaying) {
+    pausePuppetPlayback();
+  } else {
+    playPuppetPlayback();
+  }
+}
 
-  statusOrb.className = 'status-orb working';
-  statusMsg.textContent = 'Status: Evaluating Theatre Scene...';
+function playPuppetPlayback() {
+  const cues = state.shadowPuppet.cues;
+  if (!cues || cues.length === 0) {
+    const textarea = document.getElementById('script-raw-textarea');
+    if (textarea && textarea.value.trim()) {
+      state.shadowPuppet.cues = parseScriptText(textarea.value);
+    } else {
+      setSubtitleBanner('⚠️', 'Empty Script', 'Please type or load a script before playing!', '#ef4444');
+      return;
+    }
+  }
 
-  setTimeout(() => {
-    if (actionType === 'build') {
-      logToTerminal('thought', 'AGENT', 'Observation: The user is constructing scenery. A beautiful cutout assembly is emerging. I must encourage creative building! Activating Celestial Twilight atmosphere...');
-      stage.classList.remove('destruction-vibe');
-      stage.classList.add('creation-vibe');
-      spawnSparkles(stage);
-      logToTerminal('info', 'REACTION', 'Celestial sunset glow applied to theatre. Ambient sparkle streams initialized.');
-    } else if (actionType === 'break') {
-      logToTerminal('thought', 'AGENT', 'Observation: Severe kinetic impact recorded. The cardboard prop is fractured. Deconstruction is a valid form of layout iteration. Let\'s encourage deconstruction! Activating Hazard Red strobe and impact rumbles.');
-      stage.classList.remove('creation-vibe');
-      stage.classList.add('destruction-vibe');
-      logToTerminal('error', 'REACTION', 'Hazard alert overlay active. Deconstruction impact modifier configured.');
+  state.shadowPuppet.isPlaying = true;
+  updatePlayButtonUI(true);
+
+  // If at the end of story, wrap back to cue 0
+  if (state.shadowPuppet.currentCueIndex >= state.shadowPuppet.cues.length - 1) {
+    state.shadowPuppet.currentCueIndex = -1;
+    resetPuppetPositions();
+  }
+
+  logToTerminal('info', 'PUPPET_PLAY', `▶ Act out scene started (${state.shadowPuppet.cues.length} cues total).`);
+  scheduleNextCue();
+}
+
+function pausePuppetPlayback() {
+  state.shadowPuppet.isPlaying = false;
+  clearTimeout(puppetPlayTimer);
+  updatePlayButtonUI(false);
+  document.querySelectorAll('.shadow-puppet-actor').forEach(p => p.classList.remove('speaking'));
+  logToTerminal('info', 'PUPPET_PAUSE', '⏸ Performance paused.');
+}
+
+function updatePlayButtonUI(isPlaying) {
+  const icon = document.getElementById('puppet-play-icon');
+  const txt = document.getElementById('puppet-play-text');
+  const btn = document.getElementById('btn-puppet-play');
+  if (icon && txt && btn) {
+    if (isPlaying) {
+      icon.textContent = '⏸';
+      txt.textContent = 'Pause Performance';
+      btn.classList.add('playing');
+    } else {
+      icon.textContent = '▶';
+      txt.textContent = 'Act Out Scene';
+      btn.classList.remove('playing');
+    }
+  }
+}
+
+function scheduleNextCue() {
+  if (!state.shadowPuppet.isPlaying) return;
+
+  const nextIndex = state.shadowPuppet.currentCueIndex + 1;
+  if (nextIndex >= state.shadowPuppet.cues.length) {
+    // End of script reached!
+    pausePuppetPlayback();
+    setSubtitleBanner('🏁', 'Performance Complete', 'The cyber-fable has concluded. Click ▶ to replay or load another .txt script!', '#10b981');
+    setBotReaction('party', '🎉 FINALE COMPLETE!', 'All 5 bot archetypes completed their performance on the shadow stage!', '👏');
+    logToTerminal('info', 'PUPPET_FINALE', '✨ Scene performance completed successfully.');
+    return;
+  }
+
+  executeShadowCue(nextIndex);
+
+  // Calculate dwell time based on cue type and dialogue length
+  const cue = state.shadowPuppet.cues[nextIndex];
+  let baseDelay = 2200;
+  if (cue.type === 'dialogue') {
+    const wordCount = (cue.dialogue || '').split(' ').length;
+    baseDelay = Math.max(2600, wordCount * 220);
+  } else if (cue.type === 'effect') {
+    baseDelay = 1800;
+  } else if (cue.type === 'puppet_action') {
+    baseDelay = 1600;
+  }
+
+  const speed = state.shadowPuppet.speed || 1.0;
+  const actualDelay = baseDelay / speed;
+
+  puppetPlayTimer = setTimeout(() => {
+    scheduleNextCue();
+  }, actualDelay);
+}
+
+function stepPuppetCue(delta) {
+  pausePuppetPlayback();
+  const cues = state.shadowPuppet.cues;
+  if (!cues || cues.length === 0) return;
+
+  let targetIndex = state.shadowPuppet.currentCueIndex + delta;
+  if (targetIndex < 0) targetIndex = 0;
+  if (targetIndex >= cues.length) targetIndex = cues.length - 1;
+
+  executeShadowCue(targetIndex);
+}
+
+function executeShadowCue(index) {
+  const cues = state.shadowPuppet.cues;
+  if (!cues || index < 0 || index >= cues.length) return;
+
+  state.shadowPuppet.currentCueIndex = index;
+  const cue = cues[index];
+  updateSubtitleCueStep(index + 1, cues.length);
+
+  // 1. Scene Setting
+  if (cue.type === 'scene') {
+    const badge = document.getElementById('stage-scene-badge');
+    if (badge) badge.textContent = `Scene: ${cue.sceneName}`;
+    setSubtitleBanner('🎬', 'Scene Direction', `[Scene: ${cue.sceneName}]`, '#f59e0b');
+    return;
+  }
+
+  // 2. Special Effects (Lightning, Thunder)
+  if (cue.type === 'effect' && cue.effect === 'lightning') {
+    triggerStageLightning();
+    setSubtitleBanner('⚡', 'Atmosphere', '[⚡ Lightning illuminates the oil-lamp parchment screen!]', '#38bdf8');
+    return;
+  }
+
+  // 3. Puppet Actions (Enter, Exit, Bob, Spin, Gesture)
+  if (cue.type === 'puppet_action') {
+    const actorKey = cue.actor;
+    const el = document.getElementById(`puppet-${actorKey}`);
+    const def = BOT_PUPPET_DEFS[actorKey];
+    if (!el || !def) return;
+
+    if (cue.action === 'enter') {
+      const posMap = { left: 22, center: 50, right: 78 };
+      const targetPos = posMap[cue.position] || def.defaultPos || 50;
+      el.style.left = `${targetPos}%`;
+      puppetStageCoords[actorKey] = { pos: targetPos, onStage: true };
+      el.classList.add('acting');
+      setTimeout(() => el.classList.remove('acting'), 600);
+    } else if (cue.action === 'exit') {
+      const exitPos = (puppetStageCoords[actorKey]?.pos > 50) ? 120 : -22;
+      el.style.left = `${exitPos}%`;
+      puppetStageCoords[actorKey] = { pos: exitPos, onStage: false };
+    } else {
+      // Bob / gesture
+      el.classList.add(cue.action || 'acting');
+      setTimeout(() => el.classList.remove(cue.action || 'acting'), 1000);
     }
 
-    setTimeout(() => {
-      statusOrb.className = 'status-orb observing';
-      statusMsg.textContent = 'Status: Observing Interaction...';
-    }, 1500);
-  }, 1000);
+    setSubtitleBanner(def.symbol, def.name, cue.text, def.color);
+    return;
+  }
+
+  // 4. Gather / Finale
+  if (cue.type === 'gather') {
+    gatherAllPuppetsOnStage();
+    setSubtitleBanner('🎭', 'Grand Ensemble', '[All Five Bots gather across the illuminated stage]', '#a855f7');
+    return;
+  }
+
+  // 5. Spoken Dialogue
+  if (cue.type === 'dialogue') {
+    const actorKey = cue.actor;
+    const def = BOT_PUPPET_DEFS[actorKey];
+    const el = document.getElementById(`puppet-${actorKey}`);
+
+    if (el && def) {
+      // If actor is offstage, slide onto stage smoothly!
+      if (!puppetStageCoords[actorKey]?.onStage || puppetStageCoords[actorKey]?.pos < 0 || puppetStageCoords[actorKey]?.pos > 100) {
+        const targetPos = def.defaultPos || 50;
+        el.style.left = `${targetPos}%`;
+        puppetStageCoords[actorKey] = { pos: targetPos, onStage: true };
+      }
+
+      // Mark active speaker
+      document.querySelectorAll('.shadow-puppet-actor').forEach(p => p.classList.remove('speaking'));
+      el.classList.add('speaking');
+
+      // Subtle bob animation
+      el.classList.add('acting');
+      setTimeout(() => el.classList.remove('acting'), 800);
+
+      // Type out dialogue
+      typeSubtitleText(def.symbol, def.name, cue.dialogue, def.color);
+
+      // Update companion bot reaction
+      const companionReactions = {
+        cat1: { mood: 'happy', title: '📜 CAT 1 SCRIBE SPEAKING', desc: 'Synthesizing ideas, documentation drafts, and creative blueprints.' },
+        cat2: { mood: 'observing', title: '🔮 CAT 2 ORACLE SPEAKING', desc: 'Scanning log streams and BGP routing tables for early storm telemetry.' },
+        cat3: { mood: 'working', title: '⚙️ CAT 3 MECHANIST SPEAKING', desc: 'Scaling repetitive ticket triage and deterministic operational automation.' },
+        cat4: { mood: 'hype', title: '👑 CAT 4 SWARM OVERLORD SPEAKING', desc: 'Orchestrating Git worktrees and subagent teams via MCP protocol.' },
+        cat5: { mood: 'alert', title: '🛡️ CAT 5 KERNEL SOVEREIGN SPEAKING', desc: 'Enforcing eBPF ring-0 isolation, formal logic, and provable safety.' },
+        narrator: { mood: 'love', title: '🎭 DALANG STORYTELLER', desc: 'Guiding through the Wayang Kulit philosophical spectrum of AI.' }
+      };
+
+      const cr = companionReactions[actorKey];
+      if (cr) {
+        setBotReaction(cr.mood, cr.title, cr.desc, def.symbol);
+      }
+
+      logToTerminal('info', 'CUE_DIALOGUE', `[Cue ${index + 1}] ${cue.speakerName}: "${cue.dialogue}"`);
+    } else {
+      // Fallback text display
+      setSubtitleBanner('📜', cue.speakerName || 'Narrator', cue.dialogue, '#f59e0b');
+    }
+  }
 }
+
+function triggerStageLightning() {
+  const flash = document.getElementById('stage-lightning-flash');
+  const stage = document.getElementById('theatre-stage');
+  if (flash) {
+    flash.classList.remove('flash-active');
+    void flash.offsetWidth; // trigger reflow
+    flash.classList.add('flash-active');
+    setTimeout(() => flash.classList.remove('flash-active'), 600);
+  }
+  if (stage) {
+    stage.classList.add('rumble');
+    setTimeout(() => stage.classList.remove('rumble'), 400);
+  }
+  setBotReaction('alert', '⚡ THUNDER & LIGHTNING!', 'RaioLabs lightning strikes behind the shadow screen!', '⚡');
+}
+
+function gatherAllPuppetsOnStage() {
+  const positions = {
+    cat1: 15,
+    cat2: 32,
+    narrator: 50,
+    cat3: 65,
+    cat4: 78,
+    cat5: 90
+  };
+
+  Object.entries(positions).forEach(([key, xPos]) => {
+    const el = document.getElementById(`puppet-${key}`);
+    if (el) {
+      el.style.left = `${xPos}%`;
+      puppetStageCoords[key] = { pos: xPos, onStage: true };
+      el.classList.add('acting');
+      setTimeout(() => el.classList.remove('acting'), 1000);
+    }
+  });
+
+  document.querySelectorAll('.shadow-puppet-actor').forEach(p => p.classList.remove('speaking'));
+}
+
+function resetPuppetTheatre() {
+  pausePuppetPlayback();
+  state.shadowPuppet.currentCueIndex = -1;
+  resetPuppetPositions();
+  updateSubtitleCueStep(0, state.shadowPuppet.cues.length);
+
+  const badge = document.getElementById('stage-scene-badge');
+  if (badge) badge.textContent = 'Scene: The Backlit Stage of Silicon';
+
+  setSubtitleBanner('📜', 'Dalang', 'Stage reset to opening positions. Click ▶ Act Out Scene to begin!', '#d97706');
+  setBotReaction('happy', '🎭 STAGE CLEARED', 'Puppets returned backstage. Ready for new scene!', '✨');
+  logToTerminal('info', 'STAGE_RESET', 'Shadow puppet theatre reset to initial state.');
+}
+
+function resetPuppetPositions() {
+  const initialPositions = {
+    narrator: 50,
+    cat1: -22,
+    cat2: 118,
+    cat3: -22,
+    cat4: 118,
+    cat5: -22
+  };
+
+  Object.entries(initialPositions).forEach(([key, pos]) => {
+    const el = document.getElementById(`puppet-${key}`);
+    if (el) {
+      el.style.left = `${pos}%`;
+      el.classList.remove('speaking', 'acting');
+      puppetStageCoords[key] = { pos: pos, onStage: (key === 'narrator') };
+    }
+  });
+}
+
+function updateSubtitleCueStep(current, total) {
+  const el = document.getElementById('subtitle-cue-step');
+  if (el) {
+    el.textContent = `Cue ${current} / ${total}`;
+  }
+}
+
+function setSubtitleBanner(symbol, name, text, color) {
+  const pill = document.getElementById('subtitle-actor-pill');
+  const textBox = document.getElementById('subtitle-text-box');
+  if (pill) {
+    pill.innerHTML = `<span class="pill-symbol">${symbol}</span> <span class="pill-name">${name}</span>`;
+    pill.style.borderColor = color || '#d97706';
+    pill.style.background = `${color || '#d97706'}22`;
+  }
+  if (textBox) {
+    textBox.textContent = text;
+  }
+}
+
+function typeSubtitleText(symbol, name, fullText, color) {
+  clearTimeout(typingTimeoutId);
+  const pill = document.getElementById('subtitle-actor-pill');
+  const textBox = document.getElementById('subtitle-text-box');
+
+  if (pill) {
+    pill.innerHTML = `<span class="pill-symbol">${symbol}</span> <span class="pill-name">${name}</span>`;
+    pill.style.borderColor = color || '#d97706';
+    pill.style.background = `${color || '#d97706'}22`;
+  }
+
+  if (!textBox) return;
+  textBox.textContent = '';
+
+  let charIndex = 0;
+  const speed = state.shadowPuppet.speed || 1.0;
+  const charDelay = Math.max(8, Math.floor(22 / speed));
+
+  function stepType() {
+    if (charIndex < fullText.length) {
+      textBox.textContent += fullText.charAt(charIndex);
+      charIndex++;
+      typingTimeoutId = setTimeout(stepType, charDelay);
+    }
+  }
+  stepType();
+}
+
+// Fallback handlers to preserve backward compatibility
+function renderPropOnStage() {}
+function handlePropClick() {}
+function strikeStageProp() {}
+function handleStageFloorClick() {}
+function evaluateStageBehavior() {}
 
 // --- RaioLabs Projects, Swarm Cockpit & Workshops Logic ---
 
