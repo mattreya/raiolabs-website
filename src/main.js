@@ -424,9 +424,9 @@ function renderLayout() {
         <div class="card-widget">
           <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px; margin-bottom:1rem;">
             <div>
-              <h3>🌀 The 5 Kinds of Bots: Hurricane Scale & NIST/CISA SP800-53 Overlay</h3>
+              <h3>🌀 The 5 Kinds of Bots: The NIST/CISA SP800-53 Overlay (By Matt Raio MSIS)</h3>
               <p style="margin:0;">
-                Developed during NIST/CISA working group collaborations, this framework categorizes AI agents by operational force and blast radius—so organizations can calibrate governance before deployment.
+                Authored by Matt Raio during NIST/CISA working group sessions, this framework categorizes AI agents by operational force and blast radius using the meteorological Hurricane Scale. Anchored by the maxim of Hannibal Barca: <strong style="color:#fde047;">"Aut viam inveniam aut faciam"</strong> (<em>"I will find a way.. or make one."</em>).
               </p>
             </div>
           </div>
@@ -1027,7 +1027,7 @@ Cat 5: Halt! Verified logic is law!"></textarea>
       </section>
 
       <!-- 🚨 KEV-BOT: REAL-TIME USER BEHAVIOR & TELEMETRY ANALYST -->
-      <section class="kev-bot-panel" id="kev-bot-panel">
+      <section class="kev-bot-panel window-collapsed" id="kev-bot-panel">
         <div class="kev-bot-header">
           <div class="kev-bot-identity">
             <div class="kev-bot-avatar" id="kev-bot-avatar" title="KEV-Bot: Real-Time User Behavior & Telemetry Analyst">
@@ -1056,7 +1056,7 @@ Cat 5: Halt! Verified logic is law!"></textarea>
               ⏸
             </button>
             <button class="kev-btn kev-btn-toggle" id="btn-kev-collapse" type="button" title="Collapse or Expand KEV-Bot panel to save screen space">
-              <span id="kev-collapse-icon">−</span> <span id="kev-collapse-text">Collapse</span>
+              <span id="kev-collapse-icon">+</span> <span id="kev-collapse-text">Expand</span>
             </button>
           </div>
         </div>
@@ -1098,15 +1098,15 @@ Cat 5: Halt! Verified logic is law!"></textarea>
         </div>
       </section>
 
-      <!-- Interactive Patreon Donation & Support Card -->
-      <section class="patreon-donate-card" id="patreon-donate-card">
+      <!-- Interactive Patreon Donation & Support Card (Collapsed by default to maximize robot stage & background) -->
+      <section class="patreon-donate-card window-collapsed" id="patreon-donate-card">
         <div class="patreon-card-header">
           <div>
             <h3>☕ Fuel Open-Source Swarms & Labs</h3>
             <p id="patreon-header-desc">Choose a tier and make a pledge below to unlock RaioBot's special reward animations!</p>
           </div>
           <button class="stage-window-toggle-btn" id="btn-toggle-patreon" type="button" title="Collapse or Expand Patreon section to utilize screen space">
-            <span class="toggle-icon" id="patreon-toggle-icon">−</span> <span class="toggle-text" id="patreon-toggle-text">Collapse</span>
+            <span class="toggle-icon" id="patreon-toggle-icon">+</span> <span class="toggle-text" id="patreon-toggle-text">Expand</span>
           </button>
         </div>
 
@@ -3343,14 +3343,14 @@ function triggerPuppetInteraction(actorKey) {
   el.classList.add('speaking', 'acting');
   setTimeout(() => el.classList.remove('acting'), 1200);
 
-  // Signature dialogue lines
+  // Signature dialogue lines directly from Matt Raio's Slide Deck & Hannibal Barca Maxim
   const lines = {
-    cat1: '“Give me a prompt, and I shall weave entire worlds from silence!”',
-    cat2: '“I sense a disturbance in the telemetry... an anomaly approaches!”',
-    cat3: '“Task queued, triaged, and executed. Next workflow, please!”',
-    cat4: '“Across thirty git branches, my multi-agent swarm builds as one!”',
-    cat5: '“At ring-0, eBPF and formal logic guarantee absolute truth!”',
-    narrator: '“Listen closely to the shadow puppets—for in their play lies the future of agentic architecture.”'
+    cat1: '“I am The Digital Creator! I draft emails, summarize long RFCs, and write presentations from a spark!”',
+    cat2: '“I am The Digital Forecaster! Think Minority Report... I predict trends, screen resumes, and divine digital storms!”',
+    cat3: '“I am The Solo Task Manager! Automate 80% repeating errors so you can innovate. Stand between two mirrors and watch me scale 1,000x!”',
+    cat4: '“I am The Coordinated Team... The Bot Overlord! Born from the MCP podcast, I command subagent swarms across Git worktrees!”',
+    cat5: '“Aut viam inveniam aut faciam — I will find a way.. or make one! The Agentic Engineer overcomes every blocker in real time!”',
+    narrator: '“The 5 Kinds of Bots: from the Creator’s spark to the Security Builder’s sovereign resolve. Ground yourselves in network fundamentals!”'
   };
 
   const line = lines[actorKey] || def.role;
@@ -3358,11 +3358,11 @@ function triggerPuppetInteraction(actorKey) {
 
   // Companion bot reaction
   const botReactions = {
-    cat1: { mood: 'happy', title: '📜 CAT 1 SCRIBE INSPIRED!', desc: 'The Resident Agent appreciates creative code synthesis.' },
-    cat2: { mood: 'observing', title: '🔮 CAT 2 TELEMETRY PREDICTION!', desc: 'Telemetry radar eye analyzing upcoming incident vectors.' },
-    cat3: { mood: 'working', title: '⚙️ CAT 3 AUTOMATION ACTIVE!', desc: 'Triage loop running with mechanical precision.' },
-    cat4: { mood: 'hype', title: '👑 CAT 4 SWARM DEPLOYED!', desc: 'Multi-agent Git worktrees coordinating via MCP bridges.' },
-    cat5: { mood: 'alert', title: '🛡️ CAT 5 RING-0 SHIELD!', desc: 'Kernel eBPF guardrails guarding against memory mutations.' },
+    cat1: { mood: 'happy', title: '📜 CAT 1: THE DIGITAL CREATOR', desc: 'Synthesizing emails, articles, summaries, and presentations!' },
+    cat2: { mood: 'observing', title: '🔮 CAT 2: MINORITY REPORT ANALYST', desc: 'Predicting recommendation trends, resume scoring, and telemetry drift.' },
+    cat3: { mood: 'working', title: '⚙️ CAT 3: 1,000x MIRROR AUTOMATION', desc: 'Telco 80/20 triage automation! Managing the Multiplicity liability dilemma.' },
+    cat4: { mood: 'hype', title: '👑 CAT 4: THE BOT OVERLORD', desc: 'Multi-Agent MCP coordination commanding subagents across worktrees!' },
+    cat5: { mood: 'alert', title: '🛡️ CAT 5: "AUT VIAM INVENIAM AUT FACIAM"', desc: 'Hannibal Barca: "I will find a way.. or make one!" Gemini-CLI & eBPF co-creation.' },
     narrator: { mood: 'love', title: '🎭 WAYANG KULIT DALANG!', desc: 'The sacred cyber-fable resonates across the stage.' }
   };
 
@@ -4226,6 +4226,19 @@ function renderHurricaneDetail(index) {
     <p style="font-size:0.95rem; color:var(--text-primary); margin: 12px 0;">
       ${cat.description}
     </p>
+    ${cat.motto ? `
+      <div class="hurricane-motto-banner" style="margin: 12px 0; padding: 10px 14px; background: rgba(239, 68, 68, 0.12); border-left: 4px solid #ef4444; border-radius: 6px;">
+        <span style="font-size:0.75rem; text-transform:uppercase; letter-spacing:1px; color:#fca5a5; font-weight:700;">⚔️ Hannibal Barca Maxim:</span>
+        <p style="margin:4px 0 0; font-style:italic; font-size:0.95rem; color:#fef08a; font-weight:600;">
+          ${cat.motto}
+        </p>
+      </div>
+    ` : ''}
+    ${cat.analogy ? `
+      <div class="hurricane-analogy-box" style="margin: 10px 0; padding: 10px 14px; background: rgba(255,255,255,0.03); border: 1px dashed var(--border-color); border-radius: 8px; font-size:0.88rem; color:var(--text-primary); line-height:1.45;">
+        💡 <strong>Matt's Slide Deck Insight & Analogy:</strong> ${cat.analogy}
+      </div>
+    ` : ''}
     <div class="hurricane-meta-grid">
       <div class="hurricane-meta-item">
         <span class="meta-label">🛡️ NIST SP 800-53 / CISA Overlay Controls</span>

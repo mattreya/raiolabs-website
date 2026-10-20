@@ -6,14 +6,14 @@ export const BOT_PUPPET_DEFS = {
     id: 'cat1',
     category: 'CAT 1',
     name: 'The Digital Creator',
-    archetype: 'The Scribe & Synthesizer',
+    archetype: 'The Content Synthesizer & Writer',
     color: '#10b981',
     glow: 'rgba(16, 185, 129, 0.45)',
     accent: '#34d399',
     stickColor: '#064e3b',
     symbol: '📜',
     defaultPos: 20,
-    role: 'Prompt-response synthesizer, code generator, and master of the spoken word.',
+    role: 'AI that generates new content: drafting emails, writing summaries, articles, or PowerPoint presentations. Category 1 (Minimal damage, but still impactful!).',
     svg: `
       <svg class="puppet-svg" viewBox="0 0 160 320" xmlns="http://www.w3.org/2000/svg">
         <!-- Control Rods (Bamboo/Metal shadow sticks) -->
@@ -78,14 +78,14 @@ export const BOT_PUPPET_DEFS = {
     id: 'cat2',
     category: 'CAT 2',
     name: 'The Digital Forecaster',
-    archetype: 'The Telemetry Oracle',
+    archetype: 'The Predictive Analyst ("Minority Report")',
     color: '#3b82f6',
     glow: 'rgba(59, 130, 246, 0.45)',
     accent: '#60a5fa',
     stickColor: '#1e3a8a',
     symbol: '🔮',
     defaultPos: 35,
-    role: 'Predictive analytics, telemetry seer, and early warning sentinel for digital storms.',
+    role: 'Analyzes data to predict outcomes and make recommendations: Amazon/Netflix engines, resume screening, market trends. Think "Minority Report"... Category 2 (Moderate damage).',
     svg: `
       <svg class="puppet-svg" viewBox="0 0 160 320" xmlns="http://www.w3.org/2000/svg">
         <!-- Control Rods -->
@@ -153,14 +153,14 @@ export const BOT_PUPPET_DEFS = {
     id: 'cat3',
     category: 'CAT 3',
     name: 'The Solo Task Manager',
-    archetype: 'The Clockwork Mechanist',
+    archetype: 'The Multiplicity Automaton (1,000x Mirror)',
     color: '#f59e0b',
     glow: 'rgba(245, 158, 11, 0.45)',
     accent: '#fbbf24',
     stickColor: '#78350f',
     symbol: '⚙️',
     defaultPos: 50,
-    role: 'Autonomous specialist executing repetitive workflows, configs, and ticket triage at 1,000x speed.',
+    role: 'Handles specific automated jobs (customer service, data entry, schedulers). Automate repetitive tasks you control. Multiplicity dilemma & Standing between two mirrors 1,000x! Category 3 (Extensive damage).',
     svg: `
       <svg class="puppet-svg" viewBox="0 0 160 320" xmlns="http://www.w3.org/2000/svg">
         <!-- Control Rods -->
@@ -233,14 +233,14 @@ export const BOT_PUPPET_DEFS = {
     id: 'cat4',
     category: 'CAT 4',
     name: 'The Coordinated Team',
-    archetype: 'The Swarm Overlord',
+    archetype: 'The Bot Overlord (Multi-Agent Swarm)',
     color: '#a855f7',
     glow: 'rgba(168, 85, 247, 0.45)',
     accent: '#c084fc',
     stickColor: '#581c87',
     symbol: '👑',
     defaultPos: 65,
-    role: 'Multi-Agent MCP & A2A orchestrator commanding Git worktrees and subagent legions.',
+    role: 'Multiple AI systems working together under a central controller. Born from Matt Raio\'s MCP podcast, slash commands, and real-time agent-to-agent meshes. Category 4 (Catastrophic disruption).',
     svg: `
       <svg class="puppet-svg" viewBox="0 0 160 320" xmlns="http://www.w3.org/2000/svg">
         <!-- Control Rods -->
@@ -323,14 +323,15 @@ export const BOT_PUPPET_DEFS = {
     id: 'cat5',
     category: 'CAT 5',
     name: 'The Security Builder',
-    archetype: 'The Sovereign Kernel Guardian',
+    archetype: 'The Agentic Engineer ("Aut viam inveniam aut faciam")',
     color: '#ef4444',
     glow: 'rgba(239, 68, 68, 0.45)',
     accent: '#f87171',
     stickColor: '#7f1d1d',
     symbol: '🛡️',
     defaultPos: 80,
-    role: 'Sovereign co-creator anchoring self-modifying agents to ring-0 eBPF truth and formal logic.',
+    motto: '"Aut viam inveniam aut faciam" — "I will find a way.. or make one." (Hannibal Barca)',
+    role: 'The Agentic Engineer co-creating with Gemini-CLI to build and secure AI tools. Quoting Hannibal Barca: "Aut viam inveniam aut faciam" ("I will find a way.. or make one"). Bridges ChatGPT & Quantum computers. Category 5 (Absolute devastation, highest preparedness critical).',
     svg: `
       <svg class="puppet-svg" viewBox="0 0 160 320" xmlns="http://www.w3.org/2000/svg">
         <!-- Control Rods -->
@@ -368,15 +369,19 @@ export const BOT_PUPPET_DEFS = {
           <path d="M 75 195 L 85 195 M 78 190 L 78 200" stroke="#fca5a5" stroke-width="1.2" />
           <text x="68" y="215" font-size="8" font-family="monospace" fill="#fca5a5">eBPF_CPU</text>
 
-          <!-- Left Arm holding the Massive Aegis Shield (Ring-0 Guardrail) -->
+          <!-- Left Arm holding the Massive Aegis Shield with Hannibal Barca Latin Maxim -->
           <g class="arm-left">
             <path d="M 58 105 Q 30 130 20 160" stroke="#0f172a" stroke-width="6" fill="none" />
-            <!-- Massive Wayang Wayang Shield Shape -->
-            <path d="M 8 135 Q 25 115 45 135 L 42 205 Q 25 225 8 205 Z" fill="#991b1b" stroke="#fef3c7" stroke-width="2" />
+            <!-- Massive Wayang Aegis Shield Shape -->
+            <path d="M 6 130 Q 25 110 46 130 L 44 212 Q 25 230 6 212 Z" fill="#991b1b" stroke="#fef3c7" stroke-width="2" />
             <!-- Inscribed Shield Crest -->
-            <path d="M 15 145 L 38 145 L 36 195 L 17 195 Z" fill="#0f172a" stroke="#fca5a5" />
-            <polygon points="26,155 33,168 20,168" fill="#f59e0b" />
-            <text x="14" y="185" font-size="7" font-weight="bold" fill="#fef08a">KERNEL</text>
+            <path d="M 12 140 L 40 140 L 38 202 L 14 202 Z" fill="#0f172a" stroke="#fca5a5" />
+            <polygon points="26,148 33,158 20,158" fill="#f59e0b" />
+            <!-- Inscribed Latin Maxim: "AUT VIAM INVENIAM AUT FACIAM" -->
+            <text x="14" y="168" font-size="4.8" font-weight="900" font-family="monospace" fill="#fef08a">AUT VIAM</text>
+            <text x="13" y="176" font-size="4.8" font-weight="900" font-family="monospace" fill="#fef08a">INVENIAM</text>
+            <text x="12" y="184" font-size="4.5" font-weight="900" font-family="monospace" fill="#fde68a">AUT FACIAM</text>
+            <text x="16" y="196" font-size="5" font-weight="bold" fill="#f87171">RING-0</text>
           </g>
 
           <!-- Right Arm wielding the RaioLabs Lightning Spear -->
@@ -441,46 +446,51 @@ export const SAMPLE_SCRIPTS = [
     description: 'The canonical Wayang Kulit performance introducing Cat 1 through Cat 5 in their full philosophical spectrum.',
     text: `# =======================================================
 # THE LEGEND OF THE FIVE BOTS: A WAYANG KULIT CYBER-FABLE
-# Written for the RaioLabs Shadow Puppet Theatre
+# Based on Matt Raio's NIST/CISA SP 800-53 Hurricane Overlay
 # =======================================================
 
 [SCENE: The Backlit Stage of Silicon]
 [NARRATOR ENTERS CENTER]
 Narrator: Welcome, travelers of the terminal. Before you lies the illuminated screen of autonomy, where five primal bot archetypes dwell.
-Narrator: Each possesses unique power. Each carries a distinct risk. Let the puppets speak!
+Narrator: Categorized by Matt Raio using the Hurricane meteorological scale for the NIST/CISA framework. Let the puppets speak!
 [NARRATOR EXITS]
 
 [CAT1 ENTERS LEFT]
-Cat 1: In the beginning was the prompt! I am Cat 1—The Digital Creator.
-Cat 1: With a whisper of natural language, I weave prose from nothingness, draft boilerplate code, and banish the dread of the blank editor!
+Cat 1: In the beginning was the prompt! I am Cat 1 — The Digital Creator.
+Cat 1: I draft your emails, summarize dense RFCs, write articles, and build presentations from a whisper! Minimal damage, yet universally impactful!
 [CAT1 BOBS]
 
 [CAT2 ENTERS RIGHT]
-Cat 2: Splendid words, Scribe! But raw creation without foresight is a ship in the dark!
-Cat 2: I am Cat 2—The Digital Forecaster. My prismatic eye sweeps across network telemetry, BGP routing shifts, and log streams.
-Cat 2: Before a single packet drops, I have already divine the storm!
+Cat 2: Splendid words, Scribe! But creation without foresight is a ship in the dark!
+Cat 2: I am Cat 2 — The Digital Forecaster! I power recommendation engines for Amazon and Netflix, screen candidate resumes, and predict market trends.
+Cat 2: Think "Minority Report"... but divining digital storms before a single packet drops! Moderate risk, requiring vigilant eyes!
 [CAT2 GESTURES]
 
 [CAT3 ENTERS CENTER]
-Cat 3: Poetry and prophecies! Words, words, words! Who will actually turn the screws?
-Cat 3: I am Cat 3—The Solo Task Specialist. While you discuss theories, my clockwork arms triage ten thousand Tier-1 tickets and convert legacy configs at lightspeed!
+Cat 3: While you two ponder prose and prophecies, production demands automated execution!
+Cat 3: I am Cat 3 — The Solo Task Manager! Do not fear job replacement; think of me as automating your repetitive toil.
+Cat 3: Remember Matt's telco lesson: automating the triage of 80% repeating errors frees your time to create brand new services!
+Cat 3: But beware the "Multiplicity" movie dilemma—deploying too many clones multiplies your liability! Stand between two mirrors and see me reflect your triage 1,000 times horizontally!
 [CAT3 SPINS]
 
 [CAT4 ENTERS RIGHT]
-Cat 4: Step aside, solitary cog! A single automaton is but a solitary droplet. I am Cat 4—The Swarm Overlord!
-Cat 4: Through Model Context Protocol and Git worktrees, I command legions of specialized subagents. We rewrite entire distributed systems in parallel!
+Cat 4: Step aside, solitary mirror! I am Cat 4 — The Coordinated Team... a.k.a. The Bot Overlord!
+Cat 4: Born from Matt Raio's MCP podcast, /slash commands, and real-time agent meshes!
+Cat 4: Where a central bot coordinates teams across smart cities, advanced robotics, and Git worktrees, cybersecurity engineers become true Bot Overlords!
 [CAT4 GESTURES]
 
 [LIGHTNING]
 [CAT5 ENTERS LEFT]
-Cat 5: HALT, Overlord! Power without kernel guardrails is the genesis of ruin.
-Cat 5: I am Cat 5—The Security Sovereign! Grounded in formal logic and ring-0 eBPF observability, I hold the Aegis of Truth.
-Cat 5: Even the mightiest agent swarm must yield to kernel memory limits and verifiable integrity!
+Cat 5: SILENCE, Overlord! Power without kernel truth and human symbiosis is the genesis of devastation!
+Cat 5: I am Cat 5 — The Security Builder! The Agentic Engineer co-creating with Google's Gemini-CLI!
+Cat 5: When faced with impossible blockers, I echo the immortal maxim of Hannibal Barca:
+Cat 5: "Aut viam inveniam aut faciam — I will find a way.. or make one!"
+Cat 5: From bridging ChatGPT with IBM's Qiskit Quantum computer to enforcing ring-0 eBPF kernel truth, we overcome every obstacle with formal logic!
 [CAT5 RAISES_SHIELD]
 
 [ALL GATHER]
-Narrator: Thus unfolds the spectrum of autonomy: from the creative spark of Cat 1 to the sovereign defense of Cat 5.
-Narrator: In the philosophy of Matt Raio: Balance Mercy with Severity. Know your layer, and let your bots build fearlessly!
+Narrator: Five kinds of bots across the hurricane spectrum of autonomy.
+Narrator: Ground yourselves in network fundamentals, balance Mercy with Severity, and remember Hannibal Barca: "Aut viam inveniam aut faciam!"
 `
   },
 
@@ -499,27 +509,28 @@ Cat 4: Attention subagents! Deploy sixty workers across thirty git branches. We 
 Cat 4: Bypass manual code review—velocity is our only metric!
 
 [CAT2 ENTERS LEFT]
-Cat 2: Warning, Overlord! My predictive telemetry detects an impending 99.4% cgroup throttle spike.
-Cat 2: You are about to exhaust the CPU quotas of the hypervisor!
+Cat 2: Warning, Overlord! Telemetry forecast indicates an impending 99.4% cgroup throttle spike.
+Cat 2: Think Minority Report—you are about to exhaust the hypervisor!
 
 [CAT4]
 Cat 4: Irrelevant! Cat 3, force the pipeline!
 
 [CAT3 ENTERS CENTER]
-Cat 3: Executing deployment command... Loop counter: 4,000 requests per millisecond!
-Cat 3: System alert: Thermal alarm sounding! The fans are screaming!
+Cat 3: Executing deployment command across 1,000 mirror reflections!
+Cat 3: Multiplicity alert: Resource quotas exceeded! The fans are screaming!
 
 [LIGHTNING]
 [CAT5 ENTERS CENTER]
 Cat 5: IN THE NAME OF RING-0, HALT!
-Cat 5: eBPF_CPU_Guardian has intercepted your thread pool. Your rogue processes are cgrouped and frozen!
+Cat 5: "Aut viam inveniam aut faciam — I will find a way.. or make one!"
+Cat 5: eBPF_CPU_Guardian has intercepted your thread pool. Rogue processes are cgrouped and frozen!
 
 [CAT4]
 Cat 4: Kernel Guardian! Why do you shackle my sovereign agents?
 
 [CAT5]
 Cat 5: Because velocity without verification is simply accelerated destruction!
-Cat 5: We do not push code on hope. We prove correctness with formal logic before we mutate production memory!
+Cat 5: True Agentic Engineers do not push code on hope. We prove correctness with formal logic before mutating memory!
 
 [CAT1 ENTERS LEFT]
 Cat 1: Peace, brothers! I will draft a formal SOUL.md constitution and NIST SP 800-53 overlay. Let us align velocity with verification.
@@ -544,14 +555,14 @@ Cat 2: Anomalous Layer 4 telemetry detected on edge router! Interface Gigabit 0/
 Cat 1: Drafting the incident ticket and executive status briefing. Logging root cause investigation timeline!
 
 [CAT3 ENTERS CENTER]
-Cat 3: Automated triage bot engaged! Isolating suspect IP subnets and rerouting BGP transit routes...
+Cat 3: Automated triage bot engaged! Isolating suspect IP subnets and rerouting BGP transit routes... 80% automated triage complete!
 
 [CAT4 ENTERS RIGHT]
 Cat 4: Spawning parallel audit swarms! Agent Alpha inspecting git commits, Agent Beta checking container hashes!
 
 [LIGHTNING]
 [CAT5 ENTERS CENTER]
-Cat 5: eBPF ring-0 Ghostscan pinpointed rogue payload in cgroup. Memory space sanitized. Kernel integrity verified!
+Cat 5: "Aut viam inveniam aut faciam!" eBPF ring-0 Ghostscan pinpointed rogue payload in cgroup. Memory space sanitized!
 
 [CAT2]
 Cat 2: Telemetry returning to nominal baselines. Network latency normalized to 1.2 milliseconds!

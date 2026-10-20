@@ -160,52 +160,58 @@ export const HURRICANE_BOT_CATEGORIES = [
   {
     category: 'CAT 1',
     name: 'The Digital Creator',
-    role: 'Advisor / Content Synthesizer',
+    role: 'Content Synthesizer (Emails, Summaries, Presentations)',
     color: '#10b981',
-    windSpeed: '74–95 mph (Minimal Risk)',
-    description: 'Generates content, summaries, boilerplate code, and documentation drafts. Operates strictly on prompt-response without direct system mutation.',
-    nistControls: 'SI-10 (Information Input Validation), AU-3 (Content of Audit Records)',
-    example: 'Drafting executive briefings, explaining legacy regex, or summarizing RFCs.'
+    windSpeed: 'Category 1: 74–95 mph (Minimal damage, but still impactful!)',
+    description: 'AI that generates new content—like drafting emails for you, summarizing long documents, writing articles, or helping build a presentation. Operates on prompt-response without direct system mutation.',
+    analogy: 'Drafting emails, summarizing complex RFCs, or preparing an executive slide deck in seconds.',
+    nistControls: 'SI-10 (Information Input Validation), AU-3 (Content of Audit Records), AC-3 (Access Enforcement)',
+    example: 'Drafting executive briefings, summarizing RFCs, and building presentation slides.'
   },
   {
     category: 'CAT 2',
     name: 'The Digital Forecaster',
-    role: 'Predictive Telemetry Analyst',
+    role: 'Predictive Analyst & Recommendation Engine ("Minority Report")',
     color: '#3b82f6',
-    windSpeed: '96–110 mph (Moderate Risk)',
-    description: 'Analyzes aggregated telemetry, network traffic, or behavioral data to forecast anomalies, capacity exhaustion, or security incidents before they strike.',
+    windSpeed: 'Category 2: 96–110 mph (Moderate damage, requiring more attention)',
+    description: 'AI that analyzes data to predict outcomes or make recommendations. Powers recommendation engines (Amazon, Netflix), AI resume screening for job applications, or tools predicting market trends.',
+    analogy: 'Think "Minority Report" (the movie)... but not as graphic as catching murderers. Foresees patterns before incidents occur.',
     nistControls: 'RA-3 (Risk Assessment), SI-4 (System Monitoring), PM-16 (Threat Awareness)',
-    example: 'Predicting BGP route flaps, scoring PR risk, or detecting subtle privilege drift.'
+    example: 'Predicting BGP route flaps, anomaly screening in telemetry streams, and scoring PR risk.'
   },
   {
     category: 'CAT 3',
     name: 'The Solo Task Manager',
-    role: 'Autonomous Single-Domain Specialist',
+    role: 'Autonomous Single-Job Automator (Customer Service, Data Entry, 1,000x Mirror)',
     color: '#f59e0b',
-    windSpeed: '111–129 mph (Extensive Impact)',
-    description: 'Executes bounded, repetitive operational workflows end-to-end. Like standing between two mirrors—scales your exact triage logic 1,000x horizontally.',
+    windSpeed: 'Category 3: 111–129 mph (Extensive damage, significant protective measures needed)',
+    description: 'AI designed to handle one specific automated job independently (customer service chatbots, automated data entry, appointment schedulers). Automate repetitive tasks to bots you control while remaining the accountable stakeholder.',
+    analogy: 'The "Multiplicity" movie dilemma (each clone increases liability) & Standing between two mirrors (exact triage replicated 1,000x). Telco rule: automating 80% repeating errors frees time to create new services.',
     nistControls: 'AC-6 (Least Privilege), CM-3 (Configuration Change Control), SA-11 (Developer Testing)',
-    example: 'Auto-triaging 80% of Tier-1 ticket noise, converting IPv4 configs to IPv6, or running SPVS scans.'
+    example: 'Auto-triaging 80% of Tier-1 ticket noise, bulk IPv4-to-IPv6 config conversion, or automated SPVS scanning.'
   },
   {
     category: 'CAT 4',
-    name: 'The Coordinated Team ("Bot Overlord")',
-    role: 'Multi-Agent MCP & A2A Orchestrator',
+    name: 'The Coordinated Team (a.k.a. "The Bot Overlord")',
+    role: 'Multi-Agent System Orchestrator (MCP & A2A Swarm Overlord)',
     color: '#a855f7',
-    windSpeed: '130–156 mph (Catastrophic Potential)',
-    description: 'A central orchestrator dispatching tasks across specialized subagents via Model Context Protocol (MCP) and Agent-to-Agent (A2A) JSON-RPC bridges across Git worktrees.',
+    windSpeed: 'Category 4: 130–156 mph (Catastrophic damage, widespread impact and disruption)',
+    description: 'Multiple AI systems working together on complex tasks, with one central bot controlling or coordinating others. Originated from Matt Raio\'s MCP podcast, /slash commands, and multi-agent communication where engineers become "Bot Overlords".',
+    analogy: 'Advanced robotics in manufacturing, smart city management platforms, or sophisticated logistics and supply chain multi-agent swarms.',
     nistControls: 'SC-8 (Transmission Confidentiality/mTLS), IA-3 (Device/Agent Identification), AU-12 (Audit Generation)',
-    example: 'Master Orchestrator coordinating a Coder Bot, OWASP SPVS Auditor Bot, and NetClaw BGP Bot.'
+    example: 'Master Orchestrator dispatching specialized Coder, OWASP Auditor, and NetClaw BGP subagents across Git worktrees.'
   },
   {
     category: 'CAT 5',
-    name: 'The Security Builder (Sovereign Co-Creator)',
-    role: 'Human-Agent Symbiosis + Kernel Guardrails',
+    name: 'The Security Builder',
+    role: 'The Agentic Engineer & Sovereign Co-Creator (Gemini-CLI + Quantum + Ring-0)',
     color: '#ef4444',
-    windSpeed: '157+ mph (Maximum Preparedness Required)',
-    description: 'The Agentic Engineer co-creating self-modifying systems, quantum circuits, and security tools—anchored by formal logic, OSI fundamentals, and eBPF ring-0 kernel observability.',
+    windSpeed: 'Category 5: 157+ mph (Absolute devastation, highest level of preparedness critical!)',
+    motto: '"Aut viam inveniam aut faciam" — "I will find a way.. or make one." (Hannibal Barca)',
+    description: 'The role of humans (the "Agentic Engineer") who use bots as co-creators in building and securing AI systems themselves. Forms a working relationship with the bot of choice (Google Gemini-CLI) where human and AI learn from each other.',
+    analogy: 'Literally figures out ways to get around blockers in real time, quoting Hannibal Barca: "Aut viam inveniam aut faciam" ("I will find a way.. or make one"). Bridged ChatGPT with IBM Qiskit Quantum computer where the quantum realm answered ChatGPT\'s deepest questions! Must remain grounded in network fundamentals.',
     nistControls: 'SC-39 (Process Isolation), SI-7 (Software/Firmware/Kernel Integrity via eBPF), IR-4 (Automated Incident Handling)',
-    example: 'Live self-modifying IDE swarms verified by eBPF_CPU_Guardian and DefenseClaw SOUL.md constitutions.'
+    example: 'Live self-modifying IDE swarms verified by eBPF_CPU_Guardian, quantum circuit bridging, and SOUL.md constitutions.'
   }
 ];
 
