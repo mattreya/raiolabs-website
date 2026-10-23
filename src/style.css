@@ -553,7 +553,8 @@ body {
   font-size: 0.75rem;
   color: var(--text-dim);
   border-top: 1px solid rgba(255, 255, 255, 0.03);
-  padding-top: 6px;
+  padding: 8px 0;
+  gap: 12px;
 }
 
 .settings-btn {
@@ -6394,7 +6395,7 @@ body.website-blurred-bg .agent-section {
 
 @keyframes floatShockParticle {
   0% {
-    opacity: 0;
+    opacity: 1;
     transform: translate(0, 0) scale(0.3) rotate(0deg);
   }
   15% {
@@ -6410,3 +6411,373 @@ body.website-blurred-bg .agent-section {
     transform: translate(calc(var(--p-dx, 0px) * 1.7), var(--p-dy3, -135px)) scale(0.55) rotate(var(--p-rot3, 30deg));
   }
 }
+
+/* ==========================================================================
+   👁️ PRAETORIAN GATEWAY ("THE NET" π BACKDOOR EASTER EGG & OMINOUS STAGE)
+   ========================================================================== */
+
+/* 1. Corner Stealth Backdoor Trigger Badge (Deep Dark Purple • Aligned under Briefing Column • Never Cut Off) */
+.praetorian-net-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: rgba(12, 8, 18, 0.45);
+  border: 1px solid rgba(59, 7, 100, 0.35);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: none;
+  outline: none;
+  backdrop-filter: blur(3px);
+  flex-shrink: 0;
+}
+
+.praetorian-net-btn:hover {
+  background: rgba(28, 12, 50, 0.92);
+  border-color: rgba(168, 85, 247, 0.8);
+  transform: scale(1.15);
+  box-shadow: 0 0 20px rgba(147, 51, 234, 0.55);
+}
+
+.praetorian-pi-glyph {
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 20px;
+  font-weight: 900;
+  color: #2e1065; /* Deep dark purple, almost black — camouflaged against dark canvas */
+  opacity: 0.55;
+  text-shadow: none;
+  transition: all 0.4s ease;
+  line-height: 1;
+  user-select: none;
+}
+
+.praetorian-net-btn:hover .praetorian-pi-glyph {
+  color: #d8b4fe;
+  opacity: 1;
+  text-shadow: 0 0 12px rgba(192, 132, 252, 0.85);
+}
+
+.praetorian-sonar-ping {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  border: 1px solid rgba(88, 28, 135, 0.2);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.praetorian-net-btn:hover .praetorian-sonar-ping {
+  opacity: 1;
+  animation: praetorianPulse 2.8s infinite;
+}
+
+@keyframes praetorianPulse {
+  0% { transform: scale(1); opacity: 0.5; border-color: rgba(168, 85, 247, 0.5); }
+  60% { transform: scale(1.5); opacity: 0; border-color: rgba(147, 51, 234, 0); }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* 2. KEV System One Intercept Modal */
+.kev-intercept-card {
+  max-width: 520px;
+  background: #090a10 !important;
+  border: 2px solid #dc2626 !important;
+  box-shadow: 0 0 35px rgba(220, 38, 38, 0.35) !important;
+  color: #f8fafc;
+  overflow: hidden;
+  position: relative;
+}
+
+.kev-intercept-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: linear-gradient(90deg, rgba(220, 38, 38, 0.2), transparent);
+  border-bottom: 1px solid rgba(220, 38, 38, 0.3);
+}
+
+.kev-intercept-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.kev-intercept-title h3 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #fca5a5;
+  font-family: var(--font-mono);
+}
+
+.kev-badge-warning {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 800;
+  color: #ef4444;
+  letter-spacing: 0.5px;
+}
+
+.kev-intercept-body {
+  padding: 24px 20px;
+  text-align: center;
+  position: relative;
+}
+
+.kev-avatar-box {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(220, 38, 38, 0.15);
+  border: 2px solid #ef4444;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin: 0 auto 18px auto;
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.35);
+}
+
+.kev-implore-quote {
+  font-size: 20px;
+  font-weight: 800;
+  color: #fca5a5;
+  margin: 0 0 12px 0;
+  font-family: var(--font-sans);
+  line-height: 1.35;
+  text-shadow: 0 0 12px rgba(239, 68, 68, 0.5);
+}
+
+.kev-implore-subtext {
+  font-size: 13px;
+  color: #94a3b8;
+  line-height: 1.5;
+  margin: 0 0 16px 0;
+}
+
+.kev-telemetry-readout {
+  background: #030712;
+  border: 1px solid #1f2937;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #ef4444;
+  text-align: left;
+  line-height: 1.6;
+}
+
+.kev-intercept-footer {
+  display: flex;
+  gap: 12px;
+  padding: 16px 20px;
+  background: #050811;
+  border-top: 1px solid rgba(220, 38, 38, 0.2);
+  justify-content: flex-end;
+}
+
+.btn-danger-override {
+  background: #dc2626;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 9px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-danger-override:hover {
+  background: #ef4444;
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.6);
+}
+
+/* 3. The Praetorian Ominous Coming Soon Stage */
+.praetorian-ominous-stage {
+  min-height: 82vh;
+  position: relative;
+  background: #030408;
+  border: 1px solid rgba(220, 38, 38, 0.25);
+  border-radius: 12px;
+  overflow: hidden;
+  padding: 40px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.praetorian-crt-scanlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.2) 0px,
+    rgba(0, 0, 0, 0.2) 2px,
+    transparent 2px,
+    transparent 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.praetorian-red-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 35%, rgba(69, 10, 10, 0.45) 85%, #020306 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.praetorian-stage-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 920px;
+  text-align: center;
+}
+
+.praetorian-classified-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(220, 38, 38, 0.12);
+  border: 1px solid rgba(220, 38, 38, 0.45);
+  color: #fca5a5;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  margin-bottom: 24px;
+}
+
+.praetorian-dot-red {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ef4444;
+  box-shadow: 0 0 8px #ef4444;
+  animation: praetorianPulse 1.8s infinite;
+}
+
+.praetorian-coming-soon-headline {
+  font-size: 58px;
+  font-weight: 900;
+  letter-spacing: 8px;
+  color: #ef4444;
+  text-shadow: 0 0 30px rgba(239, 68, 68, 0.8), 0 0 60px rgba(185, 28, 28, 0.5);
+  margin: 0 0 12px 0;
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+}
+
+.praetorian-hero-tagline {
+  font-size: 16px;
+  color: #94a3b8;
+  max-width: 620px;
+  margin: 0 auto 36px auto;
+  line-height: 1.6;
+}
+
+.praetorian-silhouette-frame {
+  background: radial-gradient(circle at center, rgba(30, 10, 15, 0.6) 0%, rgba(5, 7, 12, 0.95) 70%);
+  border: 1px solid rgba(220, 38, 38, 0.2);
+  border-radius: 12px;
+  padding: 24px 16px;
+  margin-bottom: 28px;
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.9);
+}
+
+.praetorian-structure-svg {
+  width: 100%;
+  height: auto;
+  max-height: 380px;
+}
+
+.silhouette-node circle {
+  transition: all 0.3s ease;
+}
+
+.silhouette-node:hover circle {
+  stroke: #ef4444;
+  fill: #0f121d;
+  filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.8));
+}
+
+.praetorian-terminal-panel {
+  background: #020409;
+  border: 1px solid #1e293b;
+  border-radius: 8px;
+  overflow: hidden;
+  text-align: left;
+  margin-bottom: 28px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+}
+
+.praetorian-terminal-header {
+  background: #0b0f19;
+  border-bottom: 1px solid #1e293b;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.terminal-traffic-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.terminal-traffic-dot.red { background: #ef4444; }
+.terminal-traffic-dot.yellow { background: #f59e0b; }
+.terminal-traffic-dot.green { background: #10b981; }
+
+.praetorian-terminal-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #64748b;
+  margin-left: 8px;
+}
+
+.praetorian-terminal-body {
+  padding: 16px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.6;
+  margin: 0;
+  color: #e2e8f0;
+}
+
+.p-dim { color: #64748b; }
+.p-red { color: #ef4444; font-weight: 700; }
+.p-cyan { color: #38bdf8; }
+.p-green { color: #10b981; }
+.p-gold { color: #f59e0b; }
+
+.praetorian-exit-btn {
+  background: rgba(30, 41, 59, 0.7);
+  color: #f1f5f9;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 12px 28px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.praetorian-exit-btn:hover {
+  background: #334155;
+  border-color: #64748b;
+  color: #ffffff;
+}
+

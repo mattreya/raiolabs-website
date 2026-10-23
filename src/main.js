@@ -720,6 +720,130 @@ Cat 5: Halt! Verified logic is law!"></textarea>
           </div>
         </div>
       </div>
+
+      <!-- 6. PRAETORIAN CLASSIFIED MULTI-ENTITY DEFENSE VIEW -->
+      <div id="praetorian-view" class="stage-view-container hidden">
+        <section class="praetorian-ominous-stage">
+          <!-- Ambient CRT Scanline & Red Vignette Overlays -->
+          <div class="praetorian-crt-scanlines" aria-hidden="true"></div>
+          <div class="praetorian-red-vignette" aria-hidden="true"></div>
+
+          <div class="praetorian-stage-content">
+            <!-- Header Badges -->
+            <div class="praetorian-classified-pill">
+              <span class="praetorian-dot-red"></span>
+              <span>CLASSIFIED • LEVEL 5 EYES ONLY • RING-0 CONTAINMENT</span>
+            </div>
+
+            <!-- Dramatic Blood-Red Glowing Coming Soon Title -->
+            <h1 class="praetorian-coming-soon-headline">COMING SOON</h1>
+            <p class="praetorian-hero-tagline">
+              The Praetorian Autonomous Defense Collective is compiling in the shadows.
+            </p>
+
+            <!-- Silhouette of the Multi-Entity Structure in Deep Shadows -->
+            <div class="praetorian-silhouette-frame">
+              <svg class="praetorian-structure-svg" viewBox="0 0 900 420" preserveAspectRatio="xMidYMid meet">
+                <defs>
+                  <filter id="shadow-blur" x="-30%" y="-30%" width="160%" height="160%">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="6" />
+                  </filter>
+                  <linearGradient id="red-laser-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#ef4444" stop-opacity="0.9" />
+                    <stop offset="50%" stop-color="#b91c1c" stop-opacity="0.5" />
+                    <stop offset="100%" stop-color="#450a0a" stop-opacity="0.1" />
+                  </linearGradient>
+                </defs>
+
+                <!-- Connecting Laser Vectors in Shadows -->
+                <line x1="450" y1="120" x2="160" y2="280" stroke="url(#red-laser-grad)" stroke-width="2" stroke-dasharray="6,4" />
+                <line x1="450" y1="120" x2="300" y2="330" stroke="url(#red-laser-grad)" stroke-width="2" stroke-dasharray="6,4" />
+                <line x1="450" y1="120" x2="450" y2="345" stroke="url(#red-laser-grad)" stroke-width="2" stroke-dasharray="6,4" />
+                <line x1="450" y1="120" x2="600" y2="330" stroke="url(#red-laser-grad)" stroke-width="2" stroke-dasharray="6,4" />
+                <line x1="450" y1="120" x2="740" y2="280" stroke="url(#red-laser-grad)" stroke-width="2" stroke-dasharray="6,4" />
+
+                <!-- Shadow Silhouette Core (Root Arbiter Nexus) -->
+                <g class="silhouette-node core-node" transform="translate(450, 120)">
+                  <circle r="54" fill="#030712" stroke="#dc2626" stroke-width="2.5" />
+                  <circle r="46" fill="#090d16" opacity="0.9" filter="url(#shadow-blur)" />
+                  <text y="-8" text-anchor="middle" fill="#f87171" font-family="'JetBrains Mono', monospace" font-size="24" font-weight="900">π</text>
+                  <text y="12" text-anchor="middle" fill="#ef4444" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="800" letter-spacing="1.5">PRAETORIAN</text>
+                  <text y="25" text-anchor="middle" fill="#991b1b" font-family="'JetBrains Mono', monospace" font-size="8">CORE NEXUS</text>
+                </g>
+
+                <!-- 5 Compartmentalized Shadow Sector Nodes -->
+                <!-- Tier I: Vanguard -->
+                <g class="silhouette-node branch-node" transform="translate(160, 280)">
+                  <circle r="36" fill="#030712" stroke="#991b1b" stroke-width="1.8" />
+                  <text y="-4" text-anchor="middle" fill="#e2e8f0" font-size="16">👁️</text>
+                  <text y="14" text-anchor="middle" fill="#f87171" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="700">TIER I</text>
+                  <text y="24" text-anchor="middle" fill="#7f1d1d" font-family="'JetBrains Mono', monospace" font-size="7">VANGUARD</text>
+                </g>
+
+                <!-- Tier II: Aegis -->
+                <g class="silhouette-node branch-node" transform="translate(300, 330)">
+                  <circle r="36" fill="#030712" stroke="#991b1b" stroke-width="1.8" />
+                  <text y="-4" text-anchor="middle" fill="#e2e8f0" font-size="16">🛡️</text>
+                  <text y="14" text-anchor="middle" fill="#f87171" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="700">TIER II</text>
+                  <text y="24" text-anchor="middle" fill="#7f1d1d" font-family="'JetBrains Mono', monospace" font-size="7">AEGIS</text>
+                </g>
+
+                <!-- Tier III: Inquisitor -->
+                <g class="silhouette-node branch-node" transform="translate(450, 345)">
+                  <circle r="36" fill="#030712" stroke="#991b1b" stroke-width="1.8" />
+                  <text y="-4" text-anchor="middle" fill="#e2e8f0" font-size="16">⚡</text>
+                  <text y="14" text-anchor="middle" fill="#f87171" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="700">TIER III</text>
+                  <text y="24" text-anchor="middle" fill="#7f1d1d" font-family="'JetBrains Mono', monospace" font-size="7">INQUISITOR</text>
+                </g>
+
+                <!-- Tier IV: Arbiter -->
+                <g class="silhouette-node branch-node" transform="translate(600, 330)">
+                  <circle r="36" fill="#030712" stroke="#991b1b" stroke-width="1.8" />
+                  <text y="-4" text-anchor="middle" fill="#e2e8f0" font-size="16">⚖️</text>
+                  <text y="14" text-anchor="middle" fill="#f87171" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="700">TIER IV</text>
+                  <text y="24" text-anchor="middle" fill="#7f1d1d" font-family="'JetBrains Mono', monospace" font-size="7">ARBITER</text>
+                </g>
+
+                <!-- Tier V: Ghost -->
+                <g class="silhouette-node branch-node" transform="translate(740, 280)">
+                  <circle r="36" fill="#030712" stroke="#991b1b" stroke-width="1.8" />
+                  <text y="-4" text-anchor="middle" fill="#e2e8f0" font-size="16">👻</text>
+                  <text y="14" text-anchor="middle" fill="#f87171" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="700">TIER V</text>
+                  <text y="24" text-anchor="middle" fill="#7f1d1d" font-family="'JetBrains Mono', monospace" font-size="7">GHOST</text>
+                </g>
+              </svg>
+            </div>
+
+            <!-- Terminal Matrix Log In Shadows -->
+            <div class="praetorian-terminal-panel">
+              <div class="praetorian-terminal-header">
+                <span class="terminal-traffic-dot red"></span>
+                <span class="terminal-traffic-dot yellow"></span>
+                <span class="terminal-traffic-dot green"></span>
+                <span class="praetorian-terminal-title">praetorian://containment/telemetry.log</span>
+              </div>
+              <pre class="praetorian-terminal-body">
+<code><span class="p-dim">[07:28:19:95]</span> <span class="p-red">INITIALIZING PRAETORIAN ARCHITECTURE...</span>
+<span class="p-dim">[07:28:19:95]</span> <span class="p-cyan">TIER I:</span>   Sector Alpha (Vanguard Recon)             <span class="p-green">[ATTRIBUTED]</span>
+<span class="p-dim">[07:28:19:95]</span> <span class="p-cyan">TIER II:</span>  Sector Beta (Aegis Sensor Sentinel)       <span class="p-green">[ATTRIBUTED]</span>
+<span class="p-dim">[07:28:19:95]</span> <span class="p-cyan">TIER III:</span> Sector Gamma (Inquisitor Stress Engine)   <span class="p-green">[ATTRIBUTED]</span>
+<span class="p-dim">[07:28:19:95]</span> <span class="p-cyan">TIER IV:</span>  Sector Delta (Arbiter Policy Governor)    <span class="p-green">[ATTRIBUTED]</span>
+<span class="p-dim">[07:28:19:95]</span> <span class="p-cyan">TIER V:</span>   Sector Omega (Ghost Signal Intelligence)  <span class="p-green">[ATTRIBUTED]</span>
+<span class="p-dim">[07:28:19:95]</span> <span class="p-gold">KEV SYSTEM ONE:</span> Containment Protocol Active (Veto: 0.15 | Ring Buffer: Secure)
+<span class="p-dim">[07:28:19:95]</span> <span class="p-red">GATEWAY KEY:</span> 07281995 // For Angela Bennett
+<span class="p-dim">[07:28:19:95]</span> <span class="p-red">STATUS:</span> <strong style="color:#ef4444;">SHADOW MESH ENGAGED. COMING SOON TO RESTRICTED CLEARANCES.</strong></code>
+              </pre>
+            </div>
+
+            <!-- Back to Surface Button -->
+            <div class="praetorian-actions">
+              <button class="praetorian-exit-btn" id="btn-exit-praetorian" type="button">
+                ⬅ Return to Surface (RaioLabs LLC)
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
     </main>
 
     <!-- RIGHT PANEL: CUTE INTERACTIVE COMPANION BOT & PATREON HUB -->
@@ -1189,7 +1313,11 @@ Cat 5: Halt! Verified logic is law!"></textarea>
       <section class="agent-chat-section">
         <div class="settings-tray">
           <span>Clicks: <strong id="stat-clicks">0</strong> • Mood: <strong id="stat-stress">Happy ✨</strong> • Up: <strong id="stat-uptime">0s</strong></span>
-          <button class="settings-btn" id="btn-reset-codebase">🔄 Reset Site</button>
+          <button class="settings-btn" id="btn-reset-codebase" style="margin: 0 auto;">🔄 Reset Site</button>
+          <!-- 👁️ PRAETORIAN "THE NET" π BACKDOOR EMBLEM (ALIGNED UNDER BRIEFING COLUMN) -->
+          <button class="praetorian-net-btn" id="praetorian-net-btn" type="button" title="π • Mozart's Ghost" aria-label="Praetorian Backdoor Gateway">
+            <span class="praetorian-pi-glyph">π</span>
+          </button>
         </div>
       </section>
     </aside>
@@ -1457,6 +1585,43 @@ Cat 5: Halt! Verified logic is law!"></textarea>
               referrerpolicy="strict-origin-when-cross-origin"
               allowfullscreen>
             </iframe>
+          </div>
+        </div>
+      </div>
+
+      <!-- 🚨 KEV SYSTEM ONE INTERCEPT MODAL -->
+      <div class="modal-overlay hidden" id="kev-intercept-modal">
+        <div class="modal-card kev-intercept-card">
+          <div class="kev-intercept-header">
+            <div class="kev-intercept-title">
+              <span class="kev-siren-icon">🚨</span>
+              <div>
+                <h3>KEV SYSTEM ONE // INTERCEPT</h3>
+                <span class="kev-badge-warning">SECURITY VIOLATION DETECTED</span>
+              </div>
+            </div>
+            <button class="close-btn" id="btn-close-kev-intercept">&times;</button>
+          </div>
+          <div class="kev-intercept-body">
+            <div class="kev-avatar-box">
+              <span class="kev-radar-pulse"></span>
+              <span class="kev-bot-face">🚨</span>
+            </div>
+            <blockquote class="kev-implore-quote">
+              "I must implore you NOT to click on this again."
+            </blockquote>
+            <p class="kev-implore-subtext">
+              Traversing this link attempts to disengage kernel containment protocols and access the classified <strong>Praetorian Multi-Entity Fabric</strong>.
+            </p>
+            <div class="kev-telemetry-readout">
+              <code>[SRC_TRACER]: RING_BUFFER_BREACH_ATTEMPT (0x7E3)</code><br>
+              <code>[CLASSIFICATION]: PRAETORIAN ARCHITECTURE // RESTRICTED</code><br>
+              <code>[GATEWAY_KEY]: 07281995 // For Angela Bennett</code>
+            </div>
+          </div>
+          <div class="kev-intercept-footer">
+            <button class="btn-secondary" id="btn-kev-abort">🛡️ Return to Safety</button>
+            <button class="btn-danger-override" id="btn-kev-override">⚠️ Proceed to Praetorian</button>
           </div>
         </div>
       </div>
@@ -2295,8 +2460,8 @@ function renderActiveFile() {
 
 // Setup action event listeners
 function setupEventListeners() {
-  // Canvas Nav Tabs switching across all 5 views
-  const allViewIds = ['projects-view', 'swarm-view', 'workshops-view', 'dashboard-view', 'stage-view'];
+  // Canvas Nav Tabs switching across all views (including Praetorian classified gateway)
+  const allViewIds = ['projects-view', 'swarm-view', 'workshops-view', 'dashboard-view', 'stage-view', 'praetorian-view'];
   document.querySelectorAll('.nav-tab').forEach(tab => {
     tab.addEventListener('click', () => {
       document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
@@ -2580,6 +2745,285 @@ function setupEventListeners() {
       }, 600);
     }
   };
+
+  // 🎵 Mozart's Ghost Synthesizer (The Net 1995 • Mozart Symphony No. 40 in G minor, K. 550)
+  let mozartAudioCtx = null;
+  let mozartIsHovering = false;
+  let mozartLoopTimer = null;
+  let mozartActiveOscs = [];
+  let mozartActiveGains = [];
+  let mozartMasterGain = null;
+
+  function playMozartsGhostTheme() {
+    try {
+      const AudioCtxClass = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtxClass) return;
+      if (!mozartAudioCtx) {
+        mozartAudioCtx = new AudioCtxClass();
+      }
+      if (mozartAudioCtx.state === 'suspended') {
+        mozartAudioCtx.resume();
+      }
+
+      // Clear any prior schedule
+      mozartActiveOscs.forEach(o => {
+        try { o.stop(); o.disconnect(); } catch (_) {}
+      });
+      mozartActiveOscs = [];
+      mozartActiveGains = [];
+      if (mozartLoopTimer) {
+        clearTimeout(mozartLoopTimer);
+        mozartLoopTimer = null;
+      }
+
+      mozartIsHovering = true;
+      const ctx = mozartAudioCtx;
+      const now = ctx.currentTime + 0.04;
+
+      // Master Gain for smooth fade-in/fade-out
+      mozartMasterGain = ctx.createGain();
+      mozartMasterGain.gain.setValueAtTime(0.0001, now);
+      mozartMasterGain.gain.linearRampToValueAtTime(0.24, now + 0.12);
+
+      // Resonant 90s cyber synth filter
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(1550, now);
+      filter.Q.setValueAtTime(3.4, now);
+
+      filter.connect(mozartMasterGain);
+      mozartMasterGain.connect(ctx.destination);
+      mozartActiveGains.push(mozartMasterGain);
+
+      // Pitches (Hz) - Mozart No. 40 in G minor motif
+      const PITCH = {
+        'Eb5': 622.25,
+        'D5':  587.33,
+        'C5':  523.25,
+        'Bb4': 466.16,
+        'A4':  440.00,
+        'G4':  392.00,
+        'F#4': 369.99,
+        'D4':  293.66
+      };
+
+      // Notes: [pitch, duration, pause]
+      const notes = [
+        // Phrase 1 (G minor)
+        ['Eb5', 0.13, 0.03],
+        ['D5',  0.13, 0.03],
+        ['D5',  0.34, 0.07],
+
+        ['Eb5', 0.13, 0.03],
+        ['D5',  0.13, 0.03],
+        ['D5',  0.34, 0.07],
+
+        ['Eb5', 0.13, 0.03],
+        ['D5',  0.13, 0.03],
+        ['Bb4', 0.68, 0.14],
+
+        // Phrase 2 (Descent to F/D minor)
+        ['D5',  0.13, 0.03],
+        ['C5',  0.13, 0.03],
+        ['C5',  0.34, 0.07],
+
+        ['D5',  0.13, 0.03],
+        ['C5',  0.13, 0.03],
+        ['C5',  0.34, 0.07],
+
+        ['D5',  0.13, 0.03],
+        ['C5',  0.13, 0.03],
+        ['A4',  0.68, 0.14],
+
+        // Phrase 3 (Descent to G minor)
+        ['C5',  0.13, 0.03],
+        ['Bb4', 0.13, 0.03],
+        ['Bb4', 0.34, 0.07],
+
+        ['Bb4', 0.13, 0.03],
+        ['A4',  0.13, 0.03],
+        ['A4',  0.34, 0.07],
+
+        ['A4',  0.13, 0.03],
+        ['G4',  0.13, 0.03],
+        ['G4',  0.68, 0.14],
+
+        // Dramatic Cadence
+        ['F#4', 0.18, 0.04],
+        ['G4',  0.18, 0.04],
+        ['A4',  0.36, 0.05],
+        ['D4',  0.84, 0.22]
+      ];
+
+      let t = now;
+      notes.forEach(([name, dur, pause]) => {
+        const freq = PITCH[name];
+        if (!freq) return;
+
+        // Lead Sawtooth Voice
+        const oscLead = ctx.createOscillator();
+        oscLead.type = 'sawtooth';
+        oscLead.frequency.setValueAtTime(freq, t);
+        oscLead.detune.setValueAtTime(4, t);
+
+        // Sub Triangle Voice (90s Cyber Chiptune Body)
+        const oscSub = ctx.createOscillator();
+        oscSub.type = 'triangle';
+        oscSub.frequency.setValueAtTime(freq * 0.5, t);
+        oscSub.detune.setValueAtTime(-4, t);
+
+        // Envelope
+        const noteGain = ctx.createGain();
+        noteGain.gain.setValueAtTime(0.0001, t);
+        noteGain.gain.linearRampToValueAtTime(0.72, t + 0.015);
+        noteGain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+
+        oscLead.connect(noteGain);
+        oscSub.connect(noteGain);
+        noteGain.connect(filter);
+
+        oscLead.start(t);
+        oscSub.start(t);
+        oscLead.stop(t + dur + 0.04);
+        oscSub.stop(t + dur + 0.04);
+
+        mozartActiveOscs.push(oscLead, oscSub);
+        mozartActiveGains.push(noteGain);
+
+        t += dur + pause;
+      });
+
+      // Loop if mouse is still hovering
+      const totalMs = Math.max(200, (t - now) * 1000);
+      mozartLoopTimer = setTimeout(() => {
+        if (mozartIsHovering) {
+          playMozartsGhostTheme();
+        }
+      }, totalMs);
+
+    } catch (err) {
+      console.warn('Mozarts Ghost theme audio error:', err);
+    }
+  }
+
+  function stopMozartsGhostTheme() {
+    mozartIsHovering = false;
+    if (mozartLoopTimer) {
+      clearTimeout(mozartLoopTimer);
+      mozartLoopTimer = null;
+    }
+    if (mozartMasterGain && mozartAudioCtx) {
+      try {
+        const curr = mozartAudioCtx.currentTime;
+        mozartMasterGain.gain.cancelScheduledValues(curr);
+        mozartMasterGain.gain.setValueAtTime(mozartMasterGain.gain.value, curr);
+        mozartMasterGain.gain.exponentialRampToValueAtTime(0.0001, curr + 0.1);
+      } catch (_) {}
+    }
+    setTimeout(() => {
+      mozartActiveOscs.forEach(o => {
+        try { o.stop(); o.disconnect(); } catch (_) {}
+      });
+      mozartActiveOscs = [];
+      mozartActiveGains = [];
+    }, 110);
+  }
+
+  // 👁️ Praetorian ("The Net" π) Secret Backdoor & KEV Intercept Event Listeners
+  let praetorianClickCount = 0;
+  const netBtn = document.getElementById('praetorian-net-btn');
+  const kevModal = document.getElementById('kev-intercept-modal');
+  const btnKevAbort = document.getElementById('btn-kev-abort');
+  const btnKevOverride = document.getElementById('btn-kev-override');
+  const btnCloseKev = document.getElementById('btn-close-kev-intercept');
+  const btnExitPraetorian = document.getElementById('btn-exit-praetorian');
+
+  if (netBtn) {
+    // 🎵 Hover: Mozart's Ghost Theme (Mozart Symphony No. 40 in G minor)
+    netBtn.addEventListener('mouseenter', () => {
+      playMozartsGhostTheme();
+    });
+
+    netBtn.addEventListener('mouseleave', () => {
+      stopMozartsGhostTheme();
+    });
+
+    netBtn.addEventListener('click', () => {
+      stopMozartsGhostTheme();
+      praetorianClickCount++;
+      if (praetorianClickCount === 1) {
+        // 1. Physically pop KEV-Bot onto the character stage field!
+        if (typeof showCompanionSwarmInteraction === 'function') {
+          showCompanionSwarmInteraction({
+            from: 'orchestrator',
+            to: 'kev',
+            protocol: 'RING0_CONTAINMENT_INTERCEPT',
+            badge: '🚨 KEV SYSTEM ONE INTERCEPT',
+            logType: 'error',
+            logTag: 'KEV_INTERCEPT',
+            senderLine: '🎛️ RaioBot (Orchestrator): "WARNING: Unregistered backdoor probe detected at the perimeter!"',
+            message: '🚨 KEV-Bot: "I must implore you NOT to click on this again."',
+            payload: '{\n  "event": "BACKDOOR_INTERROGATION_DETECTED",\n  "status": "CONTAINMENT_TRIGGERED",\n  "verdict": "I must implore you NOT to click on this again",\n  "gateway_key": "07281995 // For Angela Bennett"\n}'
+          }, 1, 1, '🚨 KEV SYSTEM ONE INTERCEPT');
+        }
+
+        // 2. Set RaioBot alarmed reaction on stage
+        if (typeof setBotReaction === 'function') {
+          setBotReaction('alarmed', '🚨 KEV INTERCEPT', 'I must implore you NOT to click on this again.', '🚨');
+        }
+
+        // 3. Ensure the stage field is scrolled into view so the user sees KEV pop up
+        const stageEl = document.getElementById('bot-character-stage');
+        if (stageEl) {
+          stageEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // 4. Show KEV Intercept warning modal
+        if (kevModal) {
+          kevModal.classList.remove('hidden');
+        }
+
+        logToTerminal('warn', 'KEV_INTERCEPT', '🚨 KEV System One popped onto field: "I must implore you NOT to click on this again." [07281995]');
+      } else {
+        // Second click overrides and proceeds to Praetorian
+        if (kevModal) kevModal.classList.add('hidden');
+        switchWorkspaceView('praetorian-view');
+        praetorianClickCount = 0;
+        logToTerminal('error', 'PRAETORIAN_GATE', '⚠️ [OVERRIDE RATIFIED] Clearance key 07281995 verified. Entering Praetorian structure. For Angela Bennett.');
+      }
+    });
+
+    if (btnKevAbort) {
+      btnKevAbort.addEventListener('click', () => {
+        kevModal.classList.add('hidden');
+        praetorianClickCount = 0;
+        logToTerminal('info', 'KEV_GUARD', 'Operator complied with KEV System One advisory. Aborted.');
+      });
+    }
+
+    if (btnCloseKev) {
+      btnCloseKev.addEventListener('click', () => {
+        kevModal.classList.add('hidden');
+        praetorianClickCount = 0;
+      });
+    }
+
+    if (btnKevOverride) {
+      btnKevOverride.addEventListener('click', () => {
+        kevModal.classList.add('hidden');
+        switchWorkspaceView('praetorian-view');
+        praetorianClickCount = 0;
+        logToTerminal('error', 'PRAETORIAN_GATE', '⚠️ [OVERRIDE RATIFIED] Clearance key 07281995 accepted. Loading Praetorian structure. For Angela Bennett.');
+      });
+    }
+  }
+
+  if (btnExitPraetorian) {
+    btnExitPraetorian.addEventListener('click', () => {
+      switchWorkspaceView('projects-view');
+      logToTerminal('info', 'PRAETORIAN_EXIT', 'Operator returned to surface (RaioLabs projects).');
+    });
+  }
 }
 
 // Record interactive logs in memory
@@ -2596,7 +3040,7 @@ function recordInteraction(event) {
 
 // Helper to switch main canvas view tab programmatically
 function switchWorkspaceView(targetViewId) {
-  const allViewIds = ['projects-view', 'swarm-view', 'workshops-view', 'dashboard-view', 'stage-view'];
+  const allViewIds = ['projects-view', 'swarm-view', 'workshops-view', 'dashboard-view', 'stage-view', 'praetorian-view'];
   document.querySelectorAll('.nav-tab').forEach(t => {
     t.classList.toggle('active', t.getAttribute('data-target') === targetViewId);
   });
