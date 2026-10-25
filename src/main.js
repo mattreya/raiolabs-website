@@ -79,8 +79,11 @@ document.addEventListener('DOMContentLoaded', () => {
     logToTerminal('info', 'SWARM_READY', 'Loaded 9 Featured GitHub Projects, 5-Category NIST/CISA Bot Overlay & IDE Swarm Simulator.');
   }, 600);
   setTimeout(() => {
+    logToTerminal('action', 'FOUNDER_RESUME', 'Mathew Raio Interactive Career Resume & Timeline available at /resume.html ↗');
+  }, 900);
+  setTimeout(() => {
     logToTerminal('thought', 'THOUGHT', 'Observing IDE & Web Cockpit. Explore GitHub projects, launch an A2A Swarm scenario, or prompt me below.');
-  }, 1200);
+  }, 1400);
 });
 
 // Render the application HTML skeleton
@@ -167,6 +170,9 @@ function renderLayout() {
         <div class="header-actions-bar">
           <a href="https://github.com/mattreya" target="_blank" rel="noopener noreferrer" class="github-header-link">
             🐙 github.com/mattreya ↗
+          </a>
+          <a href="./resume.html" target="_blank" rel="noopener noreferrer" class="header-modal-btn resume-header-btn" title="Open Mathew Raio Interactive Resume & Career Evolution">
+            📄 Founder Resume ↗
           </a>
           <button class="header-modal-btn appearances-header-btn" id="btn-open-appearances" type="button" title="Open Recent YouTube Appearances & Podcasts">
             🎬 Recent Appearances

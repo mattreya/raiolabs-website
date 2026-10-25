@@ -5166,6 +5166,22 @@ body {
   box-shadow: 0 6px 20px rgba(6, 182, 212, 0.32);
 }
 
+.resume-header-btn {
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.22) 0%, rgba(139, 92, 246, 0.25) 100%);
+  border: 1px solid rgba(14, 165, 233, 0.55);
+  color: #bae6fd;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(14, 165, 233, 0.22);
+}
+
+.resume-header-btn:hover {
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.4) 0%, rgba(139, 92, 246, 0.42) 100%);
+  border-color: #38bdf8;
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(14, 165, 233, 0.45);
+}
+
 .header-settings-pill {
   padding: 7px 12px;
   border-radius: 10px;

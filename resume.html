@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathew Raio - Interactive Resume & Career Evolution | RaioLabs LLC</title>
+    <link rel="icon" type="image/png" href="./raiolabsllc.png" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a; /* slate-900 */
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Canvas Background */
+        #network-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        /* Glassmorphism utilities */
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-card {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(14, 165, 233, 0.2);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(14, 165, 233, 0.8);
+            box-shadow: 0 0 25px rgba(14, 165, 233, 0.3);
+        }
+
+        /* Scroll Reveal Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Timeline Styles */
+        .timeline-line {
+            width: 4px;
+            background: linear-gradient(to bottom, #0ea5e9, #8b5cf6);
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 0;
+            bottom: 0;
+            z-index: 0;
+        }
+
+        @media (max-width: 768px) {
+            .timeline-line {
+                left: 20px;
+            }
+            .timeline-item {
+                width: 100% !important;
+                padding-left: 50px !important;
+                padding-right: 0 !important;
+                text-align: left !important;
+                margin-left: 0 !important;
+            }
+            .timeline-dot {
+                left: 20px !important;
+                transform: translateX(-50%) !important;
+            }
+        }
+
+        /* Glowing Text */
+        .text-glow {
+            text-shadow: 0 0 10px rgba(14, 165, 233, 0.8);
+        }
+        
+        .accent-gradient {
+            background: linear-gradient(90deg, #0ea5e9, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #0ea5e9; }
+
+        /* Print / PDF Stylesheet */
+        @media print {
+            #network-bg, nav, .scroll-indicator, .no-print {
+                display: none !important;
+            }
+            body {
+                background: #ffffff !important;
+                color: #0f172a !important;
+            }
+            .glass-panel, .glass-card {
+                background: #ffffff !important;
+                border: 1px solid #cbd5e1 !important;
+                color: #0f172a !important;
+                box-shadow: none !important;
+                transform: none !important;
+            }
+            .timeline-line {
+                background: #0284c7 !important;
+            }
+            .text-slate-300, .text-slate-400 {
+                color: #334155 !important;
+            }
+            .accent-gradient {
+                -webkit-text-fill-color: #0284c7 !important;
+            }
+            .text-white {
+                color: #0f172a !important;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-cyan-500 selection:text-white">
+
+    <!-- Interactive Node Canvas Background -->
+    <canvas id="network-bg"></canvas>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-panel border-b border-white/10 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <a href="./index.html" class="flex items-center gap-3 group" title="Return to RaioLabs AetherOS Cockpit">
+                        <img src="./raiolabsllc.png" alt="RaioLabs LLC Logo" class="h-9 w-9 object-contain drop-shadow-[0_0_8px_rgba(14,165,233,0.5)] group-hover:scale-110 transition-transform duration-300" />
+                        <span class="text-xl font-bold mono text-cyan-400 tracking-tight">&gt; Raiolabs_</span>
+                    </a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-center space-x-6">
+                        <a href="#about" class="hover:text-cyan-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
+                        <a href="#timeline" class="hover:text-cyan-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">Journey</a>
+                        <a href="#projects" class="hover:text-cyan-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">Agentic AI & Open Source</a>
+                        <a href="#media" class="hover:text-cyan-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">Media & Books</a>
+                        <a href="./index.html" class="px-3.5 py-1.5 rounded-lg border border-cyan-500/40 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 text-xs font-mono font-semibold flex items-center gap-2 transition-all shadow-[0_0_12px_rgba(14,165,233,0.2)]">
+                            <span>⚡ AetherOS Cockpit</span>
+                            <i class="fas fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="min-h-screen flex items-center justify-center pt-16 relative px-4">
+        <div class="text-center max-w-4xl mx-auto z-10 reveal active">
+            <div class="inline-block mb-4 px-4 py-1 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 text-sm font-semibold mono backdrop-blur-sm">
+                SYSTEM.READY: MATHEW_RAIO_RESUME_OCT_2026
+            </div>
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 text-white">
+                Mathew <span class="accent-gradient">Raio</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-slate-300 mb-8 font-light leading-relaxed">
+                IT Professional Specializing in Network, Cybersecurity & AI Ops <br>
+                <span class="text-cyan-400 font-semibold text-glow">Founder of Raiolabs LLC</span> | Adjunct Professor
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#timeline" class="px-8 py-3 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white font-medium transition-all shadow-[0_0_15px_rgba(14,165,233,0.5)]">
+                    Explore Journey
+                </a>
+                <a href="https://github.com/mattreya?tab=repositories" target="_blank" rel="noopener noreferrer" class="px-8 py-3 rounded-lg bg-slate-800 border border-slate-600 hover:border-cyan-400 hover:bg-slate-700 text-white font-medium transition-all flex items-center justify-center gap-2">
+                    <i class="fab fa-github"></i> GitHub Profile
+                </a>
+                <button onclick="window.print()" type="button" class="px-6 py-3 rounded-lg bg-slate-800/80 border border-slate-600 hover:border-violet-400 hover:bg-slate-700 text-slate-200 hover:text-white font-medium transition-all flex items-center justify-center gap-2" title="Print or Save Resume as PDF">
+                    <i class="fas fa-print"></i> Print / PDF
+                </button>
+            </div>
+        </div>
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-slate-400 scroll-indicator">
+            <i class="fas fa-chevron-down text-2xl"></i>
+        </div>
+    </section>
+
+    <!-- About Section (Brief summary) -->
+    <section id="about" class="py-20 relative z-10 px-4">
+        <div class="max-w-4xl mx-auto glass-panel p-8 md:p-12 rounded-2xl reveal">
+            <h2 class="text-3xl font-bold mb-6 flex items-center gap-3">
+                <i class="fas fa-user-astronaut text-cyan-400"></i> About Me
+            </h2>
+            <p class="text-slate-300 text-lg leading-relaxed mb-6">
+                Experienced IT professional with nearly 30 years of expertise in network engineering, cybersecurity, and AI Ops. 
+                Proven track record in designing and implementing secure, scalable networks, as well as developing agentic software workflows.
+            </p>
+            <p class="text-slate-300 text-lg leading-relaxed mb-6">
+                Passionate about teaching at colleges, authoring technical literature, and exploring multi-agent AI systems. 
+                I love writing about my experiences working with new innovations.
+            </p>
+            <div class="flex flex-wrap gap-3 mt-6">
+                <span class="px-3 py-1 rounded-full bg-slate-800 border border-slate-600 text-sm text-cyan-300">Agentic AI</span>
+                <span class="px-3 py-1 rounded-full bg-slate-800 border border-slate-600 text-sm text-cyan-300">DevSecOps</span>
+                <span class="px-3 py-1 rounded-full bg-slate-800 border border-slate-600 text-sm text-cyan-300">Cybersecurity</span>
+                <span class="px-3 py-1 rounded-full bg-slate-800 border border-slate-600 text-sm text-cyan-300">Python / Marimo</span>
+                <span class="px-3 py-1 rounded-full bg-slate-800 border border-slate-600 text-sm text-cyan-300">Cloud Technologies</span>
+                <span class="px-3 py-1 rounded-full bg-slate-800 border border-slate-600 text-sm text-cyan-300">eBPF Telemetry</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section id="timeline" class="py-24 relative z-10 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-16 text-white"><span class="text-cyan-400">&gt;</span> Career Evolution</h2>
+            
+            <div class="relative w-full">
+                <!-- Center Line -->
+                <div class="timeline-line"></div>
+
+                <!-- Timeline Items -->
+                
+                <!-- 2025 - Present -->
+                <div class="relative flex justify-between items-center w-full mb-12 reveal">
+                    <div class="w-5/12 text-right pr-8 timeline-item hidden md:block">
+                        <h3 class="text-2xl font-bold text-cyan-400">Founder & AI Ops Consultant</h3>
+                        <h4 class="text-lg text-slate-300">Raiolabs LLC & Matt AI Ops</h4>
+                        <p class="text-sm text-slate-400 mb-2">Jul. 2025 – Present</p>
+                    </div>
+                    <div class="absolute left-1/2 transform -translate-x-1/2 w-8 h-8 rounded-full bg-slate-900 border-4 border-cyan-500 z-10 timeline-dot shadow-[0_0_15px_rgba(14,165,233,0.8)]"></div>
+                    <div class="w-full md:w-5/12 pl-12 md:pl-8 timeline-item glass-card p-6 rounded-xl">
+                        <div class="md:hidden mb-4">
+                            <h3 class="text-xl font-bold text-cyan-400">Founder & AI Ops Consultant</h3>
+                            <p class="text-sm text-slate-400">Jul. 2025 – Present</p>
+                        </div>
+                        <ul class="text-slate-300 text-sm space-y-2 list-disc ml-4 marker:text-cyan-500">
+                            <li>Established IT ops consulting and enterprise AI solutions practice, specializing in Model Context Protocol integrations and autonomous agent frameworks.</li>
+                            <li>Initiated open-source projects including Praetorian and Good Samaritan.</li>
+                            <li>Developed PredictaBot automation project (Python/Marimo).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 2020 - Present -->
+                <div class="relative flex justify-between items-center w-full mb-12 reveal flex-row-reverse md:flex-row">
+                    <div class="w-full md:w-5/12 text-left md:text-right md:pr-8 pl-12 md:pl-0 timeline-item glass-card p-6 rounded-xl md:bg-transparent md:border-none md:backdrop-blur-none md:shadow-none md:hover:transform-none">
+                        <div class="md:hidden mb-4">
+                            <h3 class="text-xl font-bold text-violet-400">Adjunct Professor</h3>
+                            <p class="text-sm text-slate-400">Feb. 2020 – Present</p>
+                        </div>
+                        <ul class="text-slate-300 text-sm space-y-2 list-disc ml-4 marker:text-violet-500 md:ml-0 md:mr-4 md:list-none">
+                            <li class="md:hidden">Bellevue College, CityU-Seattle, & Edmonds CC.</li>
+                            <li>Delivered lectures on networking, AI integration, and DevSecOps.</li>
+                            <li>Authored course modules and labs for SEC460 DevSecOps.</li>
+                            <li>Utilized extensive OSI model experience for real-world student insights.</li>
+                        </ul>
+                    </div>
+                    <div class="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full bg-slate-900 border-4 border-violet-500 z-10 timeline-dot"></div>
+                    <div class="w-5/12 pl-8 text-left timeline-item hidden md:block">
+                        <h3 class="text-2xl font-bold text-violet-400">Adjunct Professor</h3>
+                        <h4 class="text-lg text-slate-300">Bellevue College, CityU-Seattle, & Edmonds CC</h4>
+                        <p class="text-sm text-slate-400 mb-2">Feb. 2020 – Present</p>
+                    </div>
+                </div>
+
+                <!-- 2019 - Present -->
+                <div class="relative flex justify-between items-center w-full mb-12 reveal">
+                    <div class="w-5/12 text-right pr-8 timeline-item hidden md:block">
+                        <h3 class="text-xl font-bold text-cyan-400">Senior Network Admin Lvl 5</h3>
+                        <p class="text-sm text-slate-400 mb-2">Feb. 2019 – Present</p>
+                    </div>
+                    <div class="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full bg-slate-900 border-4 border-cyan-500 z-10 timeline-dot"></div>
+                    <div class="w-full md:w-5/12 pl-12 md:pl-8 timeline-item glass-card p-6 rounded-xl">
+                        <div class="md:hidden mb-4">
+                            <h3 class="text-xl font-bold text-cyan-400">Senior Network Admin Lvl 5</h3>
+                            <p class="text-sm text-slate-400">Feb. 2019 – Present</p>
+                        </div>
+                        <ul class="text-slate-300 text-sm space-y-2 list-disc ml-4 marker:text-cyan-500">
+                            <li>Led design/implementation of a new STEM data center (next-gen learning & cloud).</li>
+                            <li>Implemented hybrid cloud solutions for enhanced security/scalability in AWS.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 2016 - 2019 -->
+                <div class="relative flex justify-between items-center w-full mb-12 reveal flex-row-reverse md:flex-row">
+                    <div class="w-full md:w-5/12 text-left md:text-right md:pr-8 pl-12 md:pl-0 timeline-item glass-card p-6 rounded-xl md:bg-transparent md:border-none md:backdrop-blur-none md:shadow-none md:hover:transform-none">
+                        <div class="md:hidden mb-4">
+                            <h3 class="text-xl font-bold text-violet-400">Systems Engineer (DevOps)</h3>
+                            <p class="text-sm text-slate-400">Aug. 2016 – Feb. 2019</p>
+                        </div>
+                        <ul class="text-slate-300 text-sm space-y-2 list-disc ml-4 marker:text-violet-500 md:ml-0 md:mr-4 md:list-none">
+                            <li>Architected Resolve Systems automation platform reducing outages.</li>
+                            <li>SME in Splunk, leading a $10M installation project.</li>
+                            <li>Designed virtualization team for Cisco UCS installations.</li>
+                        </ul>
+                    </div>
+                    <div class="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full bg-slate-900 border-4 border-violet-500 z-10 timeline-dot"></div>
+                    <div class="w-5/12 pl-8 text-left timeline-item hidden md:block">
+                        <h3 class="text-xl font-bold text-violet-400">Systems Engineer (DevOps)</h3>
+                        <h4 class="text-lg text-slate-300">Charter Communications</h4>
+                        <p class="text-sm text-slate-400 mb-2">Aug. 2016 – Feb. 2019</p>
+                    </div>
+                </div>
+
+                <!-- Highlight: 2014 Hired by GNS3 -->
+                <div class="relative flex justify-between items-center w-full mb-12 reveal">
+                    <div class="w-5/12 text-right pr-8 timeline-item hidden md:block">
+                        <h3 class="text-xl font-bold text-yellow-400">Mgr. Support Services & Doc.</h3>
+                        <h4 class="text-lg text-slate-300">GNS3 Technologies INC.</h4>
+                        <p class="text-sm text-slate-400 mb-2">Sept. 2014 – Jan. 2016</p>
+                    </div>
+                    <div class="absolute left-1/2 transform -translate-x-1/2 w-8 h-8 rounded-full bg-slate-900 border-4 border-yellow-400 z-10 timeline-dot shadow-[0_0_20px_rgba(250,204,21,0.6)]"></div>
+                    <div class="w-full md:w-5/12 pl-12 md:pl-8 timeline-item glass-card p-6 rounded-xl border-yellow-400/40 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-yellow-400/5 z-0"></div>
+                        <div class="relative z-10">
+                            <div class="md:hidden mb-4">
+                                <h3 class="text-xl font-bold text-yellow-400">Mgr. Support Services & Doc. Specialist</h3>
+                                <p class="text-sm text-slate-400">Sept. 2014 – Jan. 2016</p>
+                            </div>
+                            <div class="inline-block mb-3 px-3 py-1 rounded bg-yellow-400/20 text-yellow-300 text-xs font-bold uppercase tracking-wider">
+                                Highlight: The Sandbox Era
+                            </div>
+                            <p class="text-slate-300 text-sm mb-3">
+                                Hired by GNS3 following successful innovations using network sandboxes starting in 2013.
+                            </p>
+                            <ul class="text-slate-300 text-sm space-y-2 list-disc ml-4 marker:text-yellow-400">
+                                <li>Generated $1.3 million in revenue via compelling technical documentation/integration guides.</li>
+                                <li>Advised on platform direction and technology acquisitions.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2013 - Early Sandbox Usage -->
+                <div class="relative flex justify-between items-center w-full mb-12 reveal flex-row-reverse md:flex-row">
+                    <div class="w-full md:w-5/12 text-left md:text-right md:pr-8 pl-12 md:pl-0 timeline-item glass-card p-6 rounded-xl md:bg-transparent md:border-none md:backdrop-blur-none md:shadow-none md:hover:transform-none">
+                        <div class="md:hidden mb-4">
+                            <h3 class="text-xl font-bold text-slate-400">Solutions Architect</h3>
+                            <p class="text-sm text-slate-400">Mar. 2013 – Sept. 2014</p>
+                        </div>
+                        <ul class="text-slate-300 text-sm space-y-2 list-disc ml-4 marker:text-slate-500 md:ml-0 md:mr-4 md:list-none">
+                            <li>Began extensive use of network sandboxing methodologies.</li>
+                            <li>Conducted IT audits and remediated multi-million dollar devices.</li>
+                            <li>Provided 24/7 support for critical network infrastructure.</li>
+                        </ul>
+                    </div>
+                    <div class="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full bg-slate-900 border-4 border-slate-500 z-10 timeline-dot"></div>
+                    <div class="w-5/12 pl-8 text-left timeline-item hidden md:block">
+                        <h3 class="text-xl font-bold text-slate-400">Solutions Architect</h3>
+                        <h4 class="text-lg text-slate-300">Techstrata LLC.</h4>
+                        <p class="text-sm text-slate-400 mb-2">Mar. 2013 – Sept. 2014</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Open Source & Agentic AI Section -->
+    <section id="projects" class="py-24 relative z-10 px-4 bg-black/40 border-y border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl font-bold text-white mb-4"><span class="text-violet-400">#</span> Open Source & Agentic AI</h2>
+                <p class="text-slate-400 max-w-2xl mx-auto">Exploring multi-agent AI systems, governance, and model context integrations.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+                
+                <!-- Praetorian Project -->
+                <div class="glass-card p-8 rounded-2xl reveal relative overflow-hidden group">
+                    <div class="absolute -right-10 -top-10 text-cyan-500/10 text-9xl group-hover:text-cyan-500/20 transition-colors duration-500">
+                        <i class="fas fa-shield-halved"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-2xl font-bold text-cyan-300">Praetorian Project</h3>
+                            <span class="px-2 py-1 rounded bg-slate-800 text-xs text-slate-300 border border-slate-600">Cybersecurity</span>
+                        </div>
+                        <p class="text-slate-300 mb-6 min-h-[60px]">Open-source cybersecurity initiative focusing on defensive agentic architectures and automated threat mitigation workflows.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex gap-2">
+                                <span class="text-xs font-mono bg-cyan-900/50 text-cyan-200 px-2 py-1 rounded">Hermes Agent</span>
+                                <span class="text-xs font-mono bg-cyan-900/50 text-cyan-200 px-2 py-1 rounded">Governance</span>
+                            </div>
+                            <a href="https://github.com/mattreya/hermes_antigravity_integration_project" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-cyan-400 hover:text-cyan-300 flex items-center gap-1">
+                                Repo <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Good Samaritan Initiative -->
+                <div class="glass-card p-8 rounded-2xl reveal relative overflow-hidden group">
+                    <div class="absolute -right-10 -top-10 text-violet-500/10 text-9xl group-hover:text-violet-500/20 transition-colors duration-500">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-2xl font-bold text-violet-300">Good Samaritan Initiative</h3>
+                            <span class="px-2 py-1 rounded bg-slate-800 text-xs text-slate-300 border border-slate-600">AI Governance</span>
+                        </div>
+                        <p class="text-slate-300 mb-6 min-h-[60px]">Establishing ethical frameworks and open-source models for responsible autonomous agent deployment in enterprise IT.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex gap-2">
+                                <span class="text-xs font-mono bg-violet-900/50 text-violet-200 px-2 py-1 rounded">Ethical AI</span>
+                                <span class="text-xs font-mono bg-violet-900/50 text-violet-200 px-2 py-1 rounded">Frameworks</span>
+                            </div>
+                            <a href="https://github.com/mattreya/Agentic_AI_Services_NSA_FBI_compliance_bots" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-violet-400 hover:text-violet-300 flex items-center gap-1">
+                                Repo <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PredictaBot -->
+                <div class="glass-card p-8 rounded-2xl reveal relative overflow-hidden group">
+                    <div class="absolute -right-10 -top-10 text-emerald-500/10 text-9xl group-hover:text-emerald-500/20 transition-colors duration-500">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-2xl font-bold text-emerald-300">PredictaBot</h3>
+                            <span class="px-2 py-1 rounded bg-slate-800 text-xs text-slate-300 border border-slate-600">Automation</span>
+                        </div>
+                        <p class="text-slate-300 mb-6 min-h-[60px]">Advanced automation project developed using Python and Marimo reporting for predictive AI operational analytics.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex gap-2">
+                                <span class="text-xs font-mono bg-emerald-900/50 text-emerald-200 px-2 py-1 rounded">Python</span>
+                                <span class="text-xs font-mono bg-emerald-900/50 text-emerald-200 px-2 py-1 rounded">Marimo</span>
+                                <span class="text-xs font-mono bg-emerald-900/50 text-emerald-200 px-2 py-1 rounded">AIOps</span>
+                            </div>
+                            <a href="https://github.com/mattreya" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-emerald-400 hover:text-emerald-300 flex items-center gap-1">
+                                Explore <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- three_dimensional_time -->
+                <div class="glass-card p-8 rounded-2xl reveal relative overflow-hidden group">
+                    <div class="absolute -right-10 -top-10 text-rose-500/10 text-9xl group-hover:text-rose-500/20 transition-colors duration-500">
+                        <i class="fas fa-cubes"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-2xl font-bold text-rose-300">three_dimensional_time</h3>
+                            <span class="px-2 py-1 rounded bg-slate-800 text-xs text-slate-300 border border-slate-600">Modeling</span>
+                        </div>
+                        <p class="text-slate-300 mb-6 min-h-[60px]">A multidimensional modeling repository contributing to spatial and temporal reasoning capabilities for autonomous agents.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex gap-2">
+                                <span class="text-xs font-mono bg-rose-900/50 text-rose-200 px-2 py-1 rounded">Data Modeling</span>
+                                <span class="text-xs font-mono bg-rose-900/50 text-rose-200 px-2 py-1 rounded">Context Protocol</span>
+                            </div>
+                            <a href="https://github.com/mattreya/gemini-cli-time-dimensionality" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-rose-400 hover:text-rose-300 flex items-center gap-1">
+                                Repo <i class="fas fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Media & Lectures Section -->
+    <section id="media" class="py-24 relative z-10 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl font-bold text-white mb-4"><span class="text-cyan-400">@</span> Media, Lectures & Publications</h2>
+                <p class="text-slate-400 max-w-2xl mx-auto">Sharing knowledge on Agentic workflows, the OSI model, and the future of IT.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                
+                <!-- Video Showcase (Left side, takes up more space) -->
+                <div class="lg:col-span-8 glass-panel rounded-2xl overflow-hidden reveal flex flex-col">
+                    <div class="p-4 border-b border-white/10 bg-slate-800/50 flex items-center justify-between">
+                        <h3 class="font-bold text-lg"><i class="fab fa-youtube text-red-500 mr-2"></i> Featured Lecture</h3>
+                        <span class="text-xs text-slate-400 mono">VibeOps Lounge 003</span>
+                    </div>
+                    <div class="relative w-full aspect-video bg-black flex-grow">
+                        <!-- Embedded YouTube Video -->
+                        <iframe 
+                            class="absolute top-0 left-0 w-full h-full" 
+                            src="https://www.youtube.com/embed/QvMkjnUBapA" 
+                            title="VibeOps Lounge 003: The Five Types of Bots with Matt Raio" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold text-cyan-300 mb-2">The Five Types of Bots with Matt Raio</h4>
+                        <p class="text-slate-400 text-sm">Deep dive discussion detailing the classification of operational bots and how autonomous agents integrate within modern DevSecOps frameworks.</p>
+                    </div>
+                </div>
+
+                <!-- Book Showcase (Right side) -->
+                <div class="lg:col-span-4 flex flex-col gap-8 reveal">
+                    <div class="glass-card rounded-2xl p-8 flex-grow flex flex-col justify-center items-center text-center relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-gradient-to-br from-cyan-900/20 to-purple-900/20 z-0"></div>
+                        
+                        <div class="relative z-10">
+                            <i class="fas fa-book-journal-whills text-5xl text-purple-400 mb-6 group-hover:scale-110 transition-transform duration-300"></i>
+                            <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-2">Self-Published Author</h3>
+                            <h4 class="text-2xl font-bold text-white mb-4 leading-tight text-glow">Project Self: Strategies to Mastering IT and Coding with Agentic AI</h4>
+                            <p class="text-slate-400 text-sm mb-6">
+                                A comprehensive guide combining 30 years of IT experience with cutting-edge strategies for utilizing AI Ops and Agentic AI to master modern coding workflows.
+                            </p>
+                            <a href="https://github.com/mattreya" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-2 rounded-full border border-purple-500 text-purple-300 hover:bg-purple-500/20 hover:text-white transition-all text-sm font-bold">
+                                <span>Curriculum & Repos</span>
+                                <i class="fas fa-arrow-right text-xs"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Instructional Contributions Snippet -->
+                    <div class="glass-panel p-6 rounded-2xl text-sm">
+                        <h4 class="font-bold text-cyan-300 mb-2"><i class="fas fa-chalkboard-user mr-2"></i> Curriculum Developer</h4>
+                        <p class="text-slate-300">
+                            Created instructional labs, workshop modules, and technical materials for <strong class="text-white">CyRoot Academy</strong> and <strong class="text-white">OWASP Las Vegas</strong>.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 bg-slate-900/80 py-8 text-center relative z-10">
+        <div class="flex justify-center space-x-6 mb-4">
+            <a href="https://www.linkedin.com/in/mattraio/" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-cyan-400 transition-colors text-xl" title="LinkedIn Profile">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/mattreya?tab=repositories" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-cyan-400 transition-colors text-xl" title="GitHub Repositories">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="mailto:mathew.raio@csuglobal.edu" class="text-slate-400 hover:text-cyan-400 transition-colors text-xl" title="Email Contact">
+                <i class="fas fa-envelope"></i>
+            </a>
+        </div>
+        <p class="text-slate-500 text-sm mono">
+            &copy; 2026 Raiolabs LLC. | mathew.raio@csuglobal.edu | 425-293-7409
+        </p>
+        <p class="text-xs text-slate-600 mono mt-2">
+            <a href="./index.html" class="hover:text-cyan-400 transition-colors">Return to RaioLabs LLC AetherOS Cockpit &rarr;</a>
+        </p>
+    </footer>
+
+    <script>
+        // --- 1. Interactive Node Canvas Background ---
+        const canvas = document.getElementById('network-bg');
+        const ctx = canvas.getContext('2d');
+        
+        let width, height;
+        let particles = [];
+        const config = {
+            particleCount: Math.min(window.innerWidth / 15, 100),
+            connectionDistance: 150,
+            mouseRepelRadius: 120,
+            particleSpeed: 0.5,
+            particleColor: 'rgba(14, 165, 233, 0.4)',
+            lineColor: 'rgba(139, 92, 246, 0.15)'
+        };
+
+        let mouse = { x: -1000, y: -1000 };
+
+        function initCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            particles = [];
+            for(let i=0; i<config.particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * config.particleSpeed;
+                this.vy = (Math.random() - 0.5) * config.particleSpeed;
+                this.radius = Math.random() * 2 + 1;
+            }
+
+            update() {
+                if(this.x < 0 || this.x > width) this.vx *= -1;
+                if(this.y < 0 || this.y > height) this.vy *= -1;
+
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let dist = Math.sqrt(dx*dx + dy*dy);
+                
+                if(dist < config.mouseRepelRadius && dist > 0) {
+                    let force = (config.mouseRepelRadius - dist) / config.mouseRepelRadius;
+                    this.vx -= (dx / dist) * force * 0.2;
+                    this.vy -= (dy / dist) * force * 0.2;
+                }
+
+                let currentSpeed = Math.sqrt(this.vx*this.vx + this.vy*this.vy);
+                if (currentSpeed > config.particleSpeed) {
+                    this.vx *= 0.95;
+                    this.vy *= 0.95;
+                }
+
+                this.x += this.vx;
+                this.y += this.vy;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = config.particleColor;
+                ctx.fill();
+            }
+        }
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, width, height);
+            
+            for(let i=0; i<particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+                
+                for(let j=i+1; j<particles.length; j++) {
+                    let dx = particles[i].x - particles[j].x;
+                    let dy = particles[i].y - particles[j].y;
+                    let dist = Math.sqrt(dx*dx + dy*dy);
+                    
+                    if(dist < config.connectionDistance) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        let opacity = 1 - (dist / config.connectionDistance);
+                        ctx.strokeStyle = config.lineColor.replace('0.15', (opacity * 0.3).toString());
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateCanvas);
+        }
+
+        window.addEventListener('resize', initCanvas);
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+        window.addEventListener('mouseout', () => {
+            mouse.x = -1000;
+            mouse.y = -1000;
+        });
+        
+        window.addEventListener('touchmove', (e) => {
+            if(e.touches.length > 0) {
+                mouse.x = e.touches[0].clientX;
+                mouse.y = e.touches[0].clientY;
+            }
+        });
+
+        initCanvas();
+        animateCanvas();
+
+        // --- 2. Scroll Reveal Animation Logic ---
+        function revealElements() {
+            let reveals = document.querySelectorAll('.reveal');
+            let windowHeight = window.innerHeight;
+            let elementVisible = 100;
+
+            reveals.forEach((element) => {
+                let elementTop = element.getBoundingClientRect().top;
+                if (elementTop < windowHeight - elementVisible) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', revealElements);
+        revealElements();
+
+        // --- 3. Navbar Sticky Style changes on scroll ---
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if(window.scrollY > 50) {
+                navbar.classList.add('bg-slate-900/90', 'shadow-lg');
+                navbar.classList.remove('bg-transparent');
+            } else {
+                navbar.classList.remove('bg-slate-900/90', 'shadow-lg');
+                navbar.classList.add('bg-transparent');
+            }
+        });
+    </script>
+</body>
+</html>
