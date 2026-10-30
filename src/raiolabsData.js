@@ -2,23 +2,6 @@
 
 export const FEATURED_PROJECTS = [
   {
-    id: 'networkmatt-appliance',
-    name: 'networkmatt',
-    title: 'networkmatt Network Simulator',
-    category: 'Networking & Simulation',
-    language: 'Python / Web Kiosk',
-    badge: 'NETWORK SIMULATOR',
-    stars: 5,
-    url: './networkmatt.html',
-    summary: 'Observe-first network appliance simulator. Boots to a prompt, listens to capture source, drafts passive candidate configurations for review before changing.',
-    highlights: [
-      'Observe-first workflow: review before changing',
-      'Device status, readiness, and passive candidate generation',
-      'Touch-friendly console interface'
-    ],
-    command: 'python -m networkmatt --port 8765'
-  },
-  {
     id: 'netlab-ccnp',
     name: 'NetLabCCNP',
     title: 'Containerlab CCNP Web Studio',

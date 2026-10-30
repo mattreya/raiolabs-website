@@ -195,7 +195,6 @@ function renderLayout() {
         <button class="nav-tab" data-target="workshops-view">🎓 Agentic Workshops</button>
         <button class="nav-tab" data-target="dashboard-view">📊 AetherOS Sandbox</button>
         <button class="nav-tab" data-target="stage-view">🎭 Shadow Puppet Theatre</button>
-        <a href="./networkmatt.html" class="nav-tab nav-tab-networkmatt" id="btn-networkmatt-nav" title="networkmatt Simulator">🌐 networkmatt</a>
         <a href="./netlab.html" class="nav-tab nav-tab-netlab" id="btn-netlab-nav" title="NetLab CCNP Web Studio">⚡ NetLabCCNP</a>
       </nav>
 
@@ -2473,7 +2472,7 @@ function setupEventListeners() {
   document.querySelectorAll('.nav-tab').forEach(tab => {
     tab.addEventListener('click', (e) => {
       const target = tab.getAttribute('data-target');
-      if (tab.id === 'btn-networkmatt-nav' || tab.id === 'btn-netlab-nav' || !target) {
+      if (tab.id === 'btn-netlab-nav' || !target) {
         return; // Allow standard link navigation to full-screen subpages
       }
       document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
@@ -3286,21 +3285,7 @@ function runClientSideAgentSynthesis(compiledPrompt = '') {
     return;
   }
 
-  // 10b. networkmatt Network Simulator
-  if (lower.includes('networkmatt') || lower.includes('network simulator')) {
-    setBotReaction(
-      'hype',
-      '🌐 networkmatt SIMULATOR!',
-      'Opening networkmatt network simulator!',
-      '🔌'
-    );
-    setTimeout(() => {
-      window.location.href = './networkmatt.html';
-    }, 400);
-    return;
-  }
-
-  // 10c. NetLabCCNP Containerlab Web Studio
+  // 10b. NetLabCCNP Containerlab Web Studio
   if (lower.includes('netlab') || lower.includes('ccnp') || lower.includes('containerlab') || lower.includes('cisco lab') || lower.includes('netclaw')) {
     setBotReaction(
       'hype',

@@ -787,22 +787,6 @@ body {
   box-shadow: inset 0 0 0 1px var(--accent-glow);
 }
 
-.nav-tab-networkmatt {
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: #77d6bc;
-  border: 1px solid rgba(119, 214, 188, 0.35);
-  background: rgba(119, 214, 188, 0.08);
-}
-.nav-tab-networkmatt:hover {
-  color: #fff;
-  background: rgba(119, 214, 188, 0.2);
-  border-color: rgba(119, 214, 188, 0.8);
-  box-shadow: 0 0 16px rgba(119, 214, 188, 0.35);
-  transform: translateY(-1px);
-}
 .nav-tab-netlab {
   text-decoration: none;
   display: inline-flex;

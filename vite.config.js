@@ -23,7 +23,6 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         resume: resolve(__dirname, 'resume.html'),
-        networkmatt: resolve(__dirname, 'networkmatt.html'),
         netlab: resolve(__dirname, 'netlab.html')
       }
     }
