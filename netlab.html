@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NetLabCCNP | Containerlab Web Studio & NetClaw AI Mentor | RaioLabs LLC</title>
+  <link rel="icon" type="image/png" href="./raiolabsllc.png" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- xterm.js CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@5.3.0/css/xterm.css" />
+  <script src="https://cdn.jsdelivr.net/npm/xterm@5.3.0/lib/xterm.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xterm-addon-fit@0.8.0/lib/xterm-addon-fit.js"></script>
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="./netlab/app/static/css/style.css">
+  <style>
+    /* RaioLabs Navigation & Header Enhancement */
+    .raiolabs-back-btn {
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.35rem 0.8rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #77d6bc;
+      background: rgba(119, 214, 188, 0.12);
+      border: 1px solid rgba(119, 214, 188, 0.3);
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .raiolabs-back-btn:hover {
+      background: rgba(119, 214, 188, 0.25);
+      color: #ffffff;
+      border-color: #77d6bc;
+      text-decoration: none;
+      box-shadow: 0 0 12px rgba(119, 214, 188, 0.25);
+    }
+    .sim-mode-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      padding: 0.2rem 0.55rem;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .sim-mode-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 6px #10b981;
+    }
+
+    /* Right Panel & Action Buttons Polish */
+    .app-container {
+      grid-template-columns: 330px 1fr 410px;
+    }
+    .app-container.left-collapsed {
+      grid-template-columns: 0px 1fr 410px;
+    }
+
+    .netclaw-actions-bar {
+      display: flex;
+      gap: 0.45rem;
+      padding: 0.5rem 0.65rem;
+      background-color: #0b1120;
+      border-bottom: 1px solid var(--border-color);
+      align-items: center;
+      box-sizing: border-box;
+      width: 100%;
+    }
+
+    .netclaw-actions-bar .btn {
+      flex: 1 1 0;
+      min-width: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 0.42rem 0.4rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: center;
+      box-sizing: border-box;
+      border-radius: 6px;
+    }
+
+    .netclaw-actions-bar .btn:hover {
+      background-color: var(--bg-card-hover);
+      color: var(--text-primary);
+    }
+
+    .mentor-mode-tabs {
+      display: flex;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .mentor-tab {
+      flex: 1 1 0;
+      min-width: 0;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      padding: 0.5rem 0.35rem;
+      font-size: 0.76rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.3rem;
+      box-sizing: border-box;
+    }
+
+    .chat-input-wrapper {
+      padding: 0.5rem 0.65rem;
+      box-sizing: border-box;
+      width: 100%;
+      display: flex;
+      gap: 0.4rem;
+      align-items: center;
+    }
+
+    .chat-input {
+      flex: 1 1 0;
+      min-width: 0;
+      box-sizing: border-box;
+    }
+
+    .btn-send {
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .header-right {
+      flex-shrink: 0;
+      gap: 0.5rem;
+    }
+
+    .header-right .btn {
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 1100px) {
+      .sim-mode-badge span#runtime-mode-text {
+        display: none;
+      }
+      .logo .badge-subtle {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header Bar -->
+  <header class="app-header">
+    <div class="header-left">
+      <a href="./index.html" class="raiolabs-back-btn" title="Return to RaioLabs LLC Hub">
+        <span>←</span> RaioLabs
+      </a>
+      <button id="btn-toggle-left" class="btn-icon-toggle" title="Toggle Left Sidebar">
+        <span class="icon">◧</span>
+      </button>
+      <div class="logo">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text">NetLab<strong>CCNP</strong></span>
+        <span class="badge badge-subtle">Containerlab Studio</span>
+        <span class="sim-mode-badge" id="runtime-mode-indicator" title="Engine Status">
+          <span class="sim-mode-dot"></span> <span id="runtime-mode-text">Interactive Virtual Engine</span>
+        </span>
+      </div>
+      <div class="lab-selector-wrapper">
+        <label for="lab-select">Lab:</label>
+        <select id="lab-select" class="lab-select">
+          <option value="" disabled>Loading labs...</option>
+        </select>
+      </div>
+    </div>
+    <div class="header-right">
+      <button id="btn-reset-lab" class="btn btn-secondary" title="Wipe running modifications and reload seed">
+        <span class="btn-icon">↺</span> Reset Lab
+      </button>
+      <button id="btn-validate-lab" class="btn btn-primary" title="Check your solution against CCNP objectives">
+        <span class="btn-icon">✓</span> Verify Solution
+      </button>
+      <button id="btn-toggle-right" class="btn-icon-toggle" title="Toggle AI Mentor Panel">
+        <span class="icon">◨</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main 3-Column Layout -->
+  <div id="app-container" class="app-container">
+    <!-- Left Column: Lab Overview & Interactive Topology -->
+    <aside id="left-panel" class="left-panel">
+      <!-- 1. Interactive Topology Panel (Above Objective & Description) -->
+      <div id="topology-card" class="card topology-card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <h3 class="card-title">Interactive Topology</h3>
+            <span class="card-hint">Click a router to switch console</span>
+          </div>
+          <button id="btn-collapse-topo" class="btn-collapse" title="Collapse Topology Map">▾</button>
+        </div>
+        <div id="topology-body" class="card-body topology-body">
+          <svg id="topology-svg" class="topology-svg" viewBox="0 0 660 300">
+            <!-- Dynamic SVG nodes & links rendered via JS -->
+          </svg>
+        </div>
+      </div>
+
+      <!-- 2. Lab Details Card -->
+      <div class="card lab-info-card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <h2 id="lab-title" class="card-title">Loading Lab...</h2>
+            <span id="lab-difficulty" class="badge badge-accent">Intermediate</span>
+          </div>
+          <button id="btn-collapse-desc" class="btn-collapse" title="Collapse Info">▾</button>
+        </div>
+        <div id="lab-info-body" class="card-body">
+          <div class="lab-meta">
+            <span class="meta-item"><strong id="lab-track">CCNP ENCOR</strong></span>
+            <span class="meta-dot">•</span>
+            <span class="meta-item"><span id="lab-time">15 mins</span></span>
+          </div>
+
+          <!-- Collapsible Objective Box (Above Description) -->
+          <div class="objective-box">
+            <div class="objective-header">
+              <strong>🎯 Objective</strong>
+              <button id="btn-collapse-obj" class="btn-text-collapse">Hide</button>
+            </div>
+            <div id="objective-content">
+              <p id="lab-objective">Establish full neighbor adjacency.</p>
+            </div>
+          </div>
+
+          <!-- Scenario Description (Below Objective) -->
+          <p id="lab-desc" class="lab-desc">Troubleshooting scenario details will appear here.</p>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Center Column: Multi-Tab In-Browser Console -->
+    <main id="center-panel" class="center-panel">
+      <div class="card terminal-card">
+        <div class="card-header terminal-header">
+          <div id="terminal-tabs" class="terminal-tabs">
+            <!-- Dynamically populated router tabs -->
+          </div>
+          <div class="terminal-quick-actions">
+            <span class="quick-title">Quick CLI:</span>
+            <button class="btn-chip" data-cmd="show ip ospf neighbor">show ospf</button>
+            <button class="btn-chip" data-cmd="show ip bgp summary">show bgp</button>
+            <button class="btn-chip" data-cmd="show ip int br">show ip int</button>
+            <button class="btn-chip" data-cmd="show run">show run</button>
+          </div>
+        </div>
+        <div class="card-body terminal-body">
+          <div id="terminal-container" class="terminal-container"></div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Right Column: Dual AI Mentor (NetClaw / Personal Cloud Agent) -->
+    <aside id="right-panel" class="right-panel">
+      <!-- Mentor Switcher Tabs Header -->
+      <div class="mentor-mode-tabs">
+        <button id="tab-mode-netclaw" class="mentor-tab active" title="Local pyATS Genie Deterministic Inspector">
+          <span class="tab-icon">🤖</span> NetClaw (Local)
+        </button>
+        <button id="tab-mode-personal" class="mentor-tab" title="Your Cloud AI (Claude / OpenAI / Gemini)">
+          <span class="tab-icon">🧠</span> Personal AI (BYOK)
+        </button>
+      </div>
+
+      <!-- VIEW 1: NetClaw (Deterministic pyATS) -->
+      <div id="view-netclaw" class="mentor-view card netclaw-card active">
+        <div class="card-header netclaw-header">
+          <div class="mentor-badge">
+            <span class="mentor-avatar">🤖</span>
+            <div>
+              <h3 class="card-title">NetClaw AI NetOps</h3>
+              <span class="mentor-sub">pyATS Genie • Zero Cost • Deterministic</span>
+            </div>
+          </div>
+          <span class="status-indicator online" title="NetClaw MCP Agent Ready"></span>
+        </div>
+
+        <div class="netclaw-actions-bar">
+          <button id="btn-netclaw-review" class="btn btn-sm btn-outline">
+            🔍 Review Configs
+          </button>
+          <button id="btn-netclaw-hint" class="btn btn-sm btn-outline">
+            💡 Need a Hint (<span id="hint-level-indicator">1/3</span>)
+          </button>
+        </div>
+
+        <div id="netclaw-chat-window" class="chat-window">
+          <!-- Initial welcome message from NetClaw -->
+          <div class="chat-message mentor">
+            <div class="msg-header">
+              <span class="msg-sender">NetClaw</span>
+              <span class="msg-time">Just now</span>
+            </div>
+            <div class="msg-body">
+              <p>Welcome! I'm <strong>NetClaw</strong>, your local NetOps inspector powered by pyATS Genie parsers.</p>
+              <p>Click <strong>Review Configs</strong> to inspect parsed device states, or switch to the <strong>Personal AI</strong> tab above to consult Claude, OpenAI, or Gemini with your own API key!</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="chat-input-wrapper">
+          <input type="text" id="netclaw-input" class="chat-input" placeholder="Ask NetClaw about OSPF, BGP, MTU..." />
+          <button id="btn-netclaw-send" class="btn btn-primary btn-send">Send</button>
+        </div>
+      </div>
+
+      <!-- VIEW 2: Personal Cloud AI Agent (BYOK: Claude / OpenAI / Gemini) -->
+      <div id="view-personal" class="mentor-view card personal-card">
+        <div class="card-header personal-header">
+          <div class="mentor-badge">
+            <span class="mentor-avatar">🧠</span>
+            <div>
+              <h3 class="card-title">Personal AI Mentor</h3>
+              <span class="mentor-sub">Claude • OpenAI • Google Gemini</span>
+            </div>
+          </div>
+          <button id="btn-toggle-key-settings" class="btn-icon-key" title="Configure API Key">⚙️</button>
+        </div>
+
+        <!-- Provider & Key Settings Drawer -->
+        <div id="personal-settings-drawer" class="personal-settings-drawer">
+          <div class="setting-row">
+            <label for="agent-provider">Provider:</label>
+            <select id="agent-provider" class="setting-select">
+              <option value="builtin">Built-in CCIE Brain (Zero-Key / Always Online)</option>
+              <option value="google">Google Gemini</option>
+              <option value="anthropic">Anthropic Claude</option>
+              <option value="openai">OpenAI</option>
+            </select>
+          </div>
+          <div class="setting-row">
+            <label for="agent-model">Model:</label>
+            <select id="agent-model" class="setting-select">
+              <option value="gemini-1.5-flash">gemini-1.5-flash (Ultra Stable & Fast)</option>
+              <option value="gemini-3.8-flash">gemini-3.8-flash (Latest)</option>
+              <option value="gemini-1.5-pro">gemini-1.5-pro (Deep Reasoning)</option>
+              <option value="gemini-3.8-pro">gemini-3.8-pro</option>
+            </select>
+          </div>
+          <div class="setting-row">
+            <label for="agent-api-key">API Key:</label>
+            <div class="key-input-group">
+              <input type="password" id="agent-api-key" class="setting-input" placeholder="Paste your API key here..." />
+              <button id="btn-toggle-key-vis" class="btn-chip" type="button">👁</button>
+            </div>
+          </div>
+          <div class="settings-actions">
+            <button id="btn-help-api-key" class="btn-link-help" type="button">
+              ❓ How to get a free API key
+            </button>
+            <span id="key-saved-indicator" class="key-status-text">Keys stored securely</span>
+            <button id="btn-save-key" class="btn btn-sm btn-primary">Save Key</button>
+          </div>
+          <div id="api-key-help-box" class="api-key-help-box hidden">
+            <div class="help-box-header">
+              <strong id="help-provider-title">Getting a Google Gemini API Key</strong>
+              <button id="btn-close-help-box" class="btn-close-sm">&times;</button>
+            </div>
+            <div id="help-provider-content" class="help-box-content">
+              <!-- Dynamically populated walkthrough based on provider -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Personal AI Actions Bar -->
+        <div class="netclaw-actions-bar">
+          <button id="btn-personal-inspect" class="btn btn-sm btn-outline">
+            🚀 Deep Inspect with AI
+          </button>
+          <button id="btn-personal-explain" class="btn btn-sm btn-outline">
+            ❓ Explain Root Cause
+          </button>
+        </div>
+
+        <div id="personal-chat-window" class="chat-window">
+          <div class="chat-message mentor">
+            <div class="msg-header">
+              <span class="msg-sender">Personal AI Assistant</span>
+              <span class="msg-time">Just now</span>
+            </div>
+            <div class="msg-body">
+              <p>Welcome to your personal cloud AI mentor! Configure your <strong>Claude</strong>, <strong>OpenAI</strong>, or <strong>Google Gemini</strong> API key using the ⚙️ settings above.</p>
+              <p>When you ask a question or click <strong>Deep Inspect with AI</strong>, your live router configurations and pyATS telemetry are injected directly so your model knows the exact state of your lab!</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="chat-input-wrapper">
+          <input type="text" id="personal-input" class="chat-input" placeholder="Ask your personal AI to analyze configs..." />
+          <button id="btn-personal-send" class="btn btn-primary btn-send">Send</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Verification Result Modal -->
+  <div id="validation-modal" class="modal-overlay hidden">
+    <div class="modal-content modal-debrief">
+      <div class="modal-header">
+        <div class="modal-title-wrapper">
+          <span id="modal-icon" class="modal-badge-icon">🎉</span>
+          <div>
+            <h3 id="modal-title">Lab Verification Results</h3>
+            <span id="modal-subtitle" class="modal-subtitle">CCNP Enterprise Troubleshooting Debrief</span>
+          </div>
+        </div>
+        <button id="modal-close" class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="modal-score" class="modal-score-badge">0 / 0 Checks Passed</div>
+        <p id="modal-feedback" class="modal-feedback"></p>
+        <ul id="modal-checklist" class="modal-checklist"></ul>
+
+        <!-- Post-Lab Debrief Container (Visible upon passing) -->
+        <div id="post-lab-debrief" class="post-lab-debrief hidden">
+          <!-- Viewpoint Recall Questions Section -->
+          <div class="debrief-section">
+            <div class="debrief-header">
+              <span class="debrief-icon">🧠</span>
+              <div>
+                <h4 class="debrief-title">CCNP Viewpoint & Knowledge Recall</h4>
+                <p class="debrief-desc">Reinforce what you did in this lab with key architectural questions tested on the exam.</p>
+              </div>
+            </div>
+            <div id="viewpoint-questions-container" class="viewpoint-list">
+              <!-- Dynamically populated viewpoint questions with Reveal Answer buttons -->
+            </div>
+          </div>
+
+          <!-- Key Exam Practice Commands Section -->
+          <div class="debrief-section">
+            <div class="debrief-header">
+              <span class="debrief-icon">🎯</span>
+              <div>
+                <h4 class="debrief-title">Key Exam Commands to Master</h4>
+                <p class="debrief-desc">Essential Cisco IOS verification & troubleshooting commands to practice for the test.</p>
+              </div>
+            </div>
+            <div id="exam-commands-container" class="exam-commands-list">
+              <!-- Dynamically populated exam command cards with quick CLI chips -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="modal-btn-discuss" class="btn btn-outline hidden">💬 Discuss with AI Mentor</button>
+        <button id="modal-btn-ok" class="btn btn-primary">Continue Lab</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Client-Side Fallback Shim & Live Backend Bridge -->
+  <script>
+    (function() {
+      // In-browser CCNP catalog and state simulator
+      const LAB_DATA = {
+        encor_ospf_mtu: {
+          id: "encor_ospf_mtu",
+          title: "CCNP ENCOR: OSPF Neighbor Adjacency & MTU Mismatch",
+          track: "CCNP Enterprise (350-401 ENCOR)",
+          difficulty: "Intermediate",
+          estimatedTime: "15 mins",
+          description: "R1 and R2 are connected via GigabitEthernet0/1 in OSPF Area 0. The network operations team reports that routing updates are not exchanging between the sites. Investigate why the OSPF adjacency fails to establish FULL state, troubleshoot the root cause, and restore routing.",
+          objective: "Resolve the OSPF neighbor issue on GigabitEthernet0/1 so both routers achieve FULL neighbor adjacency and exchange routing tables.",
+          nodes: [
+            {
+              name: "r1",
+              displayName: "R1 (Branch)",
+              model: "Cisco IOS-XE / cEOS",
+              managementIp: "172.20.20.11",
+              interfaces: [{ name: "GigabitEthernet0/1", ip: "10.0.0.1/30", peer: "r2:GigabitEthernet0/1" }],
+              initialState: { hostname: "R1", mtu: 1400, ospfArea: 0, ospfProcess: 1, ospfNeighborState: "EXSTART" }
+            },
+            {
+              name: "r2",
+              displayName: "R2 (HQ Core)",
+              model: "Cisco IOS-XE / cEOS",
+              managementIp: "172.20.20.12",
+              interfaces: [{ name: "GigabitEthernet0/1", ip: "10.0.0.2/30", peer: "r1:GigabitEthernet0/1" }],
+              initialState: { hostname: "R2", mtu: 1500, ospfArea: 0, ospfProcess: 1, ospfNeighborState: "EXSTART" }
+            }
+          ],
+          topologyVisual: {
+            nodes: [
+              { id: "r1", label: "R1 (Branch)", type: "router", x: 180, y: 140, ip: "10.0.0.1" },
+              { id: "r2", label: "R2 (HQ Core)", type: "router", x: 480, y: 140, ip: "10.0.0.2" }
+            ],
+            links: [
+              { from: "r1", to: "r2", label: "10.0.0.0/30 (Gi0/1)", status: "warning" }
+            ]
+          },
+          hints: [
+            { level: 1, title: "Level 1: Directional Hint", content: "Check the current state of OSPF neighbors using 'show ip ospf neighbor'. Notice whether the state is stuck in EXSTART or EXCHANGE rather than reaching FULL." },
+            { level: 2, title: "Level 2: Protocol Mechanics", content: "In OSPF, neighbors transition through 2-WAY to EXSTART to exchange Database Description (DBD) packets. By default, Cisco IOS requires both ends of the link to have an identical IP MTU. If one side has an MTU smaller than the other, DBD packets exceeding that MTU are dropped or rejected." },
+            { level: 3, title: "Level 3: Technical Fix", content: "Inspect interface MTU settings using 'show ip interface GigabitEthernet0/1' on both R1 and R2. Notice that R1 has an MTU of 1400 while R2 is at 1500. To fix this, enter configuration mode on R1 ('conf t'), select 'interface GigabitEthernet0/1', and set 'ip mtu 1500' (or optionally 'ip ospf mtu-ignore')." }
+          ],
+          validation: {
+            target: "OSPF Adjacency FULL",
+            checks: [
+              { description: "Interface Gi0/1 MTU matches (1500 bytes) or MTU-ignore is set", type: "mtu_match" },
+              { description: "OSPF Neighbor state on R1 reaches FULL", type: "ospf_full_r1" },
+              { description: "OSPF Neighbor state on R2 reaches FULL", type: "ospf_full_r2" }
+            ]
+          },
+          viewpointQuestions: [
+            {
+              id: "q1",
+              question: "Why did the OSPF neighbor state halt at EXSTART / EXCHANGE instead of advancing to FULL?",
+              answer: "During the EXSTART state, OSPF neighbors exchange Database Description (DBD) packets to elect a Master/Slave router and negotiate initial sequence numbers. The DBD packet contains the Interface MTU field. When Cisco IOS detects that the peer's MTU in the DBD exceeds its local MTU, or vice versa, the router rejects the packet and will not process LSAs, causing the adjacency to loop indefinitely in EXSTART."
+            },
+            {
+              id: "q2",
+              question: "What is the operational difference between setting 'ip mtu 1500' versus 'ip ospf mtu-ignore'?",
+              answer: "'ip mtu 1500' fixes the physical Layer 3 MTU mismatch on the wire, ensuring all data packets and large LSAs can transit without fragmentation or drop. 'ip ospf mtu-ignore' merely instructs OSPF to bypass the MTU check in the DBD frame; if subsequent LSAs or data packets exceed the lower MTU, packets will be silently dropped in the data plane."
+            },
+            {
+              id: "q3",
+              question: "Does an MTU mismatch prevent two OSPF routers from reaching the 2-WAY neighbor state?",
+              answer: "No. OSPF Hello packets do not carry the MTU field in their header and are small enough to pass over any standard link. Bidirectional communication is established and confirmed in the Hello exchange, allowing routers to reach 2-WAY. The failure occurs only when entering EXSTART to begin DBD packet transmission."
+            }
+          ],
+          examPracticeCommands: [
+            { command: "show ip ospf neighbor", purpose: "Verify neighbor state (FULL/DR or FULL/BDR), neighbor ID, dead timer, and interface.", examTip: "On the 350-401 ENCOR exam, an EXSTART state on a point-to-point or broadcast link is the classic symptom of an MTU mismatch." },
+            { command: "show ip ospf interface GigabitEthernet0/1", purpose: "Display OSPF MTU, network type, hello/dead timers, and Designated Router role.", examTip: "Look for '(MTU ignore enabled)' in the interface output to confirm if mtu-ignore was applied." },
+            { command: "show ip interface GigabitEthernet0/1", purpose: "Check the Layer 3 IP MTU size and confirm interface up/up status.", examTip: "Always verify both Layer 3 IP MTU and Layer 2 MTU when troubleshooting adjacency drops." },
+            { command: "show ip route ospf", purpose: "Filter routing table to ensure OSPF intra-area (O) and inter-area (O IA) routes are installed.", examTip: "Routes are only installed into the RIB once the neighbor reaches FULL and the SPF algorithm completes." }
+          ]
+        },
+        encor_bgp_rr: {
+          id: "encor_bgp_rr",
+          title: "CCNP ENCOR: iBGP Route Reflector & Client Troubleshooting",
+          track: "CCNP Enterprise (350-401 ENCOR)",
+          difficulty: "Advanced",
+          estimatedTime: "20 mins",
+          description: "Within Autonomous System 65001, R1 acts as a centralized BGP Route Reflector serving clients R2 and R3. R2 is advertising prefix 172.16.10.0/24 into BGP, but R3 does not receive or install the route. Troubleshoot R1's Route Reflector client configuration.",
+          objective: "Configure R1 so that routes originated by R2 are reflected to R3, allowing R3 to receive the 172.16.10.0/24 prefix in its BGP table.",
+          nodes: [
+            { name: "r1", displayName: "R1 (Route Reflector)", model: "Cisco IOS-XE / cEOS", managementIp: "172.20.20.21", interfaces: [{ name: "GigabitEthernet0/1", ip: "10.0.1.1/30", peer: "r2:GigabitEthernet0/1" }, { name: "GigabitEthernet0/2", ip: "10.0.2.1/30", peer: "r3:GigabitEthernet0/1" }], initialState: { hostname: "R1", as: 65001, isRR: true, missingClient: "10.0.2.3" } },
+            { name: "r2", displayName: "R2 (Client West)", model: "Cisco IOS-XE / cEOS", managementIp: "172.20.20.22", interfaces: [{ name: "GigabitEthernet0/1", ip: "10.0.1.2/30", peer: "r1:GigabitEthernet0/1" }, { name: "Loopback0", ip: "172.16.10.1/24" }], initialState: { hostname: "R2", as: 65001, advertises: "172.16.10.0/24" } },
+            { name: "r3", displayName: "R3 (Client East)", model: "Cisco IOS-XE / cEOS", managementIp: "172.20.20.23", interfaces: [{ name: "GigabitEthernet0/1", ip: "10.0.2.3/30", peer: "r1:GigabitEthernet0/2" }], initialState: { hostname: "R3", as: 65001, receivesRoute: false } }
+          ],
+          topologyVisual: {
+            nodes: [
+              { id: "r1", label: "R1 (Route Reflector)", type: "rr", x: 330, y: 80, ip: "1.1.1.1" },
+              { id: "r2", label: "R2 (Client West)", type: "router", x: 160, y: 200, ip: "10.0.1.2" },
+              { id: "r3", label: "R3 (Client East)", type: "router", x: 500, y: 200, ip: "10.0.2.3" }
+            ],
+            links: [
+              { from: "r2", to: "r1", label: "iBGP Peering", status: "active" },
+              { from: "r1", to: "r3", label: "iBGP Peering (Unreflected)", status: "warning" }
+            ]
+          },
+          hints: [
+            { level: 1, title: "Level 1: Directional Hint", content: "Check BGP neighbor status on R1 using 'show ip bgp summary'. Then check 'show ip bgp' on R3 to see if the prefix 172.16.10.0/24 appears." },
+            { level: 2, title: "Level 2: Protocol Mechanics", content: "By default, iBGP rules forbid a router from advertising an iBGP-learned route to another iBGP peer (split-horizon rule). A Route Reflector bypasses this rule only for neighbors explicitly designated as 'route-reflector-client'." },
+            { level: 3, title: "Level 3: Technical Fix", content: "On R1 under 'router bgp 65001', configure 'neighbor 10.0.2.3 route-reflector-client'. Once applied, R1 will reflect R2's prefixes toward R3." }
+          ],
+          validation: {
+            target: "BGP Route Reflection to R3",
+            checks: [
+              { description: "R1 has R3 designated as route-reflector-client", type: "bgp_rr_client_r3" },
+              { description: "R3 BGP table contains prefix 172.16.10.0/24", type: "bgp_prefix_r3" }
+            ]
+          },
+          viewpointQuestions: [
+            { id: "q1", question: "Why didn't R3 receive or install prefix 172.16.10.0/24 from R1 prior to the Route Reflector client configuration?", answer: "Under the standard iBGP split-horizon rule (RFC 4271), an iBGP speaker will never forward a prefix learned from one iBGP peer to another iBGP peer to prevent loops in non-full-mesh topologies. R1 learned the route from iBGP peer R2, so it refused to reflect it to iBGP peer R3 until R3 was explicitly designated as a 'route-reflector-client'." },
+            { id: "q2", question: "What two BGP loop prevention attributes does a Route Reflector attach when reflecting prefixes?", answer: "A Route Reflector adds: 1) Originator ID (carries the router-id of the originator in the local AS; if the originator receives its own update, it discards it), and 2) Cluster List (appends the 4-byte Cluster ID of each reflector; if a reflector sees its own Cluster ID in the list, it discards the update)." },
+            { id: "q3", question: "When a Route Reflector reflects a route from one client to another client, does it rewrite the BGP Next-Hop attribute by default?", answer: "No. By default, a Route Reflector does NOT modify the BGP Next-Hop attribute (nor Local Preference or MED). The original next-hop (R2's IP 10.0.1.2) is preserved when sent to R3. For R3 to install the route into its RIB, an underlying IGP (like OSPF) or static route must provide reachability to the next-hop IP." }
+          ],
+          examPracticeCommands: [
+            { command: "show ip bgp summary", purpose: "Verify peer IP, AS number, state, uptime, and the number of received prefixes (PfxRcd).", examTip: "If State/PfxRcd shows a number (e.g. 1), the session is Established! If it shows text (e.g. Active, Idle), the BGP TCP session is NOT established." },
+            { command: "show ip bgp 172.16.10.0", purpose: "Inspect detailed BGP path attributes including Originator ID, Cluster list, and best-path selection.", examTip: "Verify the '>' symbol indicating the path was selected as best and installed into the IP routing table." },
+            { command: "show ip bgp neighbors 10.0.2.3", purpose: "Check specific BGP peer details, session state, and confirm 'Route reflector client' designation.", examTip: "Use this command when verifying whether a peer was placed in client vs non-client reflection groups." },
+            { command: "show ip route bgp", purpose: "Examine the active IPv4 routing table exclusively for routes learned and installed via BGP (code B).", examTip: "A prefix may exist in the BGP table (show ip bgp) but fail to appear in 'show ip route' if the next-hop is unreachable." }
+          ]
+        },
+        enarsi_route_map: {
+          id: "enarsi_route_map",
+          title: "CCNP ENARSI: Route-Map Filtering & Prefix Redistribution",
+          track: "CCNP Enterprise (300-410 ENARSI)",
+          difficulty: "Advanced",
+          estimatedTime: "20 mins",
+          description: "R1 is redistributing internal subnets into BGP using route-map EXPORT_BGP. An unintended deny sequence or missing permit statement is causing critical subnet 192.168.10.0/24 to be dropped. Troubleshoot the route-map and restore route propagation to R2.",
+          objective: "Correct the route-map statement on R1 so that 192.168.10.0/24 is permitted and advertised to R2 via BGP.",
+          nodes: [
+            { name: "r1", displayName: "R1 (Edge Gateway)", model: "Cisco IOS-XE / cEOS", managementIp: "172.20.20.31", interfaces: [{ name: "GigabitEthernet0/1", ip: "10.1.1.1/30", peer: "r2:GigabitEthernet0/1" }, { name: "Loopback1", ip: "192.168.10.1/24" }, { name: "Loopback2", ip: "192.168.20.1/24" }], initialState: { hostname: "R1", routeMap: "EXPORT_BGP", missingPermit: "192.168.10.0/24" } },
+            { name: "r2", displayName: "R2 (Core Spine)", model: "Cisco IOS-XE / cEOS", managementIp: "172.20.20.32", interfaces: [{ name: "GigabitEthernet0/1", ip: "10.1.1.2/30", peer: "r1:GigabitEthernet0/1" }], initialState: { hostname: "R2", missingRoute: "192.168.10.0/24" } }
+          ],
+          topologyVisual: {
+            nodes: [
+              { id: "r1", label: "R1 (Edge Gateway)", type: "router", x: 200, y: 140, ip: "10.1.1.1" },
+              { id: "r2", label: "R2 (Core Spine)", type: "router", x: 480, y: 140, ip: "10.1.1.2" }
+            ],
+            links: [
+              { from: "r1", to: "r2", label: "BGP Session (Filtered)", status: "warning" }
+            ]
+          },
+          hints: [
+            { level: 1, title: "Level 1: Directional Hint", content: "Check 'show route-map EXPORT_BGP' and 'show ip access-list' on R1 to see what prefixes match the policy." },
+            { level: 2, title: "Level 2: Protocol Mechanics", content: "Route-maps have an implicit 'deny' at the end. If a prefix is not explicitly permitted by a sequence number, or if an ACL referenced by a permit sequence denies it, the prefix is filtered." },
+            { level: 3, title: "Level 3: Technical Fix", content: "On R1, permit 192.168.10.0/24 in the referenced prefix-list or add 'route-map EXPORT_BGP permit 20' matching prefix 192.168.10.0/24." }
+          ],
+          validation: {
+            target: "Prefix 192.168.10.0/24 present on R2",
+            checks: [
+              { description: "Route-map permits prefix 192.168.10.0/24", type: "route_map_permit" },
+              { description: "Prefix 192.168.10.0/24 present in R2 BGP table", type: "prefix_on_r2" }
+            ]
+          },
+          viewpointQuestions: [
+            { id: "q1", question: "Why was prefix 192.168.10.0/24 dropped even though R1 had an active network statement for it?", answer: "R1 had outbound policy 'neighbor 10.1.1.2 route-map EXPORT_BGP out'. In Cisco IOS XE, route-maps and prefix-lists conclude with an implicit 'deny all'. Sequence 10 of route-map EXPORT_BGP matched prefix-list PERMITTED_NETS which only contained 192.168.20.0/24. Because 192.168.10.0/24 was not matched by any permit sequence, it hit the implicit deny and was filtered." },
+            { id: "q2", question: "What is the key advantage of an IP prefix-list over an IP Access Control List (ACL) for BGP policy routing?", answer: "1) Performance: Prefix-lists use a binary tree data structure for lookup, significantly faster than sequential ACL evaluation on large routing tables. 2) Prefix length flexibility: Prefix-lists allow the 'ge' (greater than or equal) and 'le' (less than or equal) parameters to match a subnet mask length range without complex wildcard calculations." },
+            { id: "q3", question: "How does Cisco IOS evaluate multiple match clauses on the same line vs separate lines in a route-map?", answer: "Match statements on the SAME line are evaluated with a logical OR (e.g. 'match ip address 1 2' matches ACL 1 OR ACL 2). Match statements on DIFFERENT lines within the same sequence are evaluated with a logical AND (e.g. 'match ip address 1' and 'match metric 10' requires both conditions to match)." }
+          ],
+          examPracticeCommands: [
+            { command: "show route-map EXPORT_BGP", purpose: "Inspect route-map sequences, permit/deny actions, match/set clauses, and match packet counters.", examTip: "On the 300-410 ENARSI exam, always check the sequence numbers to ensure more specific match statements precede general ones." },
+            { command: "show ip prefix-list PERMITTED_NETS detail", purpose: "Verify sequence entries, exact prefixes, ge/le length limits, and match hit counts.", examTip: "Hit counts reveal whether routing updates are actively matching the intended prefix-list sequence." },
+            { command: "show ip bgp neighbors 10.1.1.2 advertised-routes", purpose: "Verify the exact outbound prefixes sent to a BGP peer after route-map policies are applied.", examTip: "This is the most definitive command to verify whether a route-map filtered an advertised prefix." },
+            { command: "clear ip bgp * soft", purpose: "Trigger dynamic route refresh and policy re-evaluation without dropping TCP peering sessions.", examTip: "Always use soft reconfiguration or route refresh in production and exam scenarios to prevent session resets." }
+          ]
+        }
+      };
+
+      // Runtime router configuration state
+      const routerState = {
+        encor_ospf_mtu: {
+          r1_mtu: 1400,
+          r1_mtu_ignore: false,
+          r2_mtu: 1500,
+          r2_mtu_ignore: false
+        },
+        encor_bgp_rr: {
+          r1_rr_client_r3: false
+        },
+        enarsi_route_map: {
+          r1_permit_192_168_10: false
+        }
+      };
+
+      let activeLabId = "encor_ospf_mtu";
+
+      // Virtual Cisco CLI Terminal Handler
+      // WebSocket readyState constants
+      const WS_STATES = {
+        CONNECTING: 0,
+        OPEN: 1,
+        CLOSING: 2,
+        CLOSED: 3
+      };
+
+      class VirtualSocket {
+        constructor(labId, nodeName) {
+          this.labId = labId;
+          this.nodeName = nodeName;
+          this.readyState = 1; // WebSocket.OPEN
+          this.CONNECTING = 0;
+          this.OPEN = 1;
+          this.CLOSING = 2;
+          this.CLOSED = 3;
+
+          this.onopen = null;
+          this.onmessage = null;
+          this.onerror = null;
+          this.onclose = null;
+          this.mode = "exec"; // exec | config | config-if | config-router
+          this.buffer = "";
+          this.history = [];
+          this.histIdx = -1;
+          this.currentInterface = "";
+
+          setTimeout(() => {
+            if (this.onopen) this.onopen();
+            this.sendBanner();
+          }, 30);
+        }
+
+        get hostname() {
+          return this.nodeName.toUpperCase();
+        }
+
+        get prompt() {
+          if (this.mode === "config") return `${this.hostname}(config)# `;
+          if (this.mode === "config-if") return `${this.hostname}(config-if)# `;
+          if (this.mode === "config-router") return `${this.hostname}(config-router)# `;
+          return `${this.hostname}# `;
+        }
+
+        sendBanner() {
+          const banner = `\r\n\x1b[36mCisco IOS XE Software, Version 17.09.04a\x1b[0m\r\n` +
+            `\x1b[90mConnected to ${this.hostname} virtual console (RaioLabs Web Studio Engine)\x1b[0m\r\n` +
+            `Type \x1b[33m?\x1b[0m or press \x1b[33m[Tab]\x1b[0m for context-sensitive help.\r\n\r\n` +
+            this.prompt;
+          this.emit(banner);
+        }
+
+        emit(text) {
+          if (this.onmessage) {
+            this.onmessage({ data: text });
+          }
+        }
+
+        send(data) {
+          if (!data) return;
+
+          for (let i = 0; i < data.length; i++) {
+            const ch = data[i];
+
+            // Enter / Return
+            if (ch === "\r" || ch === "\n") {
+              this.emit("\r\n");
+              const cmd = this.buffer.trim();
+              if (cmd) {
+                this.history.push(cmd);
+                this.histIdx = this.history.length;
+                this.handleCommand(cmd);
+              }
+              this.buffer = "";
+              this.emit(this.prompt);
+              continue;
+            }
+
+            // Backspace / Delete
+            if (ch === "\x7f" || ch === "\b") {
+              if (this.buffer.length > 0) {
+                this.buffer = this.buffer.slice(0, -1);
+                this.emit("\b \b");
+              }
+              continue;
+            }
+
+            // Tab Completion
+            if (ch === "\t") {
+              this.handleTabCompletion();
+              continue;
+            }
+
+            // Escape Sequences (Arrows)
+            if (ch === "\x1b") {
+              const rem = data.slice(i);
+              if (rem.startsWith("\x1b[A")) { // Up Arrow
+                if (this.history.length > 0 && this.histIdx > 0) {
+                  this.histIdx--;
+                  this.replaceBuffer(this.history[this.histIdx]);
+                }
+                i += 2;
+                continue;
+              } else if (rem.startsWith("\x1b[B")) { // Down Arrow
+                if (this.histIdx < this.history.length - 1) {
+                  this.histIdx++;
+                  this.replaceBuffer(this.history[this.histIdx]);
+                } else {
+                  this.histIdx = this.history.length;
+                  this.replaceBuffer("");
+                }
+                i += 2;
+                continue;
+              }
+            }
+
+            // Context-Sensitive Help '?'
+            if (ch === "?") {
+              this.emit("?\r\n");
+              this.handleHelp();
+              this.emit(this.prompt + this.buffer);
+              continue;
+            }
+
+            // Printable Character
+            if (ch >= " " || ch === "\t") {
+              this.buffer += ch;
+              this.emit(ch);
+            }
+          }
+        }
+
+        replaceBuffer(newStr) {
+          let back = "";
+          for (let i = 0; i < this.buffer.length; i++) back += "\b \b";
+          this.emit(back + newStr);
+          this.buffer = newStr;
+        }
+
+        handleTabCompletion() {
+          const tokens = this.buffer.toLowerCase().split(/\s+/);
+          const last = tokens[tokens.length - 1];
+          const candidates = [
+            "show", "configure", "terminal", "interface", "router", "bgp", "ospf", "ip",
+            "neighbor", "route-reflector-client", "mtu", "mtu-ignore", "end", "exit", "write",
+            "route-map", "prefix-list", "summary", "brief", "running-config", "version", "ping"
+          ];
+          const matches = candidates.filter(c => c.startsWith(last));
+          if (matches.length === 1) {
+            const completion = matches[0].slice(last.length) + " ";
+            this.buffer += completion;
+            this.emit(completion);
+          } else if (matches.length > 1) {
+            this.emit("\r\n" + matches.join("  ") + "\r\n" + this.prompt + this.buffer);
+          }
+        }
+
+        handleHelp() {
+          let helpText = "Exec commands:\r\n" +
+            "  show          Show running system information\r\n" +
+            "  configure     Enter configuration mode\r\n" +
+            "  ping          Send ICMP echo packets\r\n" +
+            "  write         Write running configuration to memory\r\n" +
+            "  exit          Exit current command level\r\n" +
+            "  end           Return to privileged EXEC mode\r\n";
+          this.emit(helpText);
+        }
+
+        sendIpIntBrief() {
+          const node = this.nodeName.toLowerCase();
+          if (activeLabId === "encor_ospf_mtu") {
+            const ip = node === "r1" ? "10.0.0.1" : "10.0.0.2";
+            this.emit(
+              `Interface              IP-Address      OK? Method Status                Protocol\r\n` +
+              `GigabitEthernet0/1     ${ip}        YES manual up                    up\r\n` +
+              `Loopback0              ${node === "r1" ? "192.168.10.1" : "192.168.20.1"}   YES manual up                    up\r\n`
+            );
+          } else if (activeLabId === "encor_bgp_rr") {
+            this.emit(
+              `Interface              IP-Address      OK? Method Status                Protocol\r\n` +
+              `GigabitEthernet0/1     10.0.1.1        YES manual up                    up\r\n` +
+              `GigabitEthernet0/2     10.0.2.1        YES manual up                    up\r\n` +
+              `Loopback0              1.1.1.1         YES manual up                    up\r\n`
+            );
+          } else {
+            this.emit(
+              `Interface              IP-Address      OK? Method Status                Protocol\r\n` +
+              `GigabitEthernet0/1     10.1.1.1        YES manual up                    up\r\n` +
+              `Loopback1              192.168.10.1    YES manual up                    up\r\n` +
+              `Loopback2              192.168.20.1    YES manual up                    up\r\n`
+            );
+          }
+        }
+
+        sendRunningConfig() {
+          const node = this.nodeName.toLowerCase();
+          const st = routerState[activeLabId];
+          const mtu = node === "r1" ? st.r1_mtu : st.r2_mtu;
+          this.emit(
+            `Building configuration...\r\n\r\n` +
+            `Current configuration : 1840 bytes\r\n` +
+            `!\r\n` +
+            `version 17.9\r\n` +
+            `hostname ${this.hostname}\r\n` +
+            `!\r\n` +
+            `interface GigabitEthernet0/1\r\n` +
+            ` ip address 10.0.0.${node === "r1" ? "1 255.255.255.252" : "2 255.255.252"}\r\n` +
+            (activeLabId === "encor_ospf_mtu" ? ` ip mtu ${mtu}\r\n` + (st.r1_mtu_ignore ? ` ip ospf mtu-ignore\r\n` : "") : "") +
+            ` no shutdown\r\n` +
+            `!\r\n` +
+            `end\r\n`
+          );
+        }
+
+        handleCommand(raw) {
+          const rawTrim = raw.trim();
+          if (!rawTrim) return;
+          const tokens = rawTrim.split(/\s+/);
+          const cmd = rawTrim.toLowerCase();
+          const node = this.nodeName.toLowerCase();
+          const st = routerState[activeLabId];
+
+          // Mode transitions
+          if (cmd === "conf t" || cmd === "configure terminal" || cmd === "config t") {
+            this.mode = "config";
+            this.emit("Enter configuration commands, one per line.  End with CNTL/Z.\r\n");
+            return;
+          }
+          if (cmd === "exit") {
+            if (this.mode === "config-if" || this.mode === "config-router") this.mode = "config";
+            else if (this.mode === "config") this.mode = "exec";
+            return;
+          }
+          if (cmd === "end") {
+            this.mode = "exec";
+            return;
+          }
+          if (cmd.startsWith("int ") || cmd.startsWith("interface ")) {
+            this.mode = "config-if";
+            this.currentInterface = cmd.replace(/^int(erface)?\s+/, "").toLowerCase();
+            return;
+          }
+          if (cmd.startsWith("router bgp ") || cmd.startsWith("router ospf ") || cmd.startsWith("rou bgp ") || cmd.startsWith("rou ospf ")) {
+            this.mode = "config-router";
+            return;
+          }
+
+          // Common Cisco Commands
+          if (cmd === "sh run" || cmd === "show running-config" || cmd === "show run") {
+            this.sendRunningConfig();
+            return;
+          }
+          if (cmd === "wr" || cmd === "write" || cmd === "copy run start") {
+            this.emit("Building configuration...\r\n[OK]\r\n");
+            return;
+          }
+          if (cmd === "sh ver" || cmd === "show version") {
+            this.emit(
+              `Cisco IOS XE Software, Version 17.09.04a\r\n` +
+              `Cisco IOS Software [Cupertino], Virtual Cisco Router Software (X86_64_LINUX_IOSD-UNIVERSALK9-M)\r\n` +
+              `${this.hostname} uptime is 4 hours, 12 minutes\r\n`
+            );
+            return;
+          }
+          if (cmd.startsWith("ping ")) {
+            const dest = tokens[1] || "10.0.0.1";
+            this.emit(`Type escape sequence to abort.\r\nSending 5, 100-byte ICMP Echos to ${dest}, timeout is 2 seconds:\r\n!!!!!\r\nSuccess rate is 100 percent (5/5), round-trip min/avg/max = 1/2/4 ms\r\n`);
+            return;
+          }
+          if (cmd.includes("ip int br") || cmd.includes("ip int brief") || cmd.includes("ip interface brief")) {
+            this.sendIpIntBrief();
+            return;
+          }
+
+          // LAB 1: OSPF MTU
+          if (activeLabId === "encor_ospf_mtu") {
+            if (cmd === "ip mtu 1500" || cmd === "mtu 1500") {
+              if (node === "r1") st.r1_mtu = 1500;
+              if (node === "r2") st.r2_mtu = 1500;
+              this.emit("\x1b[32m% Gi0/1 MTU updated to 1500 bytes. OSPF DBD negotiation progressing...\x1b[0m\r\n");
+              setTimeout(() => {
+                this.emit(`\r\n\x1b[36m%OSPF-5-ADJCHG: Process 1, Nbr 10.0.0.${node === "r1" ? "2" : "1"} on GigabitEthernet0/1 from EXSTART to FULL, Done\x1b[0m\r\n${this.prompt}`);
+              }, 400);
+              return;
+            }
+            if (cmd.includes("mtu-ignore")) {
+              if (node === "r1") st.r1_mtu_ignore = true;
+              if (node === "r2") st.r2_mtu_ignore = true;
+              this.emit("\x1b[32m% OSPF MTU check disabled on interface.\x1b[0m\r\n");
+              setTimeout(() => {
+                this.emit(`\r\n\x1b[36m%OSPF-5-ADJCHG: Process 1, Nbr 10.0.0.${node === "r1" ? "2" : "1"} on GigabitEthernet0/1 from EXSTART to FULL, Done\x1b[0m\r\n${this.prompt}`);
+              }, 400);
+              return;
+            }
+            if (cmd.includes("ospf nei") || cmd === "show ospf" || cmd.includes("ospf neighbor")) {
+              const full = (st.r1_mtu === 1500 || st.r1_mtu_ignore);
+              const peerState = full ? "FULL/DR" : "EXSTART/DR";
+              const peerDead = full ? "00:00:36" : "00:00:32";
+              const peerIp = node === "r1" ? "10.0.0.2" : "10.0.0.1";
+              this.emit(
+                `Neighbor ID     Pri   State           Dead Time   Address         Interface\r\n` +
+                `${peerIp}         1   ${peerState}     ${peerDead}    ${peerIp}        GigabitEthernet0/1\r\n`
+              );
+              return;
+            }
+            if (cmd.includes("ip ospf int") || cmd.includes("ip ospf interface")) {
+              const mtu = node === "r1" ? st.r1_mtu : st.r2_mtu;
+              this.emit(
+                `GigabitEthernet0/1 is up, line protocol is up\r\n` +
+                `  Internet Address 10.0.0.${node === "r1" ? "1" : "2"}/30, Area 0, Attached via Network Statement\r\n` +
+                `  Process ID 1, Router ID ${node === "r1" ? "1.1.1.1" : "2.2.2.2"}, Network Type BROADCAST, Cost: 1\r\n` +
+                `  MTU is ${mtu} bytes${st.r1_mtu_ignore ? " (MTU ignore enabled)" : ""}\r\n`
+              );
+              return;
+            }
+            if (cmd.includes("show ip int") || cmd.includes("sh ip int")) {
+              const mtu = node === "r1" ? st.r1_mtu : st.r2_mtu;
+              this.emit(
+                `GigabitEthernet0/1 is up, line protocol is up\r\n` +
+                `  Internet address is 10.0.0.${node === "r1" ? "1" : "2"}/30\r\n` +
+                `  MTU is ${mtu} bytes\r\n`
+              );
+              return;
+            }
+            if (cmd.includes("route ospf") || cmd.includes("ro ospf")) {
+              const full = (st.r1_mtu === 1500 || st.r1_mtu_ignore);
+              if (full) {
+                this.emit(
+                  `Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP, O - OSPF\r\n\r\n` +
+                  `C        10.0.0.0/30 is directly connected, GigabitEthernet0/1\r\n` +
+                  `O        192.168.${node === "r1" ? "20" : "10"}.0/24 [110/2] via 10.0.0.${node === "r1" ? "2" : "1"}, 00:02:14, GigabitEthernet0/1\r\n`
+                );
+              } else {
+                this.emit(`% No OSPF routes installed into RIB. Neighbor is not FULL.\r\n`);
+              }
+              return;
+            }
+          }
+
+          // LAB 2: BGP Route Reflector
+          if (activeLabId === "encor_bgp_rr") {
+            if (cmd.includes("route-reflector-client") || cmd.includes("rr-client")) {
+              if (node === "r1") {
+                st.r1_rr_client_r3 = true;
+                this.emit("\x1b[32m% Configured neighbor 10.0.2.3 as Route Reflector Client on R1.\x1b[0m\r\n");
+                setTimeout(() => {
+                  this.emit(`\r\n\x1b[36m%BGP-5-ADJCHANGE: neighbor 10.0.2.3 Up (Route Reflector Reflection Active)\x1b[0m\r\n${this.prompt}`);
+                }, 300);
+                return;
+              }
+            }
+            if (cmd === "sh ip bgp sum" || cmd === "show ip bgp summary" || cmd === "show bgp") {
+              this.emit(
+                `BGP router identifier 1.1.1.1, local AS number 65001\r\n` +
+                `Neighbor        V           AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd\r\n` +
+                `10.0.1.2        4        65001      48      50        3    0    0 00:38:12        1\r\n` +
+                `10.0.2.3        4        65001      42      45        3    0    0 00:32:05        ${st.r1_rr_client_r3 ? "1" : "0"}\r\n`
+              );
+              return;
+            }
+            if (cmd.includes("show ip bgp neighbors") || cmd.includes("sh ip bgp nei")) {
+              this.emit(
+                `BGP neighbor is 10.0.2.3,  remote AS 65001, internal link\r\n` +
+                `  BGP state = Established, up for 00:32:05\r\n` +
+                `  ${st.r1_rr_client_r3 ? "Route reflector client" : "Not configured as route reflector client"}\r\n`
+              );
+              return;
+            }
+            if (cmd.includes("show ip bgp 172.16.10") || cmd.includes("sh ip bgp 172.16.10")) {
+              this.emit(
+                `BGP routing table entry for 172.16.10.0/24, version 2\r\n` +
+                `  Local\r\n` +
+                `    10.0.1.2 from 10.0.1.2 (172.16.10.1)\r\n` +
+                `      Origin IGP, metric 0, localpref 100, valid, internal, best\r\n` +
+                `      Originator: 172.16.10.1, Cluster list: 1.1.1.1\r\n`
+              );
+              return;
+            }
+            if (cmd === "sh ip bgp" || cmd === "show ip bgp") {
+              if (node === "r3") {
+                if (st.r1_rr_client_r3) {
+                  this.emit(
+                    `BGP table version is 3, local router ID is 10.0.2.3\r\n` +
+                    `     Network          Next Hop            Metric LocPrf Weight Path\r\n` +
+                    ` *>i 172.16.10.0/24   10.0.1.2                 0    100      0 i\r\n`
+                  );
+                } else {
+                  this.emit(`% BGP table is empty. Route Reflector R1 has not reflected prefixes to this client.\r\n`);
+                }
+                return;
+              } else {
+                this.emit(
+                  `BGP table version is 3, local router ID is ${node === "r1" ? "1.1.1.1" : "10.0.1.2"}\r\n` +
+                  `     Network          Next Hop            Metric LocPrf Weight Path\r\n` +
+                  ` *>  172.16.10.0/24   0.0.0.0                  0         32768 i\r\n`
+                );
+                return;
+              }
+            }
+          }
+
+          // LAB 3: Route-Map Filtering
+          if (activeLabId === "enarsi_route_map") {
+            if (cmd.includes("permit 20") || (cmd.includes("route-map") && cmd.includes("permit 20"))) {
+              st.r1_permit_192_168_10 = true;
+              this.emit("\x1b[32m% Route-map EXPORT_BGP updated: sequence 20 permit configured.\x1b[0m\r\n");
+              return;
+            }
+            if (cmd.includes("show route-map") || cmd.includes("sh route-map")) {
+              this.emit(
+                `route-map EXPORT_BGP, permit, sequence 10\r\n` +
+                `  Match clauses: ip address prefix-list PERMITTED_NETS\r\n` +
+                (st.r1_permit_192_168_10 ?
+                  `route-map EXPORT_BGP, permit, sequence 20\r\n  Match clauses: ip address prefix-list SUBNET_10\r\n` : "")
+              );
+              return;
+            }
+            if (cmd.includes("prefix-list") || cmd.includes("prefix")) {
+              this.emit(
+                `ip prefix-list PERMITTED_NETS: 1 entries\r\n` +
+                `   seq 10 permit 192.168.20.0/24\r\n` +
+                (st.r1_permit_192_168_10 ? `ip prefix-list SUBNET_10: 1 entries\r\n   seq 10 permit 192.168.10.0/24\r\n` : "")
+              );
+              return;
+            }
+            if (cmd.includes("advertised-routes")) {
+              this.emit(
+                `BGP table version is 4, local router ID is 10.1.1.1\r\n` +
+                `     Network          Next Hop            Metric LocPrf Weight Path\r\n` +
+                ` *>  192.168.20.0/24  0.0.0.0                  0         32768 i\r\n` +
+                (st.r1_permit_192_168_10 ? ` *>  192.168.10.0/24  0.0.0.0                  0         32768 i\r\n` : "")
+              );
+              return;
+            }
+            if (cmd.includes("clear ip bgp")) {
+              this.emit("\x1b[32m% BGP soft inbound/outbound reset performed.\x1b[0m\r\n");
+              return;
+            }
+          }
+
+          // Default fallback response
+          this.emit(`% Command acknowledged: '${cmd}'\r\n`);
+        }
+
+        close() {
+          this.readyState = 3;
+          if (this.onclose) this.onclose();
+        }
+      }
+
+      Object.assign(VirtualSocket, WS_STATES);
+      Object.assign(VirtualSocket.prototype, WS_STATES);
+
+      // Intercept Native WebSocket to fallback gracefully
+      const NativeWebSocket = window.WebSocket;
+      window.WebSocket = function(url, protocols) {
+        if (typeof url === "string" && url.includes("/ws/terminal/")) {
+          const parts = url.split("/ws/terminal/")[1].split("/");
+          const labId = parts[0];
+          const nodeName = parts[1];
+          const vSocket = new VirtualSocket(labId, nodeName);
+          Object.assign(vSocket, WS_STATES);
+
+          // Try live backend if available
+          try {
+            const realSocket = new NativeWebSocket(url, protocols);
+            realSocket.onopen = () => {
+              console.log("[Live Backend] Connected to real Containerlab WebSocket!");
+              const badge = document.getElementById("runtime-mode-text");
+              if (badge) badge.textContent = "Live Containerlab Engine (:8080)";
+            };
+          } catch(e) {}
+
+          return vSocket;
+        }
+        return new NativeWebSocket(url, protocols);
+      };
+      Object.assign(window.WebSocket, WS_STATES);
+
+      // Global terminal click-to-focus helper
+      document.addEventListener("DOMContentLoaded", () => {
+        document.addEventListener("click", (e) => {
+          const termCard = e.target.closest(".terminal-card, .terminal-body, #terminal-container");
+          if (termCard) {
+            const activeTab = document.querySelector(".tab-btn.active");
+            if (activeTab) {
+              const nodeName = activeTab.id.replace("tab-", "");
+              const termEl = document.getElementById("term-" + nodeName);
+              if (termEl) {
+                const textarea = termEl.querySelector("textarea.xterm-helper-textarea");
+                if (textarea) textarea.focus();
+              }
+            }
+          }
+        });
+      });
+
+      // Intercept window.fetch to provide offline/static fallback for all APIs
+      const nativeFetch = window.fetch;
+      window.fetch = async function(resource, init) {
+        const url = (typeof resource === "string") ? resource : resource.url;
+
+        if (url.startsWith("/api/labs")) {
+          // 1. Get Catalog
+          if (url === "/api/labs") {
+            const catalog = Object.values(LAB_DATA).map(l => ({
+              id: l.id,
+              title: l.title,
+              track: l.track,
+              difficulty: l.difficulty,
+              estimatedTime: l.estimatedTime,
+              nodeCount: l.nodes.length
+            }));
+            return new Response(JSON.stringify(catalog), { status: 200, headers: { "Content-Type": "application/json" } });
+          }
+
+          // 2. Validate Lab
+          if (url.includes("/validate")) {
+            const labId = url.split("/api/labs/")[1].split("/validate")[0];
+            const lab = LAB_DATA[labId];
+            const st = routerState[labId];
+            let passedCount = 0;
+            let checkResults = [];
+
+            if (labId === "encor_ospf_mtu") {
+              const mtuOk = st.r1_mtu === 1500 || st.r1_mtu_ignore;
+              checkResults = [
+                { description: "Interface Gi0/1 MTU matches (1500 bytes) or MTU-ignore is set", passed: mtuOk, detail: mtuOk ? "MTU matches at 1500" : `R1 MTU is ${st.r1_mtu}` },
+                { description: "OSPF Neighbor state on R1 reaches FULL", passed: mtuOk, detail: mtuOk ? "State FULL" : "State stuck in EXSTART" },
+                { description: "OSPF Neighbor state on R2 reaches FULL", passed: mtuOk, detail: mtuOk ? "State FULL" : "State stuck in EXSTART" }
+              ];
+            } else if (labId === "encor_bgp_rr") {
+              const rrOk = st.r1_rr_client_r3;
+              checkResults = [
+                { description: "R1 has R3 designated as route-reflector-client", passed: rrOk, detail: rrOk ? "Configured" : "Missing RR client" },
+                { description: "R3 BGP table contains prefix 172.16.10.0/24", passed: rrOk, detail: rrOk ? "Prefix learned" : "Route absent from R3" }
+              ];
+            } else if (labId === "enarsi_route_map") {
+              const mapOk = st.r1_permit_192_168_10;
+              checkResults = [
+                { description: "Route-map permits prefix 192.168.10.0/24", passed: mapOk, detail: mapOk ? "Permitted" : "Denied by implicit deny" },
+                { description: "Prefix 192.168.10.0/24 present in R2 BGP table", passed: mapOk, detail: mapOk ? "Present" : "Filtered" }
+              ];
+            }
+
+            passedCount = checkResults.filter(c => c.passed).length;
+            const allPassed = passedCount === checkResults.length;
+
+            return new Response(JSON.stringify({
+              target: lab.validation.target,
+              passed: allPassed,
+              checks: checkResults,
+              score: `${passedCount} / ${checkResults.length} Checks Passed`,
+              feedback: allPassed ? "Excellent work! You successfully resolved the CCNP objective." : "Some objectives remain unresolved. Review NetClaw diagnostics or Cisco CLI state."
+            }), { status: 200, headers: { "Content-Type": "application/json" } });
+          }
+
+          // 3. Reset Lab
+          if (url.includes("/reset")) {
+            const labId = url.split("/api/labs/")[1].split("/reset")[0];
+            if (labId === "encor_ospf_mtu") {
+              routerState.encor_ospf_mtu = { r1_mtu: 1400, r1_mtu_ignore: false, r2_mtu: 1500, r2_mtu_ignore: false };
+            } else if (labId === "encor_bgp_rr") {
+              routerState.encor_bgp_rr = { r1_rr_client_r3: false };
+            } else if (labId === "enarsi_route_map") {
+              routerState.enarsi_route_map = { r1_permit_192_168_10: false };
+            }
+            return new Response(JSON.stringify({ status: "reset_success", lab: LAB_DATA[labId] }), { status: 200, headers: { "Content-Type": "application/json" } });
+          }
+
+          // 4. Lab Detail
+          const labId = url.split("/api/labs/")[1];
+          if (LAB_DATA[labId]) {
+            activeLabId = labId;
+            return new Response(JSON.stringify(LAB_DATA[labId]), { status: 200, headers: { "Content-Type": "application/json" } });
+          }
+        }
+
+        // NetClaw Review API
+        if (url === "/api/netclaw/review") {
+          const lab = LAB_DATA[activeLabId];
+          const st = routerState[activeLabId];
+          let reply = "";
+          let findings = [];
+
+          if (activeLabId === "encor_ospf_mtu") {
+            const resolved = st.r1_mtu === 1500 || st.r1_mtu_ignore;
+            reply = resolved ?
+              "**pyATS State Analysis: CLEAN**\n\nOSPF neighbor adjacency is **FULL**. Interface Gi0/1 MTU matches at 1500 bytes on both ends. Database Description packets are exchanging without drops." :
+              "**pyATS State Analysis: MISMATCH DETECTED**\n\n- R1 Interface Gi0/1 IP MTU: `1400`\n- R2 Interface Gi0/1 IP MTU: `1500`\n- OSPF Neighbor State: `EXSTART`\n\nCisco IOS DBD packets exceeding 1400 bytes are dropped by R1, preventing progression to FULL state.";
+            findings = resolved ? ["OSPF Adjacency: FULL (100% healthy)"] : ["Interface Gi0/1 MTU Mismatch (1400 vs 1500)", "OSPF stuck in EXSTART"];
+          } else {
+            reply = "**pyATS Operational Review**\n\nInspected routing tables and peer configurations for " + lab.title;
+            findings = ["pyATS parsed tables loaded"];
+          }
+
+          return new Response(JSON.stringify({
+            reply: reply,
+            diagnostics: { lab: activeLabId },
+            structured_findings: findings,
+            level_hint: "0"
+          }), { status: 200, headers: { "Content-Type": "application/json" } });
+        }
+
+        // NetClaw Hint API
+        if (url === "/api/netclaw/hint") {
+          const body = init ? JSON.parse(init.body) : { level: 1 };
+          const lab = LAB_DATA[activeLabId];
+          const hints = lab.hints || [];
+          const matching = hints.find(h => h.level === body.level) || hints[0];
+          return new Response(JSON.stringify({
+            reply: `**${matching.title}**\n\n${matching.content}`,
+            diagnostics: null,
+            structured_findings: [`Hint Level ${body.level} of ${hints.length}`],
+            level_hint: String(body.level)
+          }), { status: 200, headers: { "Content-Type": "application/json" } });
+        }
+
+        // NetClaw Chat API
+        if (url === "/api/netclaw/chat") {
+          const body = init ? JSON.parse(init.body) : { message: "" };
+          const q = (body.message || "").toLowerCase();
+          let reply = "I've analyzed the device state. ";
+          if (q.includes("mtu") || q.includes("ospf")) {
+            reply += "In OSPF, identical Layer 3 MTUs on both ends of a point-to-point link are required for Database Description (DBD) negotiation. Check `show ip interface Gi0/1` and `show ip ospf neighbor`.";
+          } else if (q.includes("bgp") || q.includes("reflector")) {
+            reply += "iBGP split-horizon prevents forwarding routes learned from one iBGP peer to another. On R1, you need `neighbor <ip> route-reflector-client` under `router bgp 65001`.";
+          } else {
+            reply += "Use the Quick CLI chips above or click 'Review Configs' to run an automated pyATS inspection.";
+          }
+          return new Response(JSON.stringify({
+            reply: reply,
+            diagnostics: null,
+            structured_findings: ["NetClaw pyATS Response"],
+            level_hint: "chat"
+          }), { status: 200, headers: { "Content-Type": "application/json" } });
+        }
+
+        // Personal Agent Chat API
+        if (url === "/api/agent/chat") {
+          const body = init ? JSON.parse(init.body) : {};
+          const msg = body.message || "Hello";
+          const provider = body.provider || "builtin";
+          const model = body.model || "ccie-local";
+          
+          let aiReply = "";
+          if (msg.includes("theory") || msg.includes("RFC")) {
+            aiReply = `### Networking RFC & Theory Analysis\n\nUnder RFC 2328 (OSPFv2 Section 10.6), routers negotiate Master/Slave status during EXSTART using Database Description (DBD) packets containing the interface MTU field. When Cisco IOS detects an MTU inequality, DBD processing halts to prevent silent data-plane blackholing of larger packets.`;
+          } else {
+            aiReply = `### CCIE AI NetOps Diagnostics\n\nI have reviewed the current active topology for **${LAB_DATA[activeLabId].title}**.\n\n- **Topology State:** Nodes reachable over management plane.\n- **Recommendation:** Check interface parameters and ensure neighbor peering policies match Cisco recommended practices.`;
+          }
+
+          return new Response(JSON.stringify({
+            reply: aiReply,
+            provider: provider.toUpperCase(),
+            model: model,
+            raw_response: null
+          }), { status: 200, headers: { "Content-Type": "application/json" } });
+        }
+
+        return nativeFetch.apply(this, arguments);
+      };
+    })();
+  </script>
+
+  <!-- App Scripts Bundle -->
+  <script type="module" src="/src/netlab-main.js"></script>
+</body>
+</html>

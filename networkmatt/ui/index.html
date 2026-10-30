@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101820">
+  <title>networkmatt</title>
+  <style>
+    :root { color-scheme: dark; font: 18px/1.45 system-ui, sans-serif; background: #101820; color: #edf3f7; }
+    body { max-width: 900px; margin: 0 auto; padding: 24px; }
+    h1 { margin-bottom: 4px; font-size: clamp(2rem, 6vw, 3.4rem); }
+    .sub { color: #a9bbc7; margin-top: 0; }
+    .banner { background: #553b16; border: 2px solid #d89b35; border-radius: 12px; padding: 14px 18px; font-weight: 700; }
+    .card { background: #1c2a35; border: 1px solid #344956; border-radius: 14px; padding: 18px; margin: 18px 0; }
+    .row { display: flex; flex-wrap: wrap; gap: 12px; }
+    button { min-height: 60px; padding: 14px 20px; border: 0; border-radius: 12px; font: inherit; font-weight: 700; color: #101820; background: #77d6bc; touch-action: manipulation; }
+    button.secondary { background: #c3d1dc; }
+    button.approve { background: #ffd166; }
+    button:disabled { opacity: .45; }
+    pre { white-space: pre-wrap; overflow-wrap: anywhere; background: #0b1116; padding: 14px; border-radius: 10px; font-size: 14px; }
+    #message { min-height: 1.5em; color: #ffd166; }
+    @media (max-width: 600px) { body { padding: 16px; } .row button { flex: 1 1 100%; } }
+  </style>
+</head>
+<body>
+  <h1>networkmatt</h1>
+  <p class="sub">Observe first. Review before changing.</p>
+  <p class="banner">SIMULATION ONLY — no packets are captured and no network configuration is applied.</p>
+  <section class="card">
+    <h2>Device status</h2>
+    <div id="summary">Loading…</div>
+    <p id="message" role="status" aria-live="polite"></p>
+    <div class="row">
+      <button id="status">Refresh status</button>
+      <button id="pause" class="secondary">Pause observation</button>
+      <button id="resume" class="secondary">Resume observation</button>
+    </div>
+  </section>
+  <section class="card">
+    <h2>Readiness</h2>
+    <div id="readiness">No analysis supplied.</div>
+    <div class="row">
+      <button id="review" disabled>Prepare passive config for review</button>
+    </div>
+  </section>
+  <section class="card">
+    <h2>Candidate review</h2>
+    <pre id="candidate">No candidate yet.</pre>
+    <div class="row">
+      <button id="approve" class="approve" disabled>Yes — approve simulated passive mode</button>
+    </div>
+  </section>
+  <script>
+    const byId = (id) => document.getElementById(id);
+    async function request(path, method = "GET", body = undefined) {
+      const response = await fetch(path, { method, headers: body ? {"Content-Type":"application/json"} : {}, body: body ? JSON.stringify(body) : undefined });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || `HTTP ${response.status}`);
+      return data;
+    }
+    function message(text) { byId("message").textContent = text; }
+    async function refresh() {
+      try {
+        const [status, readiness] = await Promise.all([request("/v1/status"), request("/v1/readiness")]);
+        byId("summary").textContent = `Mode: ${status.mode} · Capture: ${status.capture.state} · Analysis: ${status.last_analysis_id || "none"}`;
+        byId("readiness").textContent = readiness.reason + (readiness.unknowns?.length ? ` Unknowns: ${readiness.unknowns.join(", ")}` : "");
+        byId("review").disabled = !readiness.ready_for_passive_candidate;
+        try {
+          const candidate = await request("/v1/candidate");
+          byId("candidate").textContent = JSON.stringify(candidate, null, 2);
+          byId("approve").disabled = status.candidate_approved || !candidate;
+        } catch {
+          byId("candidate").textContent = "No candidate yet.";
+          byId("approve").disabled = true;
+        }
+      } catch (error) { message(error.message); }
+    }
+    byId("status").addEventListener("click", refresh);
+    byId("pause").addEventListener("click", async () => { try { await request("/v1/capture/pause", "POST", {}); message("Observation paused in simulation."); await refresh(); } catch(e) { message(e.message); } });
+    byId("resume").addEventListener("click", async () => { try { await request("/v1/capture/resume", "POST", {}); message("Observation resumed in simulation."); await refresh(); } catch(e) { message(e.message); } });
+    byId("review").addEventListener("click", async () => { try { const c = await request("/v1/candidate", "POST", {}); byId("candidate").textContent = JSON.stringify(c, null, 2); byId("approve").disabled = false; message("Candidate created for review. No network changes are possible in this build."); } catch(e) { message(e.message); } });
+    byId("approve").addEventListener("click", async () => { try { const result = await request("/v1/candidate/approve", "POST", {}); message(result.message); await refresh(); } catch(e) { message(e.message); } });
+    refresh();
+    setInterval(refresh, 5000);
+  </script>
+</body>
+</html>

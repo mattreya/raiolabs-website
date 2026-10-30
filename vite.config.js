@@ -9,13 +9,22 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url));
 // 2. Root custom domain (https://raiolabs.com/)
 export default defineConfig({
   base: './',
+  server: {
+    port: 5180,
+    strictPort: false
+  },
+  preview: {
+    port: 5180
+  },
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
-        resume: resolve(__dirname, 'resume.html')
+        resume: resolve(__dirname, 'resume.html'),
+        networkmatt: resolve(__dirname, 'networkmatt.html'),
+        netlab: resolve(__dirname, 'netlab.html')
       }
     }
   }

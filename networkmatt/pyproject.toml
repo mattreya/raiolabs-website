@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "networkmatt"
+version = "0.1.0"
+description = "Observe-first, voice-ready network appliance control plane"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+networkmatt = "networkmatt.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

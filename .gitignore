@@ -30,3 +30,8 @@ dist-ssr
 summary.md
 **/summary.md
 *summary*.md
+
+# Python caches & temp archives
+__pycache__/
+*.py[cod]
+*.zip

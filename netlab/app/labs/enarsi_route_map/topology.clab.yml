@@ -1,0 +1,19 @@
+name: ccnp_enarsi_route_map
+
+topology:
+  nodes:
+    r1:
+      kind: cisco_xrd
+      image: ios-xrd:latest
+      mgmt-ipv4: 172.20.20.31
+      binds:
+        - ./configs/r1.cfg:/etc/cisco/startup-config.cfg:ro
+    r2:
+      kind: cisco_xrd
+      image: ios-xrd:latest
+      mgmt-ipv4: 172.20.20.32
+      binds:
+        - ./configs/r2.cfg:/etc/cisco/startup-config.cfg:ro
+
+  links:
+    - endpoints: ["r1:Gi0-0-0-0", "r2:Gi0-0-0-0"]

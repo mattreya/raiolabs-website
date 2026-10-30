@@ -195,6 +195,8 @@ function renderLayout() {
         <button class="nav-tab" data-target="workshops-view">🎓 Agentic Workshops</button>
         <button class="nav-tab" data-target="dashboard-view">📊 AetherOS Sandbox</button>
         <button class="nav-tab" data-target="stage-view">🎭 Shadow Puppet Theatre</button>
+        <a href="./networkmatt.html" class="nav-tab nav-tab-networkmatt" id="btn-networkmatt-nav" title="networkmatt Simulator">🌐 networkmatt</a>
+        <a href="./netlab.html" class="nav-tab nav-tab-netlab" id="btn-netlab-nav" title="NetLab CCNP Web Studio">⚡ NetLabCCNP</a>
       </nav>
 
       <!-- 1. GITHUB PROJECTS VIEW -->
@@ -2469,10 +2471,13 @@ function setupEventListeners() {
   // Canvas Nav Tabs switching across all views (including Praetorian classified gateway)
   const allViewIds = ['projects-view', 'swarm-view', 'workshops-view', 'dashboard-view', 'stage-view', 'praetorian-view'];
   document.querySelectorAll('.nav-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
+    tab.addEventListener('click', (e) => {
+      const target = tab.getAttribute('data-target');
+      if (tab.id === 'btn-networkmatt-nav' || tab.id === 'btn-netlab-nav' || !target) {
+        return; // Allow standard link navigation to full-screen subpages
+      }
       document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
-      const target = tab.getAttribute('data-target');
       
       allViewIds.forEach(viewId => {
         const el = document.getElementById(viewId);
@@ -3278,6 +3283,34 @@ function runClientSideAgentSynthesis(compiledPrompt = '') {
       '🎭'
     );
     emitKevAnalysis('SHADOW_THEATRE', 'Activated Wayang Kulit Shadow Puppet Theatre and began acting out scene.', null, null, 'action');
+    return;
+  }
+
+  // 10b. networkmatt Network Simulator
+  if (lower.includes('networkmatt') || lower.includes('network simulator')) {
+    setBotReaction(
+      'hype',
+      '🌐 networkmatt SIMULATOR!',
+      'Opening networkmatt network simulator!',
+      '🔌'
+    );
+    setTimeout(() => {
+      window.location.href = './networkmatt.html';
+    }, 400);
+    return;
+  }
+
+  // 10c. NetLabCCNP Containerlab Web Studio
+  if (lower.includes('netlab') || lower.includes('ccnp') || lower.includes('containerlab') || lower.includes('cisco lab') || lower.includes('netclaw')) {
+    setBotReaction(
+      'hype',
+      '⚡ NetLabCCNP STUDIO!',
+      'Opening Containerlab CCNP Web Studio with NetClaw AI Mentor!',
+      '💻'
+    );
+    setTimeout(() => {
+      window.location.href = './netlab.html';
+    }, 400);
     return;
   }
 

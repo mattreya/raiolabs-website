@@ -1,0 +1,88 @@
+{
+  "id": "encor_bgp_rr",
+  "title": "CCNP ENCOR: iBGP Route Reflector & Client Troubleshooting",
+  "track": "CCNP Enterprise (350-401 ENCOR)",
+  "difficulty": "Advanced",
+  "estimatedTime": "20 mins",
+  "description": "Within Autonomous System 65001, R1 acts as a centralized BGP Route Reflector serving clients R2 and R3. R2 is advertising prefix 172.16.10.0/24 into BGP, but R3 does not receive or install the route. Troubleshoot R1's Route Reflector client configuration.",
+  "objective": "Configure R1 so that routes originated by R2 are reflected to R3, allowing R3 to receive the 172.16.10.0/24 prefix in its BGP table.",
+  "nodes": [
+    {"name": "r1", "displayName": "R1 (Route Reflector)", "model": "Cisco IOS-XE / cEOS", "managementIp": "172.20.20.21", "interfaces": [{"name": "GigabitEthernet0/1", "ip": "10.0.1.1/30", "peer": "r2:GigabitEthernet0/1"}, {"name": "GigabitEthernet0/2", "ip": "10.0.2.1/30", "peer": "r3:GigabitEthernet0/1"}], "initialState": {"hostname": "R1", "as": 65001, "isRR": true, "missingClient": "10.0.2.3"}},
+    {"name": "r2", "displayName": "R2 (Client West)", "model": "Cisco IOS-XE / cEOS", "managementIp": "172.20.20.22", "interfaces": [{"name": "GigabitEthernet0/1", "ip": "10.0.1.2/30", "peer": "r1:GigabitEthernet0/1"}, {"name": "Loopback0", "ip": "172.16.10.1/24"}], "initialState": {"hostname": "R2", "as": 65001, "advertises": "172.16.10.0/24"}},
+    {"name": "r3", "displayName": "R3 (Client East)", "model": "Cisco IOS-XE / cEOS", "managementIp": "172.20.20.23", "interfaces": [{"name": "GigabitEthernet0/1", "ip": "10.0.2.3/30", "peer": "r1:GigabitEthernet0/2"}], "initialState": {"hostname": "R3", "as": 65001, "receivesRoute": false}}
+  ],
+  "topologyVisual": {
+    "nodes": [
+      {"id": "r1", "label": "R1 (Route Reflector)", "type": "rr", "x": 330, "y": 80, "ip": "1.1.1.1"},
+      {"id": "r2", "label": "R2 (Client West)", "type": "router", "x": 160, "y": 200, "ip": "10.0.1.2"},
+      {"id": "r3", "label": "R3 (Client East)", "type": "router", "x": 500, "y": 200, "ip": "10.0.2.3"}
+    ],
+    "links": [
+      {"from": "r2", "to": "r1", "label": "iBGP Peering", "status": "active"},
+      {"from": "r1", "to": "r3", "label": "iBGP Peering (Unreflected)", "status": "warning"}
+    ]
+  },
+  "hints": [
+    {
+      "level": 1,
+      "title": "Level 1: Directional Hint",
+      "content": "Check BGP neighbor status on R1 using 'show ip bgp summary'. Then check 'show ip bgp' on R3 to see if the prefix 172.16.10.0/24 appears."
+    },
+    {
+      "level": 2,
+      "title": "Level 2: Protocol Mechanics",
+      "content": "By default, iBGP rules forbid a router from advertising an iBGP-learned route to another iBGP peer (split-horizon rule). A Route Reflector bypasses this rule only for neighbors explicitly designated as 'route-reflector-client'."
+    },
+    {
+      "level": 3,
+      "title": "Level 3: Technical Fix",
+      "content": "On R1 under 'router bgp 65001', configure 'neighbor 10.0.2.3 route-reflector-client'. Once applied, R1 will reflect R2's prefixes toward R3."
+    }
+  ],
+  "validation": {
+    "target": "BGP Route Reflection to R3",
+    "checks": [
+      {"description": "R1 has R3 designated as route-reflector-client", "type": "bgp_rr_client_r3"},
+      {"description": "R3 BGP table contains prefix 172.16.10.0/24", "type": "bgp_prefix_r3"}
+    ]
+  },
+  "viewpointQuestions": [
+    {
+      "id": "q1",
+      "question": "Why didn't R3 receive or install prefix 172.16.10.0/24 from R1 prior to the Route Reflector client configuration?",
+      "answer": "Under the standard iBGP split-horizon rule (RFC 4271), an iBGP speaker will never forward a prefix learned from one iBGP peer to another iBGP peer to prevent loops in non-full-mesh topologies. R1 learned the route from iBGP peer R2, so it refused to reflect it to iBGP peer R3 until R3 was explicitly designated as a 'route-reflector-client'."
+    },
+    {
+      "id": "q2",
+      "question": "What two BGP loop prevention attributes does a Route Reflector attach when reflecting prefixes?",
+      "answer": "A Route Reflector adds: 1) Originator ID (carries the router-id of the originator in the local AS; if the originator receives its own update, it discards it), and 2) Cluster List (appends the 4-byte Cluster ID of each reflector; if a reflector sees its own Cluster ID in the list, it discards the update)."
+    },
+    {
+      "id": "q3",
+      "question": "When a Route Reflector reflects a route from one client to another client, does it rewrite the BGP Next-Hop attribute by default?",
+      "answer": "No. By default, a Route Reflector does NOT modify the BGP Next-Hop attribute (nor Local Preference or MED). The original next-hop (R2's IP 10.0.1.2) is preserved when sent to R3. For R3 to install the route into its RIB, an underlying IGP (like OSPF) or static route must provide reachability to the next-hop IP."
+    }
+  ],
+  "examPracticeCommands": [
+    {
+      "command": "show ip bgp summary",
+      "purpose": "Verify peer IP, AS number, state, uptime, and the number of received prefixes (PfxRcd).",
+      "examTip": "If State/PfxRcd shows a number (e.g. 1), the session is Established! If it shows text (e.g. Active, Idle), the BGP TCP session is NOT established."
+    },
+    {
+      "command": "show ip bgp 172.16.10.0",
+      "purpose": "Inspect detailed BGP path attributes including Originator ID, Cluster list, and best-path selection.",
+      "examTip": "Verify the '>' symbol indicating the path was selected as best and installed into the IP routing table."
+    },
+    {
+      "command": "show ip bgp neighbors 10.0.2.3",
+      "purpose": "Check specific BGP peer details, session state, and confirm 'Route reflector client' designation.",
+      "examTip": "Use this command when verifying whether a peer was placed in client vs non-client reflection groups."
+    },
+    {
+      "command": "show ip route bgp",
+      "purpose": "Examine the active IPv4 routing table exclusively for routes learned and installed via BGP (code B).",
+      "examTip": "A prefix may exist in the BGP table (show ip bgp) but fail to appear in 'show ip route' if the next-hop is unreachable."
+    }
+  ]
+}

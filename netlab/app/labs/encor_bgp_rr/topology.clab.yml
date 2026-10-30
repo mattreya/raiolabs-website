@@ -1,0 +1,26 @@
+name: ccnp_encor_bgp_rr
+
+topology:
+  nodes:
+    r1:
+      kind: cisco_xrd
+      image: ios-xrd:latest
+      mgmt-ipv4: 172.20.20.21
+      binds:
+        - ./configs/r1.cfg:/etc/cisco/startup-config.cfg:ro
+    r2:
+      kind: cisco_xrd
+      image: ios-xrd:latest
+      mgmt-ipv4: 172.20.20.22
+      binds:
+        - ./configs/r2.cfg:/etc/cisco/startup-config.cfg:ro
+    r3:
+      kind: cisco_xrd
+      image: ios-xrd:latest
+      mgmt-ipv4: 172.20.20.23
+      binds:
+        - ./configs/r3.cfg:/etc/cisco/startup-config.cfg:ro
+
+  links:
+    - endpoints: ["r2:Gi0-0-0-0", "r1:Gi0-0-0-0"]
+    - endpoints: ["r1:Gi0-0-0-1", "r3:Gi0-0-0-0"]

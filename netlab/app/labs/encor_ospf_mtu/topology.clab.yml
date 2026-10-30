@@ -1,0 +1,19 @@
+name: ccnp_encor_ospf_mtu
+
+topology:
+  nodes:
+    r1:
+      kind: cisco_xrd
+      image: ios-xrd:latest
+      mgmt-ipv4: 172.20.20.11
+      binds:
+        - ./configs/r1.cfg:/etc/cisco/startup-config.cfg:ro
+    r2:
+      kind: cisco_xrd
+      image: ios-xrd:latest
+      mgmt-ipv4: 172.20.20.12
+      binds:
+        - ./configs/r2.cfg:/etc/cisco/startup-config.cfg:ro
+
+  links:
+    - endpoints: ["r1:Gi0-0-0-0", "r2:Gi0-0-0-0"]

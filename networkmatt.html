@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101820">
+  <title>networkmatt</title>
+  <link rel="icon" type="image/png" href="./raiolabsllc.png" />
+  <style>
+    :root { color-scheme: dark; font: 18px/1.45 system-ui, sans-serif; background: #101820; color: #edf3f7; }
+    body { max-width: 900px; margin: 0 auto; padding: 24px; }
+    .back-bar { margin-bottom: 20px; }
+    .back-bar a { color: #77d6bc; text-decoration: none; font-size: 15px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+    .back-bar a:hover { text-decoration: underline; }
+    h1 { margin-bottom: 4px; font-size: clamp(2rem, 6vw, 3.4rem); }
+    .sub { color: #a9bbc7; margin-top: 0; }
+    .banner { background: #553b16; border: 2px solid #d89b35; border-radius: 12px; padding: 14px 18px; font-weight: 700; }
+    .card { background: #1c2a35; border: 1px solid #344956; border-radius: 14px; padding: 18px; margin: 18px 0; }
+    .row { display: flex; flex-wrap: wrap; gap: 12px; }
+    button { min-height: 60px; padding: 14px 20px; border: 0; border-radius: 12px; font: inherit; font-weight: 700; color: #101820; background: #77d6bc; touch-action: manipulation; cursor: pointer; }
+    button.secondary { background: #c3d1dc; }
+    button.approve { background: #ffd166; }
+    button:disabled { opacity: .45; cursor: not-allowed; }
+    pre { white-space: pre-wrap; overflow-wrap: anywhere; background: #0b1116; padding: 14px; border-radius: 10px; font-size: 14px; }
+    #message { min-height: 1.5em; color: #ffd166; }
+    @media (max-width: 600px) { body { padding: 16px; } .row button { flex: 1 1 100%; } }
+  </style>
+</head>
+<body>
+  <div class="back-bar">
+    <a href="./index.html">← Back to RaioLabs</a>
+  </div>
+  <h1>networkmatt</h1>
+  <p class="sub">Observe first. Review before changing.</p>
+  <p class="banner">SIMULATION ONLY — no packets are captured and no network configuration is applied.</p>
+  <section class="card">
+    <h2>Device status</h2>
+    <div id="summary">Loading…</div>
+    <p id="message" role="status" aria-live="polite"></p>
+    <div class="row">
+      <button id="status">Refresh status</button>
+      <button id="pause" class="secondary">Pause observation</button>
+      <button id="resume" class="secondary">Resume observation</button>
+    </div>
+  </section>
+  <section class="card">
+    <h2>Readiness</h2>
+    <div id="readiness">No analysis supplied.</div>
+    <div class="row">
+      <button id="review" disabled>Prepare passive config for review</button>
+    </div>
+  </section>
+  <section class="card">
+    <h2>Candidate review</h2>
+    <pre id="candidate">No candidate yet.</pre>
+    <div class="row">
+      <button id="approve" class="approve" disabled>Yes — approve simulated passive mode</button>
+    </div>
+  </section>
+  <script>
+    const byId = (id) => document.getElementById(id);
+
+    // In-memory simulator state matching service.py (fallback if local daemon not running)
+    const simState = {
+      mode: "unmanaged_observation",
+      capturePaused: false,
+      lastAnalysis: {
+        schema_version: "1",
+        analysis_id: "lab-demo-001",
+        protocol: "ospf",
+        observations: [
+          { field: "area_id", value: "0.0.0.0", confidence: 0.99, evidence: [{ capture_id: "sample-pcap", packet_numbers: [14, 18, 22] }] },
+          { field: "hello_interval_seconds", value: 10, confidence: 0.99, evidence: [{ capture_id: "sample-pcap", packet_numbers: [14, 18, 22] }] },
+          { field: "dead_interval_seconds", value: 40, confidence: 0.99, evidence: [{ capture_id: "sample-pcap", packet_numbers: [14, 18, 22] }] }
+        ],
+        unknowns: ["authentication configuration", "intended interface role"],
+        inferences: []
+      },
+      candidate: null,
+      candidateApproved: false
+    };
+
+    function localSimulation(path, method, body) {
+      if (path === "/v1/status" && method === "GET") {
+        return {
+          product: "networkmatt",
+          simulation: true,
+          mode: simState.mode,
+          capture: {
+            state: simState.capturePaused ? "paused" : "listening_not_connected",
+            source: null,
+            packet_capture_implemented: false
+          },
+          interfaces: [],
+          last_analysis_id: simState.lastAnalysis ? simState.lastAnalysis.analysis_id : null,
+          observed_fields: simState.lastAnalysis ? simState.lastAnalysis.observations.map(o => o.field) : [],
+          evidence_reference_count: 3,
+          candidate_available: simState.candidate !== null,
+          candidate_approved: simState.candidateApproved,
+          rollback_versions: 0
+        };
+      }
+      if (path === "/v1/readiness" && method === "GET") {
+        if (!simState.lastAnalysis) {
+          return { understands_network: false, ready_for_passive_candidate: false, reason: "No analysis supplied.", observed: [], unknowns: [] };
+        }
+        return {
+          understands_network: true,
+          ready_for_passive_candidate: true,
+          reason: "Evidence is available to draft a passive candidate; unresolved items remain visible.",
+          protocol: simState.lastAnalysis.protocol,
+          observed: simState.lastAnalysis.observations,
+          unknowns: simState.lastAnalysis.unknowns,
+          inferences: simState.lastAnalysis.inferences
+        };
+      }
+      if (path === "/v1/candidate" && method === "GET") {
+        if (!simState.candidate) throw new Error("No candidate is ready for review");
+        return simState.candidate;
+      }
+      if (path === "/v1/candidate" && method === "POST") {
+        simState.candidate = {
+          candidate_id: "cnd-" + Math.random().toString(36).substring(2, 10),
+          created_at: new Date().toISOString(),
+          simulation: true,
+          mode: "passive_configured",
+          source_analysis_id: simState.lastAnalysis.analysis_id,
+          protocol_observed: simState.lastAnalysis.protocol,
+          observed_facts: simState.lastAnalysis.observations,
+          unknowns: simState.lastAnalysis.unknowns,
+          inferences: simState.lastAnalysis.inferences,
+          routing_advertisements_enabled: false,
+          routing_adjacencies_enabled: false,
+          changes_applied: false,
+          review_note: "This is a simulated review artifact. No network configuration is applied."
+        };
+        simState.candidateApproved = false;
+        return simState.candidate;
+      }
+      if (path === "/v1/candidate/approve" && method === "POST") {
+        if (!simState.candidate) throw new Error("Create and review a candidate before approving it");
+        simState.mode = "passive_configured_simulation";
+        simState.candidateApproved = true;
+        return {
+          simulation: true,
+          mode: simState.mode,
+          candidate_id: simState.candidate.candidate_id,
+          configuration_applied: false,
+          message: "Demo approval recorded in memory; no device configuration was changed."
+        };
+      }
+      if (path === "/v1/capture/pause" && method === "POST") {
+        simState.capturePaused = true;
+        return { ok: true };
+      }
+      if (path === "/v1/capture/resume" && method === "POST") {
+        simState.capturePaused = false;
+        return { ok: true };
+      }
+      throw new Error("Endpoint not found");
+    }
+
+    async function request(path, method = "GET", body = undefined) {
+      try {
+        const response = await fetch(path, {
+          method,
+          headers: body ? {"Content-Type":"application/json"} : {},
+          body: body ? JSON.stringify(body) : undefined,
+          signal: AbortSignal.timeout(600)
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || `HTTP ${response.status}`);
+        return data;
+      } catch (e) {
+        // Fallback cleanly to in-memory simulation
+        return localSimulation(path, method, body);
+      }
+    }
+
+    function message(text) { byId("message").textContent = text; }
+
+    async function refresh() {
+      try {
+        const [status, readiness] = await Promise.all([request("/v1/status"), request("/v1/readiness")]);
+        byId("summary").textContent = `Mode: ${status.mode} · Capture: ${status.capture.state} · Analysis: ${status.last_analysis_id || "none"}`;
+        byId("readiness").textContent = readiness.reason + (readiness.unknowns?.length ? ` Unknowns: ${readiness.unknowns.join(", ")}` : "");
+        byId("review").disabled = !readiness.ready_for_passive_candidate;
+        try {
+          const candidate = await request("/v1/candidate");
+          byId("candidate").textContent = JSON.stringify(candidate, null, 2);
+          byId("approve").disabled = status.candidate_approved || !candidate;
+        } catch {
+          byId("candidate").textContent = "No candidate yet.";
+          byId("approve").disabled = true;
+        }
+      } catch (error) { message(error.message); }
+    }
+
+    byId("status").addEventListener("click", refresh);
+    byId("pause").addEventListener("click", async () => { try { await request("/v1/capture/pause", "POST", {}); message("Observation paused in simulation."); await refresh(); } catch(e) { message(e.message); } });
+    byId("resume").addEventListener("click", async () => { try { await request("/v1/capture/resume", "POST", {}); message("Observation resumed in simulation."); await refresh(); } catch(e) { message(e.message); } });
+    byId("review").addEventListener("click", async () => { try { const c = await request("/v1/candidate", "POST", {}); byId("candidate").textContent = JSON.stringify(c, null, 2); byId("approve").disabled = false; message("Candidate created for review. No network changes are possible in this build."); } catch(e) { message(e.message); } });
+    byId("approve").addEventListener("click", async () => { try { const result = await request("/v1/candidate/approve", "POST", {}); message(result.message); await refresh(); } catch(e) { message(e.message); } });
+    refresh();
+    setInterval(refresh, 5000);
+  </script>
+</body>
+</html>

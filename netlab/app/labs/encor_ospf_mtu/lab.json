@@ -1,0 +1,116 @@
+{
+  "id": "encor_ospf_mtu",
+  "title": "CCNP ENCOR: OSPF Neighbor Adjacency & MTU Mismatch",
+  "track": "CCNP Enterprise (350-401 ENCOR)",
+  "difficulty": "Intermediate",
+  "estimatedTime": "15 mins",
+  "description": "R1 and R2 are connected via GigabitEthernet0/1 in OSPF Area 0. The network operations team reports that routing updates are not exchanging between the sites. Investigate why the OSPF adjacency fails to establish FULL state, troubleshoot the root cause, and restore routing.",
+  "objective": "Resolve the OSPF neighbor issue on GigabitEthernet0/1 so both routers achieve FULL neighbor adjacency and exchange routing tables.",
+  "nodes": [
+    {
+      "name": "r1",
+      "displayName": "R1 (Branch)",
+      "model": "Cisco IOS-XE / cEOS",
+      "managementIp": "172.20.20.11",
+      "interfaces": [
+        {"name": "GigabitEthernet0/1", "ip": "10.0.0.1/30", "peer": "r2:GigabitEthernet0/1"}
+      ],
+      "initialState": {
+        "hostname": "R1",
+        "mtu": 1400,
+        "ospfArea": 0,
+        "ospfProcess": 1,
+        "ospfNeighborState": "EXSTART"
+      }
+    },
+    {
+      "name": "r2",
+      "displayName": "R2 (HQ Core)",
+      "model": "Cisco IOS-XE / cEOS",
+      "managementIp": "172.20.20.12",
+      "interfaces": [
+        {"name": "GigabitEthernet0/1", "ip": "10.0.0.2/30", "peer": "r1:GigabitEthernet0/1"}
+      ],
+      "initialState": {
+        "hostname": "R2",
+        "mtu": 1500,
+        "ospfArea": 0,
+        "ospfProcess": 1,
+        "ospfNeighborState": "EXSTART"
+      }
+    }
+  ],
+  "topologyVisual": {
+    "nodes": [
+      {"id": "r1", "label": "R1 (Branch)", "type": "router", "x": 180, "y": 140, "ip": "10.0.0.1"},
+      {"id": "r2", "label": "R2 (HQ Core)", "type": "router", "x": 480, "y": 140, "ip": "10.0.0.2"}
+    ],
+    "links": [
+      {"from": "r1", "to": "r2", "label": "10.0.0.0/30 (Gi0/1)", "status": "warning"}
+    ]
+  },
+  "hints": [
+    {
+      "level": 1,
+      "title": "Level 1: Directional Hint",
+      "content": "Check the current state of OSPF neighbors using 'show ip ospf neighbor'. Notice whether the state is stuck in EXSTART or EXCHANGE rather than reaching FULL."
+    },
+    {
+      "level": 2,
+      "title": "Level 2: Protocol Mechanics",
+      "content": "In OSPF, neighbors transition through 2-WAY to EXSTART to exchange Database Description (DBD) packets. By default, Cisco IOS requires both ends of the link to have an identical IP MTU. If one side has an MTU smaller than the other, DBD packets exceeding that MTU are dropped or rejected."
+    },
+    {
+      "level": 3,
+      "title": "Level 3: Technical Fix",
+      "content": "Inspect interface MTU settings using 'show ip interface GigabitEthernet0/1' on both R1 and R2. Notice that R1 has an MTU of 1400 while R2 is at 1500. To fix this, enter configuration mode on R1 ('conf t'), select 'interface GigabitEthernet0/1', and set 'ip mtu 1500' (or optionally 'ip ospf mtu-ignore')."
+    }
+  ],
+  "validation": {
+    "target": "OSPF Adjacency FULL",
+    "checks": [
+      {"description": "Interface Gi0/1 MTU matches (1500 bytes) or MTU-ignore is set", "type": "mtu_match"},
+      {"description": "OSPF Neighbor state on R1 reaches FULL", "type": "ospf_full_r1"},
+      {"description": "OSPF Neighbor state on R2 reaches FULL", "type": "ospf_full_r2"}
+    ]
+  },
+  "viewpointQuestions": [
+    {
+      "id": "q1",
+      "question": "Why did the OSPF neighbor state halt at EXSTART / EXCHANGE instead of advancing to FULL?",
+      "answer": "During the EXSTART state, OSPF neighbors exchange Database Description (DBD) packets to elect a Master/Slave router and negotiate initial sequence numbers. The DBD packet contains the Interface MTU field. When Cisco IOS detects that the peer's MTU in the DBD exceeds its local MTU, or vice versa, the router rejects the packet and will not process LSAs, causing the adjacency to loop indefinitely in EXSTART."
+    },
+    {
+      "id": "q2",
+      "question": "What is the operational difference between setting 'ip mtu 1500' versus 'ip ospf mtu-ignore'?",
+      "answer": "'ip mtu 1500' fixes the physical Layer 3 MTU mismatch on the wire, ensuring all data packets and large LSAs can transit without fragmentation or drop. 'ip ospf mtu-ignore' merely instructs OSPF to bypass the MTU check in the DBD frame; if subsequent LSAs or data packets exceed the lower MTU, packets will be silently dropped in the data plane."
+    },
+    {
+      "id": "q3",
+      "question": "Does an MTU mismatch prevent two OSPF routers from reaching the 2-WAY neighbor state?",
+      "answer": "No. OSPF Hello packets do not carry the MTU field in their header and are small enough to pass over any standard link. Bidirectional communication is established and confirmed in the Hello exchange, allowing routers to reach 2-WAY. The failure occurs only when entering EXSTART to begin DBD packet transmission."
+    }
+  ],
+  "examPracticeCommands": [
+    {
+      "command": "show ip ospf neighbor",
+      "purpose": "Verify neighbor state (FULL/DR or FULL/BDR), neighbor ID, dead timer, and interface.",
+      "examTip": "On the 350-401 ENCOR exam, an EXSTART state on a point-to-point or broadcast link is the classic symptom of an MTU mismatch."
+    },
+    {
+      "command": "show ip ospf interface GigabitEthernet0/1",
+      "purpose": "Display OSPF MTU, network type, hello/dead timers, and Designated Router role.",
+      "examTip": "Look for '(MTU ignore enabled)' in the interface output to confirm if mtu-ignore was applied."
+    },
+    {
+      "command": "show ip interface GigabitEthernet0/1",
+      "purpose": "Check the Layer 3 IP MTU size and confirm interface up/up status.",
+      "examTip": "Always verify both Layer 3 IP MTU and Layer 2 MTU when troubleshooting adjacency drops."
+    },
+    {
+      "command": "show ip route ospf",
+      "purpose": "Filter routing table to ensure OSPF intra-area (O) and inter-area (O IA) routes are installed.",
+      "examTip": "Routes are only installed into the RIB once the neighbor reaches FULL and the SPF algorithm completes."
+    }
+  ]
+}

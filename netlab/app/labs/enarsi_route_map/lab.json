@@ -1,0 +1,85 @@
+{
+  "id": "enarsi_route_map",
+  "title": "CCNP ENARSI: Route-Map Filtering & Prefix Redistribution",
+  "track": "CCNP Enterprise (300-410 ENARSI)",
+  "difficulty": "Advanced",
+  "estimatedTime": "20 mins",
+  "description": "R1 is redistributing internal subnets into BGP using route-map EXPORT_BGP. An unintended deny sequence or missing permit statement is causing critical subnet 192.168.10.0/24 to be dropped. Troubleshoot the route-map and restore route propagation to R2.",
+  "objective": "Correct the route-map statement on R1 so that 192.168.10.0/24 is permitted and advertised to R2 via BGP.",
+  "nodes": [
+    {"name": "r1", "displayName": "R1 (Edge Gateway)", "model": "Cisco IOS-XE / cEOS", "managementIp": "172.20.20.31", "interfaces": [{"name": "GigabitEthernet0/1", "ip": "10.1.1.1/30", "peer": "r2:GigabitEthernet0/1"}, {"name": "Loopback1", "ip": "192.168.10.1/24"}, {"name": "Loopback2", "ip": "192.168.20.1/24"}], "initialState": {"hostname": "R1", "routeMap": "EXPORT_BGP", "missingPermit": "192.168.10.0/24"}},
+    {"name": "r2", "displayName": "R2 (Core Spine)", "model": "Cisco IOS-XE / cEOS", "managementIp": "172.20.20.32", "interfaces": [{"name": "GigabitEthernet0/1", "ip": "10.1.1.2/30", "peer": "r1:GigabitEthernet0/1"}], "initialState": {"hostname": "R2", "missingRoute": "192.168.10.0/24"}}
+  ],
+  "topologyVisual": {
+    "nodes": [
+      {"id": "r1", "label": "R1 (Edge Gateway)", "type": "router", "x": 200, "y": 140, "ip": "10.1.1.1"},
+      {"id": "r2", "label": "R2 (Core Spine)", "type": "router", "x": 480, "y": 140, "ip": "10.1.1.2"}
+    ],
+    "links": [
+      {"from": "r1", "to": "r2", "label": "BGP Session (Filtered)", "status": "warning"}
+    ]
+  },
+  "hints": [
+    {
+      "level": 1,
+      "title": "Level 1: Directional Hint",
+      "content": "Check 'show route-map EXPORT_BGP' and 'show ip access-list' on R1 to see what prefixes match the policy."
+    },
+    {
+      "level": 2,
+      "title": "Level 2: Protocol Mechanics",
+      "content": "Route-maps have an implicit 'deny' at the end. If a prefix is not explicitly permitted by a sequence number, or if an ACL referenced by a permit sequence denies it, the prefix is filtered."
+    },
+    {
+      "level": 3,
+      "title": "Level 3: Technical Fix",
+      "content": "On R1, permit 192.168.10.0/24 in the referenced prefix-list or add 'route-map EXPORT_BGP permit 20' matching prefix 192.168.10.0/24."
+    }
+  ],
+  "validation": {
+    "target": "Prefix 192.168.10.0/24 present on R2",
+    "checks": [
+      {"description": "Route-map permits prefix 192.168.10.0/24", "type": "route_map_permit"},
+      {"description": "Prefix 192.168.10.0/24 present in R2 BGP table", "type": "prefix_on_r2"}
+    ]
+  },
+  "viewpointQuestions": [
+    {
+      "id": "q1",
+      "question": "Why was prefix 192.168.10.0/24 dropped even though R1 had an active network statement for it?",
+      "answer": "R1 had outbound policy 'neighbor 10.1.1.2 route-map EXPORT_BGP out'. In Cisco IOS XE, route-maps and prefix-lists conclude with an implicit 'deny all'. Sequence 10 of route-map EXPORT_BGP matched prefix-list PERMITTED_NETS which only contained 192.168.20.0/24. Because 192.168.10.0/24 was not matched by any permit sequence, it hit the implicit deny and was filtered."
+    },
+    {
+      "id": "q2",
+      "question": "What is the key advantage of an IP prefix-list over an IP Access Control List (ACL) for BGP policy routing?",
+      "answer": "1) Performance: Prefix-lists use a binary tree data structure for lookup, significantly faster than sequential ACL evaluation on large routing tables. 2) Prefix length flexibility: Prefix-lists allow the 'ge' (greater than or equal) and 'le' (less than or equal) parameters to match a subnet mask length range without complex wildcard calculations."
+    },
+    {
+      "id": "q3",
+      "question": "How does Cisco IOS evaluate multiple match clauses on the same line vs separate lines in a route-map?",
+      "answer": "Match statements on the SAME line are evaluated with a logical OR (e.g. 'match ip address 1 2' matches ACL 1 OR ACL 2). Match statements on DIFFERENT lines within the same sequence are evaluated with a logical AND (e.g. 'match ip address 1' and 'match metric 10' requires both conditions to match)."
+    }
+  ],
+  "examPracticeCommands": [
+    {
+      "command": "show route-map EXPORT_BGP",
+      "purpose": "Inspect route-map sequences, permit/deny actions, match/set clauses, and match packet counters.",
+      "examTip": "On the 300-410 ENARSI exam, always check the sequence numbers to ensure more specific match statements precede general ones."
+    },
+    {
+      "command": "show ip prefix-list PERMITTED_NETS detail",
+      "purpose": "Verify sequence entries, exact prefixes, ge/le length limits, and match hit counts.",
+      "examTip": "Hit counts reveal whether routing updates are actively matching the intended prefix-list sequence."
+    },
+    {
+      "command": "show ip bgp neighbors 10.1.1.2 advertised-routes",
+      "purpose": "Verify the exact outbound prefixes sent to a BGP peer after route-map policies are applied.",
+      "examTip": "This is the most definitive command to verify whether a route-map filtered an advertised prefix."
+    },
+    {
+      "command": "clear ip bgp * soft",
+      "purpose": "Trigger dynamic route refresh and policy re-evaluation without dropping TCP peering sessions.",
+      "examTip": "Always use soft reconfiguration or route refresh in production and exam scenarios to prevent session resets."
+    }
+  ]
+}

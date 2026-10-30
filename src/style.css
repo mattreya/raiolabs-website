@@ -787,6 +787,50 @@ body {
   box-shadow: inset 0 0 0 1px var(--accent-glow);
 }
 
+.nav-tab-networkmatt {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #77d6bc;
+  border: 1px solid rgba(119, 214, 188, 0.35);
+  background: rgba(119, 214, 188, 0.08);
+}
+.nav-tab-networkmatt:hover {
+  color: #fff;
+  background: rgba(119, 214, 188, 0.2);
+  border-color: rgba(119, 214, 188, 0.8);
+  box-shadow: 0 0 16px rgba(119, 214, 188, 0.35);
+  transform: translateY(-1px);
+}
+.nav-tab-netlab {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  background: rgba(56, 189, 248, 0.08);
+}
+.nav-tab-netlab:hover {
+  color: #fff;
+  background: rgba(56, 189, 248, 0.2);
+  border-color: rgba(56, 189, 248, 0.8);
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.35);
+  transform: translateY(-1px);
+}
+.nav-tab-badge {
+  font-size: 0.65rem;
+  font-family: var(--font-mono, monospace);
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: #77d6bc;
+  color: #101820;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
 /* Stage Layout */
 .stage-view-container {
   display: flex;
