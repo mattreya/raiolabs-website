@@ -609,7 +609,15 @@ function initializeTodoApp() {
 
     const item = document.createElement('div');
     item.className = 'todo-item';
-    item.innerHTML = \`<input type="checkbox" class="todo-checkbox"> <span class="todo-text">\${text}</span>\`;
+    const cb = document.createElement('input');
+    cb.type = 'checkbox';
+    cb.className = 'todo-checkbox';
+    const span = document.createElement('span');
+    span.className = 'todo-text';
+    span.textContent = text;
+    item.appendChild(cb);
+    item.appendChild(document.createTextNode(' '));
+    item.appendChild(span);
     container.appendChild(item);
     input.value = '';
     refreshListListeners();
