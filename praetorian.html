@@ -653,6 +653,7 @@
     { a_n: "ICS-SESSION-HIJACK: EtherNet/IP CIP Unauthenticated Session Takeover (T0855)", a_t: "ics_ot", s_co: "SECTOR-OT/SCADA", d_co: "TENTACLE-II", sectorIdx: 1, baseRepeats: 6, firstSeen: "2026-11-07T02:47:59Z", feeds: ["MITRE-ICS-OT", "CISA-KEV", "SURICATA-ET-OPEN"] },
     { a_n: "INGRESS-TRAVERSAL: Path Traversal Credential File Extraction Probe (CWE-22)", a_t: "exploit", s_co: "SECTOR-INGRESS", d_co: "TENTACLE-I", sectorIdx: 0, baseRepeats: 9, firstSeen: "2026-11-07T02:46:41Z", feeds: ["GREYNOISE-COMMUNITY", "SANS-ISC-DSHIELD", "MV-BEHAVIORAL-IDS"] },
     { a_n: "C2-BEACON: Malleable HTTPS Command-and-Control Jitter Profile (T1071.001)", a_t: "botnet", s_co: "SECTOR-C2/BOTNET", d_co: "TENTACLE-III", sectorIdx: 2, baseRepeats: 7, firstSeen: "2026-11-07T02:46:47Z", feeds: ["ABUSECH-THREATFOX", "SURICATA-ET-OPEN", "ALIENVAULT-OTX"] },
+    { a_n: "AUTH-BYPASS: Alpine musl libc crypt() >256-Byte Asterisk Collision (*sshole / CWE-287)", a_t: "exploit", s_co: "SECTOR-ENCLAVE", d_co: "TENTACLE-VI", sectorIdx: 5, baseRepeats: 5, firstSeen: "2026-11-07T11:04:00Z", feeds: ["CISA-KEV", "SANS-ISC-DSHIELD", "GREYNOISE-COMMUNITY", "ALIENVAULT-OTX"] },
     { a_n: "PERIPHERAL-SPOOF: USB HID Keystroke Injection & DMA Bus Probe (T1200)", a_t: "exploit", s_co: "SECTOR-PERIPHERAL", d_co: "TENTACLE-V", sectorIdx: 4, baseRepeats: 5, firstSeen: "2026-11-07T04:12:19Z", feeds: ["MITRE-ICS-OT", "MV-BEHAVIORAL-IDS"] },
     { a_n: "GRID-CONTROL-INJECTION: IEC 60870-5-104 Unauthorized Telecontrol Frame (T0831)", a_t: "ics_ot", s_co: "SECTOR-OT/SCADA", d_co: "TENTACLE-II", sectorIdx: 1, baseRepeats: 6, firstSeen: "2026-11-07T05:04:52Z", feeds: ["MITRE-ICS-OT", "SANS-ISC-DSHIELD", "SURICATA-ET-OPEN"] }
   ];
@@ -724,6 +725,12 @@
       ttps = ["T1190 - Exploit Public-Facing Application", "T1059 - Command Interpreter", "D3-AL - Application Hardening"];
       author = "Sentinel-Audit & Tentacle-I-NetGuard";
       code = `#!/bin/sh\n# Praetorian Auto-Synthesized Ingress Filter for: ${sigName}\niptables -A INPUT -p tcp -m multiport --dports 80,443,8080 -m string --algo bm --string "\${jndi:" -j DROP\niptables -A INPUT -p tcp -m multiport --dports 80,443,8080 -m string --algo bm --string "../" -j DROP`;
+    } else if (/sshhole|musl|asterisk|cwe-287/.test(sLower)) {
+      domain = "Enclave Authentication & musl libc Integrity";
+      severity = "CRITICAL";
+      ttps = ["T1078 - Valid Accounts", "T1110 - Auth Bypass (>256B crypt() '*' Collision)", "D3-ACH - Auth Cache Hardening"];
+      author = "Sentinel-Audit & Tentacle-VI-Enclave-Guard";
+      code = `#!/bin/sh\n# Praetorian Auto-Synthesized Alpine musl crypt() '*sshole' Guard for: ${sigName}\n# Neutralize single-character ':*:' shadow entries so musl crypt() >256B '*' error return can never match\nsed -i 's/^\\([^:]*\\):\\*\\:/\\1:*LOCKED*:/g' /etc/shadow 2>/dev/null || true\n[ -f /etc/ssh/sshd_config ] && echo -e "PasswordAuthentication no\\nPermitRootLogin no" >> /etc/ssh/sshd_config`;
     } else if (/usb|hid|dma|peripheral/.test(sLower)) {
       domain = "Hardware Peripheral & DMA Quarantine";
       severity = "HIGH";
@@ -1050,8 +1057,8 @@
     localSeenHashes.clear();
     localDedupCount = 0;
 
-    // Seed first 10 verified unique baseline observations & synthesized MCP tools immediately
-    const initialCount = 10;
+    // Seed first 11 verified unique baseline observations & synthesized MCP tools immediately (including Alpine *sshole guard)
+    const initialCount = 11;
     for (let i = 0; i < initialCount; i++) {
       const item = ENCLAVE_TELEMETRY_CATALOG[i];
       const canonical = `${item.a_n.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim()}::${item.a_t.toLowerCase()}`;
