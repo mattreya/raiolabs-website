@@ -2,19 +2,19 @@
 
 export const FEATURED_PROJECTS = [
   {
-    id: 'praetorian-threatmap-observatory',
+    id: 'praetorian-sentinel-observatory',
     name: 'Rai-OS Praetorian Observatory',
-    title: 'Praetorian Blue-Team ThreatMap Observatory',
+    title: 'Praetorian Blue-Team Sentinel Observatory',
     category: 'SecOps & Governance',
     language: 'Python / MCP / Dynamic RAG / eBPF',
     badge: 'LIVE SWARM',
     stars: 5,
     url: './praetorian.html',
-    summary: 'Real-time visual observatory demonstrating the Rai-OS Praetorian Cthulhu Blue-Team Swarm observing Check Point ThreatMap attack vectors, enforcing SHA-256 non-repetitive deduplication, and synthesizing defensive MCP tools & Dynamic RAG profiles.',
+    summary: 'Real-time visual observatory demonstrating the Rai-OS Praetorian Cthulhu Blue-Team Swarm intercepting anomaly vectors across a Concentric Enclave Radar, enforcing SHA-256 non-repetitive deduplication, and synthesizing defensive MCP tools & Dynamic RAG profiles.',
     highlights: [
       'Non-repetitive SHA-256 signature deduplication (suppresses duplicate attack noise at $0.00 cost)',
       'Autonomous synthesis of Level-0 HITL OT/ICS & Linux defensive MCP tools with SHA-256 receipts',
-      'Constitutional SOUL.md + HMAC-SHA256 Zero-Trust attestation to cyroot-test Cloud Run MCP'
+      'Zero client device/storage permissions — runs in an isolated read-only telemetry sandbox'
     ],
     command: 'praetorian-cloud-rag observe-attack \'{"a_n":"Modbus TCP Unauthorized PLC Register Write","a_t":"ics_ot"}\''
   },
