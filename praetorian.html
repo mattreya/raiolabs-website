@@ -317,7 +317,7 @@
     .badge.skip { background: rgba(245, 158, 11, 0.15); color: var(--amber); border: 1px solid rgba(245, 158, 11, 0.4); }
     .badge.high { background: rgba(167, 139, 250, 0.2); color: #ddd6fe; border: 1px solid rgba(167, 139, 250, 0.45); }
 
-    .right-col {
+    .right-col, .left-col {
       display: flex;
       flex-direction: column;
       gap: 16px;
@@ -329,6 +329,38 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
+      transition: max-height 0.25s ease;
+    }
+    .panel.expanded-view .cards-scroll {
+      max-height: 620px;
+    }
+    .panel.collapsed .panel-body {
+      display: none !important;
+    }
+    .panel.collapsed .panel-header {
+      border-bottom: none;
+    }
+    .kpi-section-wrap.collapsed .kpi-grid {
+      display: none !important;
+    }
+    .collapse-btn {
+      background: rgba(148, 163, 184, 0.12);
+      color: #cbd5e1;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .collapse-btn:hover {
+      background: rgba(56, 189, 248, 0.2);
+      color: #fff;
+      border-color: var(--cyan);
+      box-shadow: none;
     }
     .intel-card {
       background: rgba(17, 24, 39, 0.92);
@@ -394,9 +426,13 @@
   <div>
     <strong>Constitutional Blue-Team Posture (Level 0 HITL):</strong> The Praetorian Cthulhu Swarm observes live global attack signatures (<code>a_n</code> / <code>a_t</code>), suppresses repetitive noise via <code>SHA-256</code> fingerprinting, and synthesizes strictly defensive OT/ICS & Linux containment tools into the Dynamic RAG store.
   </div>
-  <div><code>"I shall find a way or make one" — Hannibal Barca</code></div>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <code>"I shall find a way or make one" — Hannibal Barca</code>
+    <button class="collapse-btn" id="btn-kpi-toggle" onclick="toggleKpiStrip()">▼ Collapse KPIs</button>
+  </div>
 </div>
 
+<div class="kpi-section-wrap" id="kpi-section-wrap">
 <section class="kpi-grid">
   <div class="kpi-card">
     <div class="kpi-label">ThreatMap Events Observed</div>
@@ -424,77 +460,126 @@
     <div class="kpi-sub">APT + OT/ICS + Live Profiles</div>
   </div>
 </section>
+</div>
 
 <main class="main-grid">
-  <!-- Left Column: Live ThreatMap Vector Canvas + Stream Log -->
-  <div class="panel">
-    <div class="panel-header">
-      <div class="panel-title">🌐 Global ThreatMap Vector Telemetry (`a_n` / `a_t` Stream)</div>
-      <div class="controls">
-        <button id="btn-stream" class="active" onclick="toggleStream()">⏸ Pause Auto-Stream</button>
-        <button onclick="fireSingleEvent(false)">⚡ Observe Next Vector</button>
-        <button class="warn" onclick="fireSingleEvent(true)">↺ Inject Duplicate Attack (Test Deduplication)</button>
+  <!-- Left Column: Fixed Visual ThreatMap + Collapsible Stream Log -->
+  <div class="left-col">
+    <!-- Fixed Visual Threat Map (Always Visible) -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">🌐 Global ThreatMap Vector Telemetry (`a_n` / `a_t` Stream)</div>
+        <div class="controls">
+          <button id="btn-stream" class="active" onclick="toggleStream()">⏸ Pause Auto-Stream</button>
+          <button onclick="fireSingleEvent(false)">⚡ Observe Next Vector</button>
+          <button class="warn" onclick="fireSingleEvent(true)">↺ Inject Duplicate Attack (Test Deduplication)</button>
+        </div>
+      </div>
+      <canvas id="map-canvas" width="900" height="340"></canvas>
+
+      <div class="custom-bar">
+        <input type="text" id="custom-sig" placeholder="Inject hypothetical ThreatMap signature (e.g. Siemens S7-1500 PLC Stealth Register Overflow)..." />
+        <select id="custom-type">
+          <option value="ics_ot">ics_ot (OT/SCADA)</option>
+          <option value="exploit">exploit</option>
+          <option value="malware">malware</option>
+          <option value="botnet">botnet</option>
+        </select>
+        <button onclick="injectCustomAttack()">🛡️ Observe & Synthesize</button>
       </div>
     </div>
-    <canvas id="map-canvas" width="900" height="340"></canvas>
 
-    <div class="custom-bar">
-      <input type="text" id="custom-sig" placeholder="Inject hypothetical ThreatMap signature (e.g. Siemens S7-1500 PLC Stealth Register Overflow)..." />
-      <select id="custom-type">
-        <option value="ics_ot">ics_ot (OT/SCADA)</option>
-        <option value="exploit">exploit</option>
-        <option value="malware">malware</option>
-        <option value="botnet">botnet</option>
-      </select>
-      <button onclick="injectCustomAttack()">🛡️ Observe & Synthesize</button>
-    </div>
-
-    <div class="feed-table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Time (UTC)</th>
-            <th>Vector</th>
-            <th>ThreatMap Signature (`a_n`)</th>
-            <th>Class (`a_t`)</th>
-            <th>Praetorian Decision</th>
-            <th>Artifact / Hash</th>
-          </tr>
-        </thead>
-        <tbody id="stream-tbody"></tbody>
-      </table>
+    <!-- Collapsible Panel: Live Observation & Deduplication Stream Log -->
+    <div class="panel" id="panel-stream">
+      <div class="panel-header">
+        <div class="panel-title" style="cursor:pointer;" onclick="togglePanel('panel-stream')">📋 Live Observation &amp; SHA-256 Deduplication Log</div>
+        <div class="controls">
+          <button class="collapse-btn" id="btn-toggle-panel-stream" onclick="togglePanel('panel-stream')">▼ Collapse</button>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="feed-table-wrap" style="border-top:none;">
+          <table>
+            <thead>
+              <tr>
+                <th>Time (UTC)</th>
+                <th>Vector</th>
+                <th>ThreatMap Signature (`a_n`)</th>
+                <th>Class (`a_t`)</th>
+                <th>Praetorian Decision</th>
+                <th>Artifact / Hash</th>
+              </tr>
+            </thead>
+            <tbody id="stream-tbody"></tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Right Column: Real-Time Dynamic RAG Profiles & Synthesized MCP Tools -->
+  <!-- Right Column: Collapsible Dynamic RAG Profiles & Collapsible Synthesized MCP Tools -->
   <div class="right-col">
-    <div class="panel">
+    <div class="panel" id="panel-rag">
       <div class="panel-header">
-        <div class="panel-title">🧠 Real-Time Dynamic RAG Threat Profiles (Unique Only)</div>
+        <div class="panel-title" style="cursor:pointer;" onclick="togglePanel('panel-rag')">🧠 Real-Time Dynamic RAG Threat Profiles (Unique Only)</div>
         <div class="controls">
-          <input type="text" id="rag-search-input" placeholder="Search RAG profiles (e.g. Modbus, imap4d, Log4j)..." style="min-width:190px;padding:4px 8px;font-size:11px;" oninput="filterDisplayedProfiles()" />
+          <input type="text" id="rag-search-input" placeholder="Search RAG profiles (e.g. Modbus, imap4d, Log4j)..." style="min-width:170px;padding:4px 8px;font-size:11px;" oninput="filterDisplayedProfiles()" />
+          <button class="collapse-btn" id="btn-toggle-panel-rag" onclick="togglePanel('panel-rag')">▼ Collapse</button>
         </div>
       </div>
-      <div class="cards-scroll" id="rag-profiles-list">
-        <div class="mono-meta">Initializing Praetorian Swarm observations...</div>
+      <div class="panel-body">
+        <div class="cards-scroll" id="rag-profiles-list">
+          <div class="mono-meta">Initializing Praetorian Swarm observations...</div>
+        </div>
       </div>
     </div>
 
-    <div class="panel">
+    <div class="panel" id="panel-tools">
       <div class="panel-header">
-        <div class="panel-title">🛠️ Autonomous Praetorian MCP Tools Synthesized</div>
+        <div class="panel-title" style="cursor:pointer;" onclick="togglePanel('panel-tools')">🛠️ Autonomous Praetorian MCP Tools Synthesized</div>
         <div class="controls">
-          <span class="mono-meta">Level 0 HITL Compliant • Non-Destructive OT/ICS Safe</span>
+          <span class="mono-meta">Level 0 HITL • OT/ICS Safe</span>
+          <button class="collapse-btn" id="btn-toggle-panel-tools" onclick="togglePanel('panel-tools')">▼ Collapse</button>
         </div>
       </div>
-      <div class="cards-scroll" id="synthesized-tools-list">
-        <div class="mono-meta">Waiting for unique threat observations...</div>
+      <div class="panel-body">
+        <div class="cards-scroll" id="synthesized-tools-list">
+          <div class="mono-meta">Waiting for unique threat observations...</div>
+        </div>
       </div>
     </div>
   </div>
 </main>
 
 <script>
+  function togglePanel(panelId) {
+    const panel = document.getElementById(panelId);
+    const btn = document.getElementById("btn-toggle-" + panelId);
+    if (!panel) return;
+    const isCollapsed = panel.classList.toggle("collapsed");
+    if (btn) {
+      btn.textContent = isCollapsed ? "▶ Expand" : "▼ Collapse";
+    }
+    // Auto-expand the sibling right-column panel when the other is collapsed for a deeper view
+    const ragPanel = document.getElementById("panel-rag");
+    const toolsPanel = document.getElementById("panel-tools");
+    if (ragPanel && toolsPanel) {
+      const ragCollapsed = ragPanel.classList.contains("collapsed");
+      const toolsCollapsed = toolsPanel.classList.contains("collapsed");
+      ragPanel.classList.toggle("expanded-view", !ragCollapsed && toolsCollapsed);
+      toolsPanel.classList.toggle("expanded-view", !toolsCollapsed && ragCollapsed);
+    }
+  }
+
+  function toggleKpiStrip() {
+    const wrap = document.getElementById("kpi-section-wrap");
+    const btn = document.getElementById("btn-kpi-toggle");
+    if (!wrap) return;
+    const isCollapsed = wrap.classList.toggle("collapsed");
+    if (btn) {
+      btn.textContent = isCollapsed ? "▶ Expand KPIs" : "▼ Collapse KPIs";
+    }
+  }
   const LOCAL_BRIDGE_URL = "http://127.0.0.1:8095";
   let bridgeOnline = false;
 
