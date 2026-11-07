@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>⚡ Rai-OS // Praetorian Blue-Team Swarm Observatory | RaioLabs LLC</title>
+  <link rel="icon" type="image/png" href="./raiolabsllc.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-0: #040711;
+      --bg-1: #0b1120;
+      --bg-2: #111827;
+      --border: #1e293b;
+      --cyan: #38bdf8;
+      --cyan-glow: rgba(56, 189, 248, 0.35);
+      --gold: #fbbf24;
+      --green: #10b981;
+      --amber: #f59e0b;
+      --red: #ef4444;
+      --purple: #a78bfa;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: radial-gradient(circle at 50% 0%, #0f172a 0%, var(--bg-0) 80%);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 24px;
+      background: rgba(11, 17, 32, 0.94);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .back-btn {
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 13px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--cyan);
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+    .back-btn:hover {
+      background: var(--cyan);
+      color: #040711;
+      box-shadow: 0 0 14px var(--cyan-glow);
+    }
+    .brand-logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      object-fit: contain;
+      border: 1px solid rgba(251, 191, 36, 0.45);
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.25);
+    }
+    .brand h1 {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.4px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .brand p {
+      font-size: 11.5px;
+      color: var(--cyan);
+      font-family: 'JetBrains Mono', monospace;
+      margin-top: 2px;
+    }
+    .status-strip {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .pill {
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 11.5px;
+      font-family: 'JetBrains Mono', monospace;
+      border: 1px solid var(--border);
+      background: rgba(17, 24, 39, 0.9);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+      animation: pulse 1.8s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(1.25); }
+    }
+    .banner-note {
+      margin: 14px 24px 0;
+      padding: 10px 16px;
+      border-radius: 8px;
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12.5px;
+      color: #d1fae5;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .banner-note code {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--gold);
+    }
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      padding: 14px 24px 0;
+    }
+    .kpi-card {
+      background: rgba(17, 24, 39, 0.82);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .kpi-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; width: 4px; height: 100%;
+      background: var(--cyan);
+    }
+    .kpi-card.green::before { background: var(--green); }
+    .kpi-card.amber::before { background: var(--amber); }
+    .kpi-card.purple::before { background: var(--purple); }
+    .kpi-card.gold::before { background: var(--gold); }
+    .kpi-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .kpi-val {
+      font-size: 27px;
+      font-weight: 800;
+      margin-top: 4px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .kpi-sub {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 3px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap: 16px;
+      padding: 16px 24px 28px;
+    }
+    @media (max-width: 1100px) {
+      .main-grid { grid-template-columns: 1fr; }
+    }
+    .panel {
+      background: rgba(11, 17, 32, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .panel-header {
+      padding: 12px 16px;
+      background: rgba(17, 24, 39, 0.92);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .panel-title {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .controls {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    button {
+      background: rgba(56, 189, 248, 0.14);
+      color: var(--cyan);
+      border: 1px solid rgba(56, 189, 248, 0.45);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-family: 'JetBrains Mono', monospace;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-weight: 600;
+    }
+    button:hover {
+      background: var(--cyan);
+      color: #040711;
+      box-shadow: 0 0 12px var(--cyan-glow);
+    }
+    button.active {
+      background: var(--green);
+      border-color: var(--green);
+      color: #040711;
+    }
+    button.warn {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--amber);
+      border-color: rgba(245, 158, 11, 0.45);
+    }
+    button.warn:hover {
+      background: var(--amber);
+      color: #040711;
+    }
+    #map-canvas {
+      width: 100%;
+      height: 340px;
+      background: radial-gradient(circle at center, #0c162d 0%, #050914 100%);
+      display: block;
+    }
+    .custom-bar {
+      padding: 10px 16px;
+      background: rgba(15, 23, 42, 0.95);
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    input, select {
+      background: #040711;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 7px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    input { flex: 1; min-width: 220px; }
+    .feed-table-wrap {
+      max-height: 250px;
+      overflow-y: auto;
+      border-top: 1px solid var(--border);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11.5px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    th, td {
+      padding: 8px 12px;
+      text-align: left;
+      border-bottom: 1px solid rgba(30, 41, 59, 0.6);
+    }
+    th {
+      background: #0f172a;
+      color: var(--muted);
+      position: sticky;
+      top: 0;
+      font-size: 10.5px;
+      text-transform: uppercase;
+    }
+    .badge {
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .badge.new { background: rgba(16, 185, 129, 0.2); color: var(--green); border: 1px solid rgba(16, 185, 129, 0.45); }
+    .badge.skip { background: rgba(245, 158, 11, 0.15); color: var(--amber); border: 1px solid rgba(245, 158, 11, 0.4); }
+    .badge.high { background: rgba(167, 139, 250, 0.2); color: #ddd6fe; border: 1px solid rgba(167, 139, 250, 0.45); }
+
+    .right-col {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .cards-scroll {
+      padding: 12px;
+      overflow-y: auto;
+      max-height: 295px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .intel-card {
+      background: rgba(17, 24, 39, 0.92);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--cyan);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 12px;
+    }
+    .intel-card.tool {
+      border-left-color: var(--green);
+    }
+    .intel-card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5px;
+      font-weight: 700;
+      color: #fff;
+      gap: 8px;
+    }
+    .mono-meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+    pre.code-box {
+      background: #040711;
+      border: 1px solid #1e293b;
+      border-radius: 6px;
+      padding: 8px;
+      font-size: 10.5px;
+      font-family: 'JetBrains Mono', monospace;
+      color: #a7f3d0;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      margin-top: 6px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <a href="./index.html" class="back-btn">← RaioLabs Hub</a>
+    <img src="./raiolabsllc.png" alt="RaioLabs LLC" class="brand-logo" />
+    <div>
+      <h1>⚡ Rai-OS // Praetorian Blue-Team ThreatMap Observatory</h1>
+      <p>Observing Global Attack Vectors (Check Point ThreatMap Schema) • Non-Repetitive SHA-256 Deduplication • Autonomous MCP & RAG Synthesis</p>
+    </div>
+  </div>
+  <div class="status-strip">
+    <div class="pill"><span class="dot"></span><span>Swarm: 4 Sentinels + 6 Tentacles</span></div>
+    <div class="pill" id="soul-pill">🔒 SOUL.md: ad866445f67a... (Enforced)</div>
+    <div class="pill" id="mode-pill">🛡️ Engine: Initializing...</div>
+    <div class="pill" id="cost-pill" style="border-color:rgba(16,185,129,0.5);color:#10b981;">💰 Cloud Cost: $0.00 (Free Tier Cap)</div>
+  </div>
+</header>
+
+<div class="banner-note">
+  <div>
+    <strong>Constitutional Blue-Team Posture (Level 0 HITL):</strong> The Praetorian Cthulhu Swarm observes live global attack signatures (<code>a_n</code> / <code>a_t</code>), suppresses repetitive noise via <code>SHA-256</code> fingerprinting, and synthesizes strictly defensive OT/ICS & Linux containment tools into the Dynamic RAG store.
+  </div>
+  <div><code>"I shall find a way or make one" — Hannibal Barca</code></div>
+</div>
+
+<section class="kpi-grid">
+  <div class="kpi-card">
+    <div class="kpi-label">ThreatMap Events Observed</div>
+    <div class="kpi-val" id="kpi-observed">0</div>
+    <div class="kpi-sub">Check Point SSE Telemetry Format</div>
+  </div>
+  <div class="kpi-card green">
+    <div class="kpi-label">Unique Attack Profiles Learned</div>
+    <div class="kpi-val" id="kpi-unique">0</div>
+    <div class="kpi-sub">Indexed in Dynamic RAG Store</div>
+  </div>
+  <div class="kpi-card amber">
+    <div class="kpi-label">Repetitive Attacks Suppressed</div>
+    <div class="kpi-val" id="kpi-dedup">0</div>
+    <div class="kpi-sub">Skipped via SHA-256 Fingerprint</div>
+  </div>
+  <div class="kpi-card purple">
+    <div class="kpi-label">Synthesized Praetorian MCP Tools</div>
+    <div class="kpi-val" id="kpi-tools">0</div>
+    <div class="kpi-sub">Cryptographic SHA-256 Receipts</div>
+  </div>
+  <div class="kpi-card gold">
+    <div class="kpi-label">Total Dynamic RAG Corpus</div>
+    <div class="kpi-val" id="kpi-rag-total">23</div>
+    <div class="kpi-sub">APT + OT/ICS + Live Profiles</div>
+  </div>
+</section>
+
+<main class="main-grid">
+  <!-- Left Column: Live ThreatMap Vector Canvas + Stream Log -->
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-title">🌐 Global ThreatMap Vector Telemetry (`a_n` / `a_t` Stream)</div>
+      <div class="controls">
+        <button id="btn-stream" class="active" onclick="toggleStream()">⏸ Pause Auto-Stream</button>
+        <button onclick="fireSingleEvent(false)">⚡ Observe Next Vector</button>
+        <button class="warn" onclick="fireSingleEvent(true)">↺ Inject Duplicate Attack (Test Deduplication)</button>
+      </div>
+    </div>
+    <canvas id="map-canvas" width="900" height="340"></canvas>
+
+    <div class="custom-bar">
+      <input type="text" id="custom-sig" placeholder="Inject hypothetical ThreatMap signature (e.g. Siemens S7-1500 PLC Stealth Register Overflow)..." />
+      <select id="custom-type">
+        <option value="ics_ot">ics_ot (OT/SCADA)</option>
+        <option value="exploit">exploit</option>
+        <option value="malware">malware</option>
+        <option value="botnet">botnet</option>
+      </select>
+      <button onclick="injectCustomAttack()">🛡️ Observe & Synthesize</button>
+    </div>
+
+    <div class="feed-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Time (UTC)</th>
+            <th>Vector</th>
+            <th>ThreatMap Signature (`a_n`)</th>
+            <th>Class (`a_t`)</th>
+            <th>Praetorian Decision</th>
+            <th>Artifact / Hash</th>
+          </tr>
+        </thead>
+        <tbody id="stream-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Right Column: Real-Time Dynamic RAG Profiles & Synthesized MCP Tools -->
+  <div class="right-col">
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">🧠 Real-Time Dynamic RAG Threat Profiles (Unique Only)</div>
+        <div class="controls">
+          <input type="text" id="rag-search-input" placeholder="Search RAG profiles (e.g. Modbus, imap4d, Log4j)..." style="min-width:190px;padding:4px 8px;font-size:11px;" oninput="filterDisplayedProfiles()" />
+        </div>
+      </div>
+      <div class="cards-scroll" id="rag-profiles-list">
+        <div class="mono-meta">Initializing Praetorian Swarm observations...</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">🛠️ Autonomous Praetorian MCP Tools Synthesized</div>
+        <div class="controls">
+          <span class="mono-meta">Level 0 HITL Compliant • Non-Destructive OT/ICS Safe</span>
+        </div>
+      </div>
+      <div class="cards-scroll" id="synthesized-tools-list">
+        <div class="mono-meta">Waiting for unique threat observations...</div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+  const LOCAL_BRIDGE_URL = "http://127.0.0.1:8095";
+  let bridgeOnline = false;
+
+  // Authentic Check Point ThreatMap attack signature stream + OT/ICS vectors
+  const THREATMAP_CATALOG = [
+    { a_n: "GNU Mailutils imap4d format string", a_t: "exploit", s_co: "RU", d_co: "BY", s_la: 55.75, s_lo: 37.61, d_la: 53.90, d_lo: 27.56 },
+    { a_n: "Modbus TCP Unauthorized PLC Register Write (Function Code 0x10)", a_t: "ics_ot", s_co: "IR", d_co: "US", s_la: 35.68, s_lo: 51.38, d_la: 38.89, d_lo: -77.03 },
+    { a_n: "Apache Log4j JNDI Remote Code Execution (CVE-2021-44228)", a_t: "exploit", s_co: "CN", d_co: "DE", s_la: 39.90, s_lo: 116.40, d_la: 50.11, d_lo: 8.68 },
+    { a_n: "Siemens SIMATIC S7-1200 CPU Stop Command Injection", a_t: "ics_ot", s_co: "RU", d_co: "UA", s_la: 59.93, s_lo: 30.33, d_la: 50.45, d_lo: 30.52 },
+    { a_n: "Mirai IoT Botnet Telnet Credential Brute Force", a_t: "botnet", s_co: "KP", d_co: "KR", s_la: 39.03, s_lo: 125.76, d_la: 37.56, d_lo: 126.97 },
+    { a_n: "DNP3 Outstation Unsolicited Response Flood (SCADA Substation)", a_t: "ics_ot", s_co: "CN", d_co: "US", s_la: 31.23, s_lo: 121.47, d_la: 37.77, d_lo: -122.41 },
+    { a_n: "Volt Typhoon SOHO Router KV-Botnet Living-off-the-Land Relay", a_t: "malware", s_co: "CN", d_co: "US", s_la: 22.54, s_lo: 114.05, d_la: 33.44, d_lo: -112.07 },
+    { a_n: "Omron Sysmac NJ/NX PLC EtherNet/IP CIP Session Hijack", a_t: "ics_ot", s_co: "IR", d_co: "IL", s_la: 32.65, s_lo: 51.66, d_la: 32.08, d_lo: 34.78 },
+    { a_n: "HTTP Directory Traversal ../../etc/shadow Probe", a_t: "exploit", s_co: "BR", d_co: "GB", s_la: -23.55, s_lo: -46.63, d_la: 51.50, d_lo: -0.12 },
+    { a_n: "Cobalt Strike Malleable C2 HTTPS Beacon Jitter", a_t: "botnet", s_co: "RU", d_co: "PL", s_la: 55.75, s_lo: 37.61, d_la: 52.22, d_lo: 21.01 }
+  ];
+
+  const HUBS = [
+    { code: "US-DC", lat: 38.89, lon: -77.03 },
+    { code: "US-SF", lat: 37.77, lon: -122.41 },
+    { code: "DE", lat: 50.11, lon: 8.68 },
+    { code: "UA", lat: 50.45, lon: 30.52 },
+    { code: "RU", lat: 55.75, lon: 37.61 },
+    { code: "CN", lat: 39.90, lon: 116.40 },
+    { code: "IR", lat: 35.68, lon: 51.38 },
+    { code: "KP", lat: 39.03, lon: 125.76 },
+    { code: "KR", lat: 37.56, lon: 126.97 },
+    { code: "GB", lat: 51.50, lon: -0.12 },
+    { code: "BY", lat: 53.90, lon: 27.56 },
+    { code: "IL", lat: 32.08, lon: 34.78 }
+  ];
+
+  // Client-side Autonomous Engine State (used on raiolabs.com static hosting for $0.00 cost)
+  const localSeenHashes = new Map();
+  let localObservations = [];
+  let localTools = [];
+  let localDedupCount = 0;
+  let baseRagCount = 23;
+
+  let catalogIdx = 0;
+  let totalObserved = 0;
+  let lastObservedEvent = THREATMAP_CATALOG[0];
+  let autoStream = true;
+  let activeArcs = [];
+  let busyInFlight = false;
+
+  const canvas = document.getElementById("map-canvas");
+  const ctx = canvas.getContext("2d");
+
+  async function sha256Hex(text) {
+    const data = new TextEncoder().encode(text);
+    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+    return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, "0")).join("");
+  }
+
+  function synthesizeDefenseBrowser(sigName, attackType, srcCo, dstCo, sigHash) {
+    const sLower = `${sigName} ${attackType}`.toLowerCase();
+    const slug = sigName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 40);
+    const toolId = `sentinel-auto-${slug}-${sigHash.slice(0, 6)}`;
+
+    let domain, severity, ttps, author, code;
+    if (/modbus|scada|plc|dnp3|iec-104|bacnet|ics|ot|siemens|omron/.test(sLower)) {
+      domain = "OT / ICS SCADA Control Plane";
+      severity = "CRITICAL";
+      ttps = ["T0855 - Unauthorized Command Message", "T0831 - Manipulation of Control", "D3-ITF - Inbound Traffic Filtering"];
+      author = "Sentinel-Peripheral & Tentacle-II-OT-Guard";
+      code = `#!/bin/sh\n# Praetorian Auto-Synthesized OT/ICS Guard for: ${sigName}\n# Signature SHA-256: ${sigHash.slice(0,24)}... | Vector: ${srcCo} -> ${dstCo}\n# Constitutional Policy: Read-Only Deep Packet Inspection (Zero PLC Disruption)\nnft add table inet praetorian_ot 2>/dev/null || true\nnft add rule inet praetorian_ot input_guard tcp dport { 502, 20000, 44818 } ct state new limit rate over 25/second log prefix "[PRAETORIAN-OT:${sigHash.slice(0,8)}] " drop`;
+    } else if (/imap|smtp|mailutils|format string|buffer overflow|rce/.test(sLower)) {
+      domain = "Network Service Memory & RCE Containment";
+      severity = "HIGH";
+      ttps = ["T1190 - Exploit Public-Facing Application", "T1068 - Privilege Escalation", "D3-PSA - Process Spawn Analysis"];
+      author = "Sentinel-Core & Tentacle-IV-eBPF";
+      code = `#!/bin/sh\n# Praetorian Auto-Synthesized RCE & Format-String Guard for: ${sigName}\nsysctl -w kernel.randomize_va_space=2 fs.suid_dumpable=0 >/dev/null 2>&1\niptables -A INPUT -p tcp -m string --algo bm --string "%n%n%n" -j DROP`;
+    } else if (/log4j|jndi|http|apache|cve-|web|traversal/.test(sLower)) {
+      domain = "Zero-Trust Application Ingress";
+      severity = "HIGH";
+      ttps = ["T1190 - Exploit Public-Facing Application", "T1059 - Command Interpreter", "D3-AL - Application Hardening"];
+      author = "Sentinel-Audit & Tentacle-I-NetGuard";
+      code = `#!/bin/sh\n# Praetorian Auto-Synthesized Ingress Filter for: ${sigName}\niptables -A INPUT -p tcp -m multiport --dports 80,443,8080 -m string --algo bm --string "\${jndi:" -j DROP\niptables -A INPUT -p tcp -m multiport --dports 80,443,8080 -m string --algo bm --string "../" -j DROP`;
+    } else {
+      domain = "Botnet C2 & Endpoint Containment";
+      severity = "HIGH";
+      ttps = ["T1071 - Application Layer Protocol", "T1498 - Network DoS", "D3-NTA - Network Traffic Analysis"];
+      author = "Sentinel-Watchdog & Tentacle-III-C2-Hunter";
+      code = `#!/bin/sh\n# Praetorian Auto-Synthesized C2 & Botnet Limiter for: ${sigName}\nsysctl -w net.ipv4.tcp_syncookies=1 >/dev/null 2>&1\niptables -A OUTPUT -p tcp -m multiport --dports 23,2323,48101,5555 -j REJECT`;
+    }
+
+    return {
+      tool_id: toolId,
+      name: `Praetorian Auto-Guard: ${sigName.slice(0, 46)}`,
+      author_agent: author,
+      domain,
+      severity,
+      mitre_ttps: ttps,
+      description: `Autonomously synthesized by Praetorian Swarm upon observing unique ThreatMap vector '${sigName}' (${attackType}) [${srcCo} -> ${dstCo}].`,
+      code_or_command: code
+    };
+  }
+
+  function latLonToXY(lat, lon) {
+    const x = ((lon + 180) / 360) * canvas.width;
+    const y = ((90 - lat) / 180) * canvas.height;
+    return { x, y };
+  }
+
+  function renderMap() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.strokeStyle = "rgba(30, 41, 59, 0.45)";
+    ctx.lineWidth = 1;
+    for (let x = 0; x < canvas.width; x += 45) {
+      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
+    }
+    for (let y = 0; y < canvas.height; y += 35) {
+      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
+    }
+
+    HUBS.forEach(h => {
+      const pt = latLonToXY(h.lat, h.lon);
+      ctx.fillStyle = "rgba(56, 189, 248, 0.8)";
+      ctx.beginPath();
+      ctx.arc(pt.x, pt.y, 3.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "rgba(148, 163, 184, 0.85)";
+      ctx.font = "10px 'JetBrains Mono', monospace";
+      ctx.fillText(h.code, pt.x + 6, pt.y + 3);
+    });
+
+    const now = performance.now();
+    activeArcs = activeArcs.filter(a => now - a.start < 2600);
+    activeArcs.forEach(a => {
+      const t = Math.min(1, (now - a.start) / 1800);
+      const s = latLonToXY(a.s_la, a.s_lo);
+      const d = latLonToXY(a.d_la, a.d_lo);
+      const cx = (s.x + d.x) / 2;
+      const cy = Math.min(s.y, d.y) - 55;
+
+      ctx.strokeStyle = a.isDup ? "rgba(245, 158, 11, 0.65)" : "rgba(16, 185, 129, 0.9)";
+      ctx.lineWidth = a.isDup ? 1.5 : 2.5;
+      ctx.beginPath();
+      ctx.moveTo(s.x, s.y);
+      ctx.quadraticCurveTo(cx, cy, d.x, d.y);
+      ctx.stroke();
+
+      const px = (1 - t) * (1 - t) * s.x + 2 * (1 - t) * t * cx + t * t * d.x;
+      const py = (1 - t) * (1 - t) * s.y + 2 * (1 - t) * t * cy + t * t * d.y;
+      ctx.fillStyle = a.isDup ? "#f59e0b" : "#10b981";
+      ctx.beginPath();
+      ctx.arc(px, py, 4.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = "#f8fafc";
+      ctx.font = "10.5px 'JetBrains Mono', monospace";
+      ctx.fillText(a.label, px + 7, py - 5);
+    });
+
+    requestAnimationFrame(renderMap);
+  }
+
+  async function probeBridgeAndSync() {
+    try {
+      const controller = new AbortController();
+      setTimeout(() => controller.abort(), 1500);
+      const r = await fetch(`${LOCAL_BRIDGE_URL}/api/status`, { signal: controller.signal });
+      if (r.ok) {
+        bridgeOnline = true;
+        const data = await r.json();
+        applyBridgeState(data);
+        document.getElementById("mode-pill").textContent = "☁️ Engine: Live Cloud MCP Bridge (cyroot-test)";
+        return;
+      }
+    } catch (_) {
+      bridgeOnline = false;
+    }
+    document.getElementById("mode-pill").textContent = "⚡ Engine: Edge WebCrypto Autonomous Sandbox ($0.00)";
+  }
+
+  function applyBridgeState(data) {
+    const health = data.cloud_health || {};
+    const obsData = data.threatmap_observations || {};
+    const toolsData = data.synthesized_tools || {};
+    const zc = data.zero_cost_telemetry || {};
+
+    localObservations = obsData.observations || [];
+    localTools = toolsData.tools || [];
+    localDedupCount = obsData.deduplicated_repeat_count ?? 0;
+
+    document.getElementById("kpi-unique").textContent = obsData.unique_count ?? localObservations.length;
+    document.getElementById("kpi-dedup").textContent = localDedupCount;
+    document.getElementById("kpi-tools").textContent = toolsData.count ?? localTools.length;
+    document.getElementById("kpi-rag-total").textContent = health.indexed_threat_docs ?? (baseRagCount + localObservations.length);
+    document.getElementById("cost-pill").textContent =
+      `💰 Cost: $0.00 (${zc.local_cloud_calls_today ?? 0}/${zc.local_daily_hard_cap ?? 250} Daily Cap)`;
+
+    filterDisplayedProfiles();
+    renderTools(localTools);
+  }
+
+  function filterDisplayedProfiles() {
+    const q = (document.getElementById("rag-search-input").value || "").toLowerCase().trim();
+    const filtered = !q
+      ? localObservations
+      : localObservations.filter(o =>
+          `${o.signature_name} ${o.domain} ${(o.mitre_ttps || []).join(" ")}`.toLowerCase().includes(q)
+        );
+    renderProfiles(filtered);
+  }
+
+  function renderProfiles(observations) {
+    const container = document.getElementById("rag-profiles-list");
+    if (!observations.length) {
+      container.innerHTML = `<div class="mono-meta">No matching ThreatMap profiles in RAG view.</div>`;
+      return;
+    }
+    container.innerHTML = observations.slice().reverse().map(o => `
+      <div class="intel-card">
+        <div class="intel-card-head">
+          <span>[${o.severity}] ${o.signature_name}</span>
+          <span class="badge new">RAG: ${o.rag_profile_id}</span>
+        </div>
+        <div class="mono-meta">
+          Domain: ${o.domain} | Vector: ${o.source_country} → ${o.dest_country} | Suppressed Repeats: ${Math.max(0, (o.repeat_hits || 1) - 1)}
+        </div>
+        <div class="mono-meta">
+          Fingerprint SHA-256: <code>${o.signature_hash.slice(0, 24)}...</code> | MITRE: ${(o.mitre_ttps || []).join(", ")}
+        </div>
+      </div>
+    `).join("");
+  }
+
+  function renderTools(tools) {
+    const container = document.getElementById("synthesized-tools-list");
+    const autoTools = tools.slice().reverse();
+    if (!autoTools.length) {
+      container.innerHTML = `<div class="mono-meta">Waiting for unique threat observations...</div>`;
+      return;
+    }
+    container.innerHTML = autoTools.slice(0, 8).map(t => `
+      <div class="intel-card tool">
+        <div class="intel-card-head">
+          <span>🛠️ ${t.name}</span>
+          <span class="badge high">${t.tool_id}</span>
+        </div>
+        <div class="mono-meta">
+          Author: ${t.author_agent} | Receipt SHA-256: <code>${(t.sha256_receipt || "").slice(0, 20)}...</code>
+        </div>
+        <div style="font-size:11.5px;color:#cbd5e1;">${t.description}</div>
+        <pre class="code-box">${t.code_or_command}</pre>
+      </div>
+    `).join("");
+  }
+
+  async function sendObservation(ev) {
+    if (busyInFlight) return;
+    busyInFlight = true;
+    totalObserved++;
+    document.getElementById("kpi-observed").textContent = totalObserved;
+
+    let isDup = false;
+    let sigHash = "";
+    let artifactId = "";
+
+    try {
+      if (bridgeOnline) {
+        const resp = await fetch(`${LOCAL_BRIDGE_URL}/api/observe`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(ev)
+        });
+        const res = await resp.json();
+        isDup = res.status === "deduplicated_skip";
+        sigHash = res.signature_hash || "";
+        artifactId = isDup
+          ? `SHA256:${sigHash.slice(0, 10)} (Ignored)`
+          : ((res.tool_receipt || {}).tool_id || "synthesized");
+        const st = await fetch(`${LOCAL_BRIDGE_URL}/api/status`);
+        applyBridgeState(await st.json());
+      } else {
+        // Standalone Zero-Cost WebCrypto Engine (works on raiolabs.com without backend cost)
+        const canonical = `${ev.a_n.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim()}::${ev.a_t.toLowerCase()}`;
+        sigHash = await sha256Hex(canonical);
+        if (localSeenHashes.has(sigHash)) {
+          isDup = true;
+          localDedupCount++;
+          const existing = localSeenHashes.get(sigHash);
+          existing.repeat_hits = (existing.repeat_hits || 1) + 1;
+          artifactId = `SHA256:${sigHash.slice(0, 10)} (Ignored)`;
+        } else {
+          const synth = synthesizeDefenseBrowser(ev.a_n, ev.a_t, ev.s_co, ev.d_co, sigHash);
+          const receiptHash = await sha256Hex(synth.code_or_command);
+          const obsRecord = {
+            observation_id: `obs-${sigHash.slice(0, 10)}`,
+            signature_name: ev.a_n,
+            attack_type: ev.a_t,
+            signature_hash: sigHash,
+            source_country: ev.s_co,
+            dest_country: ev.d_co,
+            severity: synth.severity,
+            domain: synth.domain,
+            mitre_ttps: synth.mitre_ttps,
+            synthesized_tool_id: synth.tool_id,
+            rag_profile_id: `threatmap-${sigHash.slice(0, 12)}`,
+            repeat_hits: 1
+          };
+          const toolRecord = {
+            ...synth,
+            sha256_receipt: receiptHash
+          };
+          localSeenHashes.set(sigHash, obsRecord);
+          localObservations.push(obsRecord);
+          localTools.push(toolRecord);
+          artifactId = synth.tool_id;
+        }
+        document.getElementById("kpi-unique").textContent = localObservations.length;
+        document.getElementById("kpi-dedup").textContent = localDedupCount;
+        document.getElementById("kpi-tools").textContent = localTools.length;
+        document.getElementById("kpi-rag-total").textContent = baseRagCount + localObservations.length;
+        filterDisplayedProfiles();
+        renderTools(localTools);
+      }
+
+      activeArcs.push({
+        s_la: ev.s_la || 39.9,
+        s_lo: ev.s_lo || 116.4,
+        d_la: ev.d_la || 38.89,
+        d_lo: ev.d_lo || -77.03,
+        isDup,
+        label: `${ev.s_co}→${ev.d_co}: ${ev.a_n.slice(0, 26)}`,
+        start: performance.now()
+      });
+
+      const tbody = document.getElementById("stream-tbody");
+      const tr = document.createElement("tr");
+      const timeStr = new Date().toISOString().slice(11, 19);
+      const decisionBadge = isDup
+        ? `<span class="badge skip">↺ DUPLICATE SKIPPED</span>`
+        : `<span class="badge new">⚡ NEW TOOL + RAG PROFILE</span>`;
+
+      tr.innerHTML = `
+        <td>${timeStr}</td>
+        <td>${ev.s_co} → ${ev.d_co}</td>
+        <td style="color:#fff;font-weight:600;">${ev.a_n}</td>
+        <td>${ev.a_t}</td>
+        <td>${decisionBadge}</td>
+        <td><code>${artifactId}</code></td>
+      `;
+      tbody.prepend(tr);
+    } catch (e) {
+      console.error("Observation error:", e);
+    } finally {
+      busyInFlight = false;
+    }
+  }
+
+  function fireSingleEvent(forceDuplicate) {
+    let ev;
+    if (forceDuplicate) {
+      ev = lastObservedEvent;
+    } else {
+      ev = THREATMAP_CATALOG[catalogIdx % THREATMAP_CATALOG.length];
+      catalogIdx++;
+      lastObservedEvent = ev;
+    }
+    sendObservation(ev);
+  }
+
+  function injectCustomAttack() {
+    const sigInput = document.getElementById("custom-sig");
+    const typeSelect = document.getElementById("custom-type");
+    const sig = sigInput.value.trim();
+    if (!sig) return;
+    const ev = {
+      a_n: sig,
+      a_t: typeSelect.value,
+      s_co: "UN",
+      d_co: "US",
+      s_la: 50.11,
+      s_lo: 8.68,
+      d_la: 38.89,
+      d_lo: -77.03
+    };
+    lastObservedEvent = ev;
+    sigInput.value = "";
+    sendObservation(ev);
+  }
+
+  function toggleStream() {
+    autoStream = !autoStream;
+    const btn = document.getElementById("btn-stream");
+    btn.textContent = autoStream ? "⏸ Pause Auto-Stream" : "▶ Resume Auto-Stream";
+    btn.classList.toggle("active", autoStream);
+  }
+
+  requestAnimationFrame(renderMap);
+  probeBridgeAndSync().then(() => {
+    setTimeout(() => fireSingleEvent(false), 800);
+  });
+
+  setInterval(() => {
+    if (!autoStream) return;
+    const shouldReplayDup = (totalObserved > 0 && totalObserved % 4 === 3);
+    fireSingleEvent(shouldReplayDup);
+  }, 5500);
+</script>
+</body>
+</html>

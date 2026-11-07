@@ -23,7 +23,8 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         resume: resolve(__dirname, 'resume.html'),
-        netlab: resolve(__dirname, 'netlab.html')
+        netlab: resolve(__dirname, 'netlab.html'),
+        praetorian: resolve(__dirname, 'praetorian.html')
       }
     }
   }
