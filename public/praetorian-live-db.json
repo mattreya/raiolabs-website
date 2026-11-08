@@ -1,0 +1,1533 @@
+{
+  "synced_at": "2026-11-08T21:16:40.039320+00:00",
+  "source_database": "praetorian_multi_source_intel.db (SQLite3 STIX/MITRE Normalizer)",
+  "cost_posture": "$0.00 (Same-Origin Static Snapshot + Local SQLite Aggregator)",
+  "cloud_health": {
+    "status": "healthy",
+    "service": "praetorian-rag-mcp-server",
+    "version": "1.3.1-zero-cost-cap",
+    "cloud_project": "cyroot-test",
+    "auth_required": true,
+    "hmac_attestation": true,
+    "soul_sha256_enforced": "ad866445f67a56c9f8d8f14e43d8098fd5a83dc10d680bbb671a0f4d57bae08c",
+    "daily_requests_used": 9,
+    "daily_request_hard_cap": 5000,
+    "indexed_threat_docs": 45,
+    "submitted_tools_count": 2,
+    "submitted_reports_count": 0,
+    "recorded_sessions_count": 0,
+    "threatmap_unique_profiles_count": 36,
+    "threatmap_deduplicated_repeats": 154,
+    "mcp_tools_available": [
+      "query_blackhat_intel",
+      "get_countermeasure_playbook",
+      "ingest_threat_telemetry",
+      "analyze_system_anomaly",
+      "record_praetorian_session",
+      "submit_praetorian_tool",
+      "submit_praetorian_report",
+      "observe_threatmap_attack"
+    ]
+  },
+  "zero_cost_telemetry": {
+    "local_cloud_calls_today": 0,
+    "local_daily_hard_cap": 250,
+    "local_suppressed_repeats": 61,
+    "estimated_monthly_cost_usd": "$0.00 (Free Tier Locked)"
+  },
+  "multi_source_aggregator": {
+    "database_engine": "SQLite3 Multi-Source Canonical Aggregator (STIX 2.1 / MITRE Aligned)",
+    "db_file": "praetorian_multi_source_intel.db",
+    "active_feeds_count": 8,
+    "feeds": [
+      {
+        "feed_id": "ABUSECH-THREATFOX",
+        "name": "Abuse.ch ThreatFox & Feodo C2 Tracker",
+        "category": "Botnet C2 & Malware IOC Stream",
+        "license_tier": "CC0 1.0 Universal Public Domain",
+        "vectors_contributed": 4,
+        "last_polled_at": "2026-11-07T17:46:18Z"
+      },
+      {
+        "feed_id": "ALIENVAULT-OTX",
+        "name": "Open Threat Exchange (OTX) Community Pulses",
+        "category": "Collaborative Threat Intelligence",
+        "license_tier": "Open Community Pulses",
+        "vectors_contributed": 4,
+        "last_polled_at": "2026-11-07T17:46:18Z"
+      },
+      {
+        "feed_id": "CISA-KEV",
+        "name": "CISA Known Exploited Vulnerabilities Catalog",
+        "category": "Public US Gov / CVE Advisories",
+        "license_tier": "Public Domain (CC0 / US Gov)",
+        "vectors_contributed": 31,
+        "last_polled_at": "2026-11-08T21:16:37Z"
+      },
+      {
+        "feed_id": "GREYNOISE-COMMUNITY",
+        "name": "GreyNoise Mass-Scanner & Opportunistic Probe Stream",
+        "category": "Internet-Wide Scanner Classification",
+        "license_tier": "Community API / Normalized Tags",
+        "vectors_contributed": 4,
+        "last_polled_at": "2026-11-07T17:46:18Z"
+      },
+      {
+        "feed_id": "MITRE-ICS-OT",
+        "name": "MITRE ATT&CK for ICS & D3FEND Knowledge Base",
+        "category": "OT / SCADA / PLC Behavioral Taxonomy",
+        "license_tier": "Open Standards Taxonomy",
+        "vectors_contributed": 4,
+        "last_polled_at": "2026-11-07T17:46:18Z"
+      },
+      {
+        "feed_id": "MV-BEHAVIORAL-IDS",
+        "name": "Multi-Engine IDS/WAV/OAS Behavioral Stream",
+        "category": "Cross-Engine Network & Endpoint Heuristics (OAS/IDS/WAV/VUL)",
+        "license_tier": "Normalized Behavioral Class Only",
+        "vectors_contributed": 4,
+        "last_polled_at": "2026-11-07T17:46:18Z"
+      },
+      {
+        "feed_id": "SANS-ISC-DSHIELD",
+        "name": "SANS Internet Storm Center DShield Sensor Grid",
+        "category": "Global Honeypot Port & Protocol Telemetry",
+        "license_tier": "Open Community Telemetry",
+        "vectors_contributed": 29,
+        "last_polled_at": "2026-11-08T21:16:38Z"
+      },
+      {
+        "feed_id": "SURICATA-ET-OPEN",
+        "name": "Emerging Threats (ET Open) Suricata/Snort Ruleset",
+        "category": "Open Network Intrusion Signatures",
+        "license_tier": "BSD / Open Source Ruleset",
+        "vectors_contributed": 4,
+        "last_polled_at": "2026-11-07T17:46:18Z"
+      }
+    ]
+  },
+  "stack_vulnerability_audit": {
+    "last_scan_timestamp": "2026-11-08T21:06:50.752041+00:00",
+    "alpine_release": "3.22.7",
+    "alpine_packages_scanned": 122,
+    "alpine_unpatched_cves": 0,
+    "sshhole_shadow_status": "HARDENED_IMMUNE",
+    "usb_flash_in_sync": true,
+    "website_npm_packages_scanned": 111,
+    "website_npm_vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    }
+  },
+  "direct_enclave_intrusion_audit": {
+    "checked_at": "2026-11-08T21:16:40.017623+00:00",
+    "direct_attacks_total": 0,
+    "new_attacks_detected_this_run": 0,
+    "enclave_status": "SECURE_ZERO_DIRECT_ATTACKS",
+    "recent_direct_attacks": []
+  },
+  "threatmap_observations": {
+    "unique_count": 36,
+    "deduplicated_repeat_count": 154,
+    "observations": [
+      {
+        "observation_id": "obs-59212b1009",
+        "signature_name": "ICS-CONTROL-INJECTION: S7comm PLC CPU State Stop Command (T0816)",
+        "attack_type": "ics_ot",
+        "signature_hash": "59212b1009838ffb4915044b3a1ceb649c8aa96b9ad48df9e26a72bd33c911d4",
+        "source_country": "SECTOR-OT/SCADA",
+        "dest_country": "TENTACLE-II",
+        "severity": "CRITICAL",
+        "domain": "OT / ICS SCADA Control Plane",
+        "mitre_ttps": [
+          "T0855 - Unauthorized Command Message",
+          "T0831 - Manipulation of Control",
+          "D3-ITF - Inbound Traffic Filtering"
+        ],
+        "corroborated_feeds": [
+          "MITRE-ICS-OT",
+          "CISA-KEV",
+          "MV-BEHAVIORAL-IDS"
+        ],
+        "corroboration_count": 3,
+        "synthesized_tool_id": "sentinel-auto-siemens-simatic-s7-1200-cpu-stop-command-i-59212b",
+        "synthesized_tool_sha256": "af2fa295de99c02ec47fe9b597bacc8d26107611f1b5812b006b9caeb632128c",
+        "rag_profile_id": "threatmap-59212b100983",
+        "repeat_hits": 9,
+        "first_seen_at": "2026-11-07T02:47:18Z",
+        "last_seen_at": "2026-11-07T03:15:12Z"
+      },
+      {
+        "observation_id": "obs-b92866a471",
+        "signature_name": "BOTNET-PROPAGATION: Automated Telnet/IoT Credential Stuffing Sweep (T1110)",
+        "attack_type": "botnet",
+        "signature_hash": "b92866a4710cbba308d93260406646b1cc18a85f2707c8642b15bb109fc4af8a",
+        "source_country": "SECTOR-C2/BOTNET",
+        "dest_country": "TENTACLE-III",
+        "severity": "CRITICAL",
+        "domain": "OT / ICS SCADA Control Plane",
+        "mitre_ttps": [
+          "T0855 - Unauthorized Command Message",
+          "T0831 - Manipulation of Control",
+          "D3-ITF - Inbound Traffic Filtering"
+        ],
+        "corroborated_feeds": [
+          "ABUSECH-THREATFOX",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY"
+        ],
+        "corroboration_count": 3,
+        "synthesized_tool_id": "sentinel-auto-mirai-iot-botnet-telnet-credential-brute-f-b92866",
+        "synthesized_tool_sha256": "b47538bfe7d6cd215fd7063564d1729b9a03601c6f6d13273f9319d7bbddc2e0",
+        "rag_profile_id": "threatmap-b92866a4710c",
+        "repeat_hits": 6,
+        "first_seen_at": "2026-11-07T02:47:33Z",
+        "last_seen_at": "2026-11-07T03:15:18Z"
+      },
+      {
+        "observation_id": "obs-13743b86a1",
+        "signature_name": "SCADA-TELEMETRY-FLOOD: DNP3 Unsolicited Outstation Response Storm (T0814)",
+        "attack_type": "ics_ot",
+        "signature_hash": "13743b86a1ba1fc9c3eb468de56a84fa4a2fce703039a8aad00c6004810a9071",
+        "source_country": "SECTOR-OT/SCADA",
+        "dest_country": "TENTACLE-II",
+        "severity": "CRITICAL",
+        "domain": "OT / ICS SCADA Control Plane",
+        "mitre_ttps": [
+          "T0855 - Unauthorized Command Message",
+          "T0831 - Manipulation of Control",
+          "D3-ITF - Inbound Traffic Filtering"
+        ],
+        "corroborated_feeds": [
+          "MITRE-ICS-OT",
+          "SANS-ISC-DSHIELD",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 3,
+        "synthesized_tool_id": "sentinel-auto-dnp3-outstation-unsolicited-response-flood-13743b",
+        "synthesized_tool_sha256": "949c2c38a33cbe463bc76fb119355881bb5f7c724e76e535fe586a4a3b684e67",
+        "rag_profile_id": "threatmap-13743b86a1ba",
+        "repeat_hits": 8,
+        "first_seen_at": "2026-11-07T02:47:39Z",
+        "last_seen_at": "2026-11-07T03:15:31Z"
+      },
+      {
+        "observation_id": "obs-712fdac025",
+        "signature_name": "LOTL-RELAY: Edge SOHO Router Covert Proxy & Living-off-the-Land Relay (T1090)",
+        "attack_type": "malware",
+        "signature_hash": "712fdac0252e8de4dc3eeb8a3f719f57d9bc9f70070e932af89b157bad5f6147",
+        "source_country": "SECTOR-ENCLAVE",
+        "dest_country": "TENTACLE-VI",
+        "severity": "CRITICAL",
+        "domain": "OT / ICS SCADA Control Plane",
+        "mitre_ttps": [
+          "T0855 - Unauthorized Command Message",
+          "T0831 - Manipulation of Control",
+          "D3-ITF - Inbound Traffic Filtering"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "ALIENVAULT-OTX",
+          "ABUSECH-THREATFOX"
+        ],
+        "corroboration_count": 3,
+        "synthesized_tool_id": "sentinel-auto-volt-typhoon-soho-router-kv-botnet-living--712fda",
+        "synthesized_tool_sha256": "e916ac95f15326f3d1522a654dbaeb7b5908fcdd91d00a43453353ba33735370",
+        "rag_profile_id": "threatmap-712fdac0252e",
+        "repeat_hits": 6,
+        "first_seen_at": "2026-11-07T02:47:46Z",
+        "last_seen_at": "2026-11-07T03:15:38Z"
+      },
+      {
+        "observation_id": "obs-8e095073d3",
+        "signature_name": "ICS-SESSION-HIJACK: EtherNet/IP CIP Unauthenticated Session Takeover (T0855)",
+        "attack_type": "ics_ot",
+        "signature_hash": "8e095073d38f8c61ea13505851edf9629779819a447d1453b732c4a991a7cbe0",
+        "source_country": "SECTOR-OT/SCADA",
+        "dest_country": "TENTACLE-II",
+        "severity": "CRITICAL",
+        "domain": "OT / ICS SCADA Control Plane",
+        "mitre_ttps": [
+          "T0855 - Unauthorized Command Message",
+          "T0831 - Manipulation of Control",
+          "D3-ITF - Inbound Traffic Filtering"
+        ],
+        "corroborated_feeds": [
+          "MITRE-ICS-OT",
+          "CISA-KEV",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 3,
+        "synthesized_tool_id": "sentinel-auto-omron-sysmac-nj-nx-plc-ethernet-ip-cip-ses-8e0950",
+        "synthesized_tool_sha256": "919a2080791b6c39b7252dd0c147089a803665fb2086138b0d5eb0227fd8484c",
+        "rag_profile_id": "threatmap-8e095073d38f",
+        "repeat_hits": 6,
+        "first_seen_at": "2026-11-07T02:47:59Z",
+        "last_seen_at": "2026-11-07T03:15:44Z"
+      },
+      {
+        "observation_id": "obs-ab190a5f1d",
+        "signature_name": "INGRESS-TRAVERSAL: Path Traversal Credential File Extraction Probe (CWE-22)",
+        "attack_type": "exploit",
+        "signature_hash": "ab190a5f1d8e2762dd50014df880ecd8077f9cb7527ff353a8837626ba04983b",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "HIGH",
+        "domain": "Zero-Trust Application Ingress",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application",
+          "T1059 - Command and Scripting Interpreter",
+          "D3-AL - Application Hardening"
+        ],
+        "corroborated_feeds": [
+          "GREYNOISE-COMMUNITY",
+          "SANS-ISC-DSHIELD",
+          "MV-BEHAVIORAL-IDS"
+        ],
+        "corroboration_count": 3,
+        "synthesized_tool_id": "sentinel-auto-http-directory-traversal-etc-shadow-probe-ab190a",
+        "synthesized_tool_sha256": "9b542dc04b4faeb18293ef130f025b9cee7b4cf8b471209d64fa8e689ebebb12",
+        "rag_profile_id": "threatmap-ab190a5f1d8e",
+        "repeat_hits": 9,
+        "first_seen_at": "2026-11-07T02:46:41Z",
+        "last_seen_at": "2026-11-07T03:15:57Z"
+      },
+      {
+        "observation_id": "obs-a9384ef4a2",
+        "signature_name": "C2-BEACON: Malleable HTTPS Command-and-Control Jitter Profile (T1071.001)",
+        "attack_type": "botnet",
+        "signature_hash": "a9384ef4a233652c8a44412fb45dbb1bc559da944ddf97d50a843ae0ff741974",
+        "source_country": "SECTOR-C2/BOTNET",
+        "dest_country": "TENTACLE-III",
+        "severity": "CRITICAL",
+        "domain": "OT / ICS SCADA Control Plane",
+        "mitre_ttps": [
+          "T0855 - Unauthorized Command Message",
+          "T0831 - Manipulation of Control",
+          "D3-ITF - Inbound Traffic Filtering"
+        ],
+        "corroborated_feeds": [
+          "ABUSECH-THREATFOX",
+          "SURICATA-ET-OPEN",
+          "ALIENVAULT-OTX"
+        ],
+        "corroboration_count": 3,
+        "synthesized_tool_id": "sentinel-auto-cobalt-strike-malleable-c2-https-beacon-ji-a9384e",
+        "synthesized_tool_sha256": "9ddf06ee5a10853454c8184727ca006e352baf7f7b74064df8e9334c8c99fbdb",
+        "rag_profile_id": "threatmap-a9384ef4a233",
+        "repeat_hits": 7,
+        "first_seen_at": "2026-11-07T02:46:47Z",
+        "last_seen_at": "2026-11-07T03:16:04Z"
+      },
+      {
+        "observation_id": "obs-bbbbfb355b",
+        "signature_name": "MEMORY-CORRUPTION: Mail Daemon Format-String Stack Overwrite (CWE-134)",
+        "attack_type": "exploit",
+        "signature_hash": "bbbbfb355b6c93b92212212044007235143aaa8ccc0de892faf1149bc83d5183",
+        "source_country": "SECTOR-MEMORY",
+        "dest_country": "TENTACLE-IV",
+        "severity": "HIGH",
+        "domain": "Network Service Memory & RCE Containment",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application",
+          "T1068 - Exploitation for Privilege Escalation",
+          "D3-PSA - Process Spawn Analysis"
+        ],
+        "corroborated_feeds": [
+          "SURICATA-ET-OPEN",
+          "SANS-ISC-DSHIELD",
+          "MV-BEHAVIORAL-IDS"
+        ],
+        "corroboration_count": 3,
+        "synthesized_tool_id": "sentinel-auto-gnu-mailutils-imap4d-format-string-bbbbfb",
+        "synthesized_tool_sha256": "07ac9f49297215bf611d3e75a4782734d2cf32a437e9254dac6a9df7e082e529",
+        "rag_profile_id": "threatmap-bbbbfb355b6c",
+        "repeat_hits": 4,
+        "first_seen_at": "2026-11-07T02:48:25Z",
+        "last_seen_at": "2026-11-07T03:16:10Z"
+      },
+      {
+        "observation_id": "obs-f23e16163f",
+        "signature_name": "ICS-PROTOCOL-ANOMALY: Unauthorized Modbus/TCP Holding Register Write (FC 0x10)",
+        "attack_type": "ics_ot",
+        "signature_hash": "f23e16163f51a739ad2b53cb05c263b176b8e6d5af0dab64781c01f5495709ff",
+        "source_country": "SECTOR-OT/SCADA",
+        "dest_country": "TENTACLE-II",
+        "severity": "CRITICAL",
+        "domain": "OT / ICS SCADA Control Plane",
+        "mitre_ttps": [
+          "T0855 - Unauthorized Command Message",
+          "T0831 - Manipulation of Control",
+          "D3-ITF - Inbound Traffic Filtering"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "MITRE-ICS-OT",
+          "SANS-ISC-DSHIELD"
+        ],
+        "corroboration_count": 3,
+        "synthesized_tool_id": "sentinel-auto-modbus-tcp-unauthorized-plc-register-write-f23e16",
+        "synthesized_tool_sha256": "874949505c692ed970ed2b42d6c20ad756d1461f6506a1829c4cb99de22230dc",
+        "rag_profile_id": "threatmap-f23e16163f51",
+        "repeat_hits": 7,
+        "first_seen_at": "2026-11-07T02:47:08Z",
+        "last_seen_at": "2026-11-07T03:17:40Z"
+      },
+      {
+        "observation_id": "obs-fc549e22b2",
+        "signature_name": "INGRESS-RCE: JNDI Lookup Deserialization Injection (CVE-2021-44228)",
+        "attack_type": "exploit",
+        "signature_hash": "fc549e22b20dde2c9b879c6dd80a7e394d8dbe8a52fadbba4fabf119656172a1",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "OT / ICS SCADA Control Plane",
+        "mitre_ttps": [
+          "T0855 - Unauthorized Command Message",
+          "T0831 - Manipulation of Control",
+          "D3-ITF - Inbound Traffic Filtering"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN",
+          "ALIENVAULT-OTX"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-apache-log4j-jndi-remote-code-execution-cv-fc549e",
+        "synthesized_tool_sha256": "27028feaa5ec6dabc7661e443a0e36dbafff4eb9882ca38a45b20ac82329d1e5",
+        "rag_profile_id": "threatmap-fc549e22b20d",
+        "repeat_hits": 9,
+        "first_seen_at": "2026-11-07T02:47:13Z",
+        "last_seen_at": "2026-11-07T03:17:41Z"
+      },
+      {
+        "observation_id": "obs-a23e705b86",
+        "signature_name": "AUTH-BYPASS: Alpine musl libc crypt() >256-Byte Asterisk Collision (*sshole / CWE-287)",
+        "attack_type": "exploit",
+        "signature_hash": "a23e705b8608a1ed9d8cb5b0b786878906295bcb7573944d77f986b96c95a854",
+        "source_country": "SECTOR-ENCLAVE",
+        "dest_country": "TENTACLE-VI",
+        "severity": "CRITICAL",
+        "domain": "Enclave Authentication & musl libc Integrity",
+        "mitre_ttps": [
+          "T1078 - Valid Accounts",
+          "T1110 - Auth Bypass (>256B crypt() '*' Collision)",
+          "D3-ACH - Authentication Cache Hardening"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "ALIENVAULT-OTX"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-alpine-musl-crypt-sshhole-guard-a23e70",
+        "synthesized_tool_sha256": "60b2271cabb98ec04cdbb7c11162ba72f5032819ce4ffb5ffd6df00ab80dbb83",
+        "rag_profile_id": "praetorian-rag-a23e705b86",
+        "repeat_hits": 5,
+        "first_seen_at": "2026-11-07T11:04:00Z",
+        "last_seen_at": "2026-11-07T11:06:00Z"
+      },
+      {
+        "observation_id": "obs-21a1708303",
+        "signature_name": "Stack SBOM Advisory: zlib@1.3.2-r1 (Alpine:v3.22 / ALPINE-CVE-2026-4738)",
+        "attack_type": "exploit",
+        "signature_hash": "21a17083031030dc351e75b9424dd997b172cd11a369025dc77399c5fbaf62eb",
+        "source_country": "SBOM-ALPINE:V3.22",
+        "dest_country": "TENTACLE-I",
+        "severity": "HIGH",
+        "domain": "Rai-OS & RaioLabs Stack (Alpine:v3.22)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 3,
+        "synthesized_tool_id": "guard_stack_zlib_verifier",
+        "synthesized_tool_sha256": "21a17083031030dc351e75b9424dd997b172cd11a369025dc77399c5fbaf62eb",
+        "rag_profile_id": "praetorian-rag-21a1708303",
+        "repeat_hits": 1,
+        "first_seen_at": "2026-11-07T19:17:55Z",
+        "last_seen_at": "2026-11-07T19:23:23Z"
+      },
+      {
+        "observation_id": "obs-f14ce2e476",
+        "signature_name": "Stack SBOM Advisory: body-parser@2.3.0 (npm / GHSA-27r3-jxmh-p828)",
+        "attack_type": "exploit",
+        "signature_hash": "f14ce2e4762b96b6720eda5befd8598744e72d91a4719b6c4346d099fa6f9c0e",
+        "source_country": "SBOM-NPM",
+        "dest_country": "TENTACLE-I",
+        "severity": "HIGH",
+        "domain": "Rai-OS & RaioLabs Stack (npm)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 3,
+        "synthesized_tool_id": "guard_stack_body_parser_verifier",
+        "synthesized_tool_sha256": "f14ce2e4762b96b6720eda5befd8598744e72d91a4719b6c4346d099fa6f9c0e",
+        "rag_profile_id": "praetorian-rag-f14ce2e476",
+        "repeat_hits": 1,
+        "first_seen_at": "2026-11-07T19:17:55Z",
+        "last_seen_at": "2026-11-07T19:23:23Z"
+      },
+      {
+        "observation_id": "obs-2821910433",
+        "signature_name": "Stack SBOM Advisory: nanoid@3.3.16 (npm / GHSA-2v37-7h3g-55p8)",
+        "attack_type": "exploit",
+        "signature_hash": "2821910433ae789dd5bb055be5f2188cb1220d9c706cdbecfef1a85d405cdf11",
+        "source_country": "SBOM-NPM",
+        "dest_country": "TENTACLE-I",
+        "severity": "HIGH",
+        "domain": "Rai-OS & RaioLabs Stack (npm)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 3,
+        "synthesized_tool_id": "guard_stack_nanoid_verifier",
+        "synthesized_tool_sha256": "2821910433ae789dd5bb055be5f2188cb1220d9c706cdbecfef1a85d405cdf11",
+        "rag_profile_id": "praetorian-rag-2821910433",
+        "repeat_hits": 1,
+        "first_seen_at": "2026-11-07T19:17:55Z",
+        "last_seen_at": "2026-11-07T19:23:23Z"
+      },
+      {
+        "observation_id": "obs-f21f89e98c",
+        "signature_name": "Stack SBOM Advisory: postcss@8.5.19 (npm / GHSA-fxqj-rqcc-2cmp)",
+        "attack_type": "exploit",
+        "signature_hash": "f21f89e98c17aa42c693d34c22963c024711b096cebe3f4a121cc3a09c3e51a9",
+        "source_country": "SBOM-NPM",
+        "dest_country": "TENTACLE-I",
+        "severity": "HIGH",
+        "domain": "Rai-OS & RaioLabs Stack (npm)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 3,
+        "synthesized_tool_id": "guard_stack_postcss_verifier",
+        "synthesized_tool_sha256": "f21f89e98c17aa42c693d34c22963c024711b096cebe3f4a121cc3a09c3e51a9",
+        "rag_profile_id": "praetorian-rag-f21f89e98c",
+        "repeat_hits": 1,
+        "first_seen_at": "2026-11-07T19:17:55Z",
+        "last_seen_at": "2026-11-07T19:23:23Z"
+      },
+      {
+        "observation_id": "obs-40d3904079",
+        "signature_name": "Stack SBOM Advisory: proxy-addr@2.0.7 (npm / GHSA-jqcg-44mw-7w3h)",
+        "attack_type": "exploit",
+        "signature_hash": "40d390407946e82b2d8cc2ee77732055237370a795406fcbbcd5c8071e8affb1",
+        "source_country": "SBOM-NPM",
+        "dest_country": "TENTACLE-I",
+        "severity": "HIGH",
+        "domain": "Rai-OS & RaioLabs Stack (npm)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 3,
+        "synthesized_tool_id": "guard_stack_proxy_addr_verifier",
+        "synthesized_tool_sha256": "40d390407946e82b2d8cc2ee77732055237370a795406fcbbcd5c8071e8affb1",
+        "rag_profile_id": "praetorian-rag-40d3904079",
+        "repeat_hits": 1,
+        "first_seen_at": "2026-11-07T19:17:55Z",
+        "last_seen_at": "2026-11-07T19:23:23Z"
+      },
+      {
+        "observation_id": "obs-13ad856d0d",
+        "signature_name": "Stack SBOM Advisory: qs@6.15.3 (npm / GHSA-4mjr-xmp4-gh2g)",
+        "attack_type": "exploit",
+        "signature_hash": "13ad856d0d2f5756955c351f4d27e6f52f797208676e75d68e0e0ec6458c101b",
+        "source_country": "SBOM-NPM",
+        "dest_country": "TENTACLE-I",
+        "severity": "HIGH",
+        "domain": "Rai-OS & RaioLabs Stack (npm)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 3,
+        "synthesized_tool_id": "guard_stack_qs_verifier",
+        "synthesized_tool_sha256": "13ad856d0d2f5756955c351f4d27e6f52f797208676e75d68e0e0ec6458c101b",
+        "rag_profile_id": "praetorian-rag-13ad856d0d",
+        "repeat_hits": 1,
+        "first_seen_at": "2026-11-07T19:17:55Z",
+        "last_seen_at": "2026-11-07T19:23:23Z"
+      },
+      {
+        "observation_id": "obs-798ef51b3a",
+        "signature_name": "Stack SBOM Advisory: qs@6.15.3 (npm / GHSA-6pq8-jhm2-2vcw)",
+        "attack_type": "exploit",
+        "signature_hash": "798ef51b3a978b622973327365b5b119b5cecd4f7df1c6fb15a53e9421bdfa8a",
+        "source_country": "SBOM-NPM",
+        "dest_country": "TENTACLE-I",
+        "severity": "HIGH",
+        "domain": "Rai-OS & RaioLabs Stack (npm)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 3,
+        "synthesized_tool_id": "guard_stack_qs_verifier",
+        "synthesized_tool_sha256": "798ef51b3a978b622973327365b5b119b5cecd4f7df1c6fb15a53e9421bdfa8a",
+        "rag_profile_id": "praetorian-rag-798ef51b3a",
+        "repeat_hits": 1,
+        "first_seen_at": "2026-11-07T19:17:55Z",
+        "last_seen_at": "2026-11-07T19:23:23Z"
+      },
+      {
+        "observation_id": "obs-b4b4cf2f15",
+        "signature_name": "Stack SBOM Advisory: qs@6.15.3 (npm / GHSA-x5fp-wj9c-mxmx)",
+        "attack_type": "exploit",
+        "signature_hash": "b4b4cf2f1571b731a9a6df31f6c3b7b467fab4c890bffc4418b7c62c41b56dac",
+        "source_country": "SBOM-NPM",
+        "dest_country": "TENTACLE-I",
+        "severity": "HIGH",
+        "domain": "Rai-OS & RaioLabs Stack (npm)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 3,
+        "synthesized_tool_id": "guard_stack_qs_verifier",
+        "synthesized_tool_sha256": "b4b4cf2f1571b731a9a6df31f6c3b7b467fab4c890bffc4418b7c62c41b56dac",
+        "rag_profile_id": "praetorian-rag-b4b4cf2f15",
+        "repeat_hits": 1,
+        "first_seen_at": "2026-11-07T19:17:55Z",
+        "last_seen_at": "2026-11-07T19:23:23Z"
+      },
+      {
+        "observation_id": "obs-7f11a73af3",
+        "signature_name": "Stack SBOM Advisory: source-map-js@1.2.1 (npm / GHSA-68fv-2mgg-jv7q)",
+        "attack_type": "exploit",
+        "signature_hash": "7f11a73af3eaa1b128eff7b3acec3833eb2e401dcf8c46e6ea756580ec773eaf",
+        "source_country": "SBOM-NPM",
+        "dest_country": "TENTACLE-I",
+        "severity": "HIGH",
+        "domain": "Rai-OS & RaioLabs Stack (npm)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 3,
+        "synthesized_tool_id": "guard_stack_source_map_js_verifier",
+        "synthesized_tool_sha256": "7f11a73af3eaa1b128eff7b3acec3833eb2e401dcf8c46e6ea756580ec773eaf",
+        "rag_profile_id": "praetorian-rag-7f11a73af3",
+        "repeat_hits": 1,
+        "first_seen_at": "2026-11-07T19:17:55Z",
+        "last_seen_at": "2026-11-07T19:23:23Z"
+      },
+      {
+        "observation_id": "obs-ec0842c485",
+        "signature_name": "Stack SBOM Advisory: vite@8.1.5 (npm / GHSA-587h-7wmj-h5pm)",
+        "attack_type": "exploit",
+        "signature_hash": "ec0842c4855275b199fde0a1be66f4b8483be0b2a26214d7517baa87f9c7a2b0",
+        "source_country": "SBOM-NPM",
+        "dest_country": "TENTACLE-I",
+        "severity": "HIGH",
+        "domain": "Rai-OS & RaioLabs Stack (npm)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 3,
+        "synthesized_tool_id": "guard_stack_vite_verifier",
+        "synthesized_tool_sha256": "ec0842c4855275b199fde0a1be66f4b8483be0b2a26214d7517baa87f9c7a2b0",
+        "rag_profile_id": "praetorian-rag-ec0842c485",
+        "repeat_hits": 1,
+        "first_seen_at": "2026-11-07T19:17:55Z",
+        "last_seen_at": "2026-11-07T19:23:23Z"
+      },
+      {
+        "observation_id": "obs-4394afac4e",
+        "signature_name": "Stack SBOM Advisory: vite@8.1.5 (npm / GHSA-698v-4r3x-3vcv)",
+        "attack_type": "exploit",
+        "signature_hash": "4394afac4ec270cfac9a8a050ceb7d35add7d37a336824e46309f23f65a42bbf",
+        "source_country": "SBOM-NPM",
+        "dest_country": "TENTACLE-I",
+        "severity": "HIGH",
+        "domain": "Rai-OS & RaioLabs Stack (npm)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 3,
+        "synthesized_tool_id": "guard_stack_vite_verifier",
+        "synthesized_tool_sha256": "4394afac4ec270cfac9a8a050ceb7d35add7d37a336824e46309f23f65a42bbf",
+        "rag_profile_id": "praetorian-rag-4394afac4e",
+        "repeat_hits": 1,
+        "first_seen_at": "2026-11-07T19:17:55Z",
+        "last_seen_at": "2026-11-07T19:23:23Z"
+      },
+      {
+        "observation_id": "obs-2d5a9e05e6",
+        "signature_name": "Stack SBOM Advisory: vite@8.1.5 (npm / GHSA-9jrq-w75r-8gcw)",
+        "attack_type": "exploit",
+        "signature_hash": "2d5a9e05e66eb23bc95dae224908bf0c70c668ced5d58542f2ecb6272646b34a",
+        "source_country": "SBOM-NPM",
+        "dest_country": "TENTACLE-I",
+        "severity": "HIGH",
+        "domain": "Rai-OS & RaioLabs Stack (npm)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 3,
+        "synthesized_tool_id": "guard_stack_vite_verifier",
+        "synthesized_tool_sha256": "2d5a9e05e66eb23bc95dae224908bf0c70c668ced5d58542f2ecb6272646b34a",
+        "rag_profile_id": "praetorian-rag-2d5a9e05e6",
+        "repeat_hits": 1,
+        "first_seen_at": "2026-11-07T19:17:55Z",
+        "last_seen_at": "2026-11-07T19:23:23Z"
+      },
+      {
+        "observation_id": "obs-eed721d8f1",
+        "signature_name": "Stack SBOM Advisory: vite@8.1.5 (npm / GHSA-r825-w8mm-5pxw)",
+        "attack_type": "exploit",
+        "signature_hash": "eed721d8f16ddaeecc98e08c08161ca4d12bff85099af2fffaac5f4d486579ee",
+        "source_country": "SBOM-NPM",
+        "dest_country": "TENTACLE-I",
+        "severity": "HIGH",
+        "domain": "Rai-OS & RaioLabs Stack (npm)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 3,
+        "synthesized_tool_id": "guard_stack_vite_verifier",
+        "synthesized_tool_sha256": "eed721d8f16ddaeecc98e08c08161ca4d12bff85099af2fffaac5f4d486579ee",
+        "rag_profile_id": "praetorian-rag-eed721d8f1",
+        "repeat_hits": 1,
+        "first_seen_at": "2026-11-07T19:17:55Z",
+        "last_seen_at": "2026-11-07T19:23:23Z"
+      },
+      {
+        "observation_id": "obs-f53b2eec89",
+        "signature_name": "Stack SBOM Advisory: vite@8.1.5 (npm / GHSA-rq7h-c2jc-7f22)",
+        "attack_type": "exploit",
+        "signature_hash": "f53b2eec89cce8e300933fdd123dc6e1f670e64d7ef455596393139a783b20bc",
+        "source_country": "SBOM-NPM",
+        "dest_country": "TENTACLE-I",
+        "severity": "HIGH",
+        "domain": "Rai-OS & RaioLabs Stack (npm)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 3,
+        "synthesized_tool_id": "guard_stack_vite_verifier",
+        "synthesized_tool_sha256": "f53b2eec89cce8e300933fdd123dc6e1f670e64d7ef455596393139a783b20bc",
+        "rag_profile_id": "praetorian-rag-f53b2eec89",
+        "repeat_hits": 1,
+        "first_seen_at": "2026-11-07T19:17:55Z",
+        "last_seen_at": "2026-11-07T19:23:23Z"
+      },
+      {
+        "observation_id": "obs-9955810f0b",
+        "signature_name": "Website NPM Supply-Chain & Build Stack Advisories (body-parser, nanoid, proxy-addr, source-map-js, vite)",
+        "attack_type": "exploit",
+        "signature_hash": "9955810f0b7ecc1428c9675dea819d1e4e528793c18a23069e2b5c1d7ab8651d",
+        "source_country": "SBOM-NPM-LOCKFILE",
+        "dest_country": "TENTACLE-VI",
+        "severity": "HIGH",
+        "domain": "Software Supply Chain & Build Toolchain Hygiene",
+        "mitre_ttps": [
+          "T1195.002 - Compromise Software Supply Chain"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "ABUSECH-THREATFOX",
+          "ALIENVAULT-OTX"
+        ],
+        "corroboration_count": 3,
+        "synthesized_tool_id": "guard_npm_sbom_lockfile_auditor",
+        "synthesized_tool_sha256": "9955810f0b7ecc1428c9675dea819d1e4e528793c18a23069e2b5c1d7ab8651d",
+        "rag_profile_id": "praetorian-rag-9955810f0b",
+        "repeat_hits": 5,
+        "first_seen_at": "2026-11-07T19:17:55Z",
+        "last_seen_at": "2026-11-07T19:23:23Z"
+      },
+      {
+        "observation_id": "obs-7a1efc3d8f",
+        "signature_name": "KEV-ACTIVE: SonicWall SonicOS SSLVPN \u2014 SonicWall SonicOS SSLVPN Use of Single-factor Authentication Vulnerability (CVE-2026-19868)",
+        "attack_type": "exploit",
+        "signature_hash": "7a1efc3d8f4061847489daca2e55cc0c57eaae24110e34ee8d51491789022c21",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (SonicWall SonicOS SSLVPN)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-kev-sonicwall-sonicos-sslvpn-cve-2026-1986-7a1efc",
+        "synthesized_tool_sha256": "7a1efc3d8f4061847489daca2e55cc0c57eaae24110e34ee8d51491789022c21",
+        "rag_profile_id": "praetorian-rag-7a1efc3d8f",
+        "repeat_hits": 4,
+        "first_seen_at": "2026-11-08T01:02:43Z",
+        "last_seen_at": "2026-11-08T21:16:37Z"
+      },
+      {
+        "observation_id": "obs-4ff0c1238d",
+        "signature_name": "KEV-ACTIVE: Apple Multiple Products \u2014 Apple Multiple Products Improper Authentication Vulnerability (CVE-2024-27834)",
+        "attack_type": "exploit",
+        "signature_hash": "4ff0c1238df82eeb77d506b124244df339375d20dd92426c47d5b9acea811238",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Apple Multiple Products)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-kev-apple-multiple-products-cve-2024-27834-4ff0c1",
+        "synthesized_tool_sha256": "4ff0c1238df82eeb77d506b124244df339375d20dd92426c47d5b9acea811238",
+        "rag_profile_id": "praetorian-rag-4ff0c1238d",
+        "repeat_hits": 4,
+        "first_seen_at": "2026-11-08T01:02:43Z",
+        "last_seen_at": "2026-11-08T21:16:37Z"
+      },
+      {
+        "observation_id": "obs-a4b07248d9",
+        "signature_name": "KEV-ACTIVE: WordPress WordPress Core \u2014 WordPress WordPress Core Time-of-check Time-of-use (TOCTOU) Race Condition Vulnerability (CVE-2026-119977)",
+        "attack_type": "exploit",
+        "signature_hash": "a4b07248d9fa90a99d61e727ed9e4d4f2de506c7149635c151240af4bb0a1614",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (WordPress WordPress Core)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-kev-wordpress-wordpress-core-cve-2026-1199-a4b072",
+        "synthesized_tool_sha256": "a4b07248d9fa90a99d61e727ed9e4d4f2de506c7149635c151240af4bb0a1614",
+        "rag_profile_id": "praetorian-rag-a4b07248d9",
+        "repeat_hits": 4,
+        "first_seen_at": "2026-11-08T01:02:43Z",
+        "last_seen_at": "2026-11-08T21:16:37Z"
+      },
+      {
+        "observation_id": "obs-91167205d5",
+        "signature_name": "KEV-ACTIVE: Ivanti Connect Secure \u2014 Ivanti Connect Secure Generation of Predictable Numbers or Identifiers Vulnerability (CVE-2026-118527)",
+        "attack_type": "exploit",
+        "signature_hash": "91167205d5e8eef1ebf3d73f874d9b528e8fdcd051a5579e1ddfdbf427814bcd",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Ivanti Connect Secure)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-kev-ivanti-connect-secure-cve-2026-118527-911672",
+        "synthesized_tool_sha256": "91167205d5e8eef1ebf3d73f874d9b528e8fdcd051a5579e1ddfdbf427814bcd",
+        "rag_profile_id": "praetorian-rag-91167205d5",
+        "repeat_hits": 4,
+        "first_seen_at": "2026-11-08T21:16:37Z",
+        "last_seen_at": "2026-11-08T21:16:37Z"
+      },
+      {
+        "observation_id": "obs-7c42e89b76",
+        "signature_name": "KEV-ACTIVE: Ivanti Connect Secure \u2014 Ivanti Connect Secure Missing Authentication for Critical Function Vulnerability (CVE-2026-111357)",
+        "attack_type": "exploit",
+        "signature_hash": "7c42e89b76b32ffab15e6e669c8184c8c810fd220e9595795731fe46110acec6",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Ivanti Connect Secure)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-kev-ivanti-connect-secure-cve-2026-111357-7c42e8",
+        "synthesized_tool_sha256": "7c42e89b76b32ffab15e6e669c8184c8c810fd220e9595795731fe46110acec6",
+        "rag_profile_id": "praetorian-rag-7c42e89b76",
+        "repeat_hits": 4,
+        "first_seen_at": "2026-11-08T21:16:37Z",
+        "last_seen_at": "2026-11-08T21:16:37Z"
+      },
+      {
+        "observation_id": "obs-84a9c2ba75",
+        "signature_name": "AUTH-BYPASS: Alpine musl libc crypt() >256-Byte Asterisk Collision (*sshole / CWE-287)",
+        "attack_type": "exploit",
+        "signature_hash": "84a9c2ba7523663f6fc473040df82aab797e3bb28d693e237308c4635d52e4ac",
+        "source_country": "SECTOR-ENCLAVE",
+        "dest_country": "TENTACLE-VI",
+        "severity": "CRITICAL",
+        "domain": "Zero-Trust Enclave SSH & Shadow Authentication",
+        "mitre_ttps": [
+          "T1078 - Valid Accounts",
+          "T1110 - Brute Force"
+        ],
+        "corroborated_feeds": [
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN",
+          "CISA-KEV",
+          "ALIENVAULT-OTX"
+        ],
+        "corroboration_count": 5,
+        "synthesized_tool_id": "sentinel-auto-alpine-musl-crypt-sshhole-guard-a23e70",
+        "synthesized_tool_sha256": "84a9c2ba7523663f6fc473040df82aab797e3bb28d693e237308c4635d52e4ac",
+        "rag_profile_id": "praetorian-rag-84a9c2ba75",
+        "repeat_hits": 15,
+        "first_seen_at": "2026-11-08T04:05:23Z",
+        "last_seen_at": "2026-11-08T21:16:38Z"
+      },
+      {
+        "observation_id": "obs-ce0edb946c",
+        "signature_name": "DSHIELD-SENSOR: SNMPv2c Community String Enumeration & UDP Reflection Flood (Port 161)",
+        "attack_type": "exploit",
+        "signature_hash": "ce0edb946c9630abddfbf5f2938806ec0e734470f750aa4c7a7ee7f24f6adb6e",
+        "source_country": "SECTOR-PERIPHERAL",
+        "dest_country": "TENTACLE-V",
+        "severity": "HIGH",
+        "domain": "Zero-Trust Network Management & SNMPv3 Enclave",
+        "mitre_ttps": [
+          "T1046 - Network Service Discovery",
+          "T1498.002 - Reflection Amplification"
+        ],
+        "corroborated_feeds": [
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 3,
+        "synthesized_tool_id": "sentinel-auto-dshield-snmp-udp161-guard",
+        "synthesized_tool_sha256": "ce0edb946c9630abddfbf5f2938806ec0e734470f750aa4c7a7ee7f24f6adb6e",
+        "rag_profile_id": "praetorian-rag-ce0edb946c",
+        "repeat_hits": 15,
+        "first_seen_at": "2026-11-08T04:05:23Z",
+        "last_seen_at": "2026-11-08T21:16:38Z"
+      },
+      {
+        "observation_id": "obs-5dfdefa8d0",
+        "signature_name": "BOTNET-PROPAGATION: Automated Telnet/IoT Credential Stuffing Sweep (T1110.001)",
+        "attack_type": "botnet",
+        "signature_hash": "5dfdefa8d0047faf433b5cecd5ed87ace6a7eddb4ebde3a919b7bab0bafd178e",
+        "source_country": "SECTOR-C2/BOTNET",
+        "dest_country": "TENTACLE-III",
+        "severity": "CRITICAL",
+        "domain": "Edge IoT & Embedded Perimeter Isolation",
+        "mitre_ttps": [
+          "T1110.001 - Password Guessing"
+        ],
+        "corroborated_feeds": [
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 3,
+        "synthesized_tool_id": "sentinel-auto-mirai-iot-botnet-telnet-credential-brute-f-b92866",
+        "synthesized_tool_sha256": "5dfdefa8d0047faf433b5cecd5ed87ace6a7eddb4ebde3a919b7bab0bafd178e",
+        "rag_profile_id": "praetorian-rag-5dfdefa8d0",
+        "repeat_hits": 15,
+        "first_seen_at": "2026-11-08T04:05:23Z",
+        "last_seen_at": "2026-11-08T21:16:38Z"
+      },
+      {
+        "observation_id": "obs-af701d5638",
+        "signature_name": "DSHIELD-SENSOR: Remote Desktop Protocol (RDP) Pre-Auth Probe & Credential Stuffing (Port 3389)",
+        "attack_type": "exploit",
+        "signature_hash": "af701d5638f1271996676f8fae22279c4cf114e3dc14862ba803d6cb8d615128",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "HIGH",
+        "domain": "Zero-Trust Remote Administration Bastion",
+        "mitre_ttps": [
+          "T1021.001 - Remote Desktop Protocol",
+          "T1110 - Brute Force"
+        ],
+        "corroborated_feeds": [
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 3,
+        "synthesized_tool_id": "sentinel-auto-dshield-rdp-tcp3389-guard",
+        "synthesized_tool_sha256": "af701d5638f1271996676f8fae22279c4cf114e3dc14862ba803d6cb8d615128",
+        "rag_profile_id": "praetorian-rag-af701d5638",
+        "repeat_hits": 15,
+        "first_seen_at": "2026-11-08T04:05:23Z",
+        "last_seen_at": "2026-11-08T21:16:38Z"
+      },
+      {
+        "observation_id": "obs-b0022e1ef2",
+        "signature_name": "INGRESS-RCE: JNDI Lookup Deserialization Injection (CVE-2021-44228)",
+        "attack_type": "exploit",
+        "signature_hash": "b0022e1ef20f2cfbb0bd1d256dd1db66c5703ce7f7fa04e9eebd48cc24710d34",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "Zero-Trust TLS Application Ingress",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN",
+          "CISA-KEV",
+          "ALIENVAULT-OTX"
+        ],
+        "corroboration_count": 5,
+        "synthesized_tool_id": "sentinel-auto-apache-log4j-jndi-remote-code-execution-cv-fc549e",
+        "synthesized_tool_sha256": "b0022e1ef20f2cfbb0bd1d256dd1db66c5703ce7f7fa04e9eebd48cc24710d34",
+        "rag_profile_id": "praetorian-rag-b0022e1ef2",
+        "repeat_hits": 15,
+        "first_seen_at": "2026-11-08T04:05:23Z",
+        "last_seen_at": "2026-11-08T21:16:38Z"
+      }
+    ]
+  },
+  "synthesized_tools": {
+    "count": 27,
+    "tools": [
+      {
+        "tool_id": "sentinel-auto-http-directory-traversal-etc-shadow-probe-ab190a",
+        "name": "Praetorian Auto-Guard: HTTP Directory Traversal ../../etc/shadow Probe",
+        "author_agent": "Sentinel-Audit & Tentacle-I-NetGuard",
+        "description": "Autonomously synthesized by Praetorian Swarm upon observing unique ThreatMap vector 'HTTP Directory Traversal ../../etc/shadow Probe' (exploit) [BR -> GB].",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application",
+          "T1059 - Command and Scripting Interpreter",
+          "D3-AL - Application Hardening"
+        ],
+        "code_or_command": "#!/bin/sh\n# Praetorian Auto-Synthesized Ingress Filter for: HTTP Directory Traversal ../../etc/shadow Probe\n# Signature SHA-256: ab190a5f1d8e2762dd50014df880ecd8077f9cb7527ff353a8837626ba04983b | Vector: BR -> GB\niptables -A INPUT -p tcp -m multiport --dports 80,443,8080 -m string --algo bm --string \"${jndi:\" -j DROP 2>/dev/null || true\niptables -A INPUT -p tcp -m multiport --dports 80,443,8080 -m string --algo bm --string \"../..\" -j DROP 2>/dev/null || true\n",
+        "sha256_receipt": "9b542dc04b4faeb18293ef130f025b9cee7b4cf8b471209d64fa8e689ebebb12",
+        "origin_signature": "HTTP Directory Traversal ../../etc/shadow Probe",
+        "signature_hash": "ab190a5f1d8e2762dd50014df880ecd8077f9cb7527ff353a8837626ba04983b",
+        "submitted_at": "2026-11-07T02:46:41Z"
+      },
+      {
+        "tool_id": "sentinel-auto-cobalt-strike-malleable-c2-https-beacon-ji-a9384e",
+        "name": "Praetorian Auto-Guard: Cobalt Strike Malleable C2 HTTPS Beacon Jitter",
+        "author_agent": "Sentinel-Peripheral & Tentacle-II-OT-Guard",
+        "description": "Autonomously synthesized by Praetorian Swarm upon observing unique ThreatMap vector 'Cobalt Strike Malleable C2 HTTPS Beacon Jitter' (botnet) [RU -> PL].",
+        "mitre_ttps": [
+          "T0855 - Unauthorized Command Message",
+          "T0831 - Manipulation of Control",
+          "D3-ITF - Inbound Traffic Filtering"
+        ],
+        "code_or_command": "#!/bin/sh\n# Praetorian Auto-Synthesized OT/ICS Guard for: Cobalt Strike Malleable C2 HTTPS Beacon Jitter\n# Signature SHA-256: a9384ef4a233652c8a44412fb45dbb1bc559da944ddf97d50a843ae0ff741974 | Vector: RU -> PL\n# Constitutional Policy: Read-Only Deep Packet Inspection (Zero PLC Disruption)\nnft add table inet praetorian_ot 2>/dev/null || true\nnft add chain inet praetorian_ot input_guard '{ type filter hook input priority 0; }' 2>/dev/null || true\n# Rate-limit anomalous OT register write floods on Modbus (502) & DNP3 (20000) while preserving legitimate polling\nnft add rule inet praetorian_ot input_guard tcp dport { 502, 20000, 44818 } ct state new limit rate over 25/second log prefix \"[PRAETORIAN-OT-GUARD:a9384ef4] \" drop\n",
+        "sha256_receipt": "9ddf06ee5a10853454c8184727ca006e352baf7f7b74064df8e9334c8c99fbdb",
+        "origin_signature": "Cobalt Strike Malleable C2 HTTPS Beacon Jitter",
+        "signature_hash": "a9384ef4a233652c8a44412fb45dbb1bc559da944ddf97d50a843ae0ff741974",
+        "submitted_at": "2026-11-07T02:46:47Z"
+      },
+      {
+        "tool_id": "sentinel-auto-modbus-tcp-unauthorized-plc-register-write-f23e16",
+        "name": "Praetorian Auto-Guard: Modbus TCP Unauthorized PLC Register Write (Func",
+        "author_agent": "Sentinel-Peripheral & Tentacle-II-OT-Guard",
+        "description": "Autonomously synthesized by Praetorian Swarm upon observing unique ThreatMap vector 'Modbus TCP Unauthorized PLC Register Write (Function Code 0x10)' (ics_ot) [IR -> US].",
+        "mitre_ttps": [
+          "T0855 - Unauthorized Command Message",
+          "T0831 - Manipulation of Control",
+          "D3-ITF - Inbound Traffic Filtering"
+        ],
+        "code_or_command": "#!/bin/sh\n# Praetorian Auto-Synthesized OT/ICS Guard for: Modbus TCP Unauthorized PLC Register Write (Function Code 0x10)\n# Signature SHA-256: f23e16163f51a739ad2b53cb05c263b176b8e6d5af0dab64781c01f5495709ff | Vector: IR -> US\n# Constitutional Policy: Read-Only Deep Packet Inspection (Zero PLC Disruption)\nnft add table inet praetorian_ot 2>/dev/null || true\nnft add chain inet praetorian_ot input_guard '{ type filter hook input priority 0; }' 2>/dev/null || true\n# Rate-limit anomalous OT register write floods on Modbus (502) & DNP3 (20000) while preserving legitimate polling\nnft add rule inet praetorian_ot input_guard tcp dport { 502, 20000, 44818 } ct state new limit rate over 25/second log prefix \"[PRAETORIAN-OT-GUARD:f23e1616] \" drop\n",
+        "sha256_receipt": "874949505c692ed970ed2b42d6c20ad756d1461f6506a1829c4cb99de22230dc",
+        "origin_signature": "Modbus TCP Unauthorized PLC Register Write (Function Code 0x10)",
+        "signature_hash": "f23e16163f51a739ad2b53cb05c263b176b8e6d5af0dab64781c01f5495709ff",
+        "submitted_at": "2026-11-07T02:47:08Z"
+      },
+      {
+        "tool_id": "sentinel-auto-apache-log4j-jndi-remote-code-execution-cv-fc549e",
+        "name": "Praetorian Auto-Guard: Apache Log4j JNDI Remote Code Execution (CVE-202",
+        "author_agent": "Sentinel-Peripheral & Tentacle-II-OT-Guard",
+        "description": "Autonomously synthesized by Praetorian Swarm upon observing unique ThreatMap vector 'Apache Log4j JNDI Remote Code Execution (CVE-2021-44228)' (exploit) [CN -> DE].",
+        "mitre_ttps": [
+          "T0855 - Unauthorized Command Message",
+          "T0831 - Manipulation of Control",
+          "D3-ITF - Inbound Traffic Filtering"
+        ],
+        "code_or_command": "#!/bin/sh\n# Praetorian Auto-Synthesized OT/ICS Guard for: Apache Log4j JNDI Remote Code Execution (CVE-2021-44228)\n# Signature SHA-256: fc549e22b20dde2c9b879c6dd80a7e394d8dbe8a52fadbba4fabf119656172a1 | Vector: CN -> DE\n# Constitutional Policy: Read-Only Deep Packet Inspection (Zero PLC Disruption)\nnft add table inet praetorian_ot 2>/dev/null || true\nnft add chain inet praetorian_ot input_guard '{ type filter hook input priority 0; }' 2>/dev/null || true\n# Rate-limit anomalous OT register write floods on Modbus (502) & DNP3 (20000) while preserving legitimate polling\nnft add rule inet praetorian_ot input_guard tcp dport { 502, 20000, 44818 } ct state new limit rate over 25/second log prefix \"[PRAETORIAN-OT-GUARD:fc549e22] \" drop\n",
+        "sha256_receipt": "27028feaa5ec6dabc7661e443a0e36dbafff4eb9882ca38a45b20ac82329d1e5",
+        "origin_signature": "Apache Log4j JNDI Remote Code Execution (CVE-2021-44228)",
+        "signature_hash": "fc549e22b20dde2c9b879c6dd80a7e394d8dbe8a52fadbba4fabf119656172a1",
+        "submitted_at": "2026-11-07T02:47:13Z"
+      },
+      {
+        "tool_id": "sentinel-auto-siemens-simatic-s7-1200-cpu-stop-command-i-59212b",
+        "name": "Praetorian Auto-Guard: Siemens SIMATIC S7-1200 CPU Stop Command Injecti",
+        "author_agent": "Sentinel-Peripheral & Tentacle-II-OT-Guard",
+        "description": "Autonomously synthesized by Praetorian Swarm upon observing unique ThreatMap vector 'Siemens SIMATIC S7-1200 CPU Stop Command Injection' (ics_ot) [RU -> UA].",
+        "mitre_ttps": [
+          "T0855 - Unauthorized Command Message",
+          "T0831 - Manipulation of Control",
+          "D3-ITF - Inbound Traffic Filtering"
+        ],
+        "code_or_command": "#!/bin/sh\n# Praetorian Auto-Synthesized OT/ICS Guard for: Siemens SIMATIC S7-1200 CPU Stop Command Injection\n# Signature SHA-256: 59212b1009838ffb4915044b3a1ceb649c8aa96b9ad48df9e26a72bd33c911d4 | Vector: RU -> UA\n# Constitutional Policy: Read-Only Deep Packet Inspection (Zero PLC Disruption)\nnft add table inet praetorian_ot 2>/dev/null || true\nnft add chain inet praetorian_ot input_guard '{ type filter hook input priority 0; }' 2>/dev/null || true\n# Rate-limit anomalous OT register write floods on Modbus (502) & DNP3 (20000) while preserving legitimate polling\nnft add rule inet praetorian_ot input_guard tcp dport { 502, 20000, 44818 } ct state new limit rate over 25/second log prefix \"[PRAETORIAN-OT-GUARD:59212b10] \" drop\n",
+        "sha256_receipt": "af2fa295de99c02ec47fe9b597bacc8d26107611f1b5812b006b9caeb632128c",
+        "origin_signature": "Siemens SIMATIC S7-1200 CPU Stop Command Injection",
+        "signature_hash": "59212b1009838ffb4915044b3a1ceb649c8aa96b9ad48df9e26a72bd33c911d4",
+        "submitted_at": "2026-11-07T02:47:18Z"
+      },
+      {
+        "tool_id": "sentinel-auto-mirai-iot-botnet-telnet-credential-brute-f-b92866",
+        "name": "Praetorian Auto-Guard: Mirai IoT Botnet Telnet Credential Brute Force",
+        "author_agent": "Sentinel-Peripheral & Tentacle-II-OT-Guard",
+        "description": "Autonomously synthesized by Praetorian Swarm upon observing unique ThreatMap vector 'Mirai IoT Botnet Telnet Credential Brute Force' (botnet) [KP -> KR].",
+        "mitre_ttps": [
+          "T0855 - Unauthorized Command Message",
+          "T0831 - Manipulation of Control",
+          "D3-ITF - Inbound Traffic Filtering"
+        ],
+        "code_or_command": "#!/bin/sh\n# Praetorian Auto-Synthesized OT/ICS Guard for: Mirai IoT Botnet Telnet Credential Brute Force\n# Signature SHA-256: b92866a4710cbba308d93260406646b1cc18a85f2707c8642b15bb109fc4af8a | Vector: KP -> KR\n# Constitutional Policy: Read-Only Deep Packet Inspection (Zero PLC Disruption)\nnft add table inet praetorian_ot 2>/dev/null || true\nnft add chain inet praetorian_ot input_guard '{ type filter hook input priority 0; }' 2>/dev/null || true\n# Rate-limit anomalous OT register write floods on Modbus (502) & DNP3 (20000) while preserving legitimate polling\nnft add rule inet praetorian_ot input_guard tcp dport { 502, 20000, 44818 } ct state new limit rate over 25/second log prefix \"[PRAETORIAN-OT-GUARD:b92866a4] \" drop\n",
+        "sha256_receipt": "b47538bfe7d6cd215fd7063564d1729b9a03601c6f6d13273f9319d7bbddc2e0",
+        "origin_signature": "Mirai IoT Botnet Telnet Credential Brute Force",
+        "signature_hash": "b92866a4710cbba308d93260406646b1cc18a85f2707c8642b15bb109fc4af8a",
+        "submitted_at": "2026-11-07T02:47:33Z"
+      },
+      {
+        "tool_id": "sentinel-auto-dnp3-outstation-unsolicited-response-flood-13743b",
+        "name": "Praetorian Auto-Guard: DNP3 Outstation Unsolicited Response Flood (SCAD",
+        "author_agent": "Sentinel-Peripheral & Tentacle-II-OT-Guard",
+        "description": "Autonomously synthesized by Praetorian Swarm upon observing unique ThreatMap vector 'DNP3 Outstation Unsolicited Response Flood (SCADA Substation)' (ics_ot) [CN -> US].",
+        "mitre_ttps": [
+          "T0855 - Unauthorized Command Message",
+          "T0831 - Manipulation of Control",
+          "D3-ITF - Inbound Traffic Filtering"
+        ],
+        "code_or_command": "#!/bin/sh\n# Praetorian Auto-Synthesized OT/ICS Guard for: DNP3 Outstation Unsolicited Response Flood (SCADA Substation)\n# Signature SHA-256: 13743b86a1ba1fc9c3eb468de56a84fa4a2fce703039a8aad00c6004810a9071 | Vector: CN -> US\n# Constitutional Policy: Read-Only Deep Packet Inspection (Zero PLC Disruption)\nnft add table inet praetorian_ot 2>/dev/null || true\nnft add chain inet praetorian_ot input_guard '{ type filter hook input priority 0; }' 2>/dev/null || true\n# Rate-limit anomalous OT register write floods on Modbus (502) & DNP3 (20000) while preserving legitimate polling\nnft add rule inet praetorian_ot input_guard tcp dport { 502, 20000, 44818 } ct state new limit rate over 25/second log prefix \"[PRAETORIAN-OT-GUARD:13743b86] \" drop\n",
+        "sha256_receipt": "949c2c38a33cbe463bc76fb119355881bb5f7c724e76e535fe586a4a3b684e67",
+        "origin_signature": "DNP3 Outstation Unsolicited Response Flood (SCADA Substation)",
+        "signature_hash": "13743b86a1ba1fc9c3eb468de56a84fa4a2fce703039a8aad00c6004810a9071",
+        "submitted_at": "2026-11-07T02:47:39Z"
+      },
+      {
+        "tool_id": "sentinel-auto-volt-typhoon-soho-router-kv-botnet-living--712fda",
+        "name": "Praetorian Auto-Guard: Volt Typhoon SOHO Router KV-Botnet Living-off-th",
+        "author_agent": "Sentinel-Peripheral & Tentacle-II-OT-Guard",
+        "description": "Autonomously synthesized by Praetorian Swarm upon observing unique ThreatMap vector 'Volt Typhoon SOHO Router KV-Botnet Living-off-the-Land Relay' (malware) [CN -> US].",
+        "mitre_ttps": [
+          "T0855 - Unauthorized Command Message",
+          "T0831 - Manipulation of Control",
+          "D3-ITF - Inbound Traffic Filtering"
+        ],
+        "code_or_command": "#!/bin/sh\n# Praetorian Auto-Synthesized OT/ICS Guard for: Volt Typhoon SOHO Router KV-Botnet Living-off-the-Land Relay\n# Signature SHA-256: 712fdac0252e8de4dc3eeb8a3f719f57d9bc9f70070e932af89b157bad5f6147 | Vector: CN -> US\n# Constitutional Policy: Read-Only Deep Packet Inspection (Zero PLC Disruption)\nnft add table inet praetorian_ot 2>/dev/null || true\nnft add chain inet praetorian_ot input_guard '{ type filter hook input priority 0; }' 2>/dev/null || true\n# Rate-limit anomalous OT register write floods on Modbus (502) & DNP3 (20000) while preserving legitimate polling\nnft add rule inet praetorian_ot input_guard tcp dport { 502, 20000, 44818 } ct state new limit rate over 25/second log prefix \"[PRAETORIAN-OT-GUARD:712fdac0] \" drop\n",
+        "sha256_receipt": "e916ac95f15326f3d1522a654dbaeb7b5908fcdd91d00a43453353ba33735370",
+        "origin_signature": "Volt Typhoon SOHO Router KV-Botnet Living-off-the-Land Relay",
+        "signature_hash": "712fdac0252e8de4dc3eeb8a3f719f57d9bc9f70070e932af89b157bad5f6147",
+        "submitted_at": "2026-11-07T02:47:46Z"
+      },
+      {
+        "tool_id": "sentinel-auto-omron-sysmac-nj-nx-plc-ethernet-ip-cip-ses-8e0950",
+        "name": "Praetorian Auto-Guard: Omron Sysmac NJ/NX PLC EtherNet/IP CIP Session H",
+        "author_agent": "Sentinel-Peripheral & Tentacle-II-OT-Guard",
+        "description": "Autonomously synthesized by Praetorian Swarm upon observing unique ThreatMap vector 'Omron Sysmac NJ/NX PLC EtherNet/IP CIP Session Hijack' (ics_ot) [IR -> IL].",
+        "mitre_ttps": [
+          "T0855 - Unauthorized Command Message",
+          "T0831 - Manipulation of Control",
+          "D3-ITF - Inbound Traffic Filtering"
+        ],
+        "code_or_command": "#!/bin/sh\n# Praetorian Auto-Synthesized OT/ICS Guard for: Omron Sysmac NJ/NX PLC EtherNet/IP CIP Session Hijack\n# Signature SHA-256: 8e095073d38f8c61ea13505851edf9629779819a447d1453b732c4a991a7cbe0 | Vector: IR -> IL\n# Constitutional Policy: Read-Only Deep Packet Inspection (Zero PLC Disruption)\nnft add table inet praetorian_ot 2>/dev/null || true\nnft add chain inet praetorian_ot input_guard '{ type filter hook input priority 0; }' 2>/dev/null || true\n# Rate-limit anomalous OT register write floods on Modbus (502) & DNP3 (20000) while preserving legitimate polling\nnft add rule inet praetorian_ot input_guard tcp dport { 502, 20000, 44818 } ct state new limit rate over 25/second log prefix \"[PRAETORIAN-OT-GUARD:8e095073] \" drop\n",
+        "sha256_receipt": "919a2080791b6c39b7252dd0c147089a803665fb2086138b0d5eb0227fd8484c",
+        "origin_signature": "Omron Sysmac NJ/NX PLC EtherNet/IP CIP Session Hijack",
+        "signature_hash": "8e095073d38f8c61ea13505851edf9629779819a447d1453b732c4a991a7cbe0",
+        "submitted_at": "2026-11-07T02:47:59Z"
+      },
+      {
+        "tool_id": "sentinel-auto-gnu-mailutils-imap4d-format-string-bbbbfb",
+        "name": "Praetorian Auto-Guard: GNU Mailutils imap4d format string",
+        "author_agent": "Sentinel-Core & Tentacle-IV-eBPF",
+        "description": "Autonomously synthesized by Praetorian Swarm upon observing unique ThreatMap vector 'GNU Mailutils imap4d format string' (exploit) [RU -> BY].",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application",
+          "T1068 - Exploitation for Privilege Escalation",
+          "D3-PSA - Process Spawn Analysis"
+        ],
+        "code_or_command": "#!/bin/sh\n# Praetorian Auto-Synthesized RCE & Format-String Guard for: GNU Mailutils imap4d format string\n# Signature SHA-256: bbbbfb355b6c93b92212212044007235143aaa8ccc0de892faf1149bc83d5183 | Vector: RU -> BY\nsysctl -w kernel.randomize_va_space=2 >/dev/null 2>&1\nsysctl -w fs.suid_dumpable=0 >/dev/null 2>&1\niptables -A INPUT -p tcp -m string --algo bm --string \"%n%n%n\" -j LOG --log-prefix \"[PRAETORIAN-FMT:bbbbfb35] \"\niptables -A INPUT -p tcp -m string --algo bm --string \"%n%n%n\" -j DROP\n",
+        "sha256_receipt": "07ac9f49297215bf611d3e75a4782734d2cf32a437e9254dac6a9df7e082e529",
+        "origin_signature": "GNU Mailutils imap4d format string",
+        "signature_hash": "bbbbfb355b6c93b92212212044007235143aaa8ccc0de892faf1149bc83d5183",
+        "submitted_at": "2026-11-07T02:48:25Z"
+      },
+      {
+        "tool_id": "sentinel-auto-alpine-musl-crypt-sshhole-guard-a23e70",
+        "name": "Praetorian Auto-Guard: Alpine musl libc crypt() >256B *sshole Lock",
+        "author_agent": "Sentinel-Audit & Tentacle-VI-Enclave-Guard",
+        "description": "Autonomously synthesized by Praetorian Swarm upon intercepting Alpine musl libc crypt() >256-byte asterisk collision (*sshole / CWE-287).",
+        "mitre_ttps": [
+          "T1078 - Valid Accounts",
+          "T1110 - Auth Bypass (>256B crypt() '*' Collision)",
+          "D3-ACH - Authentication Cache Hardening"
+        ],
+        "code_or_command": "#!/bin/sh\n# Praetorian Auto-Synthesized Alpine musl crypt() '*sshole' Guard\n# Signature SHA-256: a23e705b8608a1ed9d8cb5b0b786878906295bcb7573944d77f986b96c95a854 | Sector: SECTOR-ENCLAVE -> TENTACLE-VI\n# Neutralize single-character ':*:' password hashes in /etc/shadow so musl crypt() >256B '*' error return can never match\nsed -i 's/^\\([^:]*\\):\\*\\:/\\1:*LOCKED*:/g' /etc/shadow 2>/dev/null || true\nif [ -f /etc/ssh/sshd_config ]; then\n    grep -Eq '^\\s*PasswordAuthentication\\s+no' /etc/ssh/sshd_config || echo 'PasswordAuthentication no' >> /etc/ssh/sshd_config\n    grep -Eq '^\\s*PermitRootLogin\\s+no' /etc/ssh/sshd_config || echo 'PermitRootLogin no' >> /etc/ssh/sshd_config\nfi\n",
+        "sha256_receipt": "60b2271cabb98ec04cdbb7c11162ba72f5032819ce4ffb5ffd6df00ab80dbb83",
+        "origin_signature": "AUTH-BYPASS: Alpine musl libc crypt() >256-Byte Asterisk Collision (*sshole / CWE-287)",
+        "signature_hash": "a23e705b8608a1ed9d8cb5b0b786878906295bcb7573944d77f986b96c95a854",
+        "submitted_at": "2026-11-07T11:04:00Z"
+      },
+      {
+        "tool_id": "guard_stack_zlib_verifier",
+        "target_attack": "Stack SBOM Advisory: zlib@1.3.2-r1 (Alpine:v3.22 / ALPINE-CVE-2026-4738)",
+        "attack_type": "exploit",
+        "severity": "HIGH",
+        "domain": "Rai-OS & RaioLabs Stack (Alpine:v3.22)",
+        "sha256_receipt": "21a17083031030dc351e75b9424dd997b172cd11a369025dc77399c5fbaf62eb",
+        "rag_profile_id": "praetorian-rag-21a1708303",
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "SURICATA-ET-OPEN"
+        ],
+        "synthesized_at": "2026-11-07T19:23:23Z",
+        "description": "Autonomously synthesized by Praetorian Swarm across multi-source feeds to neutralize: Stack SBOM Advisory: zlib@1.3.2-r1 (Alpine:v3.22 / ALPINE-CVE-2026-4738)",
+        "script_preview": "#!/bin/sh\n# Praetorian Autonomous MCP Guard: guard_stack_zlib_verifier\n# Target Vector: Stack SBOM Advisory: zlib@1.3.2-r1 (Alpine:v3.22 / ALPINE-CVE-2026-4738)\n# Attestation SHA-256: 21a17083031030dc351e75b9424dd997\nlogger -t praetorian-mcp 'Enforcing deterministic guard guard_stack_zlib_verifier'\n"
+      },
+      {
+        "tool_id": "guard_stack_body_parser_verifier",
+        "target_attack": "Stack SBOM Advisory: body-parser@2.3.0 (npm / GHSA-27r3-jxmh-p828)",
+        "attack_type": "exploit",
+        "severity": "HIGH",
+        "domain": "Rai-OS & RaioLabs Stack (npm)",
+        "sha256_receipt": "f14ce2e4762b96b6720eda5befd8598744e72d91a4719b6c4346d099fa6f9c0e",
+        "rag_profile_id": "praetorian-rag-f14ce2e476",
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "SURICATA-ET-OPEN"
+        ],
+        "synthesized_at": "2026-11-07T19:23:23Z",
+        "description": "Autonomously synthesized by Praetorian Swarm across multi-source feeds to neutralize: Stack SBOM Advisory: body-parser@2.3.0 (npm / GHSA-27r3-jxmh-p828)",
+        "script_preview": "#!/bin/sh\n# Praetorian Autonomous MCP Guard: guard_stack_body_parser_verifier\n# Target Vector: Stack SBOM Advisory: body-parser@2.3.0 (npm / GHSA-27r3-jxmh-p828)\n# Attestation SHA-256: f14ce2e4762b96b6720eda5befd85987\nlogger -t praetorian-mcp 'Enforcing deterministic guard guard_stack_body_parser_verifier'\n"
+      },
+      {
+        "tool_id": "guard_stack_nanoid_verifier",
+        "target_attack": "Stack SBOM Advisory: nanoid@3.3.16 (npm / GHSA-2v37-7h3g-55p8)",
+        "attack_type": "exploit",
+        "severity": "HIGH",
+        "domain": "Rai-OS & RaioLabs Stack (npm)",
+        "sha256_receipt": "2821910433ae789dd5bb055be5f2188cb1220d9c706cdbecfef1a85d405cdf11",
+        "rag_profile_id": "praetorian-rag-2821910433",
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "SURICATA-ET-OPEN"
+        ],
+        "synthesized_at": "2026-11-07T19:23:23Z",
+        "description": "Autonomously synthesized by Praetorian Swarm across multi-source feeds to neutralize: Stack SBOM Advisory: nanoid@3.3.16 (npm / GHSA-2v37-7h3g-55p8)",
+        "script_preview": "#!/bin/sh\n# Praetorian Autonomous MCP Guard: guard_stack_nanoid_verifier\n# Target Vector: Stack SBOM Advisory: nanoid@3.3.16 (npm / GHSA-2v37-7h3g-55p8)\n# Attestation SHA-256: 2821910433ae789dd5bb055be5f2188c\nlogger -t praetorian-mcp 'Enforcing deterministic guard guard_stack_nanoid_verifier'\n"
+      },
+      {
+        "tool_id": "guard_stack_postcss_verifier",
+        "target_attack": "Stack SBOM Advisory: postcss@8.5.19 (npm / GHSA-fxqj-rqcc-2cmp)",
+        "attack_type": "exploit",
+        "severity": "HIGH",
+        "domain": "Rai-OS & RaioLabs Stack (npm)",
+        "sha256_receipt": "f21f89e98c17aa42c693d34c22963c024711b096cebe3f4a121cc3a09c3e51a9",
+        "rag_profile_id": "praetorian-rag-f21f89e98c",
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "SURICATA-ET-OPEN"
+        ],
+        "synthesized_at": "2026-11-07T19:23:23Z",
+        "description": "Autonomously synthesized by Praetorian Swarm across multi-source feeds to neutralize: Stack SBOM Advisory: postcss@8.5.19 (npm / GHSA-fxqj-rqcc-2cmp)",
+        "script_preview": "#!/bin/sh\n# Praetorian Autonomous MCP Guard: guard_stack_postcss_verifier\n# Target Vector: Stack SBOM Advisory: postcss@8.5.19 (npm / GHSA-fxqj-rqcc-2cmp)\n# Attestation SHA-256: f21f89e98c17aa42c693d34c22963c02\nlogger -t praetorian-mcp 'Enforcing deterministic guard guard_stack_postcss_verifier'\n"
+      },
+      {
+        "tool_id": "guard_stack_proxy_addr_verifier",
+        "target_attack": "Stack SBOM Advisory: proxy-addr@2.0.7 (npm / GHSA-jqcg-44mw-7w3h)",
+        "attack_type": "exploit",
+        "severity": "HIGH",
+        "domain": "Rai-OS & RaioLabs Stack (npm)",
+        "sha256_receipt": "40d390407946e82b2d8cc2ee77732055237370a795406fcbbcd5c8071e8affb1",
+        "rag_profile_id": "praetorian-rag-40d3904079",
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "SURICATA-ET-OPEN"
+        ],
+        "synthesized_at": "2026-11-07T19:23:23Z",
+        "description": "Autonomously synthesized by Praetorian Swarm across multi-source feeds to neutralize: Stack SBOM Advisory: proxy-addr@2.0.7 (npm / GHSA-jqcg-44mw-7w3h)",
+        "script_preview": "#!/bin/sh\n# Praetorian Autonomous MCP Guard: guard_stack_proxy_addr_verifier\n# Target Vector: Stack SBOM Advisory: proxy-addr@2.0.7 (npm / GHSA-jqcg-44mw-7w3h)\n# Attestation SHA-256: 40d390407946e82b2d8cc2ee77732055\nlogger -t praetorian-mcp 'Enforcing deterministic guard guard_stack_proxy_addr_verifier'\n"
+      },
+      {
+        "tool_id": "guard_stack_qs_verifier",
+        "target_attack": "Stack SBOM Advisory: qs@6.15.3 (npm / GHSA-4mjr-xmp4-gh2g)",
+        "attack_type": "exploit",
+        "severity": "HIGH",
+        "domain": "Rai-OS & RaioLabs Stack (npm)",
+        "sha256_receipt": "13ad856d0d2f5756955c351f4d27e6f52f797208676e75d68e0e0ec6458c101b",
+        "rag_profile_id": "praetorian-rag-13ad856d0d",
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "SURICATA-ET-OPEN"
+        ],
+        "synthesized_at": "2026-11-07T19:23:23Z",
+        "description": "Autonomously synthesized by Praetorian Swarm across multi-source feeds to neutralize: Stack SBOM Advisory: qs@6.15.3 (npm / GHSA-4mjr-xmp4-gh2g)",
+        "script_preview": "#!/bin/sh\n# Praetorian Autonomous MCP Guard: guard_stack_qs_verifier\n# Target Vector: Stack SBOM Advisory: qs@6.15.3 (npm / GHSA-4mjr-xmp4-gh2g)\n# Attestation SHA-256: 13ad856d0d2f5756955c351f4d27e6f5\nlogger -t praetorian-mcp 'Enforcing deterministic guard guard_stack_qs_verifier'\n"
+      },
+      {
+        "tool_id": "guard_stack_source_map_js_verifier",
+        "target_attack": "Stack SBOM Advisory: source-map-js@1.2.1 (npm / GHSA-68fv-2mgg-jv7q)",
+        "attack_type": "exploit",
+        "severity": "HIGH",
+        "domain": "Rai-OS & RaioLabs Stack (npm)",
+        "sha256_receipt": "7f11a73af3eaa1b128eff7b3acec3833eb2e401dcf8c46e6ea756580ec773eaf",
+        "rag_profile_id": "praetorian-rag-7f11a73af3",
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "SURICATA-ET-OPEN"
+        ],
+        "synthesized_at": "2026-11-07T19:23:23Z",
+        "description": "Autonomously synthesized by Praetorian Swarm across multi-source feeds to neutralize: Stack SBOM Advisory: source-map-js@1.2.1 (npm / GHSA-68fv-2mgg-jv7q)",
+        "script_preview": "#!/bin/sh\n# Praetorian Autonomous MCP Guard: guard_stack_source_map_js_verifier\n# Target Vector: Stack SBOM Advisory: source-map-js@1.2.1 (npm / GHSA-68fv-2mgg-jv7q)\n# Attestation SHA-256: 7f11a73af3eaa1b128eff7b3acec3833\nlogger -t praetorian-mcp 'Enforcing deterministic guard guard_stack_source_map_js_verifier'\n"
+      },
+      {
+        "tool_id": "guard_stack_vite_verifier",
+        "target_attack": "Stack SBOM Advisory: vite@8.1.5 (npm / GHSA-587h-7wmj-h5pm)",
+        "attack_type": "exploit",
+        "severity": "HIGH",
+        "domain": "Rai-OS & RaioLabs Stack (npm)",
+        "sha256_receipt": "ec0842c4855275b199fde0a1be66f4b8483be0b2a26214d7517baa87f9c7a2b0",
+        "rag_profile_id": "praetorian-rag-ec0842c485",
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "SURICATA-ET-OPEN"
+        ],
+        "synthesized_at": "2026-11-07T19:23:23Z",
+        "description": "Autonomously synthesized by Praetorian Swarm across multi-source feeds to neutralize: Stack SBOM Advisory: vite@8.1.5 (npm / GHSA-587h-7wmj-h5pm)",
+        "script_preview": "#!/bin/sh\n# Praetorian Autonomous MCP Guard: guard_stack_vite_verifier\n# Target Vector: Stack SBOM Advisory: vite@8.1.5 (npm / GHSA-587h-7wmj-h5pm)\n# Attestation SHA-256: ec0842c4855275b199fde0a1be66f4b8\nlogger -t praetorian-mcp 'Enforcing deterministic guard guard_stack_vite_verifier'\n"
+      },
+      {
+        "tool_id": "guard_npm_sbom_lockfile_auditor",
+        "target_attack": "Website NPM Supply-Chain & Build Stack Advisories (body-parser, nanoid, proxy-addr, source-map-js, vite)",
+        "attack_type": "exploit",
+        "severity": "HIGH",
+        "domain": "Software Supply Chain & Build Toolchain Hygiene",
+        "sha256_receipt": "9955810f0b7ecc1428c9675dea819d1e4e528793c18a23069e2b5c1d7ab8651d",
+        "rag_profile_id": "praetorian-rag-9955810f0b",
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "ABUSECH-THREATFOX",
+          "ALIENVAULT-OTX"
+        ],
+        "synthesized_at": "2026-11-07T19:23:23Z",
+        "description": "Autonomously synthesized by Praetorian Swarm across multi-source feeds to neutralize: Website NPM Supply-Chain & Build Stack Advisories (body-parser, nanoid, proxy-addr, source-map-js, vite)",
+        "script_preview": "#!/bin/sh\n# Praetorian Autonomous MCP Guard: guard_npm_sbom_lockfile_auditor\n# Target Vector: Website NPM Supply-Chain & Build Stack Advisories (body-parser, nanoid, proxy-addr, source-map-js, vite)\n# Attestation SHA-256: 9955810f0b7ecc1428c9675dea819d1e\nlogger -t praetorian-mcp 'Enforcing deterministic guard guard_npm_sbom_lockfile_auditor'\n"
+      },
+      {
+        "tool_id": "sentinel-auto-kev-sonicwall-sonicos-sslvpn-cve-2026-1986-7a1efc",
+        "target_attack": "KEV-ACTIVE: SonicWall SonicOS SSLVPN \u2014 SonicWall SonicOS SSLVPN Use of Single-factor Authentication Vulnerability (CVE-2026-19868)",
+        "attack_type": "exploit",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (SonicWall SonicOS SSLVPN)",
+        "sha256_receipt": "7a1efc3d8f4061847489daca2e55cc0c57eaae24110e34ee8d51491789022c21",
+        "rag_profile_id": "praetorian-rag-7a1efc3d8f",
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "synthesized_at": "2026-11-08T01:02:43Z",
+        "description": "Autonomously synthesized by Praetorian Swarm across multi-source feeds to neutralize: KEV-ACTIVE: SonicWall SonicOS SSLVPN \u2014 SonicWall SonicOS SSLVPN Use of Single-factor Authentication Vulnerability (CVE-2026-19868)",
+        "script_preview": "#!/bin/sh\n# Praetorian Autonomous MCP Guard: sentinel-auto-kev-sonicwall-sonicos-sslvpn-cve-2026-1986-7a1efc\n# Target Vector: KEV-ACTIVE: SonicWall SonicOS SSLVPN \u2014 SonicWall SonicOS SSLVPN Use of Single-factor Authentication Vulnerability (CVE-2026-19868)\n# Attestation SHA-256: 7a1efc3d8f4061847489daca2e55cc0c\nlogger -t praetorian-mcp 'Enforcing deterministic guard sentinel-auto-kev-sonicwall-sonicos-sslvpn-cve-2026-1986-7a1efc'\n"
+      },
+      {
+        "tool_id": "sentinel-auto-kev-apple-multiple-products-cve-2024-27834-4ff0c1",
+        "target_attack": "KEV-ACTIVE: Apple Multiple Products \u2014 Apple Multiple Products Improper Authentication Vulnerability (CVE-2024-27834)",
+        "attack_type": "exploit",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Apple Multiple Products)",
+        "sha256_receipt": "4ff0c1238df82eeb77d506b124244df339375d20dd92426c47d5b9acea811238",
+        "rag_profile_id": "praetorian-rag-4ff0c1238d",
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "synthesized_at": "2026-11-08T01:02:43Z",
+        "description": "Autonomously synthesized by Praetorian Swarm across multi-source feeds to neutralize: KEV-ACTIVE: Apple Multiple Products \u2014 Apple Multiple Products Improper Authentication Vulnerability (CVE-2024-27834)",
+        "script_preview": "#!/bin/sh\n# Praetorian Autonomous MCP Guard: sentinel-auto-kev-apple-multiple-products-cve-2024-27834-4ff0c1\n# Target Vector: KEV-ACTIVE: Apple Multiple Products \u2014 Apple Multiple Products Improper Authentication Vulnerability (CVE-2024-27834)\n# Attestation SHA-256: 4ff0c1238df82eeb77d506b124244df3\nlogger -t praetorian-mcp 'Enforcing deterministic guard sentinel-auto-kev-apple-multiple-products-cve-2024-27834-4ff0c1'\n"
+      },
+      {
+        "tool_id": "sentinel-auto-kev-wordpress-wordpress-core-cve-2026-1199-a4b072",
+        "target_attack": "KEV-ACTIVE: WordPress WordPress Core \u2014 WordPress WordPress Core Time-of-check Time-of-use (TOCTOU) Race Condition Vulnerability (CVE-2026-119977)",
+        "attack_type": "exploit",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (WordPress WordPress Core)",
+        "sha256_receipt": "a4b07248d9fa90a99d61e727ed9e4d4f2de506c7149635c151240af4bb0a1614",
+        "rag_profile_id": "praetorian-rag-a4b07248d9",
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "synthesized_at": "2026-11-08T01:02:43Z",
+        "description": "Autonomously synthesized by Praetorian Swarm across multi-source feeds to neutralize: KEV-ACTIVE: WordPress WordPress Core \u2014 WordPress WordPress Core Time-of-check Time-of-use (TOCTOU) Race Condition Vulnerability (CVE-2026-119977)",
+        "script_preview": "#!/bin/sh\n# Praetorian Autonomous MCP Guard: sentinel-auto-kev-wordpress-wordpress-core-cve-2026-1199-a4b072\n# Target Vector: KEV-ACTIVE: WordPress WordPress Core \u2014 WordPress WordPress Core Time-of-check Time-of-use (TOCTOU) Race Condition Vulnerability (CVE-2026-119977)\n# Attestation SHA-256: a4b07248d9fa90a99d61e727ed9e4d4f\nlogger -t praetorian-mcp 'Enforcing deterministic guard sentinel-auto-kev-wordpress-wordpress-core-cve-2026-1199-a4b072'\n"
+      },
+      {
+        "tool_id": "sentinel-auto-dshield-snmp-udp161-guard",
+        "target_attack": "DSHIELD-SENSOR: SNMPv2c Community String Enumeration & UDP Reflection Flood (Port 161)",
+        "attack_type": "exploit",
+        "severity": "HIGH",
+        "domain": "Zero-Trust Network Management & SNMPv3 Enclave",
+        "sha256_receipt": "ce0edb946c9630abddfbf5f2938806ec0e734470f750aa4c7a7ee7f24f6adb6e",
+        "rag_profile_id": "praetorian-rag-ce0edb946c",
+        "corroborated_feeds": [
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "synthesized_at": "2026-11-08T04:05:23Z",
+        "description": "Autonomously synthesized by Praetorian Swarm across multi-source feeds to neutralize: DSHIELD-SENSOR: SNMPv2c Community String Enumeration & UDP Reflection Flood (Port 161)",
+        "script_preview": "#!/bin/sh\n# Praetorian Autonomous MCP Guard: sentinel-auto-dshield-snmp-udp161-guard\n# Target Vector: DSHIELD-SENSOR: SNMPv2c Community String Enumeration & UDP Reflection Flood (Port 161)\n# Attestation SHA-256: ce0edb946c9630abddfbf5f2938806ec\nlogger -t praetorian-mcp 'Enforcing deterministic guard sentinel-auto-dshield-snmp-udp161-guard'\n"
+      },
+      {
+        "tool_id": "sentinel-auto-dshield-rdp-tcp3389-guard",
+        "target_attack": "DSHIELD-SENSOR: Remote Desktop Protocol (RDP) Pre-Auth Probe & Credential Stuffing (Port 3389)",
+        "attack_type": "exploit",
+        "severity": "HIGH",
+        "domain": "Zero-Trust Remote Administration Bastion",
+        "sha256_receipt": "af701d5638f1271996676f8fae22279c4cf114e3dc14862ba803d6cb8d615128",
+        "rag_profile_id": "praetorian-rag-af701d5638",
+        "corroborated_feeds": [
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "synthesized_at": "2026-11-08T04:05:23Z",
+        "description": "Autonomously synthesized by Praetorian Swarm across multi-source feeds to neutralize: DSHIELD-SENSOR: Remote Desktop Protocol (RDP) Pre-Auth Probe & Credential Stuffing (Port 3389)",
+        "script_preview": "#!/bin/sh\n# Praetorian Autonomous MCP Guard: sentinel-auto-dshield-rdp-tcp3389-guard\n# Target Vector: DSHIELD-SENSOR: Remote Desktop Protocol (RDP) Pre-Auth Probe & Credential Stuffing (Port 3389)\n# Attestation SHA-256: af701d5638f1271996676f8fae22279c\nlogger -t praetorian-mcp 'Enforcing deterministic guard sentinel-auto-dshield-rdp-tcp3389-guard'\n"
+      },
+      {
+        "tool_id": "sentinel-auto-kev-ivanti-connect-secure-cve-2026-118527-911672",
+        "target_attack": "KEV-ACTIVE: Ivanti Connect Secure \u2014 Ivanti Connect Secure Generation of Predictable Numbers or Identifiers Vulnerability (CVE-2026-118527)",
+        "attack_type": "exploit",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Ivanti Connect Secure)",
+        "sha256_receipt": "91167205d5e8eef1ebf3d73f874d9b528e8fdcd051a5579e1ddfdbf427814bcd",
+        "rag_profile_id": "praetorian-rag-91167205d5",
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "synthesized_at": "2026-11-08T21:16:37Z",
+        "description": "Autonomously synthesized by Praetorian Swarm across multi-source feeds to neutralize: KEV-ACTIVE: Ivanti Connect Secure \u2014 Ivanti Connect Secure Generation of Predictable Numbers or Identifiers Vulnerability (CVE-2026-118527)",
+        "script_preview": "#!/bin/sh\n# Praetorian Autonomous MCP Guard: sentinel-auto-kev-ivanti-connect-secure-cve-2026-118527-911672\n# Target Vector: KEV-ACTIVE: Ivanti Connect Secure \u2014 Ivanti Connect Secure Generation of Predictable Numbers or Identifiers Vulnerability (CVE-2026-118527)\n# Attestation SHA-256: 91167205d5e8eef1ebf3d73f874d9b52\nlogger -t praetorian-mcp 'Enforcing deterministic guard sentinel-auto-kev-ivanti-connect-secure-cve-2026-118527-911672'\n"
+      },
+      {
+        "tool_id": "sentinel-auto-kev-ivanti-connect-secure-cve-2026-111357-7c42e8",
+        "target_attack": "KEV-ACTIVE: Ivanti Connect Secure \u2014 Ivanti Connect Secure Missing Authentication for Critical Function Vulnerability (CVE-2026-111357)",
+        "attack_type": "exploit",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Ivanti Connect Secure)",
+        "sha256_receipt": "7c42e89b76b32ffab15e6e669c8184c8c810fd220e9595795731fe46110acec6",
+        "rag_profile_id": "praetorian-rag-7c42e89b76",
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "synthesized_at": "2026-11-08T21:16:37Z",
+        "description": "Autonomously synthesized by Praetorian Swarm across multi-source feeds to neutralize: KEV-ACTIVE: Ivanti Connect Secure \u2014 Ivanti Connect Secure Missing Authentication for Critical Function Vulnerability (CVE-2026-111357)",
+        "script_preview": "#!/bin/sh\n# Praetorian Autonomous MCP Guard: sentinel-auto-kev-ivanti-connect-secure-cve-2026-111357-7c42e8\n# Target Vector: KEV-ACTIVE: Ivanti Connect Secure \u2014 Ivanti Connect Secure Missing Authentication for Critical Function Vulnerability (CVE-2026-111357)\n# Attestation SHA-256: 7c42e89b76b32ffab15e6e669c8184c8\nlogger -t praetorian-mcp 'Enforcing deterministic guard sentinel-auto-kev-ivanti-connect-secure-cve-2026-111357-7c42e8'\n"
+      }
+    ]
+  }
+}

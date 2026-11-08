@@ -1140,21 +1140,34 @@
   }
 
   async function probeSameOriginBridgeIfLocal() {
-    if (!IS_LOCAL_DAEMON_PORT) {
-      document.getElementById("mode-pill").textContent = "🛡️ Enclave: Isolated Zero-Access Sandbox ($0.00)";
-      return;
+    if (IS_LOCAL_DAEMON_PORT) {
+      try {
+        const r = await fetch("/api/status");
+        if (r.ok) {
+          bridgeOnline = true;
+          const data = await r.json();
+          applyBridgeState(data);
+          document.getElementById("mode-pill").textContent = "☁️ Enclave: Live Cloud MCP Bridge (cyroot-test)";
+          return;
+        }
+      } catch (_) {
+        bridgeOnline = false;
+      }
     }
+
+    // Same-origin SQLite Aggregator DB Snapshot poll (zero cross-origin / local network permission prompts!)
     try {
-      const r = await fetch("/api/status");
+      const r = await fetch("./praetorian-live-db.json?v=" + Math.floor(Date.now() / 60000), { cache: "no-store" });
       if (r.ok) {
-        bridgeOnline = true;
         const data = await r.json();
         applyBridgeState(data);
-        document.getElementById("mode-pill").textContent = "☁️ Enclave: Live Cloud MCP Bridge (cyroot-test)";
+        document.getElementById("mode-pill").textContent = "🗄️ Enclave: Live Multi-Source DB Sync ($0.00)";
+        return;
       }
     } catch (_) {
-      bridgeOnline = false;
+      // Fallback to embedded catalog if offline
     }
+    document.getElementById("mode-pill").textContent = "🛡️ Enclave: Isolated Zero-Access Sandbox ($0.00)";
   }
 
   function applyBridgeState(data) {
@@ -1165,9 +1178,13 @@
 
     if ((obsData.observations || []).length > 0) {
       localObservations = obsData.observations;
+      localSeenHashes.clear();
+      localObservations.forEach(o => {
+        if (o.signature_hash) localSeenHashes.set(o.signature_hash, o);
+      });
       localTools = toolsData.tools || [];
-      localDedupCount = obsData.deduplicated_repeat_count ?? localDedupCount;
-      totalObserved = localObservations.length + localDedupCount;
+      localDedupCount = Math.max(localDedupCount, obsData.deduplicated_repeat_count ?? 0);
+      totalObserved = Math.max(totalObserved, localObservations.length + localDedupCount);
     }
 
     document.getElementById("kpi-observed").textContent = totalObserved;
@@ -1224,19 +1241,24 @@
       container.innerHTML = `<div class="mono-meta">Waiting for unique threat observations...</div>`;
       return;
     }
-    container.innerHTML = autoTools.slice(0, 25).map(t => `
+    container.innerHTML = autoTools.slice(0, 35).map(t => {
+      const tName = t.name || `Praetorian Auto-Guard: ${(t.target_attack || t.tool_id || "").slice(0, 46)}`;
+      const tAuthor = t.author_agent || "Sentinel-Audit & Multi-Source Swarm";
+      const tCode = t.code_or_command || t.script_preview || "# Praetorian Deterministic Guard Active";
+      return `
       <div class="intel-card tool">
         <div class="intel-card-head">
-          <span>🛠️ ${t.name}</span>
+          <span>🛠️ ${tName}</span>
           <span class="badge high">${t.tool_id}</span>
         </div>
         <div class="mono-meta">
-          Author: ${t.author_agent} | Receipt SHA-256: <code>${(t.sha256_receipt || "").slice(0, 20)}...</code>
+          Author: ${tAuthor} | Receipt SHA-256: <code>${(t.sha256_receipt || "").slice(0, 20)}...</code>
         </div>
         <div style="font-size:11.5px;color:#cbd5e1;">${t.description}</div>
-        <pre class="code-box">${t.code_or_command}</pre>
+        <pre class="code-box">${tCode}</pre>
       </div>
-    `).join("");
+    `;
+    }).join("");
   }
 
   async function sendObservation(ev) {
@@ -1389,6 +1411,11 @@
     const shouldReplayDup = (totalObserved > 0 && totalObserved % 3 === 0);
     fireSingleEvent(shouldReplayDup);
   }, 5500);
+
+  // Regularly poll same-origin SQLite Aggregator DB snapshot every 60s
+  setInterval(() => {
+    probeSameOriginBridgeIfLocal();
+  }, 60000);
 </script>
 </body>
 </html>
