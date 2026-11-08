@@ -641,7 +641,7 @@
   const IS_LOCAL_DAEMON_PORT = (window.location.port === "8095");
   let bridgeOnline = false;
 
-  // Praetorian Multi-Source Canonical Aggregator Catalog (Normalized across 8 Independent Threat Feeds)
+  // Praetorian Multi-Source Canonical Aggregator Catalog (Normalized across 8 Independent Threat Feeds — 25 Active MCP Guards)
   const ENCLAVE_TELEMETRY_CATALOG = [
     { a_n: "ICS-PROTOCOL-ANOMALY: Unauthorized Modbus/TCP Holding Register Write (FC 0x10)", a_t: "ics_ot", s_co: "SECTOR-OT/SCADA", d_co: "TENTACLE-II", sectorIdx: 1, baseRepeats: 7, firstSeen: "2026-11-07T02:47:08Z", feeds: ["CISA-KEV", "MITRE-ICS-OT", "SANS-ISC-DSHIELD"] },
     { a_n: "MEMORY-CORRUPTION: Mail Daemon Format-String Stack Overwrite (CWE-134)", a_t: "exploit", s_co: "SECTOR-MEMORY", d_co: "TENTACLE-IV", sectorIdx: 3, baseRepeats: 4, firstSeen: "2026-11-07T02:48:25Z", feeds: ["SURICATA-ET-OPEN", "SANS-ISC-DSHIELD", "MV-BEHAVIORAL-IDS"] },
@@ -655,7 +655,19 @@
     { a_n: "C2-BEACON: Malleable HTTPS Command-and-Control Jitter Profile (T1071.001)", a_t: "botnet", s_co: "SECTOR-C2/BOTNET", d_co: "TENTACLE-III", sectorIdx: 2, baseRepeats: 7, firstSeen: "2026-11-07T02:46:47Z", feeds: ["ABUSECH-THREATFOX", "SURICATA-ET-OPEN", "ALIENVAULT-OTX"] },
     { a_n: "AUTH-BYPASS: Alpine musl libc crypt() >256-Byte Asterisk Collision (*sshole / CWE-287)", a_t: "exploit", s_co: "SECTOR-ENCLAVE", d_co: "TENTACLE-VI", sectorIdx: 5, baseRepeats: 5, firstSeen: "2026-11-07T11:04:00Z", feeds: ["CISA-KEV", "SANS-ISC-DSHIELD", "GREYNOISE-COMMUNITY", "ALIENVAULT-OTX"] },
     { a_n: "PERIPHERAL-SPOOF: USB HID Keystroke Injection & DMA Bus Probe (T1200)", a_t: "exploit", s_co: "SECTOR-PERIPHERAL", d_co: "TENTACLE-V", sectorIdx: 4, baseRepeats: 5, firstSeen: "2026-11-07T04:12:19Z", feeds: ["MITRE-ICS-OT", "MV-BEHAVIORAL-IDS"] },
-    { a_n: "GRID-CONTROL-INJECTION: IEC 60870-5-104 Unauthorized Telecontrol Frame (T0831)", a_t: "ics_ot", s_co: "SECTOR-OT/SCADA", d_co: "TENTACLE-II", sectorIdx: 1, baseRepeats: 6, firstSeen: "2026-11-07T05:04:52Z", feeds: ["MITRE-ICS-OT", "SANS-ISC-DSHIELD", "SURICATA-ET-OPEN"] }
+    { a_n: "GRID-CONTROL-INJECTION: IEC 60870-5-104 Unauthorized Telecontrol Frame (T0831)", a_t: "ics_ot", s_co: "SECTOR-OT/SCADA", d_co: "TENTACLE-II", sectorIdx: 1, baseRepeats: 6, firstSeen: "2026-11-07T05:04:52Z", feeds: ["MITRE-ICS-OT", "SANS-ISC-DSHIELD", "SURICATA-ET-OPEN"] },
+    { a_n: "KEV-ACTIVE: SonicWall SonicOS SSLVPN Use of Single-Factor Auth Vulnerability (CVE-2026-19868)", a_t: "exploit", s_co: "SECTOR-INGRESS", d_co: "TENTACLE-I", sectorIdx: 0, baseRepeats: 4, firstSeen: "2026-11-07T17:02:00Z", feeds: ["CISA-KEV", "SANS-ISC-DSHIELD", "GREYNOISE-COMMUNITY", "SURICATA-ET-OPEN"] },
+    { a_n: "KEV-ACTIVE: Apple Multiple Products Improper Authentication Vulnerability (CVE-2024-27834)", a_t: "exploit", s_co: "SECTOR-ENCLAVE", d_co: "TENTACLE-VI", sectorIdx: 5, baseRepeats: 4, firstSeen: "2026-11-07T17:02:01Z", feeds: ["CISA-KEV", "ALIENVAULT-OTX", "MV-BEHAVIORAL-IDS"] },
+    { a_n: "KEV-ACTIVE: WordPress Core Time-of-Check Time-of-Use (TOCTOU) Race Condition (CVE-2026-119977)", a_t: "exploit", s_co: "SECTOR-INGRESS", d_co: "TENTACLE-I", sectorIdx: 0, baseRepeats: 4, firstSeen: "2026-11-07T17:02:02Z", feeds: ["CISA-KEV", "SURICATA-ET-OPEN", "GREYNOISE-COMMUNITY"] },
+    { a_n: "DSHIELD-SENSOR: SNMPv2c Community String Enumeration & UDP Reflection Flood (Port 161)", a_t: "exploit", s_co: "SECTOR-PERIPHERAL", d_co: "TENTACLE-V", sectorIdx: 4, baseRepeats: 8, firstSeen: "2026-11-07T20:05:17Z", feeds: ["SANS-ISC-DSHIELD", "GREYNOISE-COMMUNITY", "SURICATA-ET-OPEN"] },
+    { a_n: "DSHIELD-SENSOR: Remote Desktop Protocol (RDP) Pre-Auth Probe & Credential Stuffing (Port 3389)", a_t: "exploit", s_co: "SECTOR-INGRESS", d_co: "TENTACLE-I", sectorIdx: 0, baseRepeats: 6, firstSeen: "2026-11-07T20:05:18Z", feeds: ["SANS-ISC-DSHIELD", "GREYNOISE-COMMUNITY", "ABUSECH-THREATFOX"] },
+    { a_n: "STACK-SBOM: Alpine Linux zlib Buffer Boundary Hardening >=1.4-r0 (ALPINE-CVE-2026-4738)", a_t: "exploit", s_co: "SECTOR-MEMORY", d_co: "TENTACLE-IV", sectorIdx: 3, baseRepeats: 3, firstSeen: "2026-11-07T11:19:01Z", feeds: ["CISA-KEV", "SANS-ISC-DSHIELD", "SURICATA-ET-OPEN"] },
+    { a_n: "STACK-SBOM: Website NPM Supply-Chain Lockfile Auditor (T1195.002 / Zero-Vuln Gate)", a_t: "exploit", s_co: "SECTOR-ENCLAVE", d_co: "TENTACLE-VI", sectorIdx: 5, baseRepeats: 5, firstSeen: "2026-11-07T11:19:02Z", feeds: ["CISA-KEV", "ABUSECH-THREATFOX", "ALIENVAULT-OTX"] },
+    { a_n: "STACK-SBOM: Express proxy-addr IPv4-Mapped IPv6 Subnet Trust Guard (GHSA-jqcg-44mw-7w3h)", a_t: "exploit", s_co: "SECTOR-INGRESS", d_co: "TENTACLE-I", sectorIdx: 0, baseRepeats: 3, firstSeen: "2026-11-07T11:19:03Z", feeds: ["CISA-KEV", "SURICATA-ET-OPEN"] },
+    { a_n: "STACK-SBOM: Vite Dev-Server & CLI Argument Escaping Guard v8.3.6 (GHSA-587h-7wmj-h5pm)", a_t: "exploit", s_co: "SECTOR-ENCLAVE", d_co: "TENTACLE-VI", sectorIdx: 5, baseRepeats: 3, firstSeen: "2026-11-07T11:19:04Z", feeds: ["CISA-KEV", "ALIENVAULT-OTX"] },
+    { a_n: "STACK-SBOM: Express body-parser Compressed Payload Trailing-Bytes DoS Guard (GHSA-27r3-jxmh-p828)", a_t: "exploit", s_co: "SECTOR-INGRESS", d_co: "TENTACLE-I", sectorIdx: 0, baseRepeats: 3, firstSeen: "2026-11-07T11:19:05Z", feeds: ["CISA-KEV", "SANS-ISC-DSHIELD"] },
+    { a_n: "STACK-SBOM: PostCSS & source-map-js Arbitrary Map Offset DoS Guard (GHSA-fxqj-rqcc-2cmp)", a_t: "exploit", s_co: "SECTOR-MEMORY", d_co: "TENTACLE-IV", sectorIdx: 3, baseRepeats: 3, firstSeen: "2026-11-07T11:19:06Z", feeds: ["CISA-KEV", "MV-BEHAVIORAL-IDS"] },
+    { a_n: "STACK-SBOM: Query-String (qs) & nanoid Generator Bounds Guard (GHSA-4mjr-xmp4-gh2g)", a_t: "exploit", s_co: "SECTOR-INGRESS", d_co: "TENTACLE-I", sectorIdx: 0, baseRepeats: 3, firstSeen: "2026-11-07T11:19:07Z", feeds: ["CISA-KEV", "SURICATA-ET-OPEN"] }
   ];
 
   // 4 Praetorian Sentinels (Inner Ring)
@@ -1057,8 +1069,8 @@
     localSeenHashes.clear();
     localDedupCount = 0;
 
-    // Seed first 11 verified unique baseline observations & synthesized MCP tools immediately (including Alpine *sshole guard)
-    const initialCount = 11;
+    // Seed first 23 verified unique baseline observations & synthesized MCP tools immediately (with #24 and #25 synthesizing live)
+    const initialCount = Math.min(23, ENCLAVE_TELEMETRY_CATALOG.length);
     for (let i = 0; i < initialCount; i++) {
       const item = ENCLAVE_TELEMETRY_CATALOG[i];
       const canonical = `${item.a_n.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim()}::${item.a_t.toLowerCase()}`;
@@ -1212,7 +1224,7 @@
       container.innerHTML = `<div class="mono-meta">Waiting for unique threat observations...</div>`;
       return;
     }
-    container.innerHTML = autoTools.slice(0, 8).map(t => `
+    container.innerHTML = autoTools.slice(0, 25).map(t => `
       <div class="intel-card tool">
         <div class="intel-card-head">
           <span>🛠️ ${t.name}</span>
