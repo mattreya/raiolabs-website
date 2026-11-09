@@ -196,7 +196,7 @@ function renderLayout() {
         <button class="nav-tab" data-target="dashboard-view">📊 AetherOS Sandbox</button>
         <button class="nav-tab" data-target="stage-view">🎭 Shadow Puppet Theatre</button>
         <a href="./netlab.html" class="nav-tab nav-tab-netlab" id="btn-netlab-nav" title="NetLab CCNP Web Studio">⚡ NetLabCCNP</a>
-        <a href="./praetorian.html" class="nav-tab nav-tab-netlab" id="btn-praetorian-nav" title="Rai-OS Praetorian Blue-Team Sentinel Observatory">🛡️ Praetorian Observatory</a>
+        <a href="./praetorian.html" class="nav-tab nav-tab-netlab" id="btn-praetorian-nav" title="Rai-OS 2.0 Praetorian PQC Observatory">🛡️ Rai-OS 2.0 Observatory</a>
       </nav>
 
       <!-- 1. GITHUB PROJECTS VIEW -->

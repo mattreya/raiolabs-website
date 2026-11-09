@@ -3,20 +3,20 @@
 export const FEATURED_PROJECTS = [
   {
     id: 'praetorian-sentinel-observatory',
-    name: 'Rai-OS Praetorian Observatory',
-    title: 'Praetorian Blue-Team Sentinel Observatory',
+    name: 'Rai-OS 2.0 PQC Observatory',
+    title: 'Rai-OS 2.0 Praetorian PQC Observatory',
     category: 'SecOps & Governance',
-    language: 'Python / MCP / Dynamic RAG / eBPF',
-    badge: 'LIVE SWARM',
+    language: 'Python / PQC / MCP / eBPF',
+    badge: 'RAI-OS 2.0 PQC',
     stars: 5,
     url: './praetorian.html',
-    summary: 'Real-time visual observatory demonstrating the Rai-OS Praetorian Cthulhu Blue-Team Swarm intercepting anomaly vectors across a Concentric Enclave Radar, enforcing SHA-256 non-repetitive deduplication, and synthesizing defensive MCP tools & Dynamic RAG profiles.',
+    summary: 'Real-time visual observatory demonstrating Rai-OS 2.0 with Post-Quantum Cryptography (PQC) packet encapsulation (NIST FIPS 203 ML-KEM-768 + FIPS 204 ML-DSA-65), the 5-Sentinel Praetorian Cthulhu Swarm, non-repetitive SHA-256 deduplication, and Dynamic RAG synthesis.',
     highlights: [
-      'Non-repetitive SHA-256 signature deduplication (suppresses duplicate attack noise at $0.00 cost)',
-      'Autonomous synthesis of Level-0 HITL OT/ICS & Linux defensive MCP tools with SHA-256 receipts',
+      'NIST FIPS 203 (ML-KEM-768) + FIPS 204 (ML-DSA-65) autonomous PQC wire armor (36B overhead, 59.5 µs latency)',
+      '5-Sentinel Praetorian Cthulhu Swarm with dedicated Quantum Wire Enclave (Sentinel 5)',
       'Zero client device/storage permissions — runs in an isolated read-only telemetry sandbox'
     ],
-    command: 'praetorian-cloud-rag observe-attack \'{"a_n":"Modbus TCP Unauthorized PLC Register Write","a_t":"ics_ot"}\''
+    command: 'praetorian-pqc-shim --test'
   },
   {
     id: 'netlab-ccnp',
