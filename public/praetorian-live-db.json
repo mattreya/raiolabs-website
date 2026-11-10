@@ -1,5 +1,5 @@
 {
-  "synced_at": "2026-11-10T01:06:32.897723+00:00",
+  "synced_at": "2026-11-10T01:08:52.389614+00:00",
   "source_database": "praetorian_multi_source_intel.db (SQLite3 STIX/MITRE Normalizer)",
   "cost_posture": "$0.00 (Same-Origin Static Snapshot + Local SQLite Aggregator)",
   "cloud_health": {
@@ -61,8 +61,8 @@
         "name": "CISA Known Exploited Vulnerabilities Catalog",
         "category": "Public US Gov / CVE Advisories",
         "license_tier": "Public Domain (CC0 / US Gov)",
-        "vectors_contributed": 78,
-        "last_polled_at": "2026-11-10T01:06:31Z"
+        "vectors_contributed": 83,
+        "last_polled_at": "2026-11-10T01:08:50Z"
       },
       {
         "feed_id": "GREYNOISE-COMMUNITY",
@@ -107,7 +107,7 @@
     ]
   },
   "stack_vulnerability_audit": {
-    "last_scan_timestamp": "2026-11-10T01:00:01.559460+00:00",
+    "last_scan_timestamp": "2026-11-10T01:08:39.135176+00:00",
     "alpine_release": "3.22.7",
     "alpine_packages_scanned": 128,
     "alpine_unpatched_cves": 0,
@@ -124,7 +124,7 @@
     }
   },
   "direct_enclave_intrusion_audit": {
-    "checked_at": "2026-11-10T01:06:32.873226+00:00",
+    "checked_at": "2026-11-10T01:08:52.381319+00:00",
     "direct_attacks_total": 0,
     "new_attacks_detected_this_run": 0,
     "enclave_status": "SECURE_ZERO_DIRECT_ATTACKS",
@@ -1068,7 +1068,7 @@
         "rag_profile_id": "praetorian-rag-7a1efc3d8f",
         "repeat_hits": 4,
         "first_seen_at": "2026-11-08T01:02:43Z",
-        "last_seen_at": "2026-11-10T01:06:31Z"
+        "last_seen_at": "2026-11-10T01:08:50Z"
       },
       {
         "observation_id": "obs-0bddd1fee7",
@@ -1094,7 +1094,7 @@
         "rag_profile_id": "praetorian-rag-0bddd1fee7",
         "repeat_hits": 4,
         "first_seen_at": "2026-11-09T20:15:02Z",
-        "last_seen_at": "2026-11-10T01:06:31Z"
+        "last_seen_at": "2026-11-10T01:08:50Z"
       },
       {
         "observation_id": "obs-5004f456f0",
@@ -1120,7 +1120,7 @@
         "rag_profile_id": "praetorian-rag-5004f456f0",
         "repeat_hits": 4,
         "first_seen_at": "2026-11-09T20:15:02Z",
-        "last_seen_at": "2026-11-10T01:06:31Z"
+        "last_seen_at": "2026-11-10T01:08:50Z"
       },
       {
         "observation_id": "obs-9ccd1644c7",
@@ -1146,7 +1146,7 @@
         "rag_profile_id": "praetorian-rag-9ccd1644c7",
         "repeat_hits": 4,
         "first_seen_at": "2026-11-09T20:15:02Z",
-        "last_seen_at": "2026-11-10T01:06:31Z"
+        "last_seen_at": "2026-11-10T01:08:50Z"
       },
       {
         "observation_id": "obs-4d1490c577",
@@ -1172,7 +1172,7 @@
         "rag_profile_id": "praetorian-rag-4d1490c577",
         "repeat_hits": 4,
         "first_seen_at": "2026-11-10T00:26:22Z",
-        "last_seen_at": "2026-11-10T01:06:31Z"
+        "last_seen_at": "2026-11-10T01:08:50Z"
       }
     ]
   },
