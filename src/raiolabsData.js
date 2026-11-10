@@ -3,20 +3,21 @@
 export const FEATURED_PROJECTS = [
   {
     id: 'praetorian-sentinel-observatory',
-    name: 'Rai-OS 2.0 PQC Observatory',
-    title: 'Rai-OS 2.0 Praetorian PQC Observatory',
+    name: 'Rai-OS 2.1 PQC & NIST AML Observatory',
+    title: 'Rai-OS 2.1 Praetorian PQC & NIST SP 2400-102 Observatory',
     category: 'SecOps & Governance',
-    language: 'Python / PQC / MCP / eBPF',
-    badge: 'RAI-OS 2.0 PQC',
+    language: 'Python / PQC / MCP / eBPF / AML',
+    badge: 'RAI-OS 2.1 NIST & PQC',
     stars: 5,
     url: './praetorian.html',
-    summary: 'Real-time visual observatory demonstrating Rai-OS 2.0 with Post-Quantum Cryptography (PQC) packet encapsulation (NIST FIPS 203 ML-KEM-768 + FIPS 204 ML-DSA-65), the 5-Sentinel Praetorian Cthulhu Swarm, non-repetitive SHA-256 deduplication, and Dynamic RAG synthesis.',
+    summary: 'Real-time visual observatory demonstrating Rai-OS 2.1 with NIST SP 2400-102e2026 ipd Adversarial ML compliance (agentic telemetry taint isolation, rogue MCP manifest verification, anti-drift memory controls), Post-Quantum Cryptography (FIPS 203/204), and the 5-Sentinel Praetorian Swarm.',
     highlights: [
+      'NIST SP 2400-102e2026 ipd compliant against autonomous agent attacks (taint-isolated telemetry, non-subshell command gates)',
       'NIST FIPS 203 (ML-KEM-768) + FIPS 204 (ML-DSA-65) autonomous PQC wire armor (36B overhead, 59.5 µs latency)',
-      '5-Sentinel Praetorian Cthulhu Swarm with dedicated Quantum Wire Enclave (Sentinel 5)',
+      '5-Sentinel Praetorian Cthulhu Swarm with dedicated Quantum Wire Enclave & Immutable MCP Tool Manifest verification',
       'Zero client device/storage permissions — runs in an isolated read-only telemetry sandbox'
     ],
-    command: 'praetorian-pqc-shim --test'
+    command: 'praetorian-test'
   },
   {
     id: 'netlab-ccnp',
