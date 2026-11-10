@@ -1,5 +1,5 @@
 {
-  "synced_at": "2026-11-09T01:44:24.745653+00:00",
+  "synced_at": "2026-11-10T00:25:38.435924+00:00",
   "source_database": "praetorian_multi_source_intel.db (SQLite3 STIX/MITRE Normalizer)",
   "cost_posture": "$0.00 (Same-Origin Static Snapshot + Local SQLite Aggregator)",
   "cloud_health": {
@@ -12,12 +12,12 @@
     "soul_sha256_enforced": "ad866445f67a56c9f8d8f14e43d8098fd5a83dc10d680bbb671a0f4d57bae08c",
     "daily_requests_used": 9,
     "daily_request_hard_cap": 5000,
-    "indexed_threat_docs": 45,
+    "indexed_threat_docs": 48,
     "submitted_tools_count": 2,
     "submitted_reports_count": 0,
     "recorded_sessions_count": 0,
-    "threatmap_unique_profiles_count": 36,
-    "threatmap_deduplicated_repeats": 154,
+    "threatmap_unique_profiles_count": 39,
+    "threatmap_deduplicated_repeats": 163,
     "mcp_tools_available": [
       "query_blackhat_intel",
       "get_countermeasure_playbook",
@@ -61,8 +61,8 @@
         "name": "CISA Known Exploited Vulnerabilities Catalog",
         "category": "Public US Gov / CVE Advisories",
         "license_tier": "Public Domain (CC0 / US Gov)",
-        "vectors_contributed": 39,
-        "last_polled_at": "2026-11-09T01:44:23Z"
+        "vectors_contributed": 65,
+        "last_polled_at": "2026-11-10T00:25:29Z"
       },
       {
         "feed_id": "GREYNOISE-COMMUNITY",
@@ -93,8 +93,8 @@
         "name": "SANS Internet Storm Center DShield Sensor Grid",
         "category": "Global Honeypot Port & Protocol Telemetry",
         "license_tier": "Open Community Telemetry",
-        "vectors_contributed": 29,
-        "last_polled_at": "2026-11-08T21:16:38Z"
+        "vectors_contributed": 49,
+        "last_polled_at": "2026-11-09T20:15:02Z"
       },
       {
         "feed_id": "SURICATA-ET-OPEN",
@@ -107,7 +107,7 @@
     ]
   },
   "stack_vulnerability_audit": {
-    "last_scan_timestamp": "2026-11-09T01:43:09.857226+00:00",
+    "last_scan_timestamp": "2026-11-10T00:25:31.171211+00:00",
     "alpine_release": "3.22.7",
     "alpine_packages_scanned": 128,
     "alpine_unpatched_cves": 0,
@@ -124,15 +124,15 @@
     }
   },
   "direct_enclave_intrusion_audit": {
-    "checked_at": "2026-11-09T01:44:24.721854+00:00",
+    "checked_at": "2026-11-10T00:25:38.410994+00:00",
     "direct_attacks_total": 0,
     "new_attacks_detected_this_run": 0,
     "enclave_status": "SECURE_ZERO_DIRECT_ATTACKS",
     "recent_direct_attacks": []
   },
   "threatmap_observations": {
-    "unique_count": 36,
-    "deduplicated_repeat_count": 154,
+    "unique_count": 39,
+    "deduplicated_repeat_count": 163,
     "observations": [
       {
         "observation_id": "obs-59212b1009",
@@ -809,6 +809,136 @@
         "last_seen_at": "2026-11-07T19:23:23Z"
       },
       {
+        "observation_id": "obs-a4b07248d9",
+        "signature_name": "KEV-ACTIVE: WordPress WordPress Core \u2014 WordPress WordPress Core Time-of-check Time-of-use (TOCTOU) Race Condition Vulnerability (CVE-2026-119977)",
+        "attack_type": "exploit",
+        "signature_hash": "a4b07248d9fa90a99d61e727ed9e4d4f2de506c7149635c151240af4bb0a1614",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (WordPress WordPress Core)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-kev-wordpress-wordpress-core-cve-2026-1199-a4b072",
+        "synthesized_tool_sha256": "a4b07248d9fa90a99d61e727ed9e4d4f2de506c7149635c151240af4bb0a1614",
+        "rag_profile_id": "praetorian-rag-a4b07248d9",
+        "repeat_hits": 4,
+        "first_seen_at": "2026-11-08T01:02:43Z",
+        "last_seen_at": "2026-11-09T14:15:01Z"
+      },
+      {
+        "observation_id": "obs-91167205d5",
+        "signature_name": "KEV-ACTIVE: Ivanti Connect Secure \u2014 Ivanti Connect Secure Generation of Predictable Numbers or Identifiers Vulnerability (CVE-2026-118527)",
+        "attack_type": "exploit",
+        "signature_hash": "91167205d5e8eef1ebf3d73f874d9b528e8fdcd051a5579e1ddfdbf427814bcd",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Ivanti Connect Secure)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-kev-ivanti-connect-secure-cve-2026-118527-911672",
+        "synthesized_tool_sha256": "91167205d5e8eef1ebf3d73f874d9b528e8fdcd051a5579e1ddfdbf427814bcd",
+        "rag_profile_id": "praetorian-rag-91167205d5",
+        "repeat_hits": 4,
+        "first_seen_at": "2026-11-08T21:16:37Z",
+        "last_seen_at": "2026-11-09T14:15:01Z"
+      },
+      {
+        "observation_id": "obs-7c42e89b76",
+        "signature_name": "KEV-ACTIVE: Ivanti Connect Secure \u2014 Ivanti Connect Secure Missing Authentication for Critical Function Vulnerability (CVE-2026-111357)",
+        "attack_type": "exploit",
+        "signature_hash": "7c42e89b76b32ffab15e6e669c8184c8c810fd220e9595795731fe46110acec6",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Ivanti Connect Secure)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-kev-ivanti-connect-secure-cve-2026-111357-7c42e8",
+        "synthesized_tool_sha256": "7c42e89b76b32ffab15e6e669c8184c8c810fd220e9595795731fe46110acec6",
+        "rag_profile_id": "praetorian-rag-7c42e89b76",
+        "repeat_hits": 4,
+        "first_seen_at": "2026-11-08T21:16:37Z",
+        "last_seen_at": "2026-11-09T14:15:01Z"
+      },
+      {
+        "observation_id": "obs-7a1efc3d8f",
+        "signature_name": "KEV-ACTIVE: SonicWall SonicOS SSLVPN \u2014 SonicWall SonicOS SSLVPN Use of Single-factor Authentication Vulnerability (CVE-2026-19868)",
+        "attack_type": "exploit",
+        "signature_hash": "7a1efc3d8f4061847489daca2e55cc0c57eaae24110e34ee8d51491789022c21",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (SonicWall SonicOS SSLVPN)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-kev-sonicwall-sonicos-sslvpn-cve-2026-1986-7a1efc",
+        "synthesized_tool_sha256": "7a1efc3d8f4061847489daca2e55cc0c57eaae24110e34ee8d51491789022c21",
+        "rag_profile_id": "praetorian-rag-7a1efc3d8f",
+        "repeat_hits": 4,
+        "first_seen_at": "2026-11-08T01:02:43Z",
+        "last_seen_at": "2026-11-09T20:15:02Z"
+      },
+      {
+        "observation_id": "obs-4ff0c1238d",
+        "signature_name": "KEV-ACTIVE: Apple Multiple Products \u2014 Apple Multiple Products Improper Authentication Vulnerability (CVE-2024-27834)",
+        "attack_type": "exploit",
+        "signature_hash": "4ff0c1238df82eeb77d506b124244df339375d20dd92426c47d5b9acea811238",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Apple Multiple Products)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-kev-apple-multiple-products-cve-2024-27834-4ff0c1",
+        "synthesized_tool_sha256": "4ff0c1238df82eeb77d506b124244df339375d20dd92426c47d5b9acea811238",
+        "rag_profile_id": "praetorian-rag-4ff0c1238d",
+        "repeat_hits": 4,
+        "first_seen_at": "2026-11-08T01:02:43Z",
+        "last_seen_at": "2026-11-09T20:15:02Z"
+      },
+      {
         "observation_id": "obs-84a9c2ba75",
         "signature_name": "AUTH-BYPASS: Alpine musl libc crypt() >256-Byte Asterisk Collision (*sshole / CWE-287)",
         "attack_type": "exploit",
@@ -834,7 +964,7 @@
         "rag_profile_id": "praetorian-rag-84a9c2ba75",
         "repeat_hits": 15,
         "first_seen_at": "2026-11-08T04:05:23Z",
-        "last_seen_at": "2026-11-08T21:16:38Z"
+        "last_seen_at": "2026-11-09T20:15:02Z"
       },
       {
         "observation_id": "obs-ce0edb946c",
@@ -860,7 +990,7 @@
         "rag_profile_id": "praetorian-rag-ce0edb946c",
         "repeat_hits": 15,
         "first_seen_at": "2026-11-08T04:05:23Z",
-        "last_seen_at": "2026-11-08T21:16:38Z"
+        "last_seen_at": "2026-11-09T20:15:02Z"
       },
       {
         "observation_id": "obs-5dfdefa8d0",
@@ -885,7 +1015,7 @@
         "rag_profile_id": "praetorian-rag-5dfdefa8d0",
         "repeat_hits": 15,
         "first_seen_at": "2026-11-08T04:05:23Z",
-        "last_seen_at": "2026-11-08T21:16:38Z"
+        "last_seen_at": "2026-11-09T20:15:02Z"
       },
       {
         "observation_id": "obs-af701d5638",
@@ -911,7 +1041,7 @@
         "rag_profile_id": "praetorian-rag-af701d5638",
         "repeat_hits": 15,
         "first_seen_at": "2026-11-08T04:05:23Z",
-        "last_seen_at": "2026-11-08T21:16:38Z"
+        "last_seen_at": "2026-11-09T20:15:02Z"
       },
       {
         "observation_id": "obs-b0022e1ef2",
@@ -938,17 +1068,17 @@
         "rag_profile_id": "praetorian-rag-b0022e1ef2",
         "repeat_hits": 15,
         "first_seen_at": "2026-11-08T04:05:23Z",
-        "last_seen_at": "2026-11-08T21:16:38Z"
+        "last_seen_at": "2026-11-09T20:15:02Z"
       },
       {
-        "observation_id": "obs-7a1efc3d8f",
-        "signature_name": "KEV-ACTIVE: SonicWall SonicOS SSLVPN \u2014 SonicWall SonicOS SSLVPN Use of Single-factor Authentication Vulnerability (CVE-2026-19868)",
+        "observation_id": "obs-0bddd1fee7",
+        "signature_name": "KEV-ACTIVE: GPUStack GPUStack \u2014 GPUStack Improper Authentication Vulnerability (CVE-2026-102895)",
         "attack_type": "exploit",
-        "signature_hash": "7a1efc3d8f4061847489daca2e55cc0c57eaae24110e34ee8d51491789022c21",
+        "signature_hash": "0bddd1fee7f38f8d7fce86df9068f6913f52d74b98f4a0b4b28bfca5b53f54e6",
         "source_country": "SECTOR-INGRESS",
         "dest_country": "TENTACLE-I",
         "severity": "CRITICAL",
-        "domain": "CISA KEV Zero-Trust Perimeter (SonicWall SonicOS SSLVPN)",
+        "domain": "CISA KEV Zero-Trust Perimeter (GPUStack GPUStack)",
         "mitre_ttps": [
           "T1190 - Exploit Public-Facing Application"
         ],
@@ -959,22 +1089,22 @@
           "SURICATA-ET-OPEN"
         ],
         "corroboration_count": 4,
-        "synthesized_tool_id": "sentinel-auto-kev-sonicwall-sonicos-sslvpn-cve-2026-1986-7a1efc",
-        "synthesized_tool_sha256": "7a1efc3d8f4061847489daca2e55cc0c57eaae24110e34ee8d51491789022c21",
-        "rag_profile_id": "praetorian-rag-7a1efc3d8f",
+        "synthesized_tool_id": "sentinel-auto-kev-gpustack-gpustack-cve-2026-102895-0bddd1",
+        "synthesized_tool_sha256": "0bddd1fee7f38f8d7fce86df9068f6913f52d74b98f4a0b4b28bfca5b53f54e6",
+        "rag_profile_id": "praetorian-rag-0bddd1fee7",
         "repeat_hits": 4,
-        "first_seen_at": "2026-11-08T01:02:43Z",
-        "last_seen_at": "2026-11-09T01:44:23Z"
+        "first_seen_at": "2026-11-09T20:15:02Z",
+        "last_seen_at": "2026-11-10T00:25:29Z"
       },
       {
-        "observation_id": "obs-4ff0c1238d",
-        "signature_name": "KEV-ACTIVE: Apple Multiple Products \u2014 Apple Multiple Products Improper Authentication Vulnerability (CVE-2024-27834)",
+        "observation_id": "obs-5004f456f0",
+        "signature_name": "KEV-ACTIVE: OpenBSD OpenSSH \u2014 OpenBSD OpenSSH Unexpected Status Code or Return Value Vulnerability (CVE-2026-123158)",
         "attack_type": "exploit",
-        "signature_hash": "4ff0c1238df82eeb77d506b124244df339375d20dd92426c47d5b9acea811238",
+        "signature_hash": "5004f456f0b25541a2338a07bd19d7e35c2f35329952022a43e05fc42640587e",
         "source_country": "SECTOR-INGRESS",
         "dest_country": "TENTACLE-I",
         "severity": "CRITICAL",
-        "domain": "CISA KEV Zero-Trust Perimeter (Apple Multiple Products)",
+        "domain": "CISA KEV Zero-Trust Perimeter (OpenBSD OpenSSH)",
         "mitre_ttps": [
           "T1190 - Exploit Public-Facing Application"
         ],
@@ -985,22 +1115,22 @@
           "SURICATA-ET-OPEN"
         ],
         "corroboration_count": 4,
-        "synthesized_tool_id": "sentinel-auto-kev-apple-multiple-products-cve-2024-27834-4ff0c1",
-        "synthesized_tool_sha256": "4ff0c1238df82eeb77d506b124244df339375d20dd92426c47d5b9acea811238",
-        "rag_profile_id": "praetorian-rag-4ff0c1238d",
+        "synthesized_tool_id": "sentinel-auto-kev-openbsd-openssh-cve-2026-123158-5004f4",
+        "synthesized_tool_sha256": "5004f456f0b25541a2338a07bd19d7e35c2f35329952022a43e05fc42640587e",
+        "rag_profile_id": "praetorian-rag-5004f456f0",
         "repeat_hits": 4,
-        "first_seen_at": "2026-11-08T01:02:43Z",
-        "last_seen_at": "2026-11-09T01:44:23Z"
+        "first_seen_at": "2026-11-09T20:15:02Z",
+        "last_seen_at": "2026-11-10T00:25:29Z"
       },
       {
-        "observation_id": "obs-a4b07248d9",
-        "signature_name": "KEV-ACTIVE: WordPress WordPress Core \u2014 WordPress WordPress Core Time-of-check Time-of-use (TOCTOU) Race Condition Vulnerability (CVE-2026-119977)",
+        "observation_id": "obs-9ccd1644c7",
+        "signature_name": "KEV-ACTIVE: SignalWire FreeSwitch \u2014 SignalWire FreeSwitch Code Injection Vulnerability (CVE-2026-116779)",
         "attack_type": "exploit",
-        "signature_hash": "a4b07248d9fa90a99d61e727ed9e4d4f2de506c7149635c151240af4bb0a1614",
+        "signature_hash": "9ccd1644c7ea587a7dff2dc8fc7d621b97507d5c4cc8359c1deb9647b2271f17",
         "source_country": "SECTOR-INGRESS",
         "dest_country": "TENTACLE-I",
         "severity": "CRITICAL",
-        "domain": "CISA KEV Zero-Trust Perimeter (WordPress WordPress Core)",
+        "domain": "CISA KEV Zero-Trust Perimeter (SignalWire FreeSwitch)",
         "mitre_ttps": [
           "T1190 - Exploit Public-Facing Application"
         ],
@@ -1011,69 +1141,17 @@
           "SURICATA-ET-OPEN"
         ],
         "corroboration_count": 4,
-        "synthesized_tool_id": "sentinel-auto-kev-wordpress-wordpress-core-cve-2026-1199-a4b072",
-        "synthesized_tool_sha256": "a4b07248d9fa90a99d61e727ed9e4d4f2de506c7149635c151240af4bb0a1614",
-        "rag_profile_id": "praetorian-rag-a4b07248d9",
+        "synthesized_tool_id": "sentinel-auto-kev-signalwire-freeswitch-cve-2026-116779-9ccd16",
+        "synthesized_tool_sha256": "9ccd1644c7ea587a7dff2dc8fc7d621b97507d5c4cc8359c1deb9647b2271f17",
+        "rag_profile_id": "praetorian-rag-9ccd1644c7",
         "repeat_hits": 4,
-        "first_seen_at": "2026-11-08T01:02:43Z",
-        "last_seen_at": "2026-11-09T01:44:23Z"
-      },
-      {
-        "observation_id": "obs-91167205d5",
-        "signature_name": "KEV-ACTIVE: Ivanti Connect Secure \u2014 Ivanti Connect Secure Generation of Predictable Numbers or Identifiers Vulnerability (CVE-2026-118527)",
-        "attack_type": "exploit",
-        "signature_hash": "91167205d5e8eef1ebf3d73f874d9b528e8fdcd051a5579e1ddfdbf427814bcd",
-        "source_country": "SECTOR-INGRESS",
-        "dest_country": "TENTACLE-I",
-        "severity": "CRITICAL",
-        "domain": "CISA KEV Zero-Trust Perimeter (Ivanti Connect Secure)",
-        "mitre_ttps": [
-          "T1190 - Exploit Public-Facing Application"
-        ],
-        "corroborated_feeds": [
-          "CISA-KEV",
-          "SANS-ISC-DSHIELD",
-          "GREYNOISE-COMMUNITY",
-          "SURICATA-ET-OPEN"
-        ],
-        "corroboration_count": 4,
-        "synthesized_tool_id": "sentinel-auto-kev-ivanti-connect-secure-cve-2026-118527-911672",
-        "synthesized_tool_sha256": "91167205d5e8eef1ebf3d73f874d9b528e8fdcd051a5579e1ddfdbf427814bcd",
-        "rag_profile_id": "praetorian-rag-91167205d5",
-        "repeat_hits": 4,
-        "first_seen_at": "2026-11-08T21:16:37Z",
-        "last_seen_at": "2026-11-09T01:44:23Z"
-      },
-      {
-        "observation_id": "obs-7c42e89b76",
-        "signature_name": "KEV-ACTIVE: Ivanti Connect Secure \u2014 Ivanti Connect Secure Missing Authentication for Critical Function Vulnerability (CVE-2026-111357)",
-        "attack_type": "exploit",
-        "signature_hash": "7c42e89b76b32ffab15e6e669c8184c8c810fd220e9595795731fe46110acec6",
-        "source_country": "SECTOR-INGRESS",
-        "dest_country": "TENTACLE-I",
-        "severity": "CRITICAL",
-        "domain": "CISA KEV Zero-Trust Perimeter (Ivanti Connect Secure)",
-        "mitre_ttps": [
-          "T1190 - Exploit Public-Facing Application"
-        ],
-        "corroborated_feeds": [
-          "CISA-KEV",
-          "SANS-ISC-DSHIELD",
-          "GREYNOISE-COMMUNITY",
-          "SURICATA-ET-OPEN"
-        ],
-        "corroboration_count": 4,
-        "synthesized_tool_id": "sentinel-auto-kev-ivanti-connect-secure-cve-2026-111357-7c42e8",
-        "synthesized_tool_sha256": "7c42e89b76b32ffab15e6e669c8184c8c810fd220e9595795731fe46110acec6",
-        "rag_profile_id": "praetorian-rag-7c42e89b76",
-        "repeat_hits": 4,
-        "first_seen_at": "2026-11-08T21:16:37Z",
-        "last_seen_at": "2026-11-09T01:44:23Z"
+        "first_seen_at": "2026-11-09T20:15:02Z",
+        "last_seen_at": "2026-11-10T00:25:29Z"
       }
     ]
   },
   "synthesized_tools": {
-    "count": 27,
+    "count": 30,
     "tools": [
       {
         "tool_id": "sentinel-auto-http-directory-traversal-etc-shadow-probe-ab190a",
@@ -1527,6 +1605,60 @@
         "synthesized_at": "2026-11-08T21:16:37Z",
         "description": "Autonomously synthesized by Praetorian Swarm across multi-source feeds to neutralize: KEV-ACTIVE: Ivanti Connect Secure \u2014 Ivanti Connect Secure Missing Authentication for Critical Function Vulnerability (CVE-2026-111357)",
         "script_preview": "#!/bin/sh\n# Praetorian Autonomous MCP Guard: sentinel-auto-kev-ivanti-connect-secure-cve-2026-111357-7c42e8\n# Target Vector: KEV-ACTIVE: Ivanti Connect Secure \u2014 Ivanti Connect Secure Missing Authentication for Critical Function Vulnerability (CVE-2026-111357)\n# Attestation SHA-256: 7c42e89b76b32ffab15e6e669c8184c8\nlogger -t praetorian-mcp 'Enforcing deterministic guard sentinel-auto-kev-ivanti-connect-secure-cve-2026-111357-7c42e8'\n"
+      },
+      {
+        "tool_id": "sentinel-auto-kev-gpustack-gpustack-cve-2026-102895-0bddd1",
+        "target_attack": "KEV-ACTIVE: GPUStack GPUStack \u2014 GPUStack Improper Authentication Vulnerability (CVE-2026-102895)",
+        "attack_type": "exploit",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (GPUStack GPUStack)",
+        "sha256_receipt": "0bddd1fee7f38f8d7fce86df9068f6913f52d74b98f4a0b4b28bfca5b53f54e6",
+        "rag_profile_id": "praetorian-rag-0bddd1fee7",
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "synthesized_at": "2026-11-09T20:15:02Z",
+        "description": "Autonomously synthesized by Praetorian Swarm across multi-source feeds to neutralize: KEV-ACTIVE: GPUStack GPUStack \u2014 GPUStack Improper Authentication Vulnerability (CVE-2026-102895)",
+        "script_preview": "#!/bin/sh\n# Praetorian Autonomous MCP Guard: sentinel-auto-kev-gpustack-gpustack-cve-2026-102895-0bddd1\n# Target Vector: KEV-ACTIVE: GPUStack GPUStack \u2014 GPUStack Improper Authentication Vulnerability (CVE-2026-102895)\n# Attestation SHA-256: 0bddd1fee7f38f8d7fce86df9068f691\nlogger -t praetorian-mcp 'Enforcing deterministic guard sentinel-auto-kev-gpustack-gpustack-cve-2026-102895-0bddd1'\n"
+      },
+      {
+        "tool_id": "sentinel-auto-kev-openbsd-openssh-cve-2026-123158-5004f4",
+        "target_attack": "KEV-ACTIVE: OpenBSD OpenSSH \u2014 OpenBSD OpenSSH Unexpected Status Code or Return Value Vulnerability (CVE-2026-123158)",
+        "attack_type": "exploit",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (OpenBSD OpenSSH)",
+        "sha256_receipt": "5004f456f0b25541a2338a07bd19d7e35c2f35329952022a43e05fc42640587e",
+        "rag_profile_id": "praetorian-rag-5004f456f0",
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "synthesized_at": "2026-11-09T20:15:02Z",
+        "description": "Autonomously synthesized by Praetorian Swarm across multi-source feeds to neutralize: KEV-ACTIVE: OpenBSD OpenSSH \u2014 OpenBSD OpenSSH Unexpected Status Code or Return Value Vulnerability (CVE-2026-123158)",
+        "script_preview": "#!/bin/sh\n# Praetorian Autonomous MCP Guard: sentinel-auto-kev-openbsd-openssh-cve-2026-123158-5004f4\n# Target Vector: KEV-ACTIVE: OpenBSD OpenSSH \u2014 OpenBSD OpenSSH Unexpected Status Code or Return Value Vulnerability (CVE-2026-123158)\n# Attestation SHA-256: 5004f456f0b25541a2338a07bd19d7e3\nlogger -t praetorian-mcp 'Enforcing deterministic guard sentinel-auto-kev-openbsd-openssh-cve-2026-123158-5004f4'\n"
+      },
+      {
+        "tool_id": "sentinel-auto-kev-signalwire-freeswitch-cve-2026-116779-9ccd16",
+        "target_attack": "KEV-ACTIVE: SignalWire FreeSwitch \u2014 SignalWire FreeSwitch Code Injection Vulnerability (CVE-2026-116779)",
+        "attack_type": "exploit",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (SignalWire FreeSwitch)",
+        "sha256_receipt": "9ccd1644c7ea587a7dff2dc8fc7d621b97507d5c4cc8359c1deb9647b2271f17",
+        "rag_profile_id": "praetorian-rag-9ccd1644c7",
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "synthesized_at": "2026-11-09T20:15:02Z",
+        "description": "Autonomously synthesized by Praetorian Swarm across multi-source feeds to neutralize: KEV-ACTIVE: SignalWire FreeSwitch \u2014 SignalWire FreeSwitch Code Injection Vulnerability (CVE-2026-116779)",
+        "script_preview": "#!/bin/sh\n# Praetorian Autonomous MCP Guard: sentinel-auto-kev-signalwire-freeswitch-cve-2026-116779-9ccd16\n# Target Vector: KEV-ACTIVE: SignalWire FreeSwitch \u2014 SignalWire FreeSwitch Code Injection Vulnerability (CVE-2026-116779)\n# Attestation SHA-256: 9ccd1644c7ea587a7dff2dc8fc7d621b\nlogger -t praetorian-mcp 'Enforcing deterministic guard sentinel-auto-kev-signalwire-freeswitch-cve-2026-116779-9ccd16'\n"
       }
     ]
   }
