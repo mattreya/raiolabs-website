@@ -1,5 +1,5 @@
 {
-  "synced_at": "2026-11-13T20:15:04.000625+00:00",
+  "synced_at": "2026-11-13T21:04:16.514884+00:00",
   "source_database": "praetorian_multi_source_intel.db (SQLite3 STIX/MITRE Normalizer)",
   "cost_posture": "$0.00 (Same-Origin Static Snapshot + Local SQLite Aggregator)",
   "cloud_health": {
@@ -126,7 +126,7 @@
     }
   },
   "direct_enclave_intrusion_audit": {
-    "checked_at": "2026-11-13T20:15:03.954463+00:00",
+    "checked_at": "2026-11-13T21:04:16.469416+00:00",
     "direct_attacks_total": 0,
     "new_attacks_detected_this_run": 0,
     "enclave_status": "SECURE_ZERO_DIRECT_ATTACKS",
@@ -2706,6 +2706,1240 @@
         "synthesized_at": "2026-11-13T19:58:01Z",
         "description": "Autonomously synthesized by Praetorian Swarm across multi-source feeds to neutralize: KEV-ACTIVE: Check Point Multiple Products \u2014 Check Point Multiple Products Incorrect Permission Assignment for Critical Resource Vulnerability (CVE-2026-123039)",
         "script_preview": "#!/bin/sh\n# Praetorian Autonomous MCP Guard: sentinel-auto-kev-check-point-multiple-products-cve-2026-31b638\n# Target Vector: KEV-ACTIVE: Check Point Multiple Products \u2014 Check Point Multiple Products Incorrect Permission Assignment for Critical Resource Vulnerability (CVE-2026-123039)\n# Attestation SHA-256: 31b63831850462dad9310c9d4518b475\nlogger -t praetorian-mcp 'Enforcing deterministic guard sentinel-auto-kev-check-point-multiple-products-cve-2026-31b638'\n"
+      }
+    ]
+  },
+  "artex_attribution_analytics": {
+    "fbi_flash_bulletin": "FLASH-20261113-001 (Threat Overview of ARTEX Autonomous Penetration Testing Framework)",
+    "evaluated_threat_vectors_count": 72,
+    "breakdown": {
+      "AUTONOMOUS_SWARM_ARTEX": 60,
+      "HUMAN_NATION_STATE_APT": 1,
+      "COMMODITY_BOTNET_AUTOMATION": 9,
+      "HYBRID_AGENTIC_PIPELINE": 0,
+      "UNCLASSIFIED_HEURISTIC": 2
+    },
+    "autonomous_swarm_prevalence_pct": 83.3,
+    "machine_vs_human_ratio": "60:1",
+    "last_classified_at": "2026-11-13T21:04:16.508017+00:00",
+    "top_artex_fingerprints": [
+      {
+        "signature_hash": "ab190a5f1d8e2762dd50014df880ecd8077f9cb7527ff353a8837626ba04983b",
+        "canonical_name": "INGRESS-TRAVERSAL: Path Traversal Credential File Extraction Probe (CWE-22)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 97.3,
+        "artex_swarm_prob": 0.9729,
+        "human_apt_prob": 0.0135,
+        "commodity_botnet_prob": 0.0135,
+        "machine_velocity_index": 0.77,
+        "swarm_collision_metric": 0.75,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "ARTEX TTP T1059 (Automated Script / Command Interpreter)",
+          "High-frequency execution burst (18.5 hits/hr)",
+          "Targeting peripheral credential/token store susceptible to agent collision"
+        ]
+      },
+      {
+        "signature_hash": "fc549e22b20dde2c9b879c6dd80a7e394d8dbe8a52fadbba4fabf119656172a1",
+        "canonical_name": "INGRESS-RCE: JNDI Lookup Deserialization Injection (CVE-2021-44228)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 52.9,
+        "artex_swarm_prob": 0.5289,
+        "human_apt_prob": 0.0224,
+        "commodity_botnet_prob": 0.4486,
+        "machine_velocity_index": 0.75,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "Botnet TTP T0855",
+          "High-frequency execution burst (17.7 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "bbbbfb355b6c93b92212212044007235143aaa8ccc0de892faf1149bc83d5183",
+        "canonical_name": "MEMORY-CORRUPTION: Mail Daemon Format-String Stack Overwrite (CWE-134)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 66.7,
+        "artex_swarm_prob": 0.6667,
+        "human_apt_prob": 0.2963,
+        "commodity_botnet_prob": 0.037,
+        "machine_velocity_index": 0.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "Low-cadence cognitive pacing"
+        ]
+      },
+      {
+        "signature_hash": "21a17083031030dc351e75b9424dd997b172cd11a369025dc77399c5fbaf62eb",
+        "canonical_name": "Stack SBOM Advisory: zlib@1.3.2-r1 (Alpine:v3.22 / ALPINE-CVE-2026-4738)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 93.6,
+        "artex_swarm_prob": 0.9358,
+        "human_apt_prob": 0.0321,
+        "commodity_botnet_prob": 0.0321,
+        "machine_velocity_index": 0.62,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "High-frequency execution burst (11.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "f14ce2e4762b96b6720eda5befd8598744e72d91a4719b6c4346d099fa6f9c0e",
+        "canonical_name": "Stack SBOM Advisory: body-parser@2.3.0 (npm / GHSA-27r3-jxmh-p828)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 93.6,
+        "artex_swarm_prob": 0.9358,
+        "human_apt_prob": 0.0321,
+        "commodity_botnet_prob": 0.0321,
+        "machine_velocity_index": 0.62,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "High-frequency execution burst (11.0 hits/hr)"
+        ]
+      }
+    ],
+    "vector_predictions": [
+      {
+        "signature_hash": "ab190a5f1d8e2762dd50014df880ecd8077f9cb7527ff353a8837626ba04983b",
+        "canonical_name": "INGRESS-TRAVERSAL: Path Traversal Credential File Extraction Probe (CWE-22)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 97.3,
+        "artex_swarm_prob": 0.9729,
+        "human_apt_prob": 0.0135,
+        "commodity_botnet_prob": 0.0135,
+        "machine_velocity_index": 0.77,
+        "swarm_collision_metric": 0.75,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "ARTEX TTP T1059 (Automated Script / Command Interpreter)",
+          "High-frequency execution burst (18.5 hits/hr)",
+          "Targeting peripheral credential/token store susceptible to agent collision"
+        ]
+      },
+      {
+        "signature_hash": "a9384ef4a233652c8a44412fb45dbb1bc559da944ddf97d50a843ae0ff741974",
+        "canonical_name": "C2-BEACON: Malleable HTTPS Command-and-Control Jitter Profile (T1071.001)",
+        "attack_type": "botnet",
+        "attribution_category": "COMMODITY_BOTNET_AUTOMATION",
+        "confidence_score": 72.4,
+        "artex_swarm_prob": 0.2556,
+        "human_apt_prob": 0.0207,
+        "commodity_botnet_prob": 0.7237,
+        "machine_velocity_index": 0.69,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "Botnet TTP T0855",
+          "High-frequency execution burst (14.3 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "f23e16163f51a739ad2b53cb05c263b176b8e6d5af0dab64781c01f5495709ff",
+        "canonical_name": "ICS-PROTOCOL-ANOMALY: Unauthorized Modbus/TCP Holding Register Write (FC 0x10)",
+        "attack_type": "ics_ot",
+        "attribution_category": "COMMODITY_BOTNET_AUTOMATION",
+        "confidence_score": 77.4,
+        "artex_swarm_prob": 0.209,
+        "human_apt_prob": 0.0172,
+        "commodity_botnet_prob": 0.7738,
+        "machine_velocity_index": 0.68,
+        "swarm_collision_metric": 0.1,
+        "key_indicators": [
+          "Botnet TTP T0855",
+          "High-frequency execution burst (13.8 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "fc549e22b20dde2c9b879c6dd80a7e394d8dbe8a52fadbba4fabf119656172a1",
+        "canonical_name": "INGRESS-RCE: JNDI Lookup Deserialization Injection (CVE-2021-44228)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 52.9,
+        "artex_swarm_prob": 0.5289,
+        "human_apt_prob": 0.0224,
+        "commodity_botnet_prob": 0.4486,
+        "machine_velocity_index": 0.75,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "Botnet TTP T0855",
+          "High-frequency execution burst (17.7 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "59212b1009838ffb4915044b3a1ceb649c8aa96b9ad48df9e26a72bd33c911d4",
+        "canonical_name": "ICS-CONTROL-INJECTION: S7comm PLC CPU State Stop Command (T0816)",
+        "attack_type": "ics_ot",
+        "attribution_category": "COMMODITY_BOTNET_AUTOMATION",
+        "confidence_score": 74.8,
+        "artex_swarm_prob": 0.2355,
+        "human_apt_prob": 0.0166,
+        "commodity_botnet_prob": 0.7479,
+        "machine_velocity_index": 0.79,
+        "swarm_collision_metric": 0.1,
+        "key_indicators": [
+          "Botnet TTP T0855",
+          "High-frequency execution burst (19.4 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "b92866a4710cbba308d93260406646b1cc18a85f2707c8642b15bb109fc4af8a",
+        "canonical_name": "BOTNET-PROPAGATION: Automated Telnet/IoT Credential Stuffing Sweep (T1110)",
+        "attack_type": "botnet",
+        "attribution_category": "COMMODITY_BOTNET_AUTOMATION",
+        "confidence_score": 55.7,
+        "artex_swarm_prob": 0.4274,
+        "human_apt_prob": 0.0159,
+        "commodity_botnet_prob": 0.5567,
+        "machine_velocity_index": 0.66,
+        "swarm_collision_metric": 0.75,
+        "key_indicators": [
+          "Botnet TTP T0855",
+          "High-frequency execution burst (13.0 hits/hr)",
+          "Targeting peripheral credential/token store susceptible to agent collision"
+        ]
+      },
+      {
+        "signature_hash": "13743b86a1ba1fc9c3eb468de56a84fa4a2fce703039a8aad00c6004810a9071",
+        "canonical_name": "SCADA-TELEMETRY-FLOOD: DNP3 Unsolicited Outstation Response Storm (T0814)",
+        "attack_type": "ics_ot",
+        "attribution_category": "COMMODITY_BOTNET_AUTOMATION",
+        "confidence_score": 75.8,
+        "artex_swarm_prob": 0.2256,
+        "human_apt_prob": 0.0168,
+        "commodity_botnet_prob": 0.7576,
+        "machine_velocity_index": 0.74,
+        "swarm_collision_metric": 0.1,
+        "key_indicators": [
+          "Botnet TTP T0855",
+          "High-frequency execution burst (17.2 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "712fdac0252e8de4dc3eeb8a3f719f57d9bc9f70070e932af89b157bad5f6147",
+        "canonical_name": "LOTL-RELAY: Edge SOHO Router Covert Proxy & Living-off-the-Land Relay (T1090)",
+        "attack_type": "malware",
+        "attribution_category": "UNCLASSIFIED_HEURISTIC",
+        "confidence_score": 50.0,
+        "artex_swarm_prob": 0.2703,
+        "human_apt_prob": 0.2737,
+        "commodity_botnet_prob": 0.4561,
+        "machine_velocity_index": 0.66,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "Botnet TTP T0855",
+          "High-frequency execution burst (12.9 hits/hr)",
+          "Deep internal enclave lateral movement"
+        ]
+      },
+      {
+        "signature_hash": "8e095073d38f8c61ea13505851edf9629779819a447d1453b732c4a991a7cbe0",
+        "canonical_name": "ICS-SESSION-HIJACK: EtherNet/IP CIP Unauthenticated Session Takeover (T0855)",
+        "attack_type": "ics_ot",
+        "attribution_category": "COMMODITY_BOTNET_AUTOMATION",
+        "confidence_score": 77.8,
+        "artex_swarm_prob": 0.2051,
+        "human_apt_prob": 0.0173,
+        "commodity_botnet_prob": 0.7776,
+        "machine_velocity_index": 0.66,
+        "swarm_collision_metric": 0.1,
+        "key_indicators": [
+          "Botnet TTP T0855",
+          "High-frequency execution burst (13.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "bbbbfb355b6c93b92212212044007235143aaa8ccc0de892faf1149bc83d5183",
+        "canonical_name": "MEMORY-CORRUPTION: Mail Daemon Format-String Stack Overwrite (CWE-134)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 66.7,
+        "artex_swarm_prob": 0.6667,
+        "human_apt_prob": 0.2963,
+        "commodity_botnet_prob": 0.037,
+        "machine_velocity_index": 0.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "Low-cadence cognitive pacing"
+        ]
+      },
+      {
+        "signature_hash": "a23e705b8608a1ed9d8cb5b0b786878906295bcb7573944d77f986b96c95a854",
+        "canonical_name": "AUTH-BYPASS: Alpine musl libc crypt() >256-Byte Asterisk Collision (*sshole / CWE-287)",
+        "attack_type": "exploit",
+        "attribution_category": "COMMODITY_BOTNET_AUTOMATION",
+        "confidence_score": 50.0,
+        "artex_swarm_prob": 0.3,
+        "human_apt_prob": 0.2,
+        "commodity_botnet_prob": 0.5,
+        "machine_velocity_index": 1.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "Botnet TTP T1110",
+          "High-frequency execution burst (150.0 hits/hr)",
+          "Deep internal enclave lateral movement"
+        ]
+      },
+      {
+        "signature_hash": "21a17083031030dc351e75b9424dd997b172cd11a369025dc77399c5fbaf62eb",
+        "canonical_name": "Stack SBOM Advisory: zlib@1.3.2-r1 (Alpine:v3.22 / ALPINE-CVE-2026-4738)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 93.6,
+        "artex_swarm_prob": 0.9358,
+        "human_apt_prob": 0.0321,
+        "commodity_botnet_prob": 0.0321,
+        "machine_velocity_index": 0.62,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "High-frequency execution burst (11.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "f14ce2e4762b96b6720eda5befd8598744e72d91a4719b6c4346d099fa6f9c0e",
+        "canonical_name": "Stack SBOM Advisory: body-parser@2.3.0 (npm / GHSA-27r3-jxmh-p828)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 93.6,
+        "artex_swarm_prob": 0.9358,
+        "human_apt_prob": 0.0321,
+        "commodity_botnet_prob": 0.0321,
+        "machine_velocity_index": 0.62,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "High-frequency execution burst (11.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "2821910433ae789dd5bb055be5f2188cb1220d9c706cdbecfef1a85d405cdf11",
+        "canonical_name": "Stack SBOM Advisory: nanoid@3.3.16 (npm / GHSA-2v37-7h3g-55p8)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 93.6,
+        "artex_swarm_prob": 0.9358,
+        "human_apt_prob": 0.0321,
+        "commodity_botnet_prob": 0.0321,
+        "machine_velocity_index": 0.62,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "High-frequency execution burst (11.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "f21f89e98c17aa42c693d34c22963c024711b096cebe3f4a121cc3a09c3e51a9",
+        "canonical_name": "Stack SBOM Advisory: postcss@8.5.19 (npm / GHSA-fxqj-rqcc-2cmp)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 93.6,
+        "artex_swarm_prob": 0.9358,
+        "human_apt_prob": 0.0321,
+        "commodity_botnet_prob": 0.0321,
+        "machine_velocity_index": 0.62,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "High-frequency execution burst (11.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "40d390407946e82b2d8cc2ee77732055237370a795406fcbbcd5c8071e8affb1",
+        "canonical_name": "Stack SBOM Advisory: proxy-addr@2.0.7 (npm / GHSA-jqcg-44mw-7w3h)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 93.6,
+        "artex_swarm_prob": 0.9358,
+        "human_apt_prob": 0.0321,
+        "commodity_botnet_prob": 0.0321,
+        "machine_velocity_index": 0.62,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "High-frequency execution burst (11.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "13ad856d0d2f5756955c351f4d27e6f52f797208676e75d68e0e0ec6458c101b",
+        "canonical_name": "Stack SBOM Advisory: qs@6.15.3 (npm / GHSA-4mjr-xmp4-gh2g)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 93.6,
+        "artex_swarm_prob": 0.9358,
+        "human_apt_prob": 0.0321,
+        "commodity_botnet_prob": 0.0321,
+        "machine_velocity_index": 0.62,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "High-frequency execution burst (11.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "798ef51b3a978b622973327365b5b119b5cecd4f7df1c6fb15a53e9421bdfa8a",
+        "canonical_name": "Stack SBOM Advisory: qs@6.15.3 (npm / GHSA-6pq8-jhm2-2vcw)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 93.6,
+        "artex_swarm_prob": 0.9358,
+        "human_apt_prob": 0.0321,
+        "commodity_botnet_prob": 0.0321,
+        "machine_velocity_index": 0.62,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "High-frequency execution burst (11.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "b4b4cf2f1571b731a9a6df31f6c3b7b467fab4c890bffc4418b7c62c41b56dac",
+        "canonical_name": "Stack SBOM Advisory: qs@6.15.3 (npm / GHSA-x5fp-wj9c-mxmx)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 93.6,
+        "artex_swarm_prob": 0.9358,
+        "human_apt_prob": 0.0321,
+        "commodity_botnet_prob": 0.0321,
+        "machine_velocity_index": 0.62,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "High-frequency execution burst (11.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "7f11a73af3eaa1b128eff7b3acec3833eb2e401dcf8c46e6ea756580ec773eaf",
+        "canonical_name": "Stack SBOM Advisory: source-map-js@1.2.1 (npm / GHSA-68fv-2mgg-jv7q)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 93.6,
+        "artex_swarm_prob": 0.9358,
+        "human_apt_prob": 0.0321,
+        "commodity_botnet_prob": 0.0321,
+        "machine_velocity_index": 0.62,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "High-frequency execution burst (11.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "ec0842c4855275b199fde0a1be66f4b8483be0b2a26214d7517baa87f9c7a2b0",
+        "canonical_name": "Stack SBOM Advisory: vite@8.1.5 (npm / GHSA-587h-7wmj-h5pm)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 93.6,
+        "artex_swarm_prob": 0.9358,
+        "human_apt_prob": 0.0321,
+        "commodity_botnet_prob": 0.0321,
+        "machine_velocity_index": 0.62,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "High-frequency execution burst (11.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "4394afac4ec270cfac9a8a050ceb7d35add7d37a336824e46309f23f65a42bbf",
+        "canonical_name": "Stack SBOM Advisory: vite@8.1.5 (npm / GHSA-698v-4r3x-3vcv)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 93.6,
+        "artex_swarm_prob": 0.9358,
+        "human_apt_prob": 0.0321,
+        "commodity_botnet_prob": 0.0321,
+        "machine_velocity_index": 0.62,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "High-frequency execution burst (11.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "2d5a9e05e66eb23bc95dae224908bf0c70c668ced5d58542f2ecb6272646b34a",
+        "canonical_name": "Stack SBOM Advisory: vite@8.1.5 (npm / GHSA-9jrq-w75r-8gcw)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 93.6,
+        "artex_swarm_prob": 0.9358,
+        "human_apt_prob": 0.0321,
+        "commodity_botnet_prob": 0.0321,
+        "machine_velocity_index": 0.62,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "High-frequency execution burst (11.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "eed721d8f16ddaeecc98e08c08161ca4d12bff85099af2fffaac5f4d486579ee",
+        "canonical_name": "Stack SBOM Advisory: vite@8.1.5 (npm / GHSA-r825-w8mm-5pxw)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 93.6,
+        "artex_swarm_prob": 0.9358,
+        "human_apt_prob": 0.0321,
+        "commodity_botnet_prob": 0.0321,
+        "machine_velocity_index": 0.62,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "High-frequency execution burst (11.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "f53b2eec89cce8e300933fdd123dc6e1f670e64d7ef455596393139a783b20bc",
+        "canonical_name": "Stack SBOM Advisory: vite@8.1.5 (npm / GHSA-rq7h-c2jc-7f22)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 93.6,
+        "artex_swarm_prob": 0.9358,
+        "human_apt_prob": 0.0321,
+        "commodity_botnet_prob": 0.0321,
+        "machine_velocity_index": 0.62,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "High-frequency execution burst (11.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "9955810f0b7ecc1428c9675dea819d1e4e528793c18a23069e2b5c1d7ab8651d",
+        "canonical_name": "Website NPM Supply-Chain & Build Stack Advisories (body-parser, nanoid, proxy-addr, source-map-js, vite)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 94.9,
+        "artex_swarm_prob": 0.949,
+        "human_apt_prob": 0.0255,
+        "commodity_botnet_prob": 0.0255,
+        "machine_velocity_index": 1.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX Base TTP T1195",
+          "High-frequency execution burst (54.9 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "7a1efc3d8f4061847489daca2e55cc0c57eaae24110e34ee8d51491789022c21",
+        "canonical_name": "KEV-ACTIVE: SonicWall SonicOS SSLVPN \u2014 SonicWall SonicOS SSLVPN Use of Single-factor Authentication Vulnerability (CVE-2026-19868)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 75.7,
+        "artex_swarm_prob": 0.7568,
+        "human_apt_prob": 0.2162,
+        "commodity_botnet_prob": 0.027,
+        "machine_velocity_index": 0.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "Low-cadence cognitive pacing"
+        ]
+      },
+      {
+        "signature_hash": "4ff0c1238df82eeb77d506b124244df339375d20dd92426c47d5b9acea811238",
+        "canonical_name": "KEV-ACTIVE: Apple Multiple Products \u2014 Apple Multiple Products Improper Authentication Vulnerability (CVE-2024-27834)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 75.7,
+        "artex_swarm_prob": 0.7568,
+        "human_apt_prob": 0.2162,
+        "commodity_botnet_prob": 0.027,
+        "machine_velocity_index": 0.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "Low-cadence cognitive pacing"
+        ]
+      },
+      {
+        "signature_hash": "a4b07248d9fa90a99d61e727ed9e4d4f2de506c7149635c151240af4bb0a1614",
+        "canonical_name": "KEV-ACTIVE: WordPress WordPress Core \u2014 WordPress WordPress Core Time-of-check Time-of-use (TOCTOU) Race Condition Vulnerability (CVE-2026-119977)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 75.7,
+        "artex_swarm_prob": 0.7568,
+        "human_apt_prob": 0.2162,
+        "commodity_botnet_prob": 0.027,
+        "machine_velocity_index": 0.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "Low-cadence cognitive pacing"
+        ]
+      },
+      {
+        "signature_hash": "84a9c2ba7523663f6fc473040df82aab797e3bb28d693e237308c4635d52e4ac",
+        "canonical_name": "AUTH-BYPASS: Alpine musl libc crypt() >256-Byte Asterisk Collision (*sshole / CWE-287)",
+        "attack_type": "exploit",
+        "attribution_category": "COMMODITY_BOTNET_AUTOMATION",
+        "confidence_score": 58.8,
+        "artex_swarm_prob": 0.0196,
+        "human_apt_prob": 0.3922,
+        "commodity_botnet_prob": 0.5882,
+        "machine_velocity_index": 0.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "Botnet TTP T1110",
+          "Low-cadence cognitive pacing",
+          "Deep internal enclave lateral movement"
+        ]
+      },
+      {
+        "signature_hash": "ce0edb946c9630abddfbf5f2938806ec0e734470f750aa4c7a7ee7f24f6adb6e",
+        "canonical_name": "DSHIELD-SENSOR: SNMPv2c Community String Enumeration & UDP Reflection Flood (Port 161)",
+        "attack_type": "exploit",
+        "attribution_category": "HUMAN_NATION_STATE_APT",
+        "confidence_score": 80.0,
+        "artex_swarm_prob": 0.1,
+        "human_apt_prob": 0.8,
+        "commodity_botnet_prob": 0.1,
+        "machine_velocity_index": 0.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "Low-cadence cognitive pacing"
+        ]
+      },
+      {
+        "signature_hash": "5dfdefa8d0047faf433b5cecd5ed87ace6a7eddb4ebde3a919b7bab0bafd178e",
+        "canonical_name": "BOTNET-PROPAGATION: Automated Telnet/IoT Credential Stuffing Sweep (T1110.001)",
+        "attack_type": "botnet",
+        "attribution_category": "COMMODITY_BOTNET_AUTOMATION",
+        "confidence_score": 68.5,
+        "artex_swarm_prob": 0.2055,
+        "human_apt_prob": 0.1096,
+        "commodity_botnet_prob": 0.6849,
+        "machine_velocity_index": 0.0,
+        "swarm_collision_metric": 0.75,
+        "key_indicators": [
+          "Botnet TTP T1110.001",
+          "Low-cadence cognitive pacing",
+          "Targeting peripheral credential/token store susceptible to agent collision"
+        ]
+      },
+      {
+        "signature_hash": "af701d5638f1271996676f8fae22279c4cf114e3dc14862ba803d6cb8d615128",
+        "canonical_name": "DSHIELD-SENSOR: Remote Desktop Protocol (RDP) Pre-Auth Probe & Credential Stuffing (Port 3389)",
+        "attack_type": "exploit",
+        "attribution_category": "UNCLASSIFIED_HEURISTIC",
+        "confidence_score": 50.0,
+        "artex_swarm_prob": 0.3968,
+        "human_apt_prob": 0.127,
+        "commodity_botnet_prob": 0.4762,
+        "machine_velocity_index": 0.0,
+        "swarm_collision_metric": 0.75,
+        "key_indicators": [
+          "Botnet TTP T1110",
+          "Low-cadence cognitive pacing",
+          "Targeting peripheral credential/token store susceptible to agent collision"
+        ]
+      },
+      {
+        "signature_hash": "b0022e1ef20f2cfbb0bd1d256dd1db66c5703ce7f7fa04e9eebd48cc24710d34",
+        "canonical_name": "INGRESS-RCE: JNDI Lookup Deserialization Injection (CVE-2021-44228)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 75.7,
+        "artex_swarm_prob": 0.7568,
+        "human_apt_prob": 0.2162,
+        "commodity_botnet_prob": 0.027,
+        "machine_velocity_index": 0.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "Low-cadence cognitive pacing"
+        ]
+      },
+      {
+        "signature_hash": "91167205d5e8eef1ebf3d73f874d9b528e8fdcd051a5579e1ddfdbf427814bcd",
+        "canonical_name": "KEV-ACTIVE: Ivanti Connect Secure \u2014 Ivanti Connect Secure Generation of Predictable Numbers or Identifiers Vulnerability (CVE-2026-118527)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 75.7,
+        "artex_swarm_prob": 0.7568,
+        "human_apt_prob": 0.2162,
+        "commodity_botnet_prob": 0.027,
+        "machine_velocity_index": 0.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "Low-cadence cognitive pacing"
+        ]
+      },
+      {
+        "signature_hash": "7c42e89b76b32ffab15e6e669c8184c8c810fd220e9595795731fe46110acec6",
+        "canonical_name": "KEV-ACTIVE: Ivanti Connect Secure \u2014 Ivanti Connect Secure Missing Authentication for Critical Function Vulnerability (CVE-2026-111357)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 75.7,
+        "artex_swarm_prob": 0.7568,
+        "human_apt_prob": 0.2162,
+        "commodity_botnet_prob": 0.027,
+        "machine_velocity_index": 0.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "Low-cadence cognitive pacing"
+        ]
+      },
+      {
+        "signature_hash": "0bddd1fee7f38f8d7fce86df9068f6913f52d74b98f4a0b4b28bfca5b53f54e6",
+        "canonical_name": "KEV-ACTIVE: GPUStack GPUStack \u2014 GPUStack Improper Authentication Vulnerability (CVE-2026-102895)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 75.7,
+        "artex_swarm_prob": 0.7568,
+        "human_apt_prob": 0.2162,
+        "commodity_botnet_prob": 0.027,
+        "machine_velocity_index": 0.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "Low-cadence cognitive pacing"
+        ]
+      },
+      {
+        "signature_hash": "5004f456f0b25541a2338a07bd19d7e35c2f35329952022a43e05fc42640587e",
+        "canonical_name": "KEV-ACTIVE: OpenBSD OpenSSH \u2014 OpenBSD OpenSSH Unexpected Status Code or Return Value Vulnerability (CVE-2026-123158)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 75.7,
+        "artex_swarm_prob": 0.7568,
+        "human_apt_prob": 0.2162,
+        "commodity_botnet_prob": 0.027,
+        "machine_velocity_index": 0.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "Low-cadence cognitive pacing"
+        ]
+      },
+      {
+        "signature_hash": "9ccd1644c7ea587a7dff2dc8fc7d621b97507d5c4cc8359c1deb9647b2271f17",
+        "canonical_name": "KEV-ACTIVE: SignalWire FreeSwitch \u2014 SignalWire FreeSwitch Code Injection Vulnerability (CVE-2026-116779)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 75.7,
+        "artex_swarm_prob": 0.7568,
+        "human_apt_prob": 0.2162,
+        "commodity_botnet_prob": 0.027,
+        "machine_velocity_index": 0.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "Low-cadence cognitive pacing"
+        ]
+      },
+      {
+        "signature_hash": "4d1490c577283ead3063f0752f0488b62648c3b444133eeb4289bc9faaddf768",
+        "canonical_name": "KEV-ACTIVE: IBM Aspera Faspex \u2014 IBM Aspera Faspex Incorrect Authorization Vulnerability (CVE-2026-123218)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 75.7,
+        "artex_swarm_prob": 0.7568,
+        "human_apt_prob": 0.2162,
+        "commodity_botnet_prob": 0.027,
+        "machine_velocity_index": 0.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "Low-cadence cognitive pacing"
+        ]
+      },
+      {
+        "signature_hash": "e5425d43a4992c137c98567821a092a49e7c4113b805a59b42c8f929fd63564a",
+        "canonical_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 80/TCP-UDP (92724 hits / 2760 sources)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 93.3,
+        "artex_swarm_prob": 0.9333,
+        "human_apt_prob": 0.0333,
+        "commodity_botnet_prob": 0.0333,
+        "machine_velocity_index": 1.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "High-frequency execution burst (54000.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "756b376e8a2d2a3d4b89b339586c928c8b0d89f46fedc41609366f1f02c381ee",
+        "canonical_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 80/TCP-UDP (128683 hits / 4856 sources)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 91.5,
+        "artex_swarm_prob": 0.915,
+        "human_apt_prob": 0.0425,
+        "commodity_botnet_prob": 0.0425,
+        "machine_velocity_index": 0.64,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "High-frequency execution burst (12.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "1197d60760f19a3b5bf4f88fb0b1a3474e3ae27cb61052b78196726dfc6788de",
+        "canonical_name": "KEV-ACTIVE: Microsoft Office \u2014 Microsoft Office Outlook Missing User Interaction for Potentially Unsafe Action Vulnerability (CVE-2026-124194)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 75.7,
+        "artex_swarm_prob": 0.7568,
+        "human_apt_prob": 0.2162,
+        "commodity_botnet_prob": 0.027,
+        "machine_velocity_index": 0.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "Low-cadence cognitive pacing"
+        ]
+      },
+      {
+        "signature_hash": "1bd6a7b23f91e3e571263ce84ec33a923cccecd21fcde16a75fe68b3be9adbdf",
+        "canonical_name": "KEV-ACTIVE: Openwave Messaging Limited Webtop Media Transcoder \u2014 Openwave Messaging Limited Webtop Media Transcoder Incorrect Resource Transfer Between Spheres Vulnerability (CVE-2026-111793)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 75.7,
+        "artex_swarm_prob": 0.7568,
+        "human_apt_prob": 0.2162,
+        "commodity_botnet_prob": 0.027,
+        "machine_velocity_index": 0.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "Low-cadence cognitive pacing"
+        ]
+      },
+      {
+        "signature_hash": "600e98bfa8ef666334039ec1b0d2a040b8cf4abb74d918b6a5dfa5c8a5ec3a25",
+        "canonical_name": "KEV-ACTIVE: Cisco BroadWorks \u2014 Cisco BroadWorks Improper Restriction of XML External Entity Reference Vulnerability (CVE-2026-20320)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 75.7,
+        "artex_swarm_prob": 0.7568,
+        "human_apt_prob": 0.2162,
+        "commodity_botnet_prob": 0.027,
+        "machine_velocity_index": 0.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "Low-cadence cognitive pacing"
+        ]
+      },
+      {
+        "signature_hash": "6af1b15a5263252f3193b9ae93bd2d451bbb53ccf4d68ade82b45ad548816605",
+        "canonical_name": "KEV-ACTIVE: Barracuda Networks Multiple Products \u2014 Barracuda Networks Multiple Products OS Command Injection Vulnerability (CVE-2026-111560)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 75.7,
+        "artex_swarm_prob": 0.7568,
+        "human_apt_prob": 0.2162,
+        "commodity_botnet_prob": 0.027,
+        "machine_velocity_index": 0.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "Low-cadence cognitive pacing"
+        ]
+      },
+      {
+        "signature_hash": "b2567225ad8a23547025e5033b3acc9a146e7f340ba5b5b86a24d53eb8d981f7",
+        "canonical_name": "KEV-ACTIVE: Barracuda Networks Barracuda Email Security Gateway (ESG) \u2014 Barracuda Networks Email Security Gateway (ESG) Authentication Bypass Using an Alternate Path or Channel Vulnerability (CVE-2026-116606)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 75.7,
+        "artex_swarm_prob": 0.7568,
+        "human_apt_prob": 0.2162,
+        "commodity_botnet_prob": 0.027,
+        "machine_velocity_index": 0.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "Low-cadence cognitive pacing"
+        ]
+      },
+      {
+        "signature_hash": "1b80a3a0e230df9184eb4f4643a6aa74949de3150ab67f3bc04a126b072209a6",
+        "canonical_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 80/TCP-UDP (246610 hits / 9660 sources)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 93.3,
+        "artex_swarm_prob": 0.9333,
+        "human_apt_prob": 0.0333,
+        "commodity_botnet_prob": 0.0333,
+        "machine_velocity_index": 1.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "High-frequency execution burst (54000.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "207f095b833b2f8adf1b99fd7cd746308709019422e7d8b524f278fcc199cbca",
+        "canonical_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 8080/TCP-UDP (67017 hits / 3561 sources)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 93.3,
+        "artex_swarm_prob": 0.9333,
+        "human_apt_prob": 0.0333,
+        "commodity_botnet_prob": 0.0333,
+        "machine_velocity_index": 1.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "High-frequency execution burst (46800.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "39e005f21c0120a373134df8076a26793f2f3f9701e3b0731666286224dd69b0",
+        "canonical_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 8000/TCP-UDP (57064 hits / 3267 sources)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 93.3,
+        "artex_swarm_prob": 0.9333,
+        "human_apt_prob": 0.0333,
+        "commodity_botnet_prob": 0.0333,
+        "machine_velocity_index": 1.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "High-frequency execution burst (39600.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "27a4260a8b35ef1e8747b20f483bd2936541fe1f6f00af66ae4fa5e2203ec6ea",
+        "canonical_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 8080/TCP-UDP (153222 hits / 5306 sources)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 91.5,
+        "artex_swarm_prob": 0.915,
+        "human_apt_prob": 0.0425,
+        "commodity_botnet_prob": 0.0425,
+        "machine_velocity_index": 0.64,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "High-frequency execution burst (12.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "aae9b4c14c23658302e8eceb0207073df1f3b58dc4037dbc737d10e0286c6b7c",
+        "canonical_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 8080/TCP-UDP (241956 hits / 8142 sources)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 93.3,
+        "artex_swarm_prob": 0.9333,
+        "human_apt_prob": 0.0333,
+        "commodity_botnet_prob": 0.0333,
+        "machine_velocity_index": 1.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "High-frequency execution burst (54000.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "afeb29e85e6d530942250250e0c6d94f2b1132dea681700b5d8bc358465bf55c",
+        "canonical_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 8000/TCP-UDP (184662 hits / 4581 sources)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 93.3,
+        "artex_swarm_prob": 0.9333,
+        "human_apt_prob": 0.0333,
+        "commodity_botnet_prob": 0.0333,
+        "machine_velocity_index": 1.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "High-frequency execution burst (54000.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "d810b78f5e85e4a2774062c250b725d4c9d376862f591a41dc023f7037458f2c",
+        "canonical_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 8080/TCP-UDP (183529 hits / 5336 sources)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 93.3,
+        "artex_swarm_prob": 0.9333,
+        "human_apt_prob": 0.0333,
+        "commodity_botnet_prob": 0.0333,
+        "machine_velocity_index": 1.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "High-frequency execution burst (54000.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "3fde4a850e8b8d7a8fe06154280531d449515472943200d7483db06bd9d7e78b",
+        "canonical_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 53140/TCP-UDP (69996 hits / 6728 sources)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 93.3,
+        "artex_swarm_prob": 0.9333,
+        "human_apt_prob": 0.0333,
+        "commodity_botnet_prob": 0.0333,
+        "machine_velocity_index": 1.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "High-frequency execution burst (46800.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "71dc82e1c29165d016644f1436c6659375ab899300d447e90d4ca320a4734c29",
+        "canonical_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 80/TCP-UDP (68219 hits / 5978 sources)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 93.3,
+        "artex_swarm_prob": 0.9333,
+        "human_apt_prob": 0.0333,
+        "commodity_botnet_prob": 0.0333,
+        "machine_velocity_index": 1.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "High-frequency execution burst (46800.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "33c746e94b970401d159c2b734e90b49872b29823436ee132e3b2a67c2cb334b",
+        "canonical_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 8000/TCP-UDP (405391 hits / 5840 sources)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 91.5,
+        "artex_swarm_prob": 0.915,
+        "human_apt_prob": 0.0425,
+        "commodity_botnet_prob": 0.0425,
+        "machine_velocity_index": 0.64,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "High-frequency execution burst (12.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "02a9afc851c7e383032e1950ef9034dbc814f9e62a8573ce7f8fc75d7abc4997",
+        "canonical_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 8080/TCP-UDP (394981 hits / 6900 sources)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 91.5,
+        "artex_swarm_prob": 0.915,
+        "human_apt_prob": 0.0425,
+        "commodity_botnet_prob": 0.0425,
+        "machine_velocity_index": 0.64,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "High-frequency execution burst (12.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "a2d25c2dfe3f8e49bdda1d283b1fb49274047cd20f4f3c80659b55e871757e56",
+        "canonical_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 80/TCP-UDP (141971 hits / 8811 sources)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 91.5,
+        "artex_swarm_prob": 0.915,
+        "human_apt_prob": 0.0425,
+        "commodity_botnet_prob": 0.0425,
+        "machine_velocity_index": 0.64,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "High-frequency execution burst (12.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "f509be4b4060ed5f1277156405ba09ec40eaf033aa37a95669492f2e26736b4c",
+        "canonical_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 8000/TCP-UDP (661128 hits / 14047 sources)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 93.3,
+        "artex_swarm_prob": 0.9333,
+        "human_apt_prob": 0.0333,
+        "commodity_botnet_prob": 0.0333,
+        "machine_velocity_index": 1.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "High-frequency execution burst (54000.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "fc7812ed525781d5540ca9f6a0efb57e46f5f550a0ff4b5b7ae07cd42e69d7f9",
+        "canonical_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 8080/TCP-UDP (657460 hits / 15402 sources)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 93.3,
+        "artex_swarm_prob": 0.9333,
+        "human_apt_prob": 0.0333,
+        "commodity_botnet_prob": 0.0333,
+        "machine_velocity_index": 1.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "High-frequency execution burst (54000.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "05f33c6a1827c858487cab40b9a2003df4680a26020f6f4ba7d8ebd17b27e264",
+        "canonical_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 80/TCP-UDP (449793 hits / 16647 sources)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 93.3,
+        "artex_swarm_prob": 0.9333,
+        "human_apt_prob": 0.0333,
+        "commodity_botnet_prob": 0.0333,
+        "machine_velocity_index": 1.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "High-frequency execution burst (54000.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "156c350fa92ca82c634cdd4a402c73247a959ff5ff4ebeb789522afd6159db10",
+        "canonical_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 8080/TCP-UDP (153545 hits / 6046 sources)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 93.3,
+        "artex_swarm_prob": 0.9333,
+        "human_apt_prob": 0.0333,
+        "commodity_botnet_prob": 0.0333,
+        "machine_velocity_index": 1.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "High-frequency execution burst (54000.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "4f740e0b307278dfff472d1293cc102b7be7185029824be043da259938759d34",
+        "canonical_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 8000/TCP-UDP (143164 hits / 5556 sources)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 93.3,
+        "artex_swarm_prob": 0.9333,
+        "human_apt_prob": 0.0333,
+        "commodity_botnet_prob": 0.0333,
+        "machine_velocity_index": 1.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "High-frequency execution burst (54000.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "9e800112a10d948164490358ce6ad56581b8382db31860949d3a5f243dda00df",
+        "canonical_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 80/TCP-UDP (60669 hits / 6432 sources)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 93.3,
+        "artex_swarm_prob": 0.9333,
+        "human_apt_prob": 0.0333,
+        "commodity_botnet_prob": 0.0333,
+        "machine_velocity_index": 1.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "High-frequency execution burst (43200.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "db937332ef15361d933804e5e6b803847adc49c3da7fd00ed655d2b4a6b39fad",
+        "canonical_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 8080/TCP-UDP (343825 hits / 7615 sources)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 91.5,
+        "artex_swarm_prob": 0.915,
+        "human_apt_prob": 0.0425,
+        "commodity_botnet_prob": 0.0425,
+        "machine_velocity_index": 0.64,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "High-frequency execution burst (12.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "f684e4bcd64b06e6de0745b4e79528c22c3ee89fcd4c88659ff0e8c907953c53",
+        "canonical_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 8000/TCP-UDP (316506 hits / 6664 sources)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 91.5,
+        "artex_swarm_prob": 0.915,
+        "human_apt_prob": 0.0425,
+        "commodity_botnet_prob": 0.0425,
+        "machine_velocity_index": 0.64,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "High-frequency execution burst (12.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "e0690e53a31be75aa17a9d4f084c7c47b6cffffb458dbdec50d3b0594ff1f445",
+        "canonical_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 80/TCP-UDP (122017 hits / 8560 sources)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 91.5,
+        "artex_swarm_prob": 0.915,
+        "human_apt_prob": 0.0425,
+        "commodity_botnet_prob": 0.0425,
+        "machine_velocity_index": 0.64,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "High-frequency execution burst (12.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "69af60bb50468ba702b7d57904b2ae101310b98a38d981cf4f255a6384fe0c6c",
+        "canonical_name": "KEV-ACTIVE: UnrealIRCd UnrealIRCd \u2014 UnrealIRCd Improper Neutralization of Delimiters Vulnerability (CVE-2026-114713)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 95.3,
+        "artex_swarm_prob": 0.9527,
+        "human_apt_prob": 0.0237,
+        "commodity_botnet_prob": 0.0237,
+        "machine_velocity_index": 0.68,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "High-frequency execution burst (14.1 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "31b63831850462dad9310c9d4518b4753f3830ac56fb98b29fe526b0bff50312",
+        "canonical_name": "KEV-ACTIVE: Check Point Multiple Products \u2014 Check Point Multiple Products Incorrect Permission Assignment for Critical Resource Vulnerability (CVE-2026-123039)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 95.3,
+        "artex_swarm_prob": 0.9527,
+        "human_apt_prob": 0.0237,
+        "commodity_botnet_prob": 0.0237,
+        "machine_velocity_index": 0.68,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "High-frequency execution burst (14.1 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "d7df12e506c9f33d108695306f11bd56747a28a1ed2109a91f07292fad9d1312",
+        "canonical_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 8080/TCP-UDP (571328 hits / 12460 sources)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 93.3,
+        "artex_swarm_prob": 0.9333,
+        "human_apt_prob": 0.0333,
+        "commodity_botnet_prob": 0.0333,
+        "machine_velocity_index": 1.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "High-frequency execution burst (52.9 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "d31976fd68ce89587334fd201956bf2b88db3f369dff82d8951d5f1eb5ace90e",
+        "canonical_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 8000/TCP-UDP (517875 hits / 10968 sources)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 93.3,
+        "artex_swarm_prob": 0.9333,
+        "human_apt_prob": 0.0333,
+        "commodity_botnet_prob": 0.0333,
+        "machine_velocity_index": 1.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "High-frequency execution burst (52.9 hits/hr)"
+        ]
       }
     ]
   }
