@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>⚡ Rai-OS 2.1 // Praetorian Blue-Team Sentinel Observatory | RaioLabs LLC</title>
+  <title>⚡ Rai-OS 3.0 // Praetorian Blue-Team Sentinel Observatory | RaioLabs LLC</title>
   <link rel="icon" type="image/png" href="./raiolabsllc.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -439,12 +439,13 @@
     <a href="./index.html" class="back-btn">← RaioLabs Hub</a>
     <img src="./raiolabsllc.png" alt="RaioLabs LLC" class="brand-logo" />
     <div>
-      <h1>⚡ Rai-OS 2.1 // Praetorian Blue-Team Sentinel Observatory</h1>
-      <p>Praetorian Cthulhu Concentric Enclave Radar • NIST SP 2400-102 AML Hardened • Post-Quantum Cryptography (PQC) • SHA-256 Deduplication • Autonomous MCP &amp; Dynamic RAG</p>
+      <h1>⚡ Rai-OS 3.0 // Praetorian Blue-Team Sentinel Observatory</h1>
+      <p>Praetorian Cthulhu Concentric Enclave Radar • OWASP Top 10 for LLMs Hardened • NIST SP 2400-102 AML • Post-Quantum Cryptography (PQC) • SHA-256 Deduplication • Autonomous MCP &amp; Dynamic RAG</p>
     </div>
   </div>
   <div class="status-strip">
-    <div class="pill"><span class="dot"></span><span>Swarm: 5 Sentinels + 6 Tentacles</span></div>
+    <div class="pill"><span class="dot"></span><span>Swarm: 6 Sentinels + 6 Tentacles</span></div>
+    <div class="pill" id="owasp-pill" style="border-color:rgba(34,197,94,0.5);color:#4ade80;">🛡️ OWASP Top 10 for LLMs Compliant</div>
     <div class="pill" id="nist-pill" style="border-color:rgba(56,189,248,0.5);color:#38bdf8;">🛡️ NIST SP 2400-102 Compliant</div>
     <div class="pill" id="pqc-pill" style="border-color:rgba(236,72,153,0.5);color:#f472b6;">⚡ PQC: NIST FIPS 203/204 (36B Overhead)</div>
     <div class="pill" id="soul-pill">🔒 SOUL.md: ad866445f67a... (Enforced)</div>
@@ -456,7 +457,7 @@
 
 <div class="banner-note">
   <div>
-    <strong>Rai-OS 2.1 Post-Quantum &amp; NIST SP 2400-102 AML Hardened (Level 0 HITL):</strong> The Praetorian Cthulhu Swarm protects autonomous agent communication via NIST SP 2400-102e2026 ipd AML compliance (telemetry taint-isolation, anti-drift memory controls, non-subshell command gates, and rogue MCP tool manifest verification) + NIST FIPS 203 (ML-KEM-768) + FIPS 204 (ML-DSA-65) post-quantum wire encapsulation.
+    <strong>Rai-OS 3.0 OWASP Top 10 for LLMs, NIST SP 2400-102 AML &amp; Post-Quantum Hardened (Level 0 HITL):</strong> The Praetorian Cthulhu Swarm protects autonomous agent communication via OWASP Top 10 for LLMs compliance (prompt injection defense, canary secret scrubbing, least privilege agency), NIST SP 2400-102e2026 ipd AML hardening, and NIST FIPS 203 (ML-KEM-768) + FIPS 204 (ML-DSA-65) post-quantum wire encapsulation.
   </div>
   <div style="display:flex;align-items:center;gap:10px;">
     <code>"I shall find a way or make one" — Hannibal Barca</code>
@@ -672,16 +673,18 @@
     { a_n: "STACK-SBOM: Query-String (qs) & nanoid Generator Bounds Guard (GHSA-4mjr-xmp4-gh2g)", a_t: "exploit", s_co: "SECTOR-INGRESS", d_co: "TENTACLE-I", sectorIdx: 0, baseRepeats: 3, firstSeen: "2026-11-07T11:19:07Z", feeds: ["CISA-KEV", "SURICATA-ET-OPEN"] },
     { a_n: "QUANTUM-HARVEST: Shor Algorithm / Pre-Q-Day Encrypted Packet Capture Probe (T1040)", a_t: "exploit", s_co: "SECTOR-ENCLAVE", d_co: "TENTACLE-VI", sectorIdx: 5, baseRepeats: 4, firstSeen: "2026-11-08T16:20:00Z", feeds: ["CISA-KEV", "MITRE-ICS-OT", "GREYNOISE-COMMUNITY"] },
     { a_n: "PQC-ENCAPSULATION: NIST FIPS 203 ML-KEM-768 + FIPS 204 ML-DSA-65 Wire Armor Verification", a_t: "exploit", s_co: "SECTOR-INGRESS", d_co: "TENTACLE-I", sectorIdx: 0, baseRepeats: 5, firstSeen: "2026-11-08T16:30:00Z", feeds: ["MV-BEHAVIORAL-IDS", "SANS-ISC-DSHIELD"] },
-    { a_n: "NIST-AML-HARDENING: NIST SP 2400-102e2026 ipd Taint-Isolated Ingestion & Rogue MCP Tool Manifest Guard", a_t: "exploit", s_co: "SECTOR-ENCLAVE", d_co: "TENTACLE-VI", sectorIdx: 5, baseRepeats: 6, firstSeen: "2026-11-09T17:00:00Z", feeds: ["CISA-KEV", "MITRE-ATLAS", "NIST-AML"] }
+    { a_n: "NIST-AML-HARDENING: NIST SP 2400-102e2026 ipd Taint-Isolated Ingestion & Rogue MCP Tool Manifest Guard", a_t: "exploit", s_co: "SECTOR-ENCLAVE", d_co: "TENTACLE-VI", sectorIdx: 5, baseRepeats: 6, firstSeen: "2026-11-09T17:00:00Z", feeds: ["CISA-KEV", "MITRE-ATLAS", "NIST-AML"] },
+    { a_n: "OWASP-LLM-HARDENING: OWASP Top 10 for LLMs Canary Redaction & Prompt Injection Guard", a_t: "exploit", s_co: "SECTOR-ENCLAVE", d_co: "TENTACLE-VI", sectorIdx: 5, baseRepeats: 7, firstSeen: "2026-11-12T19:00:00Z", feeds: ["CISA-KEV", "OWASP-LLM", "MITRE-ATLAS"] }
   ];
 
-  // 5 Praetorian Sentinels (Inner Ring - Rai-OS 2.1 PQC & NIST AML Architecture)
+  // 6 Praetorian Sentinels (Inner Ring - Rai-OS 3.0 OWASP, PQC & NIST AML Architecture)
   const SENTINEL_NODES = [
     { id: "SENTINEL-CORE", role: "eBPF / Kernel Guard", angle: -Math.PI / 2, color: "#38bdf8" },
-    { id: "SENTINEL-PERIPHERAL", role: "OT / PLC & USB Lock", angle: -Math.PI / 2 + (2 * Math.PI / 5), color: "#10b981" },
-    { id: "SENTINEL-AUDIT", role: "Dynamic RAG & HMAC", angle: -Math.PI / 2 + (4 * Math.PI / 5), color: "#a78bfa" },
-    { id: "SENTINEL-WATCHDOG", role: "NetFilter C2 Containment", angle: -Math.PI / 2 + (6 * Math.PI / 5), color: "#fbbf24" },
-    { id: "SENTINEL-QUANTUM", role: "PQC Wire Enclave (FIPS 203/204)", angle: -Math.PI / 2 + (8 * Math.PI / 5), color: "#f472b6" }
+    { id: "SENTINEL-PERIPHERAL", role: "OT / PLC & USB Lock", angle: -Math.PI / 2 + (Math.PI / 3), color: "#10b981" },
+    { id: "SENTINEL-AUDIT", role: "Dynamic RAG & HMAC", angle: -Math.PI / 2 + (2 * Math.PI / 3), color: "#a78bfa" },
+    { id: "SENTINEL-WATCHDOG", role: "NetFilter C2 Containment", angle: -Math.PI / 2 + (3 * Math.PI / 3), color: "#fbbf24" },
+    { id: "SENTINEL-QUANTUM", role: "PQC Wire Enclave (FIPS 203/204)", angle: -Math.PI / 2 + (4 * Math.PI / 3), color: "#f472b6" },
+    { id: "SENTINEL-OWASP", role: "OWASP LLM & Canary Guard", angle: -Math.PI / 2 + (5 * Math.PI / 3), color: "#34d399" }
   ];
 
   // 6 Cthulhu Tentacle Interceptors (Middle Ring) & Outer Telemetry Sectors

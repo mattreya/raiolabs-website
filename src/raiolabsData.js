@@ -3,18 +3,19 @@
 export const FEATURED_PROJECTS = [
   {
     id: 'praetorian-sentinel-observatory',
-    name: 'Rai-OS 2.1 PQC & NIST AML Observatory',
-    title: 'Rai-OS 2.1 Praetorian PQC & NIST SP 2400-102 Observatory',
+    name: 'Rai-OS 3.0 PQC, NIST & OWASP Observatory',
+    title: 'Rai-OS 3.0 Praetorian PQC, NIST SP 2400-102 & OWASP Top 10 Observatory',
     category: 'SecOps & Governance',
-    language: 'Python / PQC / MCP / eBPF / AML',
-    badge: 'RAI-OS 2.1 NIST & PQC',
+    language: 'Python / PQC / MCP / eBPF / AML / OWASP',
+    badge: 'RAI-OS 3.0 OWASP & PQC',
     stars: 5,
     url: './praetorian.html',
-    summary: 'Real-time visual observatory demonstrating Rai-OS 2.1 with NIST SP 2400-102e2026 ipd Adversarial ML compliance (agentic telemetry taint isolation, rogue MCP manifest verification, anti-drift memory controls), Post-Quantum Cryptography (FIPS 203/204), and the 5-Sentinel Praetorian Swarm.',
+    summary: 'Real-time visual observatory demonstrating Rai-OS 3.0 with OWASP Top 10 for LLMs compliance (canary token protection, prompt injection filtering, sensitive credential scrubbing), NIST SP 2400-102 AML compliance, Post-Quantum Cryptography (FIPS 203/204), and the 6-Sentinel Praetorian Swarm.',
     highlights: [
+      'OWASP Top 10 for LLM Applications (2025/2026) hardened (canary tokens, injection firewall, credential redaction)',
       'NIST SP 2400-102e2026 ipd compliant against autonomous agent attacks (taint-isolated telemetry, non-subshell command gates)',
       'NIST FIPS 203 (ML-KEM-768) + FIPS 204 (ML-DSA-65) autonomous PQC wire armor (36B overhead, 59.5 µs latency)',
-      '5-Sentinel Praetorian Cthulhu Swarm with dedicated Quantum Wire Enclave & Immutable MCP Tool Manifest verification',
+      '6-Sentinel Praetorian Cthulhu Swarm with dedicated OWASP Sentinel (Sentinel 6) & Quantum Wire Enclave',
       'Zero client device/storage permissions — runs in an isolated read-only telemetry sandbox'
     ],
     command: 'praetorian-test'
