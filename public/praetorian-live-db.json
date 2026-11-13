@@ -1,11 +1,11 @@
 {
-  "synced_at": "2026-11-13T21:04:16.514884+00:00",
+  "synced_at": "2026-11-13T21:16:29.187624+00:00",
   "source_database": "praetorian_multi_source_intel.db (SQLite3 STIX/MITRE Normalizer)",
   "cost_posture": "$0.00 (Same-Origin Static Snapshot + Local SQLite Aggregator)",
   "cloud_health": {
     "status": "healthy",
     "service": "praetorian-rag-mcp-server",
-    "version": "3.0.0-owasp-nist-hardened",
+    "version": "3.1.0-artex-tentacle7-hardened",
     "owasp_compliance": "OWASP-Top-10-LLM-2025-Enforced",
     "nist_aml_compliance": "NIST-SP-2400-102-Compliant",
     "cloud_project": "cyroot-test",
@@ -126,7 +126,7 @@
     }
   },
   "direct_enclave_intrusion_audit": {
-    "checked_at": "2026-11-13T21:04:16.469416+00:00",
+    "checked_at": "2026-11-13T21:16:29.124186+00:00",
     "direct_attacks_total": 0,
     "new_attacks_detected_this_run": 0,
     "enclave_status": "SECURE_ZERO_DIRECT_ATTACKS",
@@ -2721,7 +2721,7 @@
     },
     "autonomous_swarm_prevalence_pct": 83.3,
     "machine_vs_human_ratio": "60:1",
-    "last_classified_at": "2026-11-13T21:04:16.508017+00:00",
+    "last_classified_at": "2026-11-13T21:16:29.180824+00:00",
     "top_artex_fingerprints": [
       {
         "signature_hash": "ab190a5f1d8e2762dd50014df880ecd8077f9cb7527ff353a8837626ba04983b",
