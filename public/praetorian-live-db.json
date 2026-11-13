@@ -1,5 +1,5 @@
 {
-  "synced_at": "2026-11-13T13:00:09.048799+00:00",
+  "synced_at": "2026-11-13T14:15:03.927070+00:00",
   "source_database": "praetorian_multi_source_intel.db (SQLite3 STIX/MITRE Normalizer)",
   "cost_posture": "$0.00 (Same-Origin Static Snapshot + Local SQLite Aggregator)",
   "cloud_health": {
@@ -63,8 +63,8 @@
         "name": "CISA Known Exploited Vulnerabilities Catalog",
         "category": "Public US Gov / CVE Advisories",
         "license_tier": "Public Domain (CC0 / US Gov)",
-        "vectors_contributed": 174,
-        "last_polled_at": "2026-11-13T13:00:02Z"
+        "vectors_contributed": 179,
+        "last_polled_at": "2026-11-13T14:15:02Z"
       },
       {
         "feed_id": "GREYNOISE-COMMUNITY",
@@ -95,8 +95,8 @@
         "name": "SANS Internet Storm Center DShield Sensor Grid",
         "category": "Global Honeypot Port & Protocol Telemetry",
         "license_tier": "Open Community Telemetry",
-        "vectors_contributed": 119,
-        "last_polled_at": "2026-11-13T13:00:03Z"
+        "vectors_contributed": 124,
+        "last_polled_at": "2026-11-13T14:15:02Z"
       },
       {
         "feed_id": "SURICATA-ET-OPEN",
@@ -126,7 +126,7 @@
     }
   },
   "direct_enclave_intrusion_audit": {
-    "checked_at": "2026-11-13T13:00:08.999056+00:00",
+    "checked_at": "2026-11-13T14:15:03.882705+00:00",
     "direct_attacks_total": 0,
     "new_attacks_detected_this_run": 0,
     "enclave_status": "SECURE_ZERO_DIRECT_ATTACKS",
@@ -1549,58 +1549,6 @@
         "last_seen_at": "2026-11-12T20:15:02Z"
       },
       {
-        "observation_id": "obs-6af1b15a52",
-        "signature_name": "KEV-ACTIVE: Barracuda Networks Multiple Products \u2014 Barracuda Networks Multiple Products OS Command Injection Vulnerability (CVE-2026-111560)",
-        "attack_type": "exploit",
-        "signature_hash": "6af1b15a5263252f3193b9ae93bd2d451bbb53ccf4d68ade82b45ad548816605",
-        "source_country": "SECTOR-INGRESS",
-        "dest_country": "TENTACLE-I",
-        "severity": "CRITICAL",
-        "domain": "CISA KEV Zero-Trust Perimeter (Barracuda Networks Multiple Products)",
-        "mitre_ttps": [
-          "T1190 - Exploit Public-Facing Application"
-        ],
-        "corroborated_feeds": [
-          "CISA-KEV",
-          "SANS-ISC-DSHIELD",
-          "GREYNOISE-COMMUNITY",
-          "SURICATA-ET-OPEN"
-        ],
-        "corroboration_count": 4,
-        "synthesized_tool_id": "sentinel-auto-kev-barracuda-networks-multiple-products-c-6af1b1",
-        "synthesized_tool_sha256": "6af1b15a5263252f3193b9ae93bd2d451bbb53ccf4d68ade82b45ad548816605",
-        "rag_profile_id": "praetorian-rag-6af1b15a52",
-        "repeat_hits": 4,
-        "first_seen_at": "2026-11-10T20:15:02Z",
-        "last_seen_at": "2026-11-13T08:15:02Z"
-      },
-      {
-        "observation_id": "obs-b2567225ad",
-        "signature_name": "KEV-ACTIVE: Barracuda Networks Barracuda Email Security Gateway (ESG) \u2014 Barracuda Networks Email Security Gateway (ESG) Authentication Bypass Using an Alternate Path or Channel Vulnerability (CVE-2026-116606)",
-        "attack_type": "exploit",
-        "signature_hash": "b2567225ad8a23547025e5033b3acc9a146e7f340ba5b5b86a24d53eb8d981f7",
-        "source_country": "SECTOR-INGRESS",
-        "dest_country": "TENTACLE-I",
-        "severity": "CRITICAL",
-        "domain": "CISA KEV Zero-Trust Perimeter (Barracuda Networks Barracuda Email Security Gateway (ESG))",
-        "mitre_ttps": [
-          "T1190 - Exploit Public-Facing Application"
-        ],
-        "corroborated_feeds": [
-          "CISA-KEV",
-          "SANS-ISC-DSHIELD",
-          "GREYNOISE-COMMUNITY",
-          "SURICATA-ET-OPEN"
-        ],
-        "corroboration_count": 4,
-        "synthesized_tool_id": "sentinel-auto-kev-barracuda-networks-barracuda-email-sec-b25672",
-        "synthesized_tool_sha256": "b2567225ad8a23547025e5033b3acc9a146e7f340ba5b5b86a24d53eb8d981f7",
-        "rag_profile_id": "praetorian-rag-b2567225ad",
-        "repeat_hits": 4,
-        "first_seen_at": "2026-11-10T20:15:02Z",
-        "last_seen_at": "2026-11-13T08:15:02Z"
-      },
-      {
         "observation_id": "obs-156c350fa9",
         "signature_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 8080/TCP-UDP (153545 hits / 6046 sources)",
         "attack_type": "exploit",
@@ -1676,84 +1624,6 @@
         "last_seen_at": "2026-11-13T08:15:02Z"
       },
       {
-        "observation_id": "obs-1197d60760",
-        "signature_name": "KEV-ACTIVE: Microsoft Office \u2014 Microsoft Office Outlook Missing User Interaction for Potentially Unsafe Action Vulnerability (CVE-2026-124194)",
-        "attack_type": "exploit",
-        "signature_hash": "1197d60760f19a3b5bf4f88fb0b1a3474e3ae27cb61052b78196726dfc6788de",
-        "source_country": "SECTOR-INGRESS",
-        "dest_country": "TENTACLE-I",
-        "severity": "CRITICAL",
-        "domain": "CISA KEV Zero-Trust Perimeter (Microsoft Office)",
-        "mitre_ttps": [
-          "T1190 - Exploit Public-Facing Application"
-        ],
-        "corroborated_feeds": [
-          "CISA-KEV",
-          "SANS-ISC-DSHIELD",
-          "GREYNOISE-COMMUNITY",
-          "SURICATA-ET-OPEN"
-        ],
-        "corroboration_count": 4,
-        "synthesized_tool_id": "sentinel-auto-kev-microsoft-office-cve-2026-124194-1197d6",
-        "synthesized_tool_sha256": "1197d60760f19a3b5bf4f88fb0b1a3474e3ae27cb61052b78196726dfc6788de",
-        "rag_profile_id": "praetorian-rag-1197d60760",
-        "repeat_hits": 4,
-        "first_seen_at": "2026-11-10T20:15:02Z",
-        "last_seen_at": "2026-11-13T13:00:02Z"
-      },
-      {
-        "observation_id": "obs-1bd6a7b23f",
-        "signature_name": "KEV-ACTIVE: Openwave Messaging Limited Webtop Media Transcoder \u2014 Openwave Messaging Limited Webtop Media Transcoder Incorrect Resource Transfer Between Spheres Vulnerability (CVE-2026-111793)",
-        "attack_type": "exploit",
-        "signature_hash": "1bd6a7b23f91e3e571263ce84ec33a923cccecd21fcde16a75fe68b3be9adbdf",
-        "source_country": "SECTOR-INGRESS",
-        "dest_country": "TENTACLE-I",
-        "severity": "CRITICAL",
-        "domain": "CISA KEV Zero-Trust Perimeter (Openwave Messaging Limited Webtop Media Transcoder)",
-        "mitre_ttps": [
-          "T1190 - Exploit Public-Facing Application"
-        ],
-        "corroborated_feeds": [
-          "CISA-KEV",
-          "SANS-ISC-DSHIELD",
-          "GREYNOISE-COMMUNITY",
-          "SURICATA-ET-OPEN"
-        ],
-        "corroboration_count": 4,
-        "synthesized_tool_id": "sentinel-auto-kev-openwave-messaging-limited-webtop-medi-1bd6a7",
-        "synthesized_tool_sha256": "1bd6a7b23f91e3e571263ce84ec33a923cccecd21fcde16a75fe68b3be9adbdf",
-        "rag_profile_id": "praetorian-rag-1bd6a7b23f",
-        "repeat_hits": 4,
-        "first_seen_at": "2026-11-10T20:15:02Z",
-        "last_seen_at": "2026-11-13T13:00:02Z"
-      },
-      {
-        "observation_id": "obs-600e98bfa8",
-        "signature_name": "KEV-ACTIVE: Cisco BroadWorks \u2014 Cisco BroadWorks Improper Restriction of XML External Entity Reference Vulnerability (CVE-2026-20320)",
-        "attack_type": "exploit",
-        "signature_hash": "600e98bfa8ef666334039ec1b0d2a040b8cf4abb74d918b6a5dfa5c8a5ec3a25",
-        "source_country": "SECTOR-INGRESS",
-        "dest_country": "TENTACLE-I",
-        "severity": "CRITICAL",
-        "domain": "CISA KEV Zero-Trust Perimeter (Cisco BroadWorks)",
-        "mitre_ttps": [
-          "T1190 - Exploit Public-Facing Application"
-        ],
-        "corroborated_feeds": [
-          "CISA-KEV",
-          "SANS-ISC-DSHIELD",
-          "GREYNOISE-COMMUNITY",
-          "SURICATA-ET-OPEN"
-        ],
-        "corroboration_count": 4,
-        "synthesized_tool_id": "sentinel-auto-kev-cisco-broadworks-cve-2026-20320-600e98",
-        "synthesized_tool_sha256": "600e98bfa8ef666334039ec1b0d2a040b8cf4abb74d918b6a5dfa5c8a5ec3a25",
-        "rag_profile_id": "praetorian-rag-600e98bfa8",
-        "repeat_hits": 4,
-        "first_seen_at": "2026-11-10T20:15:02Z",
-        "last_seen_at": "2026-11-13T13:00:02Z"
-      },
-      {
         "observation_id": "obs-84a9c2ba75",
         "signature_name": "AUTH-BYPASS: Alpine musl libc crypt() >256-Byte Asterisk Collision (*sshole / CWE-287)",
         "attack_type": "exploit",
@@ -1779,7 +1649,7 @@
         "rag_profile_id": "praetorian-rag-84a9c2ba75",
         "repeat_hits": 15,
         "first_seen_at": "2026-11-08T04:05:23Z",
-        "last_seen_at": "2026-11-13T13:00:03Z"
+        "last_seen_at": "2026-11-13T14:15:02Z"
       },
       {
         "observation_id": "obs-5dfdefa8d0",
@@ -1804,7 +1674,137 @@
         "rag_profile_id": "praetorian-rag-5dfdefa8d0",
         "repeat_hits": 15,
         "first_seen_at": "2026-11-08T04:05:23Z",
-        "last_seen_at": "2026-11-13T13:00:03Z"
+        "last_seen_at": "2026-11-13T14:15:02Z"
+      },
+      {
+        "observation_id": "obs-1197d60760",
+        "signature_name": "KEV-ACTIVE: Microsoft Office \u2014 Microsoft Office Outlook Missing User Interaction for Potentially Unsafe Action Vulnerability (CVE-2026-124194)",
+        "attack_type": "exploit",
+        "signature_hash": "1197d60760f19a3b5bf4f88fb0b1a3474e3ae27cb61052b78196726dfc6788de",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Microsoft Office)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-kev-microsoft-office-cve-2026-124194-1197d6",
+        "synthesized_tool_sha256": "1197d60760f19a3b5bf4f88fb0b1a3474e3ae27cb61052b78196726dfc6788de",
+        "rag_profile_id": "praetorian-rag-1197d60760",
+        "repeat_hits": 4,
+        "first_seen_at": "2026-11-10T20:15:02Z",
+        "last_seen_at": "2026-11-13T14:15:02Z"
+      },
+      {
+        "observation_id": "obs-1bd6a7b23f",
+        "signature_name": "KEV-ACTIVE: Openwave Messaging Limited Webtop Media Transcoder \u2014 Openwave Messaging Limited Webtop Media Transcoder Incorrect Resource Transfer Between Spheres Vulnerability (CVE-2026-111793)",
+        "attack_type": "exploit",
+        "signature_hash": "1bd6a7b23f91e3e571263ce84ec33a923cccecd21fcde16a75fe68b3be9adbdf",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Openwave Messaging Limited Webtop Media Transcoder)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-kev-openwave-messaging-limited-webtop-medi-1bd6a7",
+        "synthesized_tool_sha256": "1bd6a7b23f91e3e571263ce84ec33a923cccecd21fcde16a75fe68b3be9adbdf",
+        "rag_profile_id": "praetorian-rag-1bd6a7b23f",
+        "repeat_hits": 4,
+        "first_seen_at": "2026-11-10T20:15:02Z",
+        "last_seen_at": "2026-11-13T14:15:02Z"
+      },
+      {
+        "observation_id": "obs-600e98bfa8",
+        "signature_name": "KEV-ACTIVE: Cisco BroadWorks \u2014 Cisco BroadWorks Improper Restriction of XML External Entity Reference Vulnerability (CVE-2026-20320)",
+        "attack_type": "exploit",
+        "signature_hash": "600e98bfa8ef666334039ec1b0d2a040b8cf4abb74d918b6a5dfa5c8a5ec3a25",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Cisco BroadWorks)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-kev-cisco-broadworks-cve-2026-20320-600e98",
+        "synthesized_tool_sha256": "600e98bfa8ef666334039ec1b0d2a040b8cf4abb74d918b6a5dfa5c8a5ec3a25",
+        "rag_profile_id": "praetorian-rag-600e98bfa8",
+        "repeat_hits": 4,
+        "first_seen_at": "2026-11-10T20:15:02Z",
+        "last_seen_at": "2026-11-13T14:15:02Z"
+      },
+      {
+        "observation_id": "obs-6af1b15a52",
+        "signature_name": "KEV-ACTIVE: Barracuda Networks Multiple Products \u2014 Barracuda Networks Multiple Products OS Command Injection Vulnerability (CVE-2026-111560)",
+        "attack_type": "exploit",
+        "signature_hash": "6af1b15a5263252f3193b9ae93bd2d451bbb53ccf4d68ade82b45ad548816605",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Barracuda Networks Multiple Products)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-kev-barracuda-networks-multiple-products-c-6af1b1",
+        "synthesized_tool_sha256": "6af1b15a5263252f3193b9ae93bd2d451bbb53ccf4d68ade82b45ad548816605",
+        "rag_profile_id": "praetorian-rag-6af1b15a52",
+        "repeat_hits": 4,
+        "first_seen_at": "2026-11-10T20:15:02Z",
+        "last_seen_at": "2026-11-13T14:15:02Z"
+      },
+      {
+        "observation_id": "obs-b2567225ad",
+        "signature_name": "KEV-ACTIVE: Barracuda Networks Barracuda Email Security Gateway (ESG) \u2014 Barracuda Networks Email Security Gateway (ESG) Authentication Bypass Using an Alternate Path or Channel Vulnerability (CVE-2026-116606)",
+        "attack_type": "exploit",
+        "signature_hash": "b2567225ad8a23547025e5033b3acc9a146e7f340ba5b5b86a24d53eb8d981f7",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Barracuda Networks Barracuda Email Security Gateway (ESG))",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-kev-barracuda-networks-barracuda-email-sec-b25672",
+        "synthesized_tool_sha256": "b2567225ad8a23547025e5033b3acc9a146e7f340ba5b5b86a24d53eb8d981f7",
+        "rag_profile_id": "praetorian-rag-b2567225ad",
+        "repeat_hits": 4,
+        "first_seen_at": "2026-11-10T20:15:02Z",
+        "last_seen_at": "2026-11-13T14:15:02Z"
       },
       {
         "observation_id": "obs-db937332ef",
@@ -1829,7 +1829,7 @@
         "rag_profile_id": "praetorian-rag-db937332ef",
         "repeat_hits": 15,
         "first_seen_at": "2026-11-13T13:00:03Z",
-        "last_seen_at": "2026-11-13T13:00:03Z"
+        "last_seen_at": "2026-11-13T14:15:02Z"
       },
       {
         "observation_id": "obs-f684e4bcd6",
@@ -1854,7 +1854,7 @@
         "rag_profile_id": "praetorian-rag-f684e4bcd6",
         "repeat_hits": 15,
         "first_seen_at": "2026-11-13T13:00:03Z",
-        "last_seen_at": "2026-11-13T13:00:03Z"
+        "last_seen_at": "2026-11-13T14:15:02Z"
       },
       {
         "observation_id": "obs-e0690e53a3",
@@ -1879,7 +1879,7 @@
         "rag_profile_id": "praetorian-rag-e0690e53a3",
         "repeat_hits": 15,
         "first_seen_at": "2026-11-13T13:00:03Z",
-        "last_seen_at": "2026-11-13T13:00:03Z"
+        "last_seen_at": "2026-11-13T14:15:02Z"
       }
     ]
   },
