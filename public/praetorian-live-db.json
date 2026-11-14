@@ -1,5 +1,5 @@
 {
-  "synced_at": "2026-11-14T18:55:08.174694+00:00",
+  "synced_at": "2026-11-14T20:15:03.948748+00:00",
   "source_database": "praetorian_multi_source_intel.db (SQLite3 STIX/MITRE Normalizer)",
   "cost_posture": "$0.00 (Same-Origin Static Snapshot + Local SQLite Aggregator)",
   "cloud_health": {
@@ -63,8 +63,8 @@
         "name": "CISA Known Exploited Vulnerabilities Catalog",
         "category": "Public US Gov / CVE Advisories",
         "license_tier": "Public Domain (CC0 / US Gov)",
-        "vectors_contributed": 210,
-        "last_polled_at": "2026-11-14T14:15:02Z"
+        "vectors_contributed": 215,
+        "last_polled_at": "2026-11-14T20:15:02Z"
       },
       {
         "feed_id": "GREYNOISE-COMMUNITY",
@@ -95,8 +95,8 @@
         "name": "SANS Internet Storm Center DShield Sensor Grid",
         "category": "Global Honeypot Port & Protocol Telemetry",
         "license_tier": "Open Community Telemetry",
-        "vectors_contributed": 149,
-        "last_polled_at": "2026-11-14T14:15:02Z"
+        "vectors_contributed": 154,
+        "last_polled_at": "2026-11-14T20:15:02Z"
       },
       {
         "feed_id": "SURICATA-ET-OPEN",
@@ -126,7 +126,7 @@
     }
   },
   "direct_enclave_intrusion_audit": {
-    "checked_at": "2026-11-14T18:55:08.113470+00:00",
+    "checked_at": "2026-11-14T20:15:03.888517+00:00",
     "direct_attacks_total": 0,
     "new_attacks_detected_this_run": 0,
     "enclave_status": "SECURE_ZERO_DIRECT_ATTACKS",
@@ -1892,7 +1892,7 @@
         "rag_profile_id": "praetorian-rag-84a9c2ba75",
         "repeat_hits": 15,
         "first_seen_at": "2026-11-08T04:05:23Z",
-        "last_seen_at": "2026-11-14T14:15:02Z"
+        "last_seen_at": "2026-11-14T20:15:02Z"
       },
       {
         "observation_id": "obs-5dfdefa8d0",
@@ -1917,7 +1917,7 @@
         "rag_profile_id": "praetorian-rag-5dfdefa8d0",
         "repeat_hits": 15,
         "first_seen_at": "2026-11-08T04:05:23Z",
-        "last_seen_at": "2026-11-14T14:15:02Z"
+        "last_seen_at": "2026-11-14T20:15:02Z"
       },
       {
         "observation_id": "obs-b0022e1ef2",
@@ -1944,7 +1944,7 @@
         "rag_profile_id": "praetorian-rag-b0022e1ef2",
         "repeat_hits": 15,
         "first_seen_at": "2026-11-08T04:05:23Z",
-        "last_seen_at": "2026-11-14T14:15:02Z"
+        "last_seen_at": "2026-11-14T20:15:02Z"
       },
       {
         "observation_id": "obs-1197d60760",
@@ -1970,7 +1970,7 @@
         "rag_profile_id": "praetorian-rag-1197d60760",
         "repeat_hits": 4,
         "first_seen_at": "2026-11-10T20:15:02Z",
-        "last_seen_at": "2026-11-14T14:15:02Z"
+        "last_seen_at": "2026-11-14T20:15:02Z"
       },
       {
         "observation_id": "obs-1bd6a7b23f",
@@ -1996,7 +1996,7 @@
         "rag_profile_id": "praetorian-rag-1bd6a7b23f",
         "repeat_hits": 4,
         "first_seen_at": "2026-11-10T20:15:02Z",
-        "last_seen_at": "2026-11-14T14:15:02Z"
+        "last_seen_at": "2026-11-14T20:15:02Z"
       },
       {
         "observation_id": "obs-600e98bfa8",
@@ -2022,7 +2022,7 @@
         "rag_profile_id": "praetorian-rag-600e98bfa8",
         "repeat_hits": 4,
         "first_seen_at": "2026-11-10T20:15:02Z",
-        "last_seen_at": "2026-11-14T14:15:02Z"
+        "last_seen_at": "2026-11-14T20:15:02Z"
       },
       {
         "observation_id": "obs-69af60bb50",
@@ -2048,7 +2048,7 @@
         "rag_profile_id": "praetorian-rag-69af60bb50",
         "repeat_hits": 4,
         "first_seen_at": "2026-11-13T19:58:01Z",
-        "last_seen_at": "2026-11-14T14:15:02Z"
+        "last_seen_at": "2026-11-14T20:15:02Z"
       },
       {
         "observation_id": "obs-31b6383185",
@@ -2074,7 +2074,7 @@
         "rag_profile_id": "praetorian-rag-31b6383185",
         "repeat_hits": 4,
         "first_seen_at": "2026-11-13T19:58:01Z",
-        "last_seen_at": "2026-11-14T14:15:02Z"
+        "last_seen_at": "2026-11-14T20:15:02Z"
       },
       {
         "observation_id": "obs-c7bf9d6e03",
@@ -2099,7 +2099,7 @@
         "rag_profile_id": "praetorian-rag-c7bf9d6e03",
         "repeat_hits": 15,
         "first_seen_at": "2026-11-14T13:00:02Z",
-        "last_seen_at": "2026-11-14T14:15:02Z"
+        "last_seen_at": "2026-11-14T20:15:02Z"
       },
       {
         "observation_id": "obs-bdfb674408",
@@ -2124,7 +2124,7 @@
         "rag_profile_id": "praetorian-rag-bdfb674408",
         "repeat_hits": 15,
         "first_seen_at": "2026-11-14T13:00:02Z",
-        "last_seen_at": "2026-11-14T14:15:02Z"
+        "last_seen_at": "2026-11-14T20:15:02Z"
       }
     ]
   },
@@ -2864,7 +2864,7 @@
     },
     "autonomous_swarm_prevalence_pct": 84.2,
     "machine_vs_human_ratio": "64:1",
-    "last_classified_at": "2026-11-14T18:55:08.153069+00:00",
+    "last_classified_at": "2026-11-14T20:15:03.926439+00:00",
     "top_artex_fingerprints": [
       {
         "signature_hash": "ab190a5f1d8e2762dd50014df880ecd8077f9cb7527ff353a8837626ba04983b",
@@ -4119,14 +4119,14 @@
         "canonical_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 8080/TCP-UDP (362440 hits / 6022 sources)",
         "attack_type": "exploit",
         "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
-        "confidence_score": 91.5,
-        "artex_swarm_prob": 0.915,
-        "human_apt_prob": 0.0425,
-        "commodity_botnet_prob": 0.0425,
-        "machine_velocity_index": 0.64,
+        "confidence_score": 52.6,
+        "artex_swarm_prob": 0.5263,
+        "human_apt_prob": 0.4211,
+        "commodity_botnet_prob": 0.0526,
+        "machine_velocity_index": 0.0,
         "swarm_collision_metric": 0.0,
         "key_indicators": [
-          "High-frequency execution burst (12.0 hits/hr)"
+          "Low-cadence cognitive pacing"
         ]
       },
       {
@@ -4134,14 +4134,14 @@
         "canonical_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 8000/TCP-UDP (292100 hits / 5118 sources)",
         "attack_type": "exploit",
         "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
-        "confidence_score": 91.5,
-        "artex_swarm_prob": 0.915,
-        "human_apt_prob": 0.0425,
-        "commodity_botnet_prob": 0.0425,
-        "machine_velocity_index": 0.64,
+        "confidence_score": 52.6,
+        "artex_swarm_prob": 0.5263,
+        "human_apt_prob": 0.4211,
+        "commodity_botnet_prob": 0.0526,
+        "machine_velocity_index": 0.0,
         "swarm_collision_metric": 0.0,
         "key_indicators": [
-          "High-frequency execution burst (12.0 hits/hr)"
+          "Low-cadence cognitive pacing"
         ]
       }
     ]
