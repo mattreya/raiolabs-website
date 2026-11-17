@@ -1,5 +1,5 @@
 {
-  "synced_at": "2026-11-17T13:00:11.062363+00:00",
+  "synced_at": "2026-11-17T14:15:03.713687+00:00",
   "source_database": "praetorian_multi_source_intel.db (SQLite3 STIX/MITRE Normalizer)",
   "cost_posture": "$0.00 (Same-Origin Static Snapshot + Local SQLite Aggregator)",
   "cloud_health": {
@@ -63,8 +63,8 @@
         "name": "CISA Known Exploited Vulnerabilities Catalog",
         "category": "Public US Gov / CVE Advisories",
         "license_tier": "Public Domain (CC0 / US Gov)",
-        "vectors_contributed": 283,
-        "last_polled_at": "2026-11-17T13:00:02Z"
+        "vectors_contributed": 288,
+        "last_polled_at": "2026-11-17T14:15:01Z"
       },
       {
         "feed_id": "GREYNOISE-COMMUNITY",
@@ -95,8 +95,8 @@
         "name": "SANS Internet Storm Center DShield Sensor Grid",
         "category": "Global Honeypot Port & Protocol Telemetry",
         "license_tier": "Open Community Telemetry",
-        "vectors_contributed": 199,
-        "last_polled_at": "2026-11-17T13:00:04Z"
+        "vectors_contributed": 204,
+        "last_polled_at": "2026-11-17T14:15:02Z"
       },
       {
         "feed_id": "SURICATA-ET-OPEN",
@@ -126,7 +126,7 @@
     }
   },
   "direct_enclave_intrusion_audit": {
-    "checked_at": "2026-11-17T13:00:11.005199+00:00",
+    "checked_at": "2026-11-17T14:15:03.627373+00:00",
     "direct_attacks_total": 0,
     "new_attacks_detected_this_run": 0,
     "enclave_status": "SECURE_ZERO_DIRECT_ATTACKS",
@@ -2217,58 +2217,6 @@
         "last_seen_at": "2026-11-16T20:15:02Z"
       },
       {
-        "observation_id": "obs-1bd6a7b23f",
-        "signature_name": "KEV-ACTIVE: Openwave Messaging Limited Webtop Media Transcoder \u2014 Openwave Messaging Limited Webtop Media Transcoder Incorrect Resource Transfer Between Spheres Vulnerability (CVE-2026-111793)",
-        "attack_type": "exploit",
-        "signature_hash": "1bd6a7b23f91e3e571263ce84ec33a923cccecd21fcde16a75fe68b3be9adbdf",
-        "source_country": "SECTOR-INGRESS",
-        "dest_country": "TENTACLE-I",
-        "severity": "CRITICAL",
-        "domain": "CISA KEV Zero-Trust Perimeter (Openwave Messaging Limited Webtop Media Transcoder)",
-        "mitre_ttps": [
-          "T1190 - Exploit Public-Facing Application"
-        ],
-        "corroborated_feeds": [
-          "CISA-KEV",
-          "SANS-ISC-DSHIELD",
-          "GREYNOISE-COMMUNITY",
-          "SURICATA-ET-OPEN"
-        ],
-        "corroboration_count": 4,
-        "synthesized_tool_id": "sentinel-auto-kev-openwave-messaging-limited-webtop-medi-1bd6a7",
-        "synthesized_tool_sha256": "1bd6a7b23f91e3e571263ce84ec33a923cccecd21fcde16a75fe68b3be9adbdf",
-        "rag_profile_id": "praetorian-rag-1bd6a7b23f",
-        "repeat_hits": 4,
-        "first_seen_at": "2026-11-10T20:15:02Z",
-        "last_seen_at": "2026-11-17T08:15:01Z"
-      },
-      {
-        "observation_id": "obs-600e98bfa8",
-        "signature_name": "KEV-ACTIVE: Cisco BroadWorks \u2014 Cisco BroadWorks Improper Restriction of XML External Entity Reference Vulnerability (CVE-2026-20320)",
-        "attack_type": "exploit",
-        "signature_hash": "600e98bfa8ef666334039ec1b0d2a040b8cf4abb74d918b6a5dfa5c8a5ec3a25",
-        "source_country": "SECTOR-INGRESS",
-        "dest_country": "TENTACLE-I",
-        "severity": "CRITICAL",
-        "domain": "CISA KEV Zero-Trust Perimeter (Cisco BroadWorks)",
-        "mitre_ttps": [
-          "T1190 - Exploit Public-Facing Application"
-        ],
-        "corroborated_feeds": [
-          "CISA-KEV",
-          "SANS-ISC-DSHIELD",
-          "GREYNOISE-COMMUNITY",
-          "SURICATA-ET-OPEN"
-        ],
-        "corroboration_count": 4,
-        "synthesized_tool_id": "sentinel-auto-kev-cisco-broadworks-cve-2026-20320-600e98",
-        "synthesized_tool_sha256": "600e98bfa8ef666334039ec1b0d2a040b8cf4abb74d918b6a5dfa5c8a5ec3a25",
-        "rag_profile_id": "praetorian-rag-600e98bfa8",
-        "repeat_hits": 4,
-        "first_seen_at": "2026-11-10T20:15:02Z",
-        "last_seen_at": "2026-11-17T08:15:01Z"
-      },
-      {
         "observation_id": "obs-aa99589018",
         "signature_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 16767/TCP-UDP (63126 hits / 3183 sources)",
         "attack_type": "exploit",
@@ -2342,7 +2290,59 @@
         "rag_profile_id": "praetorian-rag-1197d60760",
         "repeat_hits": 4,
         "first_seen_at": "2026-11-10T20:15:02Z",
-        "last_seen_at": "2026-11-17T13:00:02Z"
+        "last_seen_at": "2026-11-17T14:15:01Z"
+      },
+      {
+        "observation_id": "obs-1bd6a7b23f",
+        "signature_name": "KEV-ACTIVE: Openwave Messaging Limited Webtop Media Transcoder \u2014 Openwave Messaging Limited Webtop Media Transcoder Incorrect Resource Transfer Between Spheres Vulnerability (CVE-2026-111793)",
+        "attack_type": "exploit",
+        "signature_hash": "1bd6a7b23f91e3e571263ce84ec33a923cccecd21fcde16a75fe68b3be9adbdf",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Openwave Messaging Limited Webtop Media Transcoder)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-kev-openwave-messaging-limited-webtop-medi-1bd6a7",
+        "synthesized_tool_sha256": "1bd6a7b23f91e3e571263ce84ec33a923cccecd21fcde16a75fe68b3be9adbdf",
+        "rag_profile_id": "praetorian-rag-1bd6a7b23f",
+        "repeat_hits": 4,
+        "first_seen_at": "2026-11-10T20:15:02Z",
+        "last_seen_at": "2026-11-17T14:15:01Z"
+      },
+      {
+        "observation_id": "obs-600e98bfa8",
+        "signature_name": "KEV-ACTIVE: Cisco BroadWorks \u2014 Cisco BroadWorks Improper Restriction of XML External Entity Reference Vulnerability (CVE-2026-20320)",
+        "attack_type": "exploit",
+        "signature_hash": "600e98bfa8ef666334039ec1b0d2a040b8cf4abb74d918b6a5dfa5c8a5ec3a25",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Cisco BroadWorks)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-kev-cisco-broadworks-cve-2026-20320-600e98",
+        "synthesized_tool_sha256": "600e98bfa8ef666334039ec1b0d2a040b8cf4abb74d918b6a5dfa5c8a5ec3a25",
+        "rag_profile_id": "praetorian-rag-600e98bfa8",
+        "repeat_hits": 4,
+        "first_seen_at": "2026-11-10T20:15:02Z",
+        "last_seen_at": "2026-11-17T14:15:01Z"
       },
       {
         "observation_id": "obs-69af60bb50",
@@ -2368,7 +2368,7 @@
         "rag_profile_id": "praetorian-rag-69af60bb50",
         "repeat_hits": 4,
         "first_seen_at": "2026-11-13T19:58:01Z",
-        "last_seen_at": "2026-11-17T13:00:02Z"
+        "last_seen_at": "2026-11-17T14:15:01Z"
       },
       {
         "observation_id": "obs-31b6383185",
@@ -2394,7 +2394,7 @@
         "rag_profile_id": "praetorian-rag-31b6383185",
         "repeat_hits": 4,
         "first_seen_at": "2026-11-13T19:58:01Z",
-        "last_seen_at": "2026-11-17T13:00:02Z"
+        "last_seen_at": "2026-11-17T14:15:01Z"
       },
       {
         "observation_id": "obs-84a9c2ba75",
@@ -2422,7 +2422,7 @@
         "rag_profile_id": "praetorian-rag-84a9c2ba75",
         "repeat_hits": 15,
         "first_seen_at": "2026-11-08T04:05:23Z",
-        "last_seen_at": "2026-11-17T13:00:04Z"
+        "last_seen_at": "2026-11-17T14:15:02Z"
       },
       {
         "observation_id": "obs-5dfdefa8d0",
@@ -2447,7 +2447,7 @@
         "rag_profile_id": "praetorian-rag-5dfdefa8d0",
         "repeat_hits": 15,
         "first_seen_at": "2026-11-08T04:05:23Z",
-        "last_seen_at": "2026-11-17T13:00:04Z"
+        "last_seen_at": "2026-11-17T14:15:02Z"
       },
       {
         "observation_id": "obs-b0022e1ef2",
@@ -2474,7 +2474,7 @@
         "rag_profile_id": "praetorian-rag-b0022e1ef2",
         "repeat_hits": 15,
         "first_seen_at": "2026-11-08T04:05:23Z",
-        "last_seen_at": "2026-11-17T13:00:04Z"
+        "last_seen_at": "2026-11-17T14:15:02Z"
       },
       {
         "observation_id": "obs-4d5731e526",
@@ -2499,7 +2499,7 @@
         "rag_profile_id": "praetorian-rag-4d5731e526",
         "repeat_hits": 15,
         "first_seen_at": "2026-11-17T13:00:04Z",
-        "last_seen_at": "2026-11-17T13:00:04Z"
+        "last_seen_at": "2026-11-17T14:15:02Z"
       },
       {
         "observation_id": "obs-337f0d7517",
@@ -2524,7 +2524,7 @@
         "rag_profile_id": "praetorian-rag-337f0d7517",
         "repeat_hits": 15,
         "first_seen_at": "2026-11-17T13:00:04Z",
-        "last_seen_at": "2026-11-17T13:00:04Z"
+        "last_seen_at": "2026-11-17T14:15:02Z"
       }
     ]
   },
@@ -3281,7 +3281,7 @@
     },
     "autonomous_swarm_prevalence_pct": 87.0,
     "machine_vs_human_ratio": "80:1",
-    "last_classified_at": "2026-11-17T13:00:11.044451+00:00",
+    "last_classified_at": "2026-11-17T14:15:03.696420+00:00",
     "top_artex_fingerprints": [
       {
         "signature_hash": "ab190a5f1d8e2762dd50014df880ecd8077f9cb7527ff353a8837626ba04983b",
@@ -4776,14 +4776,14 @@
         "canonical_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 16767/TCP-UDP (137371 hits / 4218 sources)",
         "attack_type": "exploit",
         "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
-        "confidence_score": 93.3,
-        "artex_swarm_prob": 0.9333,
-        "human_apt_prob": 0.0333,
-        "commodity_botnet_prob": 0.0333,
-        "machine_velocity_index": 1.0,
+        "confidence_score": 91.5,
+        "artex_swarm_prob": 0.915,
+        "human_apt_prob": 0.0425,
+        "commodity_botnet_prob": 0.0425,
+        "machine_velocity_index": 0.64,
         "swarm_collision_metric": 0.0,
         "key_indicators": [
-          "High-frequency execution burst (54000.0 hits/hr)"
+          "High-frequency execution burst (12.0 hits/hr)"
         ]
       },
       {
@@ -4791,14 +4791,14 @@
         "canonical_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 80/TCP-UDP (96607 hits / 5420 sources)",
         "attack_type": "exploit",
         "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
-        "confidence_score": 93.3,
-        "artex_swarm_prob": 0.9333,
-        "human_apt_prob": 0.0333,
-        "commodity_botnet_prob": 0.0333,
-        "machine_velocity_index": 1.0,
+        "confidence_score": 91.5,
+        "artex_swarm_prob": 0.915,
+        "human_apt_prob": 0.0425,
+        "commodity_botnet_prob": 0.0425,
+        "machine_velocity_index": 0.64,
         "swarm_collision_metric": 0.0,
         "key_indicators": [
-          "High-frequency execution burst (54000.0 hits/hr)"
+          "High-frequency execution burst (12.0 hits/hr)"
         ]
       }
     ]
