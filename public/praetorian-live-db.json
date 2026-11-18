@@ -136,11 +136,11 @@
     "version": "Rai-OS 4.0",
     "governance": "DoD Directive 20-01 & RFC 9116 Coordinated Disclosure",
     "track_a_zero_day_enclave": {
-      "category_name": "Track A: Pre-KEV Zero-Day Interception Enclave",
-      "status": "ACTIVE_DOD_DIRECTIVE_20_01_EMBARGO",
+      "category_name": "Track A: Pre-KEV Triage & Safe Harbor CVD Enclave",
+      "status": "ACTIVE_SAFE_HARBOR_EMBARGO",
       "total_zero_day_vectors_intercepted_today": 76,
-      "disclosure_policy": "STRICT NON-DISCLOSURE EMBARGO (RFC 9116 / DoD Directive 20-01) \u2014 Zero exploit payloads, signatures, or PoCs publicly disclosed",
-      "designated_intake": "U.S. Department of Defense Vulnerability Disclosure Program (HackerOne: deptofdefense)",
+      "disclosure_policy": "STRICT NON-DISCLOSURE EMBARGO (RFC 9116 / DoD Directive 20-01) \u2014 Zero sensitive vulnerability disclosures, PoCs, or payloads publicly disclosed",
+      "designated_intake": "Authorized Coordinated Vulnerability Disclosure (CVD) & Vendor Bug Bounty Portals",
       "mitigation_guard_status": "Auto-Synthesized Virtual Patch Deployed (eBPF / NetFilter Wire Filters)"
     },
     "track_b_verified_cve_queue": {
