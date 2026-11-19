@@ -1,5 +1,5 @@
 {
-  "synced_at": "2026-11-19T08:15:03.877185+00:00",
+  "synced_at": "2026-11-19T13:00:07.653952+00:00",
   "source_database": "praetorian_multi_source_intel.db (SQLite3 STIX/MITRE Normalizer)",
   "cost_posture": "$0.00 (Same-Origin Static Snapshot + Local SQLite Aggregator)",
   "cloud_health": {
@@ -109,7 +109,7 @@
     ]
   },
   "stack_vulnerability_audit": {
-    "last_scan_timestamp": "2026-11-19T01:00:01.691142+00:00",
+    "last_scan_timestamp": "2026-11-19T13:00:02.870054+00:00",
     "alpine_release": "3.22.7",
     "alpine_packages_scanned": 128,
     "alpine_unpatched_cves": 0,
@@ -126,7 +126,7 @@
     }
   },
   "direct_enclave_intrusion_audit": {
-    "checked_at": "2026-11-19T08:15:03.797242+00:00",
+    "checked_at": "2026-11-19T13:00:07.558919+00:00",
     "direct_attacks_total": 0,
     "new_attacks_detected_this_run": 0,
     "enclave_status": "SECURE_ZERO_DIRECT_ATTACKS",
@@ -3762,7 +3762,7 @@
     },
     "autonomous_swarm_prevalence_pct": 88.7,
     "machine_vs_human_ratio": "94:1",
-    "last_classified_at": "2026-11-19T08:15:03.852116+00:00",
+    "last_classified_at": "2026-11-19T13:00:07.629640+00:00",
     "top_artex_fingerprints": [
       {
         "signature_hash": "ab190a5f1d8e2762dd50014df880ecd8077f9cb7527ff353a8837626ba04983b",
