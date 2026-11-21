@@ -1,5 +1,5 @@
 {
-  "synced_at": "2026-11-21T14:15:04.200751+00:00",
+  "synced_at": "2026-11-21T20:15:19.984902+00:00",
   "source_database": "praetorian_multi_source_intel.db (SQLite3 STIX/MITRE Normalizer)",
   "cost_posture": "$0.00 (Same-Origin Static Snapshot + Local SQLite Aggregator)",
   "cloud_health": {
@@ -126,7 +126,7 @@
     }
   },
   "direct_enclave_intrusion_audit": {
-    "checked_at": "2026-11-21T14:15:04.122541+00:00",
+    "checked_at": "2026-11-21T20:15:19.913252+00:00",
     "direct_attacks_total": 0,
     "new_attacks_detected_this_run": 0,
     "enclave_status": "SECURE_ZERO_DIRECT_ATTACKS",
@@ -4189,7 +4189,7 @@
     },
     "autonomous_swarm_prevalence_pct": 90.0,
     "machine_vs_human_ratio": "108:1",
-    "last_classified_at": "2026-11-21T14:15:04.168053+00:00",
+    "last_classified_at": "2026-11-21T20:15:19.961321+00:00",
     "top_artex_fingerprints": [
       {
         "signature_hash": "ab190a5f1d8e2762dd50014df880ecd8077f9cb7527ff353a8837626ba04983b",
