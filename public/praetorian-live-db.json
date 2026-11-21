@@ -1,5 +1,5 @@
 {
-  "synced_at": "2026-11-21T08:15:04.055666+00:00",
+  "synced_at": "2026-11-21T13:00:07.949660+00:00",
   "source_database": "praetorian_multi_source_intel.db (SQLite3 STIX/MITRE Normalizer)",
   "cost_posture": "$0.00 (Same-Origin Static Snapshot + Local SQLite Aggregator)",
   "cloud_health": {
@@ -14,12 +14,12 @@
     "soul_sha256_enforced": "ad866445f67a56c9f8d8f14e43d8098fd5a83dc10d680bbb671a0f4d57bae08c",
     "daily_requests_used": 9,
     "daily_request_hard_cap": 5000,
-    "indexed_threat_docs": 127,
+    "indexed_threat_docs": 129,
     "submitted_tools_count": 2,
     "submitted_reports_count": 0,
     "recorded_sessions_count": 0,
-    "threatmap_unique_profiles_count": 118,
-    "threatmap_deduplicated_repeats": 986,
+    "threatmap_unique_profiles_count": 120,
+    "threatmap_deduplicated_repeats": 1014,
     "mcp_tools_available": [
       "query_blackhat_intel",
       "get_countermeasure_playbook",
@@ -63,8 +63,8 @@
         "name": "CISA Known Exploited Vulnerabilities Catalog",
         "category": "Public US Gov / CVE Advisories",
         "license_tier": "Public Domain (CC0 / US Gov)",
-        "vectors_contributed": 371,
-        "last_polled_at": "2026-11-21T08:15:02Z"
+        "vectors_contributed": 374,
+        "last_polled_at": "2026-11-21T13:00:02Z"
       },
       {
         "feed_id": "GREYNOISE-COMMUNITY",
@@ -95,8 +95,8 @@
         "name": "SANS Internet Storm Center DShield Sensor Grid",
         "category": "Global Honeypot Port & Protocol Telemetry",
         "license_tier": "Open Community Telemetry",
-        "vectors_contributed": 259,
-        "last_polled_at": "2026-11-21T08:15:02Z"
+        "vectors_contributed": 264,
+        "last_polled_at": "2026-11-21T13:00:03Z"
       },
       {
         "feed_id": "SURICATA-ET-OPEN",
@@ -109,7 +109,7 @@
     ]
   },
   "stack_vulnerability_audit": {
-    "last_scan_timestamp": "2026-11-21T01:00:02.013810+00:00",
+    "last_scan_timestamp": "2026-11-21T13:00:04.422574+00:00",
     "alpine_release": "3.22.7",
     "alpine_packages_scanned": 10,
     "alpine_unpatched_cves": 0,
@@ -126,7 +126,7 @@
     }
   },
   "direct_enclave_intrusion_audit": {
-    "checked_at": "2026-11-21T08:15:03.963490+00:00",
+    "checked_at": "2026-11-21T13:00:07.876645+00:00",
     "direct_attacks_total": 0,
     "new_attacks_detected_this_run": 0,
     "enclave_status": "SECURE_ZERO_DIRECT_ATTACKS",
@@ -138,7 +138,7 @@
     "track_a_zero_day_enclave": {
       "category_name": "Track A: Pre-KEV Triage & Safe Harbor CVD Enclave",
       "status": "ACTIVE_SAFE_HARBOR_EMBARGO",
-      "total_zero_day_vectors_intercepted_today": 98,
+      "total_zero_day_vectors_intercepted_today": 100,
       "disclosure_policy": "STRICT NON-DISCLOSURE EMBARGO (RFC 9116 / DoD Directive 20-01) \u2014 Zero sensitive vulnerability disclosures, PoCs, or payloads publicly disclosed",
       "designated_intake": "Authorized Coordinated Vulnerability Disclosure (CVD) & Vendor Bug Bounty Portals",
       "mitigation_guard_status": "Auto-Synthesized Virtual Patch Deployed (eBPF / NetFilter Wire Filters)"
@@ -179,8 +179,8 @@
     }
   },
   "threatmap_observations": {
-    "unique_count": 118,
-    "deduplicated_repeat_count": 986,
+    "unique_count": 120,
+    "deduplicated_repeat_count": 1014,
     "observations": [
       {
         "observation_id": "obs-59212b1009",
@@ -2929,86 +2929,6 @@
         "last_seen_at": "2026-11-20T20:15:03Z"
       },
       {
-        "observation_id": "obs-84a9c2ba75",
-        "signature_name": "AUTH-BYPASS: Alpine musl libc crypt() >256-Byte Asterisk Collision (*sshole / CWE-287)",
-        "attack_type": "exploit",
-        "signature_hash": "84a9c2ba7523663f6fc473040df82aab797e3bb28d693e237308c4635d52e4ac",
-        "source_country": "SECTOR-ENCLAVE",
-        "dest_country": "TENTACLE-VI",
-        "severity": "CRITICAL",
-        "domain": "Zero-Trust Enclave SSH & Shadow Authentication",
-        "mitre_ttps": [
-          "T1078 - Valid Accounts",
-          "T1110 - Brute Force"
-        ],
-        "corroborated_feeds": [
-          "SANS-ISC-DSHIELD",
-          "GREYNOISE-COMMUNITY",
-          "SURICATA-ET-OPEN",
-          "CISA-KEV",
-          "ALIENVAULT-OTX"
-        ],
-        "corroboration_count": 5,
-        "synthesized_tool_id": "sentinel-auto-alpine-musl-crypt-sshhole-guard-a23e70",
-        "synthesized_tool_sha256": "84a9c2ba7523663f6fc473040df82aab797e3bb28d693e237308c4635d52e4ac",
-        "rag_profile_id": "praetorian-rag-84a9c2ba75",
-        "repeat_hits": 15,
-        "first_seen_at": "2026-11-08T04:05:23Z",
-        "last_seen_at": "2026-11-21T08:15:02Z"
-      },
-      {
-        "observation_id": "obs-5dfdefa8d0",
-        "signature_name": "BOTNET-PROPAGATION: Automated Telnet/IoT Credential Stuffing Sweep (T1110.001)",
-        "attack_type": "botnet",
-        "signature_hash": "5dfdefa8d0047faf433b5cecd5ed87ace6a7eddb4ebde3a919b7bab0bafd178e",
-        "source_country": "SECTOR-C2/BOTNET",
-        "dest_country": "TENTACLE-III",
-        "severity": "CRITICAL",
-        "domain": "Edge IoT & Embedded Perimeter Isolation",
-        "mitre_ttps": [
-          "T1110.001 - Password Guessing"
-        ],
-        "corroborated_feeds": [
-          "SANS-ISC-DSHIELD",
-          "GREYNOISE-COMMUNITY",
-          "SURICATA-ET-OPEN"
-        ],
-        "corroboration_count": 3,
-        "synthesized_tool_id": "sentinel-auto-mirai-iot-botnet-telnet-credential-brute-f-b92866",
-        "synthesized_tool_sha256": "5dfdefa8d0047faf433b5cecd5ed87ace6a7eddb4ebde3a919b7bab0bafd178e",
-        "rag_profile_id": "praetorian-rag-5dfdefa8d0",
-        "repeat_hits": 15,
-        "first_seen_at": "2026-11-08T04:05:23Z",
-        "last_seen_at": "2026-11-21T08:15:02Z"
-      },
-      {
-        "observation_id": "obs-b0022e1ef2",
-        "signature_name": "INGRESS-RCE: JNDI Lookup Deserialization Injection (CVE-2021-44228)",
-        "attack_type": "exploit",
-        "signature_hash": "b0022e1ef20f2cfbb0bd1d256dd1db66c5703ce7f7fa04e9eebd48cc24710d34",
-        "source_country": "SECTOR-INGRESS",
-        "dest_country": "TENTACLE-I",
-        "severity": "CRITICAL",
-        "domain": "Zero-Trust TLS Application Ingress",
-        "mitre_ttps": [
-          "T1190 - Exploit Public-Facing Application"
-        ],
-        "corroborated_feeds": [
-          "SANS-ISC-DSHIELD",
-          "GREYNOISE-COMMUNITY",
-          "SURICATA-ET-OPEN",
-          "CISA-KEV",
-          "ALIENVAULT-OTX"
-        ],
-        "corroboration_count": 5,
-        "synthesized_tool_id": "sentinel-auto-apache-log4j-jndi-remote-code-execution-cv-fc549e",
-        "synthesized_tool_sha256": "b0022e1ef20f2cfbb0bd1d256dd1db66c5703ce7f7fa04e9eebd48cc24710d34",
-        "rag_profile_id": "praetorian-rag-b0022e1ef2",
-        "repeat_hits": 15,
-        "first_seen_at": "2026-11-08T04:05:23Z",
-        "last_seen_at": "2026-11-21T08:15:02Z"
-      },
-      {
         "observation_id": "obs-16210a319a",
         "signature_name": "KEV-ACTIVE: Synology DiskStation Manager (DSM) \u2014 Synology DiskStation Manager (DSM) Improper Encoding or Escaping of Output Vulnerability (CVE-2024-10441)",
         "attack_type": "exploit",
@@ -3032,84 +2952,6 @@
         "rag_profile_id": "praetorian-rag-16210a319a",
         "repeat_hits": 4,
         "first_seen_at": "2026-11-18T20:15:01Z",
-        "last_seen_at": "2026-11-21T08:15:02Z"
-      },
-      {
-        "observation_id": "obs-185e8002db",
-        "signature_name": "KEV-ACTIVE: Apache Roller \u2014 Apache Roller Deserialization of Untrusted Data Vulnerability (CVE-2026-129448)",
-        "attack_type": "exploit",
-        "signature_hash": "185e8002db83d98343f39021786734026efe1f5513612736a7656d94502e2dee",
-        "source_country": "SECTOR-INGRESS",
-        "dest_country": "TENTACLE-I",
-        "severity": "CRITICAL",
-        "domain": "CISA KEV Zero-Trust Perimeter (Apache Roller)",
-        "mitre_ttps": [
-          "T1190 - Exploit Public-Facing Application"
-        ],
-        "corroborated_feeds": [
-          "CISA-KEV",
-          "SANS-ISC-DSHIELD",
-          "GREYNOISE-COMMUNITY",
-          "SURICATA-ET-OPEN"
-        ],
-        "corroboration_count": 4,
-        "synthesized_tool_id": "sentinel-auto-kev-apache-roller-cve-2026-129448-185e80",
-        "synthesized_tool_sha256": "185e8002db83d98343f39021786734026efe1f5513612736a7656d94502e2dee",
-        "rag_profile_id": "praetorian-rag-185e8002db",
-        "repeat_hits": 4,
-        "first_seen_at": "2026-11-20T20:15:02Z",
-        "last_seen_at": "2026-11-21T08:15:02Z"
-      },
-      {
-        "observation_id": "obs-87ee662ff7",
-        "signature_name": "KEV-ACTIVE: Broadcom VMware vCenter \u2014 VMWare vCenter Authentication Bypass Using an Alternate Path or Channel Vulnerability (CVE-2026-123890)",
-        "attack_type": "exploit",
-        "signature_hash": "87ee662ff7fce487f9511cfffae001a6f5d3de1d70e5e95720c9395a9c51e9bb",
-        "source_country": "SECTOR-INGRESS",
-        "dest_country": "TENTACLE-I",
-        "severity": "CRITICAL",
-        "domain": "CISA KEV Zero-Trust Perimeter (Broadcom VMware vCenter)",
-        "mitre_ttps": [
-          "T1190 - Exploit Public-Facing Application"
-        ],
-        "corroborated_feeds": [
-          "CISA-KEV",
-          "SANS-ISC-DSHIELD",
-          "GREYNOISE-COMMUNITY",
-          "SURICATA-ET-OPEN"
-        ],
-        "corroboration_count": 4,
-        "synthesized_tool_id": "sentinel-auto-kev-broadcom-vmware-vcenter-cve-2026-12389-87ee66",
-        "synthesized_tool_sha256": "87ee662ff7fce487f9511cfffae001a6f5d3de1d70e5e95720c9395a9c51e9bb",
-        "rag_profile_id": "praetorian-rag-87ee662ff7",
-        "repeat_hits": 4,
-        "first_seen_at": "2026-11-20T20:15:02Z",
-        "last_seen_at": "2026-11-21T08:15:02Z"
-      },
-      {
-        "observation_id": "obs-7e200d4a62",
-        "signature_name": "KEV-ACTIVE: SAP NetWeaver \u2014 SAP NetWeaver Improper Neutralization of Special Elements in Data Query Logic Vulnerability (CVE-2025-42884)",
-        "attack_type": "exploit",
-        "signature_hash": "7e200d4a624d8083045a62bb236f23997c76d1c61ee336ea82ae1fe3ec1af9e2",
-        "source_country": "SECTOR-INGRESS",
-        "dest_country": "TENTACLE-I",
-        "severity": "CRITICAL",
-        "domain": "CISA KEV Zero-Trust Perimeter (SAP NetWeaver)",
-        "mitre_ttps": [
-          "T1190 - Exploit Public-Facing Application"
-        ],
-        "corroborated_feeds": [
-          "CISA-KEV",
-          "SANS-ISC-DSHIELD",
-          "GREYNOISE-COMMUNITY",
-          "SURICATA-ET-OPEN"
-        ],
-        "corroboration_count": 4,
-        "synthesized_tool_id": "sentinel-auto-kev-sap-netweaver-cve-2025-42884-7e200d",
-        "synthesized_tool_sha256": "7e200d4a624d8083045a62bb236f23997c76d1c61ee336ea82ae1fe3ec1af9e2",
-        "rag_profile_id": "praetorian-rag-7e200d4a62",
-        "repeat_hits": 4,
-        "first_seen_at": "2026-11-20T20:15:02Z",
         "last_seen_at": "2026-11-21T08:15:02Z"
       },
       {
@@ -3187,6 +3029,214 @@
         "repeat_hits": 9,
         "first_seen_at": "2026-11-21T08:15:02Z",
         "last_seen_at": "2026-11-21T08:15:02Z"
+      },
+      {
+        "observation_id": "obs-185e8002db",
+        "signature_name": "KEV-ACTIVE: Apache Roller \u2014 Apache Roller Deserialization of Untrusted Data Vulnerability (CVE-2026-129448)",
+        "attack_type": "exploit",
+        "signature_hash": "185e8002db83d98343f39021786734026efe1f5513612736a7656d94502e2dee",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Apache Roller)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-kev-apache-roller-cve-2026-129448-185e80",
+        "synthesized_tool_sha256": "185e8002db83d98343f39021786734026efe1f5513612736a7656d94502e2dee",
+        "rag_profile_id": "praetorian-rag-185e8002db",
+        "repeat_hits": 4,
+        "first_seen_at": "2026-11-20T20:15:02Z",
+        "last_seen_at": "2026-11-21T13:00:01Z"
+      },
+      {
+        "observation_id": "obs-87ee662ff7",
+        "signature_name": "KEV-ACTIVE: Broadcom VMware vCenter \u2014 VMWare vCenter Authentication Bypass Using an Alternate Path or Channel Vulnerability (CVE-2026-123890)",
+        "attack_type": "exploit",
+        "signature_hash": "87ee662ff7fce487f9511cfffae001a6f5d3de1d70e5e95720c9395a9c51e9bb",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Broadcom VMware vCenter)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-kev-broadcom-vmware-vcenter-cve-2026-12389-87ee66",
+        "synthesized_tool_sha256": "87ee662ff7fce487f9511cfffae001a6f5d3de1d70e5e95720c9395a9c51e9bb",
+        "rag_profile_id": "praetorian-rag-87ee662ff7",
+        "repeat_hits": 4,
+        "first_seen_at": "2026-11-20T20:15:02Z",
+        "last_seen_at": "2026-11-21T13:00:01Z"
+      },
+      {
+        "observation_id": "obs-7e200d4a62",
+        "signature_name": "KEV-ACTIVE: SAP NetWeaver \u2014 SAP NetWeaver Improper Neutralization of Special Elements in Data Query Logic Vulnerability (CVE-2025-42884)",
+        "attack_type": "exploit",
+        "signature_hash": "7e200d4a624d8083045a62bb236f23997c76d1c61ee336ea82ae1fe3ec1af9e2",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (SAP NetWeaver)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-kev-sap-netweaver-cve-2025-42884-7e200d",
+        "synthesized_tool_sha256": "7e200d4a624d8083045a62bb236f23997c76d1c61ee336ea82ae1fe3ec1af9e2",
+        "rag_profile_id": "praetorian-rag-7e200d4a62",
+        "repeat_hits": 4,
+        "first_seen_at": "2026-11-20T20:15:02Z",
+        "last_seen_at": "2026-11-21T13:00:01Z"
+      },
+      {
+        "observation_id": "obs-84a9c2ba75",
+        "signature_name": "AUTH-BYPASS: Alpine musl libc crypt() >256-Byte Asterisk Collision (*sshole / CWE-287)",
+        "attack_type": "exploit",
+        "signature_hash": "84a9c2ba7523663f6fc473040df82aab797e3bb28d693e237308c4635d52e4ac",
+        "source_country": "SECTOR-ENCLAVE",
+        "dest_country": "TENTACLE-VI",
+        "severity": "CRITICAL",
+        "domain": "Zero-Trust Enclave SSH & Shadow Authentication",
+        "mitre_ttps": [
+          "T1078 - Valid Accounts",
+          "T1110 - Brute Force"
+        ],
+        "corroborated_feeds": [
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN",
+          "CISA-KEV",
+          "ALIENVAULT-OTX"
+        ],
+        "corroboration_count": 5,
+        "synthesized_tool_id": "sentinel-auto-alpine-musl-crypt-sshhole-guard-a23e70",
+        "synthesized_tool_sha256": "84a9c2ba7523663f6fc473040df82aab797e3bb28d693e237308c4635d52e4ac",
+        "rag_profile_id": "praetorian-rag-84a9c2ba75",
+        "repeat_hits": 15,
+        "first_seen_at": "2026-11-08T04:05:23Z",
+        "last_seen_at": "2026-11-21T13:00:03Z"
+      },
+      {
+        "observation_id": "obs-5dfdefa8d0",
+        "signature_name": "BOTNET-PROPAGATION: Automated Telnet/IoT Credential Stuffing Sweep (T1110.001)",
+        "attack_type": "botnet",
+        "signature_hash": "5dfdefa8d0047faf433b5cecd5ed87ace6a7eddb4ebde3a919b7bab0bafd178e",
+        "source_country": "SECTOR-C2/BOTNET",
+        "dest_country": "TENTACLE-III",
+        "severity": "CRITICAL",
+        "domain": "Edge IoT & Embedded Perimeter Isolation",
+        "mitre_ttps": [
+          "T1110.001 - Password Guessing"
+        ],
+        "corroborated_feeds": [
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 3,
+        "synthesized_tool_id": "sentinel-auto-mirai-iot-botnet-telnet-credential-brute-f-b92866",
+        "synthesized_tool_sha256": "5dfdefa8d0047faf433b5cecd5ed87ace6a7eddb4ebde3a919b7bab0bafd178e",
+        "rag_profile_id": "praetorian-rag-5dfdefa8d0",
+        "repeat_hits": 15,
+        "first_seen_at": "2026-11-08T04:05:23Z",
+        "last_seen_at": "2026-11-21T13:00:03Z"
+      },
+      {
+        "observation_id": "obs-b0022e1ef2",
+        "signature_name": "INGRESS-RCE: JNDI Lookup Deserialization Injection (CVE-2021-44228)",
+        "attack_type": "exploit",
+        "signature_hash": "b0022e1ef20f2cfbb0bd1d256dd1db66c5703ce7f7fa04e9eebd48cc24710d34",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "Zero-Trust TLS Application Ingress",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN",
+          "CISA-KEV",
+          "ALIENVAULT-OTX"
+        ],
+        "corroboration_count": 5,
+        "synthesized_tool_id": "sentinel-auto-apache-log4j-jndi-remote-code-execution-cv-fc549e",
+        "synthesized_tool_sha256": "b0022e1ef20f2cfbb0bd1d256dd1db66c5703ce7f7fa04e9eebd48cc24710d34",
+        "rag_profile_id": "praetorian-rag-b0022e1ef2",
+        "repeat_hits": 15,
+        "first_seen_at": "2026-11-08T04:05:23Z",
+        "last_seen_at": "2026-11-21T13:00:03Z"
+      },
+      {
+        "observation_id": "obs-8695ff3c25",
+        "signature_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 80/TCP-UDP (109157 hits / 5808 sources)",
+        "attack_type": "exploit",
+        "signature_hash": "8695ff3c25b85e7bded566356d6f018c27eac4183324c67edda46868e9a61968",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "HIGH",
+        "domain": "Zero-Trust Port 80 Perimeter Filter",
+        "mitre_ttps": [
+          "T1046 - Network Service Discovery"
+        ],
+        "corroborated_feeds": [
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 3,
+        "synthesized_tool_id": "sentinel-auto-dshield-port-80-guard",
+        "synthesized_tool_sha256": "8695ff3c25b85e7bded566356d6f018c27eac4183324c67edda46868e9a61968",
+        "rag_profile_id": "praetorian-rag-8695ff3c25",
+        "repeat_hits": 15,
+        "first_seen_at": "2026-11-21T13:00:03Z",
+        "last_seen_at": "2026-11-21T13:00:03Z"
+      },
+      {
+        "observation_id": "obs-da36ab72e8",
+        "signature_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 2222/TCP-UDP (106235 hits / 2530 sources)",
+        "attack_type": "exploit",
+        "signature_hash": "da36ab72e8109d482fff55471eed36687327a9beae506704e6723a1f42eba21b",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "HIGH",
+        "domain": "Zero-Trust Port 2222 Perimeter Filter",
+        "mitre_ttps": [
+          "T1046 - Network Service Discovery"
+        ],
+        "corroborated_feeds": [
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 3,
+        "synthesized_tool_id": "sentinel-auto-dshield-port-2222-guard",
+        "synthesized_tool_sha256": "da36ab72e8109d482fff55471eed36687327a9beae506704e6723a1f42eba21b",
+        "rag_profile_id": "praetorian-rag-da36ab72e8",
+        "repeat_hits": 15,
+        "first_seen_at": "2026-11-21T13:00:03Z",
+        "last_seen_at": "2026-11-21T13:00:03Z"
       }
     ]
   },
@@ -4129,17 +4179,17 @@
   },
   "artex_attribution_analytics": {
     "fbi_flash_bulletin": "FLASH-20261113-001 (Threat Overview of ARTEX Autonomous Penetration Testing Framework)",
-    "evaluated_threat_vectors_count": 118,
+    "evaluated_threat_vectors_count": 120,
     "breakdown": {
-      "AUTONOMOUS_SWARM_ARTEX": 106,
+      "AUTONOMOUS_SWARM_ARTEX": 108,
       "HUMAN_NATION_STATE_APT": 1,
       "COMMODITY_BOTNET_AUTOMATION": 9,
       "HYBRID_AGENTIC_PIPELINE": 0,
       "UNCLASSIFIED_HEURISTIC": 2
     },
-    "autonomous_swarm_prevalence_pct": 89.8,
-    "machine_vs_human_ratio": "106:1",
-    "last_classified_at": "2026-11-21T08:15:04.034167+00:00",
+    "autonomous_swarm_prevalence_pct": 90.0,
+    "machine_vs_human_ratio": "108:1",
+    "last_classified_at": "2026-11-21T13:00:07.927998+00:00",
     "top_artex_fingerprints": [
       {
         "signature_hash": "ab190a5f1d8e2762dd50014df880ecd8077f9cb7527ff353a8837626ba04983b",
@@ -6058,6 +6108,36 @@
         "swarm_collision_metric": 0.0,
         "key_indicators": [
           "High-frequency execution burst (32400.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "8695ff3c25b85e7bded566356d6f018c27eac4183324c67edda46868e9a61968",
+        "canonical_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 80/TCP-UDP (109157 hits / 5808 sources)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 93.3,
+        "artex_swarm_prob": 0.9333,
+        "human_apt_prob": 0.0333,
+        "commodity_botnet_prob": 0.0333,
+        "machine_velocity_index": 1.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "High-frequency execution burst (54000.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "da36ab72e8109d482fff55471eed36687327a9beae506704e6723a1f42eba21b",
+        "canonical_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 2222/TCP-UDP (106235 hits / 2530 sources)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 93.3,
+        "artex_swarm_prob": 0.9333,
+        "human_apt_prob": 0.0333,
+        "commodity_botnet_prob": 0.0333,
+        "machine_velocity_index": 1.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "High-frequency execution burst (54000.0 hits/hr)"
         ]
       }
     ]
