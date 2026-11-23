@@ -1,5 +1,5 @@
 {
-  "synced_at": "2026-11-22T20:15:04.021442+00:00",
+  "synced_at": "2026-11-23T02:15:04.920479+00:00",
   "source_database": "praetorian_multi_source_intel.db (SQLite3 STIX/MITRE Normalizer)",
   "cost_posture": "$0.00 (Same-Origin Static Snapshot + Local SQLite Aggregator)",
   "cloud_health": {
@@ -63,8 +63,8 @@
         "name": "CISA Known Exploited Vulnerabilities Catalog",
         "category": "Public US Gov / CVE Advisories",
         "license_tier": "Public Domain (CC0 / US Gov)",
-        "vectors_contributed": 405,
-        "last_polled_at": "2026-11-22T20:15:01Z"
+        "vectors_contributed": 413,
+        "last_polled_at": "2026-11-23T02:15:02Z"
       },
       {
         "feed_id": "GREYNOISE-COMMUNITY",
@@ -109,7 +109,7 @@
     ]
   },
   "stack_vulnerability_audit": {
-    "last_scan_timestamp": "2026-11-22T13:00:05.311790+00:00",
+    "last_scan_timestamp": "2026-11-23T01:00:01.912210+00:00",
     "alpine_release": "3.22.7",
     "alpine_packages_scanned": 10,
     "alpine_unpatched_cves": 0,
@@ -126,7 +126,7 @@
     }
   },
   "direct_enclave_intrusion_audit": {
-    "checked_at": "2026-11-22T20:15:03.909896+00:00",
+    "checked_at": "2026-11-23T02:15:04.800743+00:00",
     "direct_attacks_total": 0,
     "new_attacks_detected_this_run": 0,
     "enclave_status": "SECURE_ZERO_DIRECT_ATTACKS",
@@ -3129,136 +3129,6 @@
         "last_seen_at": "2026-11-22T14:15:03Z"
       },
       {
-        "observation_id": "obs-16210a319a",
-        "signature_name": "KEV-ACTIVE: Synology DiskStation Manager (DSM) \u2014 Synology DiskStation Manager (DSM) Improper Encoding or Escaping of Output Vulnerability (CVE-2024-10441)",
-        "attack_type": "exploit",
-        "signature_hash": "16210a319a80192226395a6227bd6786e27ad7138d31767bac745e5bb66a724f",
-        "source_country": "SECTOR-INGRESS",
-        "dest_country": "TENTACLE-I",
-        "severity": "CRITICAL",
-        "domain": "CISA KEV Zero-Trust Perimeter (Synology DiskStation Manager (DSM))",
-        "mitre_ttps": [
-          "T1190 - Exploit Public-Facing Application"
-        ],
-        "corroborated_feeds": [
-          "CISA-KEV",
-          "SANS-ISC-DSHIELD",
-          "GREYNOISE-COMMUNITY",
-          "SURICATA-ET-OPEN"
-        ],
-        "corroboration_count": 4,
-        "synthesized_tool_id": "sentinel-auto-kev-synology-diskstation-manager-dsm-cve-2-16210a",
-        "synthesized_tool_sha256": "16210a319a80192226395a6227bd6786e27ad7138d31767bac745e5bb66a724f",
-        "rag_profile_id": "praetorian-rag-16210a319a",
-        "repeat_hits": 4,
-        "first_seen_at": "2026-11-18T20:15:01Z",
-        "last_seen_at": "2026-11-22T20:15:01Z"
-      },
-      {
-        "observation_id": "obs-185e8002db",
-        "signature_name": "KEV-ACTIVE: Apache Roller \u2014 Apache Roller Deserialization of Untrusted Data Vulnerability (CVE-2026-129448)",
-        "attack_type": "exploit",
-        "signature_hash": "185e8002db83d98343f39021786734026efe1f5513612736a7656d94502e2dee",
-        "source_country": "SECTOR-INGRESS",
-        "dest_country": "TENTACLE-I",
-        "severity": "CRITICAL",
-        "domain": "CISA KEV Zero-Trust Perimeter (Apache Roller)",
-        "mitre_ttps": [
-          "T1190 - Exploit Public-Facing Application"
-        ],
-        "corroborated_feeds": [
-          "CISA-KEV",
-          "SANS-ISC-DSHIELD",
-          "GREYNOISE-COMMUNITY",
-          "SURICATA-ET-OPEN"
-        ],
-        "corroboration_count": 4,
-        "synthesized_tool_id": "sentinel-auto-kev-apache-roller-cve-2026-129448-185e80",
-        "synthesized_tool_sha256": "185e8002db83d98343f39021786734026efe1f5513612736a7656d94502e2dee",
-        "rag_profile_id": "praetorian-rag-185e8002db",
-        "repeat_hits": 4,
-        "first_seen_at": "2026-11-20T20:15:02Z",
-        "last_seen_at": "2026-11-22T20:15:01Z"
-      },
-      {
-        "observation_id": "obs-87ee662ff7",
-        "signature_name": "KEV-ACTIVE: Broadcom VMware vCenter \u2014 VMWare vCenter Authentication Bypass Using an Alternate Path or Channel Vulnerability (CVE-2026-123890)",
-        "attack_type": "exploit",
-        "signature_hash": "87ee662ff7fce487f9511cfffae001a6f5d3de1d70e5e95720c9395a9c51e9bb",
-        "source_country": "SECTOR-INGRESS",
-        "dest_country": "TENTACLE-I",
-        "severity": "CRITICAL",
-        "domain": "CISA KEV Zero-Trust Perimeter (Broadcom VMware vCenter)",
-        "mitre_ttps": [
-          "T1190 - Exploit Public-Facing Application"
-        ],
-        "corroborated_feeds": [
-          "CISA-KEV",
-          "SANS-ISC-DSHIELD",
-          "GREYNOISE-COMMUNITY",
-          "SURICATA-ET-OPEN"
-        ],
-        "corroboration_count": 4,
-        "synthesized_tool_id": "sentinel-auto-kev-broadcom-vmware-vcenter-cve-2026-12389-87ee66",
-        "synthesized_tool_sha256": "87ee662ff7fce487f9511cfffae001a6f5d3de1d70e5e95720c9395a9c51e9bb",
-        "rag_profile_id": "praetorian-rag-87ee662ff7",
-        "repeat_hits": 4,
-        "first_seen_at": "2026-11-20T20:15:02Z",
-        "last_seen_at": "2026-11-22T20:15:01Z"
-      },
-      {
-        "observation_id": "obs-7e200d4a62",
-        "signature_name": "KEV-ACTIVE: SAP NetWeaver \u2014 SAP NetWeaver Improper Neutralization of Special Elements in Data Query Logic Vulnerability (CVE-2025-42884)",
-        "attack_type": "exploit",
-        "signature_hash": "7e200d4a624d8083045a62bb236f23997c76d1c61ee336ea82ae1fe3ec1af9e2",
-        "source_country": "SECTOR-INGRESS",
-        "dest_country": "TENTACLE-I",
-        "severity": "CRITICAL",
-        "domain": "CISA KEV Zero-Trust Perimeter (SAP NetWeaver)",
-        "mitre_ttps": [
-          "T1190 - Exploit Public-Facing Application"
-        ],
-        "corroborated_feeds": [
-          "CISA-KEV",
-          "SANS-ISC-DSHIELD",
-          "GREYNOISE-COMMUNITY",
-          "SURICATA-ET-OPEN"
-        ],
-        "corroboration_count": 4,
-        "synthesized_tool_id": "sentinel-auto-kev-sap-netweaver-cve-2025-42884-7e200d",
-        "synthesized_tool_sha256": "7e200d4a624d8083045a62bb236f23997c76d1c61ee336ea82ae1fe3ec1af9e2",
-        "rag_profile_id": "praetorian-rag-7e200d4a62",
-        "repeat_hits": 4,
-        "first_seen_at": "2026-11-20T20:15:02Z",
-        "last_seen_at": "2026-11-22T20:15:01Z"
-      },
-      {
-        "observation_id": "obs-2ac80eb7f8",
-        "signature_name": "KEV-ACTIVE: Cisco Expressway Series \u2014 Cisco Expressway Series Use of Hard-coded Credentials Vulnerability (CVE-2026-76466)",
-        "attack_type": "exploit",
-        "signature_hash": "2ac80eb7f88d053b6700ca7853bfcf0c8f368022429d97da521a615a8baa7dab",
-        "source_country": "SECTOR-INGRESS",
-        "dest_country": "TENTACLE-I",
-        "severity": "CRITICAL",
-        "domain": "CISA KEV Zero-Trust Perimeter (Cisco Expressway Series)",
-        "mitre_ttps": [
-          "T1190 - Exploit Public-Facing Application"
-        ],
-        "corroborated_feeds": [
-          "CISA-KEV",
-          "SANS-ISC-DSHIELD",
-          "GREYNOISE-COMMUNITY",
-          "SURICATA-ET-OPEN"
-        ],
-        "corroboration_count": 4,
-        "synthesized_tool_id": "sentinel-auto-kev-cisco-expressway-series-cve-2026-76466-2ac80e",
-        "synthesized_tool_sha256": "2ac80eb7f88d053b6700ca7853bfcf0c8f368022429d97da521a615a8baa7dab",
-        "rag_profile_id": "praetorian-rag-2ac80eb7f8",
-        "repeat_hits": 4,
-        "first_seen_at": "2026-11-20T20:15:02Z",
-        "last_seen_at": "2026-11-22T20:15:01Z"
-      },
-      {
         "observation_id": "obs-84a9c2ba75",
         "signature_name": "AUTH-BYPASS: Alpine musl libc crypt() >256-Byte Asterisk Collision (*sshole / CWE-287)",
         "attack_type": "exploit",
@@ -3387,6 +3257,136 @@
         "repeat_hits": 15,
         "first_seen_at": "2026-11-22T20:15:02Z",
         "last_seen_at": "2026-11-22T20:15:02Z"
+      },
+      {
+        "observation_id": "obs-16210a319a",
+        "signature_name": "KEV-ACTIVE: Synology DiskStation Manager (DSM) \u2014 Synology DiskStation Manager (DSM) Improper Encoding or Escaping of Output Vulnerability (CVE-2024-10441)",
+        "attack_type": "exploit",
+        "signature_hash": "16210a319a80192226395a6227bd6786e27ad7138d31767bac745e5bb66a724f",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Synology DiskStation Manager (DSM))",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-kev-synology-diskstation-manager-dsm-cve-2-16210a",
+        "synthesized_tool_sha256": "16210a319a80192226395a6227bd6786e27ad7138d31767bac745e5bb66a724f",
+        "rag_profile_id": "praetorian-rag-16210a319a",
+        "repeat_hits": 4,
+        "first_seen_at": "2026-11-18T20:15:01Z",
+        "last_seen_at": "2026-11-23T02:15:02Z"
+      },
+      {
+        "observation_id": "obs-185e8002db",
+        "signature_name": "KEV-ACTIVE: Apache Roller \u2014 Apache Roller Deserialization of Untrusted Data Vulnerability (CVE-2026-129448)",
+        "attack_type": "exploit",
+        "signature_hash": "185e8002db83d98343f39021786734026efe1f5513612736a7656d94502e2dee",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Apache Roller)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-kev-apache-roller-cve-2026-129448-185e80",
+        "synthesized_tool_sha256": "185e8002db83d98343f39021786734026efe1f5513612736a7656d94502e2dee",
+        "rag_profile_id": "praetorian-rag-185e8002db",
+        "repeat_hits": 4,
+        "first_seen_at": "2026-11-20T20:15:02Z",
+        "last_seen_at": "2026-11-23T02:15:02Z"
+      },
+      {
+        "observation_id": "obs-87ee662ff7",
+        "signature_name": "KEV-ACTIVE: Broadcom VMware vCenter \u2014 VMWare vCenter Authentication Bypass Using an Alternate Path or Channel Vulnerability (CVE-2026-123890)",
+        "attack_type": "exploit",
+        "signature_hash": "87ee662ff7fce487f9511cfffae001a6f5d3de1d70e5e95720c9395a9c51e9bb",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Broadcom VMware vCenter)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-kev-broadcom-vmware-vcenter-cve-2026-12389-87ee66",
+        "synthesized_tool_sha256": "87ee662ff7fce487f9511cfffae001a6f5d3de1d70e5e95720c9395a9c51e9bb",
+        "rag_profile_id": "praetorian-rag-87ee662ff7",
+        "repeat_hits": 4,
+        "first_seen_at": "2026-11-20T20:15:02Z",
+        "last_seen_at": "2026-11-23T02:15:02Z"
+      },
+      {
+        "observation_id": "obs-7e200d4a62",
+        "signature_name": "KEV-ACTIVE: SAP NetWeaver \u2014 SAP NetWeaver Improper Neutralization of Special Elements in Data Query Logic Vulnerability (CVE-2025-42884)",
+        "attack_type": "exploit",
+        "signature_hash": "7e200d4a624d8083045a62bb236f23997c76d1c61ee336ea82ae1fe3ec1af9e2",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (SAP NetWeaver)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-kev-sap-netweaver-cve-2025-42884-7e200d",
+        "synthesized_tool_sha256": "7e200d4a624d8083045a62bb236f23997c76d1c61ee336ea82ae1fe3ec1af9e2",
+        "rag_profile_id": "praetorian-rag-7e200d4a62",
+        "repeat_hits": 4,
+        "first_seen_at": "2026-11-20T20:15:02Z",
+        "last_seen_at": "2026-11-23T02:15:02Z"
+      },
+      {
+        "observation_id": "obs-2ac80eb7f8",
+        "signature_name": "KEV-ACTIVE: Cisco Expressway Series \u2014 Cisco Expressway Series Use of Hard-coded Credentials Vulnerability (CVE-2026-76466)",
+        "attack_type": "exploit",
+        "signature_hash": "2ac80eb7f88d053b6700ca7853bfcf0c8f368022429d97da521a615a8baa7dab",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Cisco Expressway Series)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-kev-cisco-expressway-series-cve-2026-76466-2ac80e",
+        "synthesized_tool_sha256": "2ac80eb7f88d053b6700ca7853bfcf0c8f368022429d97da521a615a8baa7dab",
+        "rag_profile_id": "praetorian-rag-2ac80eb7f8",
+        "repeat_hits": 4,
+        "first_seen_at": "2026-11-20T20:15:02Z",
+        "last_seen_at": "2026-11-23T02:15:02Z"
       }
     ]
   },
@@ -4339,7 +4339,7 @@
     },
     "autonomous_swarm_prevalence_pct": 90.5,
     "machine_vs_human_ratio": "114:1",
-    "last_classified_at": "2026-11-22T20:15:03.978204+00:00",
+    "last_classified_at": "2026-11-23T02:15:04.872739+00:00",
     "top_artex_fingerprints": [
       {
         "signature_hash": "ab190a5f1d8e2762dd50014df880ecd8077f9cb7527ff353a8837626ba04983b",
