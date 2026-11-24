@@ -1,5 +1,5 @@
 {
-  "synced_at": "2026-11-23T20:15:04.497482+00:00",
+  "synced_at": "2026-11-24T02:15:04.172235+00:00",
   "source_database": "praetorian_multi_source_intel.db (SQLite3 STIX/MITRE Normalizer)",
   "cost_posture": "$0.00 (Same-Origin Static Snapshot + Local SQLite Aggregator)",
   "cloud_health": {
@@ -14,12 +14,12 @@
     "soul_sha256_enforced": "ad866445f67a56c9f8d8f14e43d8098fd5a83dc10d680bbb671a0f4d57bae08c",
     "daily_requests_used": 9,
     "daily_request_hard_cap": 5000,
-    "indexed_threat_docs": 141,
+    "indexed_threat_docs": 148,
     "submitted_tools_count": 2,
     "submitted_reports_count": 0,
     "recorded_sessions_count": 0,
-    "threatmap_unique_profiles_count": 132,
-    "threatmap_deduplicated_repeats": 1173,
+    "threatmap_unique_profiles_count": 139,
+    "threatmap_deduplicated_repeats": 1179,
     "mcp_tools_available": [
       "query_blackhat_intel",
       "get_countermeasure_playbook",
@@ -63,8 +63,8 @@
         "name": "CISA Known Exploited Vulnerabilities Catalog",
         "category": "Public US Gov / CVE Advisories",
         "license_tier": "Public Domain (CC0 / US Gov)",
-        "vectors_contributed": 431,
-        "last_polled_at": "2026-11-23T20:15:02Z"
+        "vectors_contributed": 439,
+        "last_polled_at": "2026-11-24T02:15:02Z"
       },
       {
         "feed_id": "GREYNOISE-COMMUNITY",
@@ -109,10 +109,10 @@
     ]
   },
   "stack_vulnerability_audit": {
-    "last_scan_timestamp": "2026-11-23T13:00:03.829721+00:00",
+    "last_scan_timestamp": "2026-11-24T01:00:01.477161+00:00",
     "alpine_release": "3.22.7",
     "alpine_packages_scanned": 10,
-    "alpine_unpatched_cves": 0,
+    "alpine_unpatched_cves": 5,
     "sshhole_shadow_status": "HARDENED_IMMUNE",
     "usb_flash_in_sync": false,
     "website_npm_packages_scanned": 111,
@@ -126,7 +126,7 @@
     }
   },
   "direct_enclave_intrusion_audit": {
-    "checked_at": "2026-11-23T20:15:04.453805+00:00",
+    "checked_at": "2026-11-24T02:15:04.067434+00:00",
     "direct_attacks_total": 0,
     "new_attacks_detected_this_run": 0,
     "enclave_status": "SECURE_ZERO_DIRECT_ATTACKS",
@@ -138,7 +138,7 @@
     "track_a_zero_day_enclave": {
       "category_name": "Track A: Pre-KEV Triage & Safe Harbor CVD Enclave",
       "status": "ACTIVE_SAFE_HARBOR_EMBARGO",
-      "total_zero_day_vectors_intercepted_today": 112,
+      "total_zero_day_vectors_intercepted_today": 114,
       "disclosure_policy": "STRICT NON-DISCLOSURE EMBARGO (RFC 9116 / DoD Directive 20-01) \u2014 Zero sensitive vulnerability disclosures, PoCs, or payloads publicly disclosed",
       "designated_intake": "Authorized Coordinated Vulnerability Disclosure (CVD) & Vendor Bug Bounty Portals",
       "mitigation_guard_status": "Auto-Synthesized Virtual Patch Deployed (eBPF / NetFilter Wire Filters)"
@@ -146,13 +146,23 @@
     "track_b_verified_cve_queue": {
       "category_name": "Track B: Verified Bug Bounty & CVE Remediation Queue",
       "status": "COORDINATED_BOUNTY_TRACK",
-      "total_verified_cves_tracked": 21,
+      "total_verified_cves_tracked": 31,
       "confirmed_new_cves": [
+        "ALPINE-CVE-2026-107496",
+        "ALPINE-CVE-2026-88822",
+        "ALPINE-CVE-2026-88823",
+        "ALPINE-CVE-2026-95691",
+        "ALPINE-CVE-2026-95692",
         "CVE-2021-44228",
         "CVE-2024-10441",
         "CVE-2024-27834",
         "CVE-2025-42884",
+        "CVE-2026-107496",
         "CVE-2026-4738",
+        "CVE-2026-88822",
+        "CVE-2026-88823",
+        "CVE-2026-95691",
+        "CVE-2026-95692",
         "CVE-2026-MUSL-STAR",
         "GHSA-27R3-JXMH-P828",
         "GHSA-2V37-7H3G-55P8",
@@ -179,8 +189,8 @@
     }
   },
   "threatmap_observations": {
-    "unique_count": 132,
-    "deduplicated_repeat_count": 1173,
+    "unique_count": 139,
+    "deduplicated_repeat_count": 1179,
     "observations": [
       {
         "observation_id": "obs-59212b1009",
@@ -3305,84 +3315,6 @@
         "last_seen_at": "2026-11-23T20:15:02Z"
       },
       {
-        "observation_id": "obs-185e8002db",
-        "signature_name": "KEV-ACTIVE: Apache Roller \u2014 Apache Roller Deserialization of Untrusted Data Vulnerability (CVE-2026-129448)",
-        "attack_type": "exploit",
-        "signature_hash": "185e8002db83d98343f39021786734026efe1f5513612736a7656d94502e2dee",
-        "source_country": "SECTOR-INGRESS",
-        "dest_country": "TENTACLE-I",
-        "severity": "CRITICAL",
-        "domain": "CISA KEV Zero-Trust Perimeter (Apache Roller)",
-        "mitre_ttps": [
-          "T1190 - Exploit Public-Facing Application"
-        ],
-        "corroborated_feeds": [
-          "CISA-KEV",
-          "SANS-ISC-DSHIELD",
-          "GREYNOISE-COMMUNITY",
-          "SURICATA-ET-OPEN"
-        ],
-        "corroboration_count": 4,
-        "synthesized_tool_id": "sentinel-auto-kev-apache-roller-cve-2026-129448-185e80",
-        "synthesized_tool_sha256": "185e8002db83d98343f39021786734026efe1f5513612736a7656d94502e2dee",
-        "rag_profile_id": "praetorian-rag-185e8002db",
-        "repeat_hits": 4,
-        "first_seen_at": "2026-11-20T20:15:02Z",
-        "last_seen_at": "2026-11-23T20:15:02Z"
-      },
-      {
-        "observation_id": "obs-87ee662ff7",
-        "signature_name": "KEV-ACTIVE: Broadcom VMware vCenter \u2014 VMWare vCenter Authentication Bypass Using an Alternate Path or Channel Vulnerability (CVE-2026-123890)",
-        "attack_type": "exploit",
-        "signature_hash": "87ee662ff7fce487f9511cfffae001a6f5d3de1d70e5e95720c9395a9c51e9bb",
-        "source_country": "SECTOR-INGRESS",
-        "dest_country": "TENTACLE-I",
-        "severity": "CRITICAL",
-        "domain": "CISA KEV Zero-Trust Perimeter (Broadcom VMware vCenter)",
-        "mitre_ttps": [
-          "T1190 - Exploit Public-Facing Application"
-        ],
-        "corroborated_feeds": [
-          "CISA-KEV",
-          "SANS-ISC-DSHIELD",
-          "GREYNOISE-COMMUNITY",
-          "SURICATA-ET-OPEN"
-        ],
-        "corroboration_count": 4,
-        "synthesized_tool_id": "sentinel-auto-kev-broadcom-vmware-vcenter-cve-2026-12389-87ee66",
-        "synthesized_tool_sha256": "87ee662ff7fce487f9511cfffae001a6f5d3de1d70e5e95720c9395a9c51e9bb",
-        "rag_profile_id": "praetorian-rag-87ee662ff7",
-        "repeat_hits": 4,
-        "first_seen_at": "2026-11-20T20:15:02Z",
-        "last_seen_at": "2026-11-23T20:15:02Z"
-      },
-      {
-        "observation_id": "obs-7e200d4a62",
-        "signature_name": "KEV-ACTIVE: SAP NetWeaver \u2014 SAP NetWeaver Improper Neutralization of Special Elements in Data Query Logic Vulnerability (CVE-2025-42884)",
-        "attack_type": "exploit",
-        "signature_hash": "7e200d4a624d8083045a62bb236f23997c76d1c61ee336ea82ae1fe3ec1af9e2",
-        "source_country": "SECTOR-INGRESS",
-        "dest_country": "TENTACLE-I",
-        "severity": "CRITICAL",
-        "domain": "CISA KEV Zero-Trust Perimeter (SAP NetWeaver)",
-        "mitre_ttps": [
-          "T1190 - Exploit Public-Facing Application"
-        ],
-        "corroborated_feeds": [
-          "CISA-KEV",
-          "SANS-ISC-DSHIELD",
-          "GREYNOISE-COMMUNITY",
-          "SURICATA-ET-OPEN"
-        ],
-        "corroboration_count": 4,
-        "synthesized_tool_id": "sentinel-auto-kev-sap-netweaver-cve-2025-42884-7e200d",
-        "synthesized_tool_sha256": "7e200d4a624d8083045a62bb236f23997c76d1c61ee336ea82ae1fe3ec1af9e2",
-        "rag_profile_id": "praetorian-rag-7e200d4a62",
-        "repeat_hits": 4,
-        "first_seen_at": "2026-11-20T20:15:02Z",
-        "last_seen_at": "2026-11-23T20:15:02Z"
-      },
-      {
         "observation_id": "obs-2ac80eb7f8",
         "signature_name": "KEV-ACTIVE: Cisco Expressway Series \u2014 Cisco Expressway Series Use of Hard-coded Credentials Vulnerability (CVE-2026-76466)",
         "attack_type": "exploit",
@@ -3537,11 +3469,266 @@
         "repeat_hits": 15,
         "first_seen_at": "2026-11-23T20:15:03Z",
         "last_seen_at": "2026-11-23T20:15:03Z"
+      },
+      {
+        "observation_id": "obs-a49db661a1",
+        "signature_name": "Stack SBOM Advisory: openssl@3.5.9-r0 (Alpine:v3.22 / ALPINE-CVE-2026-107496)",
+        "attack_type": "exploit",
+        "signature_hash": "a49db661a145ba7a42dfb850ba7b44a3aa3697d816e4bb9c4e0fd443a50de387",
+        "source_country": "SBOM-ALPINE:V3.22",
+        "dest_country": "TENTACLE-I",
+        "severity": "HIGH",
+        "domain": "Rai-OS & RaioLabs Stack (Alpine:v3.22)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 3,
+        "synthesized_tool_id": "guard_stack_openssl_verifier",
+        "synthesized_tool_sha256": "a49db661a145ba7a42dfb850ba7b44a3aa3697d816e4bb9c4e0fd443a50de387",
+        "rag_profile_id": "praetorian-rag-a49db661a1",
+        "repeat_hits": 1,
+        "first_seen_at": "2026-11-24T01:00:20Z",
+        "last_seen_at": "2026-11-24T01:00:20Z"
+      },
+      {
+        "observation_id": "obs-811938ea10",
+        "signature_name": "Stack SBOM Advisory: openssl@3.5.9-r0 (Alpine:v3.22 / ALPINE-CVE-2026-88822)",
+        "attack_type": "exploit",
+        "signature_hash": "811938ea104846658d56b316713511fa2551c33682dcbe0387025b1ea549250c",
+        "source_country": "SBOM-ALPINE:V3.22",
+        "dest_country": "TENTACLE-I",
+        "severity": "HIGH",
+        "domain": "Rai-OS & RaioLabs Stack (Alpine:v3.22)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 3,
+        "synthesized_tool_id": "guard_stack_openssl_verifier",
+        "synthesized_tool_sha256": "811938ea104846658d56b316713511fa2551c33682dcbe0387025b1ea549250c",
+        "rag_profile_id": "praetorian-rag-811938ea10",
+        "repeat_hits": 1,
+        "first_seen_at": "2026-11-24T01:00:20Z",
+        "last_seen_at": "2026-11-24T01:00:20Z"
+      },
+      {
+        "observation_id": "obs-387f9ed433",
+        "signature_name": "Stack SBOM Advisory: openssl@3.5.9-r0 (Alpine:v3.22 / ALPINE-CVE-2026-88823)",
+        "attack_type": "exploit",
+        "signature_hash": "387f9ed4335b888caace7721e61af0c9e2b98548aebce1404c755b841b79b507",
+        "source_country": "SBOM-ALPINE:V3.22",
+        "dest_country": "TENTACLE-I",
+        "severity": "HIGH",
+        "domain": "Rai-OS & RaioLabs Stack (Alpine:v3.22)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 3,
+        "synthesized_tool_id": "guard_stack_openssl_verifier",
+        "synthesized_tool_sha256": "387f9ed4335b888caace7721e61af0c9e2b98548aebce1404c755b841b79b507",
+        "rag_profile_id": "praetorian-rag-387f9ed433",
+        "repeat_hits": 1,
+        "first_seen_at": "2026-11-24T01:00:20Z",
+        "last_seen_at": "2026-11-24T01:00:20Z"
+      },
+      {
+        "observation_id": "obs-3866f75142",
+        "signature_name": "Stack SBOM Advisory: openssl@3.5.9-r0 (Alpine:v3.22 / ALPINE-CVE-2026-95691)",
+        "attack_type": "exploit",
+        "signature_hash": "3866f75142f6ff68f98ba529e2a009f5d99392cdc7f51fa9f3dfa92faa870b51",
+        "source_country": "SBOM-ALPINE:V3.22",
+        "dest_country": "TENTACLE-I",
+        "severity": "HIGH",
+        "domain": "Rai-OS & RaioLabs Stack (Alpine:v3.22)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 3,
+        "synthesized_tool_id": "guard_stack_openssl_verifier",
+        "synthesized_tool_sha256": "3866f75142f6ff68f98ba529e2a009f5d99392cdc7f51fa9f3dfa92faa870b51",
+        "rag_profile_id": "praetorian-rag-3866f75142",
+        "repeat_hits": 1,
+        "first_seen_at": "2026-11-24T01:00:20Z",
+        "last_seen_at": "2026-11-24T01:00:20Z"
+      },
+      {
+        "observation_id": "obs-63b19df5f2",
+        "signature_name": "Stack SBOM Advisory: openssl@3.5.9-r0 (Alpine:v3.22 / ALPINE-CVE-2026-95692)",
+        "attack_type": "exploit",
+        "signature_hash": "63b19df5f2466e3ff6da3a7086fc1994a5c6bbbfed4139847a4bcda66b50b030",
+        "source_country": "SBOM-ALPINE:V3.22",
+        "dest_country": "TENTACLE-I",
+        "severity": "HIGH",
+        "domain": "Rai-OS & RaioLabs Stack (Alpine:v3.22)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 3,
+        "synthesized_tool_id": "guard_stack_openssl_verifier",
+        "synthesized_tool_sha256": "63b19df5f2466e3ff6da3a7086fc1994a5c6bbbfed4139847a4bcda66b50b030",
+        "rag_profile_id": "praetorian-rag-63b19df5f2",
+        "repeat_hits": 1,
+        "first_seen_at": "2026-11-24T01:00:20Z",
+        "last_seen_at": "2026-11-24T01:00:20Z"
+      },
+      {
+        "observation_id": "obs-185e8002db",
+        "signature_name": "KEV-ACTIVE: Apache Roller \u2014 Apache Roller Deserialization of Untrusted Data Vulnerability (CVE-2026-129448)",
+        "attack_type": "exploit",
+        "signature_hash": "185e8002db83d98343f39021786734026efe1f5513612736a7656d94502e2dee",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Apache Roller)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-kev-apache-roller-cve-2026-129448-185e80",
+        "synthesized_tool_sha256": "185e8002db83d98343f39021786734026efe1f5513612736a7656d94502e2dee",
+        "rag_profile_id": "praetorian-rag-185e8002db",
+        "repeat_hits": 4,
+        "first_seen_at": "2026-11-20T20:15:02Z",
+        "last_seen_at": "2026-11-24T02:15:02Z"
+      },
+      {
+        "observation_id": "obs-87ee662ff7",
+        "signature_name": "KEV-ACTIVE: Broadcom VMware vCenter \u2014 VMWare vCenter Authentication Bypass Using an Alternate Path or Channel Vulnerability (CVE-2026-123890)",
+        "attack_type": "exploit",
+        "signature_hash": "87ee662ff7fce487f9511cfffae001a6f5d3de1d70e5e95720c9395a9c51e9bb",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Broadcom VMware vCenter)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-kev-broadcom-vmware-vcenter-cve-2026-12389-87ee66",
+        "synthesized_tool_sha256": "87ee662ff7fce487f9511cfffae001a6f5d3de1d70e5e95720c9395a9c51e9bb",
+        "rag_profile_id": "praetorian-rag-87ee662ff7",
+        "repeat_hits": 4,
+        "first_seen_at": "2026-11-20T20:15:02Z",
+        "last_seen_at": "2026-11-24T02:15:02Z"
+      },
+      {
+        "observation_id": "obs-7e200d4a62",
+        "signature_name": "KEV-ACTIVE: SAP NetWeaver \u2014 SAP NetWeaver Improper Neutralization of Special Elements in Data Query Logic Vulnerability (CVE-2025-42884)",
+        "attack_type": "exploit",
+        "signature_hash": "7e200d4a624d8083045a62bb236f23997c76d1c61ee336ea82ae1fe3ec1af9e2",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (SAP NetWeaver)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-kev-sap-netweaver-cve-2025-42884-7e200d",
+        "synthesized_tool_sha256": "7e200d4a624d8083045a62bb236f23997c76d1c61ee336ea82ae1fe3ec1af9e2",
+        "rag_profile_id": "praetorian-rag-7e200d4a62",
+        "repeat_hits": 4,
+        "first_seen_at": "2026-11-20T20:15:02Z",
+        "last_seen_at": "2026-11-24T02:15:02Z"
+      },
+      {
+        "observation_id": "obs-ccfa7bd43f",
+        "signature_name": "KEV-ACTIVE: Project MONAI MONAI Label \u2014 Project MONAI MONAI Label Path Traversal Vulnerability (CVE-2026-133968)",
+        "attack_type": "exploit",
+        "signature_hash": "ccfa7bd43fec2f2bc43e9994d7603fce489351d7269acbf955771f959f6c21de",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Project MONAI MONAI Label)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-kev-project-monai-monai-label-cve-2026-133-ccfa7b",
+        "synthesized_tool_sha256": "ccfa7bd43fec2f2bc43e9994d7603fce489351d7269acbf955771f959f6c21de",
+        "rag_profile_id": "praetorian-rag-ccfa7bd43f",
+        "repeat_hits": 4,
+        "first_seen_at": "2026-11-24T01:00:20Z",
+        "last_seen_at": "2026-11-24T02:15:02Z"
+      },
+      {
+        "observation_id": "obs-8f2e9f3a55",
+        "signature_name": "KEV-ACTIVE: N-able MailAssure \u2014 N-able MailAssure (SpamExperts) Server-Side Request Forgery (SSRF) Vulnerability (CVE-2026-134624)",
+        "attack_type": "exploit",
+        "signature_hash": "8f2e9f3a557266630650d044ad329d8f284960299ed517e08faad68e2ef1f087",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (N-able MailAssure)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-kev-n-able-mailassure-cve-2026-134624-8f2e9f",
+        "synthesized_tool_sha256": "8f2e9f3a557266630650d044ad329d8f284960299ed517e08faad68e2ef1f087",
+        "rag_profile_id": "praetorian-rag-8f2e9f3a55",
+        "repeat_hits": 4,
+        "first_seen_at": "2026-11-24T01:00:20Z",
+        "last_seen_at": "2026-11-24T02:15:02Z"
       }
     ]
   },
   "synthesized_tools": {
-    "count": 54,
+    "count": 57,
     "tools": [
       {
         "tool_id": "sentinel-auto-http-directory-traversal-etc-shadow-probe-ab190a",
@@ -4474,22 +4661,75 @@
         "synthesized_at": "2026-11-20T20:15:02Z",
         "description": "Autonomously synthesized by Praetorian Swarm across multi-source feeds to neutralize: KEV-ACTIVE: Cisco Expressway Series \u2014 Cisco Expressway Series Use of Hard-coded Credentials Vulnerability (CVE-2026-76466)",
         "script_preview": "#!/bin/sh\n# Praetorian Autonomous MCP Guard: sentinel-auto-kev-cisco-expressway-series-cve-2026-76466-2ac80e\n# Target Vector: KEV-ACTIVE: Cisco Expressway Series \u2014 Cisco Expressway Series Use of Hard-coded Credentials Vulnerability (CVE-2026-76466)\n# Attestation SHA-256: 2ac80eb7f88d053b6700ca7853bfcf0c\nlogger -t praetorian-mcp 'Enforcing deterministic guard sentinel-auto-kev-cisco-expressway-series-cve-2026-76466-2ac80e'\n"
+      },
+      {
+        "tool_id": "guard_stack_openssl_verifier",
+        "target_attack": "Stack SBOM Advisory: openssl@3.5.9-r0 (Alpine:v3.22 / ALPINE-CVE-2026-107496)",
+        "attack_type": "exploit",
+        "severity": "HIGH",
+        "domain": "Rai-OS & RaioLabs Stack (Alpine:v3.22)",
+        "sha256_receipt": "a49db661a145ba7a42dfb850ba7b44a3aa3697d816e4bb9c4e0fd443a50de387",
+        "rag_profile_id": "praetorian-rag-a49db661a1",
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "SURICATA-ET-OPEN"
+        ],
+        "synthesized_at": "2026-11-24T01:00:20Z",
+        "description": "Autonomously synthesized by Praetorian Swarm across multi-source feeds to neutralize: Stack SBOM Advisory: openssl@3.5.9-r0 (Alpine:v3.22 / ALPINE-CVE-2026-107496)",
+        "script_preview": "#!/bin/sh\n# Praetorian Autonomous MCP Guard: guard_stack_openssl_verifier\n# Target Vector: Stack SBOM Advisory: openssl@3.5.9-r0 (Alpine:v3.22 / ALPINE-CVE-2026-107496)\n# Attestation SHA-256: a49db661a145ba7a42dfb850ba7b44a3\nlogger -t praetorian-mcp 'Enforcing deterministic guard guard_stack_openssl_verifier'\n"
+      },
+      {
+        "tool_id": "sentinel-auto-kev-project-monai-monai-label-cve-2026-133-ccfa7b",
+        "target_attack": "KEV-ACTIVE: Project MONAI MONAI Label \u2014 Project MONAI MONAI Label Path Traversal Vulnerability (CVE-2026-133968)",
+        "attack_type": "exploit",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Project MONAI MONAI Label)",
+        "sha256_receipt": "ccfa7bd43fec2f2bc43e9994d7603fce489351d7269acbf955771f959f6c21de",
+        "rag_profile_id": "praetorian-rag-ccfa7bd43f",
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "synthesized_at": "2026-11-24T01:00:20Z",
+        "description": "Autonomously synthesized by Praetorian Swarm across multi-source feeds to neutralize: KEV-ACTIVE: Project MONAI MONAI Label \u2014 Project MONAI MONAI Label Path Traversal Vulnerability (CVE-2026-133968)",
+        "script_preview": "#!/bin/sh\n# Praetorian Autonomous MCP Guard: sentinel-auto-kev-project-monai-monai-label-cve-2026-133-ccfa7b\n# Target Vector: KEV-ACTIVE: Project MONAI MONAI Label \u2014 Project MONAI MONAI Label Path Traversal Vulnerability (CVE-2026-133968)\n# Attestation SHA-256: ccfa7bd43fec2f2bc43e9994d7603fce\nlogger -t praetorian-mcp 'Enforcing deterministic guard sentinel-auto-kev-project-monai-monai-label-cve-2026-133-ccfa7b'\n"
+      },
+      {
+        "tool_id": "sentinel-auto-kev-n-able-mailassure-cve-2026-134624-8f2e9f",
+        "target_attack": "KEV-ACTIVE: N-able MailAssure \u2014 N-able MailAssure (SpamExperts) Server-Side Request Forgery (SSRF) Vulnerability (CVE-2026-134624)",
+        "attack_type": "exploit",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (N-able MailAssure)",
+        "sha256_receipt": "8f2e9f3a557266630650d044ad329d8f284960299ed517e08faad68e2ef1f087",
+        "rag_profile_id": "praetorian-rag-8f2e9f3a55",
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "synthesized_at": "2026-11-24T01:00:20Z",
+        "description": "Autonomously synthesized by Praetorian Swarm across multi-source feeds to neutralize: KEV-ACTIVE: N-able MailAssure \u2014 N-able MailAssure (SpamExperts) Server-Side Request Forgery (SSRF) Vulnerability (CVE-2026-134624)",
+        "script_preview": "#!/bin/sh\n# Praetorian Autonomous MCP Guard: sentinel-auto-kev-n-able-mailassure-cve-2026-134624-8f2e9f\n# Target Vector: KEV-ACTIVE: N-able MailAssure \u2014 N-able MailAssure (SpamExperts) Server-Side Request Forgery (SSRF) Vulnerability (CVE-2026-134624)\n# Attestation SHA-256: 8f2e9f3a557266630650d044ad329d8f\nlogger -t praetorian-mcp 'Enforcing deterministic guard sentinel-auto-kev-n-able-mailassure-cve-2026-134624-8f2e9f'\n"
       }
     ]
   },
   "artex_attribution_analytics": {
     "fbi_flash_bulletin": "FLASH-20261113-001 (Threat Overview of ARTEX Autonomous Penetration Testing Framework)",
-    "evaluated_threat_vectors_count": 132,
+    "evaluated_threat_vectors_count": 139,
     "breakdown": {
-      "AUTONOMOUS_SWARM_ARTEX": 120,
+      "AUTONOMOUS_SWARM_ARTEX": 127,
       "HUMAN_NATION_STATE_APT": 1,
       "COMMODITY_BOTNET_AUTOMATION": 9,
       "HYBRID_AGENTIC_PIPELINE": 0,
       "UNCLASSIFIED_HEURISTIC": 2
     },
-    "autonomous_swarm_prevalence_pct": 90.9,
-    "machine_vs_human_ratio": "120:1",
-    "last_classified_at": "2026-11-23T20:15:04.477515+00:00",
+    "autonomous_swarm_prevalence_pct": 91.4,
+    "machine_vs_human_ratio": "127:1",
+    "last_classified_at": "2026-11-24T02:15:04.134236+00:00",
     "top_artex_fingerprints": [
       {
         "signature_hash": "ab190a5f1d8e2762dd50014df880ecd8077f9cb7527ff353a8837626ba04983b",
@@ -6618,6 +6858,119 @@
         "swarm_collision_metric": 0.0,
         "key_indicators": [
           "High-frequency execution burst (54000.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "a49db661a145ba7a42dfb850ba7b44a3aa3697d816e4bb9c4e0fd443a50de387",
+        "canonical_name": "Stack SBOM Advisory: openssl@3.5.9-r0 (Alpine:v3.22 / ALPINE-CVE-2026-107496)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 94.7,
+        "artex_swarm_prob": 0.9474,
+        "human_apt_prob": 0.0263,
+        "commodity_botnet_prob": 0.0263,
+        "machine_velocity_index": 1.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "High-frequency execution burst (3600.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "811938ea104846658d56b316713511fa2551c33682dcbe0387025b1ea549250c",
+        "canonical_name": "Stack SBOM Advisory: openssl@3.5.9-r0 (Alpine:v3.22 / ALPINE-CVE-2026-88822)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 94.7,
+        "artex_swarm_prob": 0.9474,
+        "human_apt_prob": 0.0263,
+        "commodity_botnet_prob": 0.0263,
+        "machine_velocity_index": 1.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "High-frequency execution burst (3600.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "387f9ed4335b888caace7721e61af0c9e2b98548aebce1404c755b841b79b507",
+        "canonical_name": "Stack SBOM Advisory: openssl@3.5.9-r0 (Alpine:v3.22 / ALPINE-CVE-2026-88823)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 94.7,
+        "artex_swarm_prob": 0.9474,
+        "human_apt_prob": 0.0263,
+        "commodity_botnet_prob": 0.0263,
+        "machine_velocity_index": 1.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "High-frequency execution burst (3600.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "3866f75142f6ff68f98ba529e2a009f5d99392cdc7f51fa9f3dfa92faa870b51",
+        "canonical_name": "Stack SBOM Advisory: openssl@3.5.9-r0 (Alpine:v3.22 / ALPINE-CVE-2026-95691)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 94.7,
+        "artex_swarm_prob": 0.9474,
+        "human_apt_prob": 0.0263,
+        "commodity_botnet_prob": 0.0263,
+        "machine_velocity_index": 1.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "High-frequency execution burst (3600.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "63b19df5f2466e3ff6da3a7086fc1994a5c6bbbfed4139847a4bcda66b50b030",
+        "canonical_name": "Stack SBOM Advisory: openssl@3.5.9-r0 (Alpine:v3.22 / ALPINE-CVE-2026-95692)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 94.7,
+        "artex_swarm_prob": 0.9474,
+        "human_apt_prob": 0.0263,
+        "commodity_botnet_prob": 0.0263,
+        "machine_velocity_index": 1.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "High-frequency execution burst (3600.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "ccfa7bd43fec2f2bc43e9994d7603fce489351d7269acbf955771f959f6c21de",
+        "canonical_name": "KEV-ACTIVE: Project MONAI MONAI Label \u2014 Project MONAI MONAI Label Path Traversal Vulnerability (CVE-2026-133968)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 82.7,
+        "artex_swarm_prob": 0.8269,
+        "human_apt_prob": 0.1538,
+        "commodity_botnet_prob": 0.0192,
+        "machine_velocity_index": 0.0,
+        "swarm_collision_metric": 0.75,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "Low-cadence cognitive pacing",
+          "Targeting peripheral credential/token store susceptible to agent collision"
+        ]
+      },
+      {
+        "signature_hash": "8f2e9f3a557266630650d044ad329d8f284960299ed517e08faad68e2ef1f087",
+        "canonical_name": "KEV-ACTIVE: N-able MailAssure \u2014 N-able MailAssure (SpamExperts) Server-Side Request Forgery (SSRF) Vulnerability (CVE-2026-134624)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 75.7,
+        "artex_swarm_prob": 0.7568,
+        "human_apt_prob": 0.2162,
+        "commodity_botnet_prob": 0.027,
+        "machine_velocity_index": 0.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "Low-cadence cognitive pacing"
         ]
       }
     ]
