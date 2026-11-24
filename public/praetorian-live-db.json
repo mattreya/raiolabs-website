@@ -1,5 +1,5 @@
 {
-  "synced_at": "2026-11-24T14:15:03.138226+00:00",
+  "synced_at": "2026-11-24T20:15:03.032523+00:00",
   "source_database": "praetorian_multi_source_intel.db (SQLite3 STIX/MITRE Normalizer)",
   "cost_posture": "$0.00 (Same-Origin Static Snapshot + Local SQLite Aggregator)",
   "cloud_health": {
@@ -14,12 +14,12 @@
     "soul_sha256_enforced": "ad866445f67a56c9f8d8f14e43d8098fd5a83dc10d680bbb671a0f4d57bae08c",
     "daily_requests_used": 9,
     "daily_request_hard_cap": 5000,
-    "indexed_threat_docs": 153,
+    "indexed_threat_docs": 156,
     "submitted_tools_count": 2,
     "submitted_reports_count": 0,
     "recorded_sessions_count": 0,
-    "threatmap_unique_profiles_count": 144,
-    "threatmap_deduplicated_repeats": 1243,
+    "threatmap_unique_profiles_count": 147,
+    "threatmap_deduplicated_repeats": 1252,
     "mcp_tools_available": [
       "query_blackhat_intel",
       "get_countermeasure_playbook",
@@ -63,8 +63,8 @@
         "name": "CISA Known Exploited Vulnerabilities Catalog",
         "category": "Public US Gov / CVE Advisories",
         "license_tier": "Public Domain (CC0 / US Gov)",
-        "vectors_contributed": 452,
-        "last_polled_at": "2026-11-24T14:15:01Z"
+        "vectors_contributed": 457,
+        "last_polled_at": "2026-11-24T20:15:01Z"
       },
       {
         "feed_id": "GREYNOISE-COMMUNITY",
@@ -95,8 +95,8 @@
         "name": "SANS Internet Storm Center DShield Sensor Grid",
         "category": "Global Honeypot Port & Protocol Telemetry",
         "license_tier": "Open Community Telemetry",
-        "vectors_contributed": 324,
-        "last_polled_at": "2026-11-24T14:15:02Z"
+        "vectors_contributed": 329,
+        "last_polled_at": "2026-11-24T20:15:02Z"
       },
       {
         "feed_id": "SURICATA-ET-OPEN",
@@ -126,7 +126,7 @@
     }
   },
   "direct_enclave_intrusion_audit": {
-    "checked_at": "2026-11-24T14:15:03.085960+00:00",
+    "checked_at": "2026-11-24T20:15:02.938332+00:00",
     "direct_attacks_total": 0,
     "new_attacks_detected_this_run": 0,
     "enclave_status": "SECURE_ZERO_DIRECT_ATTACKS",
@@ -138,7 +138,7 @@
     "track_a_zero_day_enclave": {
       "category_name": "Track A: Pre-KEV Triage & Safe Harbor CVD Enclave",
       "status": "ACTIVE_SAFE_HARBOR_EMBARGO",
-      "total_zero_day_vectors_intercepted_today": 119,
+      "total_zero_day_vectors_intercepted_today": 122,
       "disclosure_policy": "STRICT NON-DISCLOSURE EMBARGO (RFC 9116 / DoD Directive 20-01) \u2014 Zero sensitive vulnerability disclosures, PoCs, or payloads publicly disclosed",
       "designated_intake": "Authorized Coordinated Vulnerability Disclosure (CVD) & Vendor Bug Bounty Portals",
       "mitigation_guard_status": "Auto-Synthesized Virtual Patch Deployed (eBPF / NetFilter Wire Filters)"
@@ -189,8 +189,8 @@
     }
   },
   "threatmap_observations": {
-    "unique_count": 144,
-    "deduplicated_repeat_count": 1243,
+    "unique_count": 147,
+    "deduplicated_repeat_count": 1252,
     "observations": [
       {
         "observation_id": "obs-59212b1009",
@@ -3692,7 +3692,7 @@
         "rag_profile_id": "praetorian-rag-ccfa7bd43f",
         "repeat_hits": 4,
         "first_seen_at": "2026-11-24T01:00:20Z",
-        "last_seen_at": "2026-11-24T14:15:01Z"
+        "last_seen_at": "2026-11-24T20:15:01Z"
       },
       {
         "observation_id": "obs-8f2e9f3a55",
@@ -3718,7 +3718,85 @@
         "rag_profile_id": "praetorian-rag-8f2e9f3a55",
         "repeat_hits": 4,
         "first_seen_at": "2026-11-24T01:00:20Z",
-        "last_seen_at": "2026-11-24T14:15:01Z"
+        "last_seen_at": "2026-11-24T20:15:01Z"
+      },
+      {
+        "observation_id": "obs-a5c792d794",
+        "signature_name": "KEV-ACTIVE: Optimizely Web Experimentation \u2014 Optimizely Web Experimentation External Control of Critical State Data Vulnerability (CVE-2026-132224)",
+        "attack_type": "exploit",
+        "signature_hash": "a5c792d794f6fcbeedb574c667492982a7a34ef6d092945f08711e46948bf29a",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Optimizely Web Experimentation)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-kev-optimizely-web-experimentation-cve-202-a5c792",
+        "synthesized_tool_sha256": "a5c792d794f6fcbeedb574c667492982a7a34ef6d092945f08711e46948bf29a",
+        "rag_profile_id": "praetorian-rag-a5c792d794",
+        "repeat_hits": 4,
+        "first_seen_at": "2026-11-24T20:15:01Z",
+        "last_seen_at": "2026-11-24T20:15:01Z"
+      },
+      {
+        "observation_id": "obs-f4093af340",
+        "signature_name": "KEV-ACTIVE: Idunno AntiCsrf \u2014 Idunno AntiCsrf Deserialization of Untrusted Data Vulnerability (CVE-2026-131914)",
+        "attack_type": "exploit",
+        "signature_hash": "f4093af340a8fdaf0298f851216701591cc4c7289e61d938f8c062f9e7b7ad67",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Idunno AntiCsrf)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-kev-idunno-anticsrf-cve-2026-131914-f4093a",
+        "synthesized_tool_sha256": "f4093af340a8fdaf0298f851216701591cc4c7289e61d938f8c062f9e7b7ad67",
+        "rag_profile_id": "praetorian-rag-f4093af340",
+        "repeat_hits": 4,
+        "first_seen_at": "2026-11-24T20:15:01Z",
+        "last_seen_at": "2026-11-24T20:15:01Z"
+      },
+      {
+        "observation_id": "obs-8f960a7ee2",
+        "signature_name": "KEV-ACTIVE: Drupal Core \u2014 Drupal Core Remote Code Execution Vulnerability (CVE-2026-132165)",
+        "attack_type": "exploit",
+        "signature_hash": "8f960a7ee22f7c9565f7aa9637d1c4c3dcce3947a5db3e4693ff1f3d4aa4109a",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Drupal Core)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-kev-drupal-core-cve-2026-132165-8f960a",
+        "synthesized_tool_sha256": "8f960a7ee22f7c9565f7aa9637d1c4c3dcce3947a5db3e4693ff1f3d4aa4109a",
+        "rag_profile_id": "praetorian-rag-8f960a7ee2",
+        "repeat_hits": 4,
+        "first_seen_at": "2026-11-24T20:15:01Z",
+        "last_seen_at": "2026-11-24T20:15:01Z"
       },
       {
         "observation_id": "obs-84a9c2ba75",
@@ -3746,7 +3824,7 @@
         "rag_profile_id": "praetorian-rag-84a9c2ba75",
         "repeat_hits": 15,
         "first_seen_at": "2026-11-08T04:05:23Z",
-        "last_seen_at": "2026-11-24T14:15:02Z"
+        "last_seen_at": "2026-11-24T20:15:02Z"
       },
       {
         "observation_id": "obs-5dfdefa8d0",
@@ -3771,7 +3849,7 @@
         "rag_profile_id": "praetorian-rag-5dfdefa8d0",
         "repeat_hits": 15,
         "first_seen_at": "2026-11-08T04:05:23Z",
-        "last_seen_at": "2026-11-24T14:15:02Z"
+        "last_seen_at": "2026-11-24T20:15:02Z"
       },
       {
         "observation_id": "obs-b0022e1ef2",
@@ -3798,7 +3876,7 @@
         "rag_profile_id": "praetorian-rag-b0022e1ef2",
         "repeat_hits": 15,
         "first_seen_at": "2026-11-08T04:05:23Z",
-        "last_seen_at": "2026-11-24T14:15:02Z"
+        "last_seen_at": "2026-11-24T20:15:02Z"
       },
       {
         "observation_id": "obs-8a0fd47c27",
@@ -3823,7 +3901,7 @@
         "rag_profile_id": "praetorian-rag-8a0fd47c27",
         "repeat_hits": 15,
         "first_seen_at": "2026-11-24T13:00:03Z",
-        "last_seen_at": "2026-11-24T14:15:02Z"
+        "last_seen_at": "2026-11-24T20:15:02Z"
       },
       {
         "observation_id": "obs-e133a14b0d",
@@ -3848,12 +3926,12 @@
         "rag_profile_id": "praetorian-rag-e133a14b0d",
         "repeat_hits": 15,
         "first_seen_at": "2026-11-24T13:00:03Z",
-        "last_seen_at": "2026-11-24T14:15:02Z"
+        "last_seen_at": "2026-11-24T20:15:02Z"
       }
     ]
   },
   "synthesized_tools": {
-    "count": 57,
+    "count": 60,
     "tools": [
       {
         "tool_id": "sentinel-auto-http-directory-traversal-etc-shadow-probe-ab190a",
@@ -4839,22 +4917,76 @@
         "synthesized_at": "2026-11-24T01:00:20Z",
         "description": "Autonomously synthesized by Praetorian Swarm across multi-source feeds to neutralize: KEV-ACTIVE: N-able MailAssure \u2014 N-able MailAssure (SpamExperts) Server-Side Request Forgery (SSRF) Vulnerability (CVE-2026-134624)",
         "script_preview": "#!/bin/sh\n# Praetorian Autonomous MCP Guard: sentinel-auto-kev-n-able-mailassure-cve-2026-134624-8f2e9f\n# Target Vector: KEV-ACTIVE: N-able MailAssure \u2014 N-able MailAssure (SpamExperts) Server-Side Request Forgery (SSRF) Vulnerability (CVE-2026-134624)\n# Attestation SHA-256: 8f2e9f3a557266630650d044ad329d8f\nlogger -t praetorian-mcp 'Enforcing deterministic guard sentinel-auto-kev-n-able-mailassure-cve-2026-134624-8f2e9f'\n"
+      },
+      {
+        "tool_id": "sentinel-auto-kev-optimizely-web-experimentation-cve-202-a5c792",
+        "target_attack": "KEV-ACTIVE: Optimizely Web Experimentation \u2014 Optimizely Web Experimentation External Control of Critical State Data Vulnerability (CVE-2026-132224)",
+        "attack_type": "exploit",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Optimizely Web Experimentation)",
+        "sha256_receipt": "a5c792d794f6fcbeedb574c667492982a7a34ef6d092945f08711e46948bf29a",
+        "rag_profile_id": "praetorian-rag-a5c792d794",
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "synthesized_at": "2026-11-24T20:15:01Z",
+        "description": "Autonomously synthesized by Praetorian Swarm across multi-source feeds to neutralize: KEV-ACTIVE: Optimizely Web Experimentation \u2014 Optimizely Web Experimentation External Control of Critical State Data Vulnerability (CVE-2026-132224)",
+        "script_preview": "#!/bin/sh\n# Praetorian Autonomous MCP Guard: sentinel-auto-kev-optimizely-web-experimentation-cve-202-a5c792\n# Target Vector: KEV-ACTIVE: Optimizely Web Experimentation \u2014 Optimizely Web Experimentation External Control of Critical State Data Vulnerability (CVE-2026-132224)\n# Attestation SHA-256: a5c792d794f6fcbeedb574c667492982\nlogger -t praetorian-mcp 'Enforcing deterministic guard sentinel-auto-kev-optimizely-web-experimentation-cve-202-a5c792'\n"
+      },
+      {
+        "tool_id": "sentinel-auto-kev-idunno-anticsrf-cve-2026-131914-f4093a",
+        "target_attack": "KEV-ACTIVE: Idunno AntiCsrf \u2014 Idunno AntiCsrf Deserialization of Untrusted Data Vulnerability (CVE-2026-131914)",
+        "attack_type": "exploit",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Idunno AntiCsrf)",
+        "sha256_receipt": "f4093af340a8fdaf0298f851216701591cc4c7289e61d938f8c062f9e7b7ad67",
+        "rag_profile_id": "praetorian-rag-f4093af340",
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "synthesized_at": "2026-11-24T20:15:01Z",
+        "description": "Autonomously synthesized by Praetorian Swarm across multi-source feeds to neutralize: KEV-ACTIVE: Idunno AntiCsrf \u2014 Idunno AntiCsrf Deserialization of Untrusted Data Vulnerability (CVE-2026-131914)",
+        "script_preview": "#!/bin/sh\n# Praetorian Autonomous MCP Guard: sentinel-auto-kev-idunno-anticsrf-cve-2026-131914-f4093a\n# Target Vector: KEV-ACTIVE: Idunno AntiCsrf \u2014 Idunno AntiCsrf Deserialization of Untrusted Data Vulnerability (CVE-2026-131914)\n# Attestation SHA-256: f4093af340a8fdaf0298f85121670159\nlogger -t praetorian-mcp 'Enforcing deterministic guard sentinel-auto-kev-idunno-anticsrf-cve-2026-131914-f4093a'\n"
+      },
+      {
+        "tool_id": "sentinel-auto-kev-drupal-core-cve-2026-132165-8f960a",
+        "target_attack": "KEV-ACTIVE: Drupal Core \u2014 Drupal Core Remote Code Execution Vulnerability (CVE-2026-132165)",
+        "attack_type": "exploit",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Drupal Core)",
+        "sha256_receipt": "8f960a7ee22f7c9565f7aa9637d1c4c3dcce3947a5db3e4693ff1f3d4aa4109a",
+        "rag_profile_id": "praetorian-rag-8f960a7ee2",
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "synthesized_at": "2026-11-24T20:15:01Z",
+        "description": "Autonomously synthesized by Praetorian Swarm across multi-source feeds to neutralize: KEV-ACTIVE: Drupal Core \u2014 Drupal Core Remote Code Execution Vulnerability (CVE-2026-132165)",
+        "script_preview": "#!/bin/sh\n# Praetorian Autonomous MCP Guard: sentinel-auto-kev-drupal-core-cve-2026-132165-8f960a\n# Target Vector: KEV-ACTIVE: Drupal Core \u2014 Drupal Core Remote Code Execution Vulnerability (CVE-2026-132165)\n# Attestation SHA-256: 8f960a7ee22f7c9565f7aa9637d1c4c3\nlogger -t praetorian-mcp 'Enforcing deterministic guard sentinel-auto-kev-drupal-core-cve-2026-132165-8f960a'\n"
       }
     ]
   },
   "artex_attribution_analytics": {
     "fbi_flash_bulletin": "FLASH-20261113-001 (Threat Overview of ARTEX Autonomous Penetration Testing Framework)",
-    "evaluated_threat_vectors_count": 144,
+    "evaluated_threat_vectors_count": 147,
     "breakdown": {
-      "AUTONOMOUS_SWARM_ARTEX": 132,
+      "AUTONOMOUS_SWARM_ARTEX": 135,
       "HUMAN_NATION_STATE_APT": 1,
       "COMMODITY_BOTNET_AUTOMATION": 9,
       "HYBRID_AGENTIC_PIPELINE": 0,
       "UNCLASSIFIED_HEURISTIC": 2
     },
-    "autonomous_swarm_prevalence_pct": 91.7,
-    "machine_vs_human_ratio": "132:1",
-    "last_classified_at": "2026-11-24T14:15:03.117027+00:00",
+    "autonomous_swarm_prevalence_pct": 91.8,
+    "machine_vs_human_ratio": "135:1",
+    "last_classified_at": "2026-11-24T20:15:03.011359+00:00",
     "top_artex_fingerprints": [
       {
         "signature_hash": "ab190a5f1d8e2762dd50014df880ecd8077f9cb7527ff353a8837626ba04983b",
@@ -7148,14 +7280,14 @@
         "canonical_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 2222/TCP-UDP (243302 hits / 6251 sources)",
         "attack_type": "exploit",
         "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
-        "confidence_score": 91.5,
-        "artex_swarm_prob": 0.915,
-        "human_apt_prob": 0.0425,
-        "commodity_botnet_prob": 0.0425,
-        "machine_velocity_index": 0.64,
+        "confidence_score": 52.6,
+        "artex_swarm_prob": 0.5263,
+        "human_apt_prob": 0.4211,
+        "commodity_botnet_prob": 0.0526,
+        "machine_velocity_index": 0.0,
         "swarm_collision_metric": 0.0,
         "key_indicators": [
-          "High-frequency execution burst (12.0 hits/hr)"
+          "Low-cadence cognitive pacing"
         ]
       },
       {
@@ -7163,14 +7295,62 @@
         "canonical_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 8080/TCP-UDP (189791 hits / 4370 sources)",
         "attack_type": "exploit",
         "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
-        "confidence_score": 91.5,
-        "artex_swarm_prob": 0.915,
-        "human_apt_prob": 0.0425,
-        "commodity_botnet_prob": 0.0425,
-        "machine_velocity_index": 0.64,
+        "confidence_score": 52.6,
+        "artex_swarm_prob": 0.5263,
+        "human_apt_prob": 0.4211,
+        "commodity_botnet_prob": 0.0526,
+        "machine_velocity_index": 0.0,
         "swarm_collision_metric": 0.0,
         "key_indicators": [
-          "High-frequency execution burst (12.0 hits/hr)"
+          "Low-cadence cognitive pacing"
+        ]
+      },
+      {
+        "signature_hash": "a5c792d794f6fcbeedb574c667492982a7a34ef6d092945f08711e46948bf29a",
+        "canonical_name": "KEV-ACTIVE: Optimizely Web Experimentation \u2014 Optimizely Web Experimentation External Control of Critical State Data Vulnerability (CVE-2026-132224)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 95.8,
+        "artex_swarm_prob": 0.9583,
+        "human_apt_prob": 0.0208,
+        "commodity_botnet_prob": 0.0208,
+        "machine_velocity_index": 1.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "High-frequency execution burst (14400.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "f4093af340a8fdaf0298f851216701591cc4c7289e61d938f8c062f9e7b7ad67",
+        "canonical_name": "KEV-ACTIVE: Idunno AntiCsrf \u2014 Idunno AntiCsrf Deserialization of Untrusted Data Vulnerability (CVE-2026-131914)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 63.9,
+        "artex_swarm_prob": 0.6389,
+        "human_apt_prob": 0.0139,
+        "commodity_botnet_prob": 0.3472,
+        "machine_velocity_index": 1.0,
+        "swarm_collision_metric": 0.1,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "High-frequency execution burst (14400.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "8f960a7ee22f7c9565f7aa9637d1c4c3dcce3947a5db3e4693ff1f3d4aa4109a",
+        "canonical_name": "KEV-ACTIVE: Drupal Core \u2014 Drupal Core Remote Code Execution Vulnerability (CVE-2026-132165)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 95.8,
+        "artex_swarm_prob": 0.9583,
+        "human_apt_prob": 0.0208,
+        "commodity_botnet_prob": 0.0208,
+        "machine_velocity_index": 1.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "High-frequency execution burst (14400.0 hits/hr)"
         ]
       }
     ]
