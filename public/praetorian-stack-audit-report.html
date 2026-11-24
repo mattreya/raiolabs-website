@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Praetorian 5:00 AM Stack SBOM &amp; Vulnerability Report (2026-11-23)</title>
+    <title>Praetorian 5:00 AM Stack SBOM &amp; Vulnerability Report (2026-11-24)</title>
 </head>
 <body style="margin: 0; padding: 24px; background-color: #030712; color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
     <div style="max-width: 980px; margin: 0 auto; background-color: #0b1120; border: 1px solid #1e293b; border-radius: 12px; overflow: hidden;">
@@ -12,10 +12,10 @@
                 🌅 PRAETORIAN SWARM &bull; 5:00 AM MORNING STACK SBOM &amp; VULNERABILITY BRIEFING
             </div>
             <h1 style="margin: 0 0 8px 0; font-size: 22px; color: #f8fafc;">
-                Automated OS &amp; Website Stack Vulnerability Audit — 2026-11-23
+                Automated OS &amp; Website Stack Vulnerability Audit — 2026-11-24
             </h1>
             <div style="font-size: 12px; color: #94a3b8;">
-                Scan Time: <code style="color: #cbd5e1;">2026-11-23T13:00:03.829721+00:00</code> &bull;
+                Scan Time: <code style="color: #cbd5e1;">2026-11-24T13:00:04.055731+00:00</code> &bull;
                 Feeds: <code style="color: #10b981;">Google OSV.dev + Alpine SecDB + NPM Audit ($0.00 Cost)</code>
             </div>
         </div>
@@ -27,7 +27,7 @@
                     <td width="25%" style="padding: 14px; background: #0f172a; border: 1px solid #1e293b; border-radius: 8px;">
                         <div style="font-size: 11px; color: #94a3b8; text-transform: uppercase;">Rai-OS Alpine v3.22.7</div>
                         <div style="font-size: 24px; font-weight: 800; color: #38bdf8; margin: 4px 0;">10 Pkgs</div>
-                        <div style="font-size: 11px; color: #fcd34d;">0 OSV Advisories</div>
+                        <div style="font-size: 11px; color: #fcd34d;">5 OSV Advisories</div>
                     </td>
                     <td width="2%"></td>
                     <td width="23%" style="padding: 14px; background: #0f172a; border: 1px solid #1e293b; border-radius: 8px;">
@@ -67,10 +67,54 @@
                     </thead>
                     <tbody>
                         
-        <tr>
-            <td colspan="5" style="padding: 14px; color: #10b981; text-align: center; font-weight: 600;">
-                ✅ Zero unpatched Alpine Linux OSV advisories across all installed APK packages.
+        <tr style="border-bottom: 1px solid #1e293b;">
+            <td style="padding: 10px 12px; font-weight: 700; color: #f8fafc; font-family: monospace;">openssl</td>
+            <td style="padding: 10px 12px; color: #38bdf8; font-family: monospace;">3.5.9-r0</td>
+            <td style="padding: 10px 12px; color: #cbd5e1;">Alpine:v3.22</td>
+            <td style="padding: 10px 12px;">
+                <span style="background: #78350f; color: #fcd34d; padding: 3px 8px; border-radius: 999px; font-size: 11px; font-weight: 700;">ALPINE-CVE-2026-107496</span>
             </td>
+            <td style="padding: 10px 12px; color: #10b981; font-family: monospace; font-size: 12px;">apk upgrade openssl &amp;&amp; ./scripts/build-rpi.sh</td>
+        </tr>
+        
+        <tr style="border-bottom: 1px solid #1e293b;">
+            <td style="padding: 10px 12px; font-weight: 700; color: #f8fafc; font-family: monospace;">openssl</td>
+            <td style="padding: 10px 12px; color: #38bdf8; font-family: monospace;">3.5.9-r0</td>
+            <td style="padding: 10px 12px; color: #cbd5e1;">Alpine:v3.22</td>
+            <td style="padding: 10px 12px;">
+                <span style="background: #78350f; color: #fcd34d; padding: 3px 8px; border-radius: 999px; font-size: 11px; font-weight: 700;">ALPINE-CVE-2026-88822</span>
+            </td>
+            <td style="padding: 10px 12px; color: #10b981; font-family: monospace; font-size: 12px;">apk upgrade openssl &amp;&amp; ./scripts/build-rpi.sh</td>
+        </tr>
+        
+        <tr style="border-bottom: 1px solid #1e293b;">
+            <td style="padding: 10px 12px; font-weight: 700; color: #f8fafc; font-family: monospace;">openssl</td>
+            <td style="padding: 10px 12px; color: #38bdf8; font-family: monospace;">3.5.9-r0</td>
+            <td style="padding: 10px 12px; color: #cbd5e1;">Alpine:v3.22</td>
+            <td style="padding: 10px 12px;">
+                <span style="background: #78350f; color: #fcd34d; padding: 3px 8px; border-radius: 999px; font-size: 11px; font-weight: 700;">ALPINE-CVE-2026-88823</span>
+            </td>
+            <td style="padding: 10px 12px; color: #10b981; font-family: monospace; font-size: 12px;">apk upgrade openssl &amp;&amp; ./scripts/build-rpi.sh</td>
+        </tr>
+        
+        <tr style="border-bottom: 1px solid #1e293b;">
+            <td style="padding: 10px 12px; font-weight: 700; color: #f8fafc; font-family: monospace;">openssl</td>
+            <td style="padding: 10px 12px; color: #38bdf8; font-family: monospace;">3.5.9-r0</td>
+            <td style="padding: 10px 12px; color: #cbd5e1;">Alpine:v3.22</td>
+            <td style="padding: 10px 12px;">
+                <span style="background: #78350f; color: #fcd34d; padding: 3px 8px; border-radius: 999px; font-size: 11px; font-weight: 700;">ALPINE-CVE-2026-95691</span>
+            </td>
+            <td style="padding: 10px 12px; color: #10b981; font-family: monospace; font-size: 12px;">apk upgrade openssl &amp;&amp; ./scripts/build-rpi.sh</td>
+        </tr>
+        
+        <tr style="border-bottom: 1px solid #1e293b;">
+            <td style="padding: 10px 12px; font-weight: 700; color: #f8fafc; font-family: monospace;">openssl</td>
+            <td style="padding: 10px 12px; color: #38bdf8; font-family: monospace;">3.5.9-r0</td>
+            <td style="padding: 10px 12px; color: #cbd5e1;">Alpine:v3.22</td>
+            <td style="padding: 10px 12px;">
+                <span style="background: #78350f; color: #fcd34d; padding: 3px 8px; border-radius: 999px; font-size: 11px; font-weight: 700;">ALPINE-CVE-2026-95692</span>
+            </td>
+            <td style="padding: 10px 12px; color: #10b981; font-family: monospace; font-size: 12px;">apk upgrade openssl &amp;&amp; ./scripts/build-rpi.sh</td>
         </tr>
         
                     </tbody>
@@ -121,10 +165,11 @@
                     </thead>
                     <tbody>
                         
-        <tr>
-            <td colspan="4" style="padding: 12px; color: #10b981; text-align: center;">
-                ✅ Stack already 100% patched &amp; verified — no new autonomous patch cycles required during this window.
-            </td>
+        <tr style="border-bottom: 1px solid #1e293b;">
+            <td style="padding: 10px 12px; font-weight: 700; color: #10b981;">MITIGATED</td>
+            <td style="padding: 10px 12px; color: #f8fafc;">Rai-OS Alpine Unikernel (ARM64 + USB Flash Drive)</td>
+            <td style="padding: 10px 12px; color: #cbd5e1; font-family: monospace; font-size: 12px;">Upgraded vulnerable APK packages (`zlib>=1.4-r0`), rebuilt `initramfs-rpi`, and synced USB</td>
+            <td style="padding: 10px 12px; color: #38bdf8; font-weight: 700;">5 &rarr; 5</td>
         </tr>
         
                     </tbody>
@@ -137,27 +182,27 @@
             </h2>
             <div style="background: #090d16; border: 1px solid #1e3a8a; border-left: 4px solid #38bdf8; border-radius: 8px; padding: 18px;">
                 <div style="font-size: 11px; color: #94a3b8; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.8px;">
-                    📋 Select &amp; Copy Below for RaioLabs LLC LinkedIn Page (2026-11-23)
+                    📋 Select &amp; Copy Below for RaioLabs LLC LinkedIn Page (2026-11-24)
                 </div>
-                <pre style="margin: 0; white-space: pre-wrap; word-wrap: break-word; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 13.5px; line-height: 1.55; color: #f8fafc; background: #030712; padding: 16px; border-radius: 6px; border: 1px solid #1e293b;">🛡️ RaioLabs LLC — Daily Autonomous Blue-Team & Threat Intelligence Briefing (2026-11-23)
+                <pre style="margin: 0; white-space: pre-wrap; word-wrap: break-word; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 13.5px; line-height: 1.55; color: #f8fafc; background: #030712; padding: 16px; border-radius: 6px; border: 1px solid #1e293b;">🛡️ RaioLabs LLC — Daily Autonomous Blue-Team & Threat Intelligence Briefing (2026-11-24)
 
 At 5:00 AM PT, our Praetorian Cthulhu Blue-Team Swarm completed its daily global threat feed inoculation and autonomous self-healing SBOM audit across Rai-OS (Alpine Linux v3.22.7 bare-metal unikernel) and the RaioLabs production web stack.
 
 📡 Global Threat Intelligence Observed & Pre-Immunized (8 Independent Open Feeds):
-• Global Threat Profiles Observed & Pre-Immunized: 130 unique STIX/MITRE profiles
-• Duplicate Global Feed Reports Filtered (SHA-256 Gate): 1145 duplicate feed entries suppressed
-• Proactive Defensive MCP Countermeasures Synthesized: 54 deterministic guard tools
+• Global Threat Profiles Observed & Pre-Immunized: 144 unique STIX/MITRE profiles
+• Duplicate Global Feed Reports Filtered (SHA-256 Gate): 1243 duplicate feed entries suppressed
+• Proactive Defensive MCP Countermeasures Synthesized: 57 deterministic guard tools
 • Direct Attacks Against Praetorian / Rai-OS Enclaves: 0 direct intrusion attempts (24/7 Watchdog Active)
 • Cloud Compute Overhead: $0.00 (100% local SQLite normalizer + scale-to-zero enclave)
 
 🔬 Global Threat & Vulnerability Spotlights Analyzed by the Swarm:
   • BOTNET-PROPAGATION: Automated Telnet/IoT Credential Stuffing Sweep (T1110.001)
   • INGRESS-RCE: JNDI Lookup Deserialization Injection (CVE-2021-44228)
-  • DSHIELD-SENSOR: Global Volumetric Probe on Port 2222/TCP-UDP (191035 hits / 4476 sources)
-  • DSHIELD-SENSOR: Global Volumetric Probe on Port 8080/TCP-UDP (126499 hits / 3558 sources)
+  • DSHIELD-SENSOR: Global Volumetric Probe on Port 2222/TCP-UDP (243302 hits / 6251 sources)
+  • DSHIELD-SENSOR: Global Volumetric Probe on Port 8080/TCP-UDP (189791 hits / 4370 sources)
 
 🛠️ Proactive Autonomous Self-Healing Stack Posture:
-• Rai-OS Unikernel (Alpine v3.22.7): 10 APK packages audited via Google OSV.dev & Alpine SecDB -> 0 unpatched CVEs (/etc/shadow *sshole immune, zlib 1.4-r0 verified)
+• Rai-OS Unikernel (Alpine v3.22.7): 10 APK packages audited via Google OSV.dev & Alpine SecDB -> 5 unpatched CVEs (/etc/shadow *sshole immune, zlib 1.4-r0 verified)
 • Web & API Supply Chain: 111 npm + 5 PyPI packages audited -> 0 unpatched vulnerabilities
 
 Explore the live Concentric Defense-in-Depth Radar & Sentinel Observatory:
