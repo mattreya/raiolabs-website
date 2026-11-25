@@ -1,5 +1,5 @@
 {
-  "synced_at": "2026-11-25T14:15:02.881822+00:00",
+  "synced_at": "2026-11-25T20:15:03.473802+00:00",
   "source_database": "praetorian_multi_source_intel.db (SQLite3 STIX/MITRE Normalizer)",
   "cost_posture": "$0.00 (Same-Origin Static Snapshot + Local SQLite Aggregator)",
   "cloud_health": {
@@ -14,12 +14,12 @@
     "soul_sha256_enforced": "ad866445f67a56c9f8d8f14e43d8098fd5a83dc10d680bbb671a0f4d57bae08c",
     "daily_requests_used": 9,
     "daily_request_hard_cap": 5000,
-    "indexed_threat_docs": 163,
+    "indexed_threat_docs": 170,
     "submitted_tools_count": 2,
     "submitted_reports_count": 0,
     "recorded_sessions_count": 0,
-    "threatmap_unique_profiles_count": 154,
-    "threatmap_deduplicated_repeats": 1308,
+    "threatmap_unique_profiles_count": 161,
+    "threatmap_deduplicated_repeats": 1351,
     "mcp_tools_available": [
       "query_blackhat_intel",
       "get_countermeasure_playbook",
@@ -63,8 +63,8 @@
         "name": "CISA Known Exploited Vulnerabilities Catalog",
         "category": "Public US Gov / CVE Advisories",
         "license_tier": "Public Domain (CC0 / US Gov)",
-        "vectors_contributed": 478,
-        "last_polled_at": "2026-11-25T14:15:01Z"
+        "vectors_contributed": 483,
+        "last_polled_at": "2026-11-25T20:15:01Z"
       },
       {
         "feed_id": "GREYNOISE-COMMUNITY",
@@ -95,8 +95,8 @@
         "name": "SANS Internet Storm Center DShield Sensor Grid",
         "category": "Global Honeypot Port & Protocol Telemetry",
         "license_tier": "Open Community Telemetry",
-        "vectors_contributed": 344,
-        "last_polled_at": "2026-11-25T14:15:01Z"
+        "vectors_contributed": 349,
+        "last_polled_at": "2026-11-25T20:15:02Z"
       },
       {
         "feed_id": "SURICATA-ET-OPEN",
@@ -126,7 +126,7 @@
     }
   },
   "direct_enclave_intrusion_audit": {
-    "checked_at": "2026-11-25T14:15:02.799882+00:00",
+    "checked_at": "2026-11-25T20:15:03.379164+00:00",
     "direct_attacks_total": 0,
     "new_attacks_detected_this_run": 0,
     "enclave_status": "SECURE_ZERO_DIRECT_ATTACKS",
@@ -138,7 +138,7 @@
     "track_a_zero_day_enclave": {
       "category_name": "Track A: Pre-KEV Triage & Safe Harbor CVD Enclave",
       "status": "ACTIVE_SAFE_HARBOR_EMBARGO",
-      "total_zero_day_vectors_intercepted_today": 127,
+      "total_zero_day_vectors_intercepted_today": 131,
       "disclosure_policy": "STRICT NON-DISCLOSURE EMBARGO (RFC 9116 / DoD Directive 20-01) \u2014 Zero sensitive vulnerability disclosures, PoCs, or payloads publicly disclosed",
       "designated_intake": "Authorized Coordinated Vulnerability Disclosure (CVD) & Vendor Bug Bounty Portals",
       "mitigation_guard_status": "Auto-Synthesized Virtual Patch Deployed (eBPF / NetFilter Wire Filters)"
@@ -146,7 +146,7 @@
     "track_b_verified_cve_queue": {
       "category_name": "Track B: Verified Bug Bounty & CVE Remediation Queue",
       "status": "COORDINATED_BOUNTY_TRACK",
-      "total_verified_cves_tracked": 35,
+      "total_verified_cves_tracked": 38,
       "confirmed_new_cves": [
         "ALPINE-CVE-2026-107493",
         "ALPINE-CVE-2026-107496",
@@ -156,8 +156,11 @@
         "ALPINE-CVE-2026-95691",
         "ALPINE-CVE-2026-95692",
         "CVE-2021-44228",
+        "CVE-2023-25914",
+        "CVE-2023-25915",
         "CVE-2024-10441",
         "CVE-2024-27834",
+        "CVE-2025-41450",
         "CVE-2025-42884",
         "CVE-2026-107493",
         "CVE-2026-107496",
@@ -193,8 +196,8 @@
     }
   },
   "threatmap_observations": {
-    "unique_count": 154,
-    "deduplicated_repeat_count": 1308,
+    "unique_count": 161,
+    "deduplicated_repeat_count": 1351,
     "observations": [
       {
         "observation_id": "obs-59212b1009",
@@ -3848,86 +3851,6 @@
         "last_seen_at": "2026-11-25T13:00:19Z"
       },
       {
-        "observation_id": "obs-84a9c2ba75",
-        "signature_name": "AUTH-BYPASS: Alpine musl libc crypt() >256-Byte Asterisk Collision (*sshole / CWE-287)",
-        "attack_type": "exploit",
-        "signature_hash": "84a9c2ba7523663f6fc473040df82aab797e3bb28d693e237308c4635d52e4ac",
-        "source_country": "SECTOR-ENCLAVE",
-        "dest_country": "TENTACLE-VI",
-        "severity": "CRITICAL",
-        "domain": "Zero-Trust Enclave SSH & Shadow Authentication",
-        "mitre_ttps": [
-          "T1078 - Valid Accounts",
-          "T1110 - Brute Force"
-        ],
-        "corroborated_feeds": [
-          "SANS-ISC-DSHIELD",
-          "GREYNOISE-COMMUNITY",
-          "SURICATA-ET-OPEN",
-          "CISA-KEV",
-          "ALIENVAULT-OTX"
-        ],
-        "corroboration_count": 5,
-        "synthesized_tool_id": "sentinel-auto-alpine-musl-crypt-sshhole-guard-a23e70",
-        "synthesized_tool_sha256": "84a9c2ba7523663f6fc473040df82aab797e3bb28d693e237308c4635d52e4ac",
-        "rag_profile_id": "praetorian-rag-84a9c2ba75",
-        "repeat_hits": 15,
-        "first_seen_at": "2026-11-08T04:05:23Z",
-        "last_seen_at": "2026-11-25T14:15:01Z"
-      },
-      {
-        "observation_id": "obs-5dfdefa8d0",
-        "signature_name": "BOTNET-PROPAGATION: Automated Telnet/IoT Credential Stuffing Sweep (T1110.001)",
-        "attack_type": "botnet",
-        "signature_hash": "5dfdefa8d0047faf433b5cecd5ed87ace6a7eddb4ebde3a919b7bab0bafd178e",
-        "source_country": "SECTOR-C2/BOTNET",
-        "dest_country": "TENTACLE-III",
-        "severity": "CRITICAL",
-        "domain": "Edge IoT & Embedded Perimeter Isolation",
-        "mitre_ttps": [
-          "T1110.001 - Password Guessing"
-        ],
-        "corroborated_feeds": [
-          "SANS-ISC-DSHIELD",
-          "GREYNOISE-COMMUNITY",
-          "SURICATA-ET-OPEN"
-        ],
-        "corroboration_count": 3,
-        "synthesized_tool_id": "sentinel-auto-mirai-iot-botnet-telnet-credential-brute-f-b92866",
-        "synthesized_tool_sha256": "5dfdefa8d0047faf433b5cecd5ed87ace6a7eddb4ebde3a919b7bab0bafd178e",
-        "rag_profile_id": "praetorian-rag-5dfdefa8d0",
-        "repeat_hits": 15,
-        "first_seen_at": "2026-11-08T04:05:23Z",
-        "last_seen_at": "2026-11-25T14:15:01Z"
-      },
-      {
-        "observation_id": "obs-b0022e1ef2",
-        "signature_name": "INGRESS-RCE: JNDI Lookup Deserialization Injection (CVE-2021-44228)",
-        "attack_type": "exploit",
-        "signature_hash": "b0022e1ef20f2cfbb0bd1d256dd1db66c5703ce7f7fa04e9eebd48cc24710d34",
-        "source_country": "SECTOR-INGRESS",
-        "dest_country": "TENTACLE-I",
-        "severity": "CRITICAL",
-        "domain": "Zero-Trust TLS Application Ingress",
-        "mitre_ttps": [
-          "T1190 - Exploit Public-Facing Application"
-        ],
-        "corroborated_feeds": [
-          "SANS-ISC-DSHIELD",
-          "GREYNOISE-COMMUNITY",
-          "SURICATA-ET-OPEN",
-          "CISA-KEV",
-          "ALIENVAULT-OTX"
-        ],
-        "corroboration_count": 5,
-        "synthesized_tool_id": "sentinel-auto-apache-log4j-jndi-remote-code-execution-cv-fc549e",
-        "synthesized_tool_sha256": "b0022e1ef20f2cfbb0bd1d256dd1db66c5703ce7f7fa04e9eebd48cc24710d34",
-        "rag_profile_id": "praetorian-rag-b0022e1ef2",
-        "repeat_hits": 15,
-        "first_seen_at": "2026-11-08T04:05:23Z",
-        "last_seen_at": "2026-11-25T14:15:01Z"
-      },
-      {
         "observation_id": "obs-ccfa7bd43f",
         "signature_name": "KEV-ACTIVE: Project MONAI MONAI Label \u2014 Project MONAI MONAI Label Path Traversal Vulnerability (CVE-2026-133968)",
         "attack_type": "exploit",
@@ -4106,11 +4029,271 @@
         "repeat_hits": 15,
         "first_seen_at": "2026-11-25T13:00:02Z",
         "last_seen_at": "2026-11-25T14:15:01Z"
+      },
+      {
+        "observation_id": "obs-e99d912b31",
+        "signature_name": "KEV-ACTIVE: Hewlett Packard Enterprise (HPE) Juniper Session Smart Conductor and Session Smart Router \u2014 Hewlett Packard Enterprise (HPE) Juniper Session Smart Conductor and Session Smart Router OS Command Injection Vulnerability (CVE-2026-103406)",
+        "attack_type": "exploit",
+        "signature_hash": "e99d912b31cb6bcbcf28659b74ddd02940e3761becbac9cabf34befc288d07a5",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Hewlett Packard Enterprise (HPE) Juniper Session Smart Conductor and Session Smart Router)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-kev-hewlett-packard-enterprise-hpe-juniper-e99d91",
+        "synthesized_tool_sha256": "e99d912b31cb6bcbcf28659b74ddd02940e3761becbac9cabf34befc288d07a5",
+        "rag_profile_id": "praetorian-rag-e99d912b31",
+        "repeat_hits": 4,
+        "first_seen_at": "2026-11-25T20:15:01Z",
+        "last_seen_at": "2026-11-25T20:15:01Z"
+      },
+      {
+        "observation_id": "obs-cc73dd2d6e",
+        "signature_name": "KEV-ACTIVE: Vates Xen Orchestra \u2014 Vates Xen Orchestra Improper Validation of Specified Type of Input Vulnerability (CVE-2026-133469)",
+        "attack_type": "exploit",
+        "signature_hash": "cc73dd2d6e631bc09002dfb8bae6147555d105c49cdd122cd73cab24d30931c8",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Vates Xen Orchestra)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-kev-vates-xen-orchestra-cve-2026-133469-cc73dd",
+        "synthesized_tool_sha256": "cc73dd2d6e631bc09002dfb8bae6147555d105c49cdd122cd73cab24d30931c8",
+        "rag_profile_id": "praetorian-rag-cc73dd2d6e",
+        "repeat_hits": 4,
+        "first_seen_at": "2026-11-25T20:15:01Z",
+        "last_seen_at": "2026-11-25T20:15:01Z"
+      },
+      {
+        "observation_id": "obs-6006e3f406",
+        "signature_name": "KEV-ACTIVE: Danfoss AK-SM 800A Series \u2014 Danfoss AK-SM 800A Series Improper Authentication Vulnerability (CVE-2025-41450)",
+        "attack_type": "exploit",
+        "signature_hash": "6006e3f406c9ccb5e4a5e9d45edaefb5fa2a014924eb8f3abad910d6082f2e0f",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Danfoss AK-SM 800A Series)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-kev-danfoss-ak-sm-800a-series-cve-2025-414-6006e3",
+        "synthesized_tool_sha256": "6006e3f406c9ccb5e4a5e9d45edaefb5fa2a014924eb8f3abad910d6082f2e0f",
+        "rag_profile_id": "praetorian-rag-6006e3f406",
+        "repeat_hits": 4,
+        "first_seen_at": "2026-11-25T20:15:01Z",
+        "last_seen_at": "2026-11-25T20:15:01Z"
+      },
+      {
+        "observation_id": "obs-d3fc2956a0",
+        "signature_name": "KEV-ACTIVE: Danfoss AK-SM 800A Series \u2014 Danfoss AK-SM 800A Series Path Traversal Vulnerability (CVE-2023-25914)",
+        "attack_type": "exploit",
+        "signature_hash": "d3fc2956a017b155cc0ce9cb36d0dbecf73c5e18d3dff236b1e589b5841a31e2",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Danfoss AK-SM 800A Series)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-kev-danfoss-ak-sm-800a-series-cve-2023-259-d3fc29",
+        "synthesized_tool_sha256": "d3fc2956a017b155cc0ce9cb36d0dbecf73c5e18d3dff236b1e589b5841a31e2",
+        "rag_profile_id": "praetorian-rag-d3fc2956a0",
+        "repeat_hits": 4,
+        "first_seen_at": "2026-11-25T20:15:01Z",
+        "last_seen_at": "2026-11-25T20:15:01Z"
+      },
+      {
+        "observation_id": "obs-9a5f2049b9",
+        "signature_name": "KEV-ACTIVE: Danfoss AK-SM 800A Series \u2014 Danfoss AK-SM 800A Series Improper Input Validation Vulnerability (CVE-2023-25915)",
+        "attack_type": "exploit",
+        "signature_hash": "9a5f2049b965a9ae1967bad53d387fec70f656e5c3969675e148e4e2a207a680",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Danfoss AK-SM 800A Series)",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 4,
+        "synthesized_tool_id": "sentinel-auto-kev-danfoss-ak-sm-800a-series-cve-2023-259-9a5f20",
+        "synthesized_tool_sha256": "9a5f2049b965a9ae1967bad53d387fec70f656e5c3969675e148e4e2a207a680",
+        "rag_profile_id": "praetorian-rag-9a5f2049b9",
+        "repeat_hits": 4,
+        "first_seen_at": "2026-11-25T20:15:01Z",
+        "last_seen_at": "2026-11-25T20:15:01Z"
+      },
+      {
+        "observation_id": "obs-84a9c2ba75",
+        "signature_name": "AUTH-BYPASS: Alpine musl libc crypt() >256-Byte Asterisk Collision (*sshole / CWE-287)",
+        "attack_type": "exploit",
+        "signature_hash": "84a9c2ba7523663f6fc473040df82aab797e3bb28d693e237308c4635d52e4ac",
+        "source_country": "SECTOR-ENCLAVE",
+        "dest_country": "TENTACLE-VI",
+        "severity": "CRITICAL",
+        "domain": "Zero-Trust Enclave SSH & Shadow Authentication",
+        "mitre_ttps": [
+          "T1078 - Valid Accounts",
+          "T1110 - Brute Force"
+        ],
+        "corroborated_feeds": [
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN",
+          "CISA-KEV",
+          "ALIENVAULT-OTX"
+        ],
+        "corroboration_count": 5,
+        "synthesized_tool_id": "sentinel-auto-alpine-musl-crypt-sshhole-guard-a23e70",
+        "synthesized_tool_sha256": "84a9c2ba7523663f6fc473040df82aab797e3bb28d693e237308c4635d52e4ac",
+        "rag_profile_id": "praetorian-rag-84a9c2ba75",
+        "repeat_hits": 15,
+        "first_seen_at": "2026-11-08T04:05:23Z",
+        "last_seen_at": "2026-11-25T20:15:02Z"
+      },
+      {
+        "observation_id": "obs-5dfdefa8d0",
+        "signature_name": "BOTNET-PROPAGATION: Automated Telnet/IoT Credential Stuffing Sweep (T1110.001)",
+        "attack_type": "botnet",
+        "signature_hash": "5dfdefa8d0047faf433b5cecd5ed87ace6a7eddb4ebde3a919b7bab0bafd178e",
+        "source_country": "SECTOR-C2/BOTNET",
+        "dest_country": "TENTACLE-III",
+        "severity": "CRITICAL",
+        "domain": "Edge IoT & Embedded Perimeter Isolation",
+        "mitre_ttps": [
+          "T1110.001 - Password Guessing"
+        ],
+        "corroborated_feeds": [
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 3,
+        "synthesized_tool_id": "sentinel-auto-mirai-iot-botnet-telnet-credential-brute-f-b92866",
+        "synthesized_tool_sha256": "5dfdefa8d0047faf433b5cecd5ed87ace6a7eddb4ebde3a919b7bab0bafd178e",
+        "rag_profile_id": "praetorian-rag-5dfdefa8d0",
+        "repeat_hits": 15,
+        "first_seen_at": "2026-11-08T04:05:23Z",
+        "last_seen_at": "2026-11-25T20:15:02Z"
+      },
+      {
+        "observation_id": "obs-b0022e1ef2",
+        "signature_name": "INGRESS-RCE: JNDI Lookup Deserialization Injection (CVE-2021-44228)",
+        "attack_type": "exploit",
+        "signature_hash": "b0022e1ef20f2cfbb0bd1d256dd1db66c5703ce7f7fa04e9eebd48cc24710d34",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "CRITICAL",
+        "domain": "Zero-Trust TLS Application Ingress",
+        "mitre_ttps": [
+          "T1190 - Exploit Public-Facing Application"
+        ],
+        "corroborated_feeds": [
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN",
+          "CISA-KEV",
+          "ALIENVAULT-OTX"
+        ],
+        "corroboration_count": 5,
+        "synthesized_tool_id": "sentinel-auto-apache-log4j-jndi-remote-code-execution-cv-fc549e",
+        "synthesized_tool_sha256": "b0022e1ef20f2cfbb0bd1d256dd1db66c5703ce7f7fa04e9eebd48cc24710d34",
+        "rag_profile_id": "praetorian-rag-b0022e1ef2",
+        "repeat_hits": 15,
+        "first_seen_at": "2026-11-08T04:05:23Z",
+        "last_seen_at": "2026-11-25T20:15:02Z"
+      },
+      {
+        "observation_id": "obs-50a34e95af",
+        "signature_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 2222/TCP-UDP (210895 hits / 5662 sources)",
+        "attack_type": "exploit",
+        "signature_hash": "50a34e95afabc538411da5e67d4a01507c94262cfc2a6fd5e7ffc051c8b7509d",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "HIGH",
+        "domain": "Zero-Trust Port 2222 Perimeter Filter",
+        "mitre_ttps": [
+          "T1046 - Network Service Discovery"
+        ],
+        "corroborated_feeds": [
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 3,
+        "synthesized_tool_id": "sentinel-auto-dshield-port-2222-guard",
+        "synthesized_tool_sha256": "50a34e95afabc538411da5e67d4a01507c94262cfc2a6fd5e7ffc051c8b7509d",
+        "rag_profile_id": "praetorian-rag-50a34e95af",
+        "repeat_hits": 15,
+        "first_seen_at": "2026-11-25T20:15:02Z",
+        "last_seen_at": "2026-11-25T20:15:02Z"
+      },
+      {
+        "observation_id": "obs-ad29c7e2d9",
+        "signature_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 8080/TCP-UDP (186981 hits / 5705 sources)",
+        "attack_type": "exploit",
+        "signature_hash": "ad29c7e2d9d4fa39164cdfc16c010827d340d04feccb51f5ffebc3062ce45ae2",
+        "source_country": "SECTOR-INGRESS",
+        "dest_country": "TENTACLE-I",
+        "severity": "HIGH",
+        "domain": "Zero-Trust Port 8080 Perimeter Filter",
+        "mitre_ttps": [
+          "T1046 - Network Service Discovery"
+        ],
+        "corroborated_feeds": [
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "corroboration_count": 3,
+        "synthesized_tool_id": "sentinel-auto-dshield-port-8080-guard",
+        "synthesized_tool_sha256": "ad29c7e2d9d4fa39164cdfc16c010827d340d04feccb51f5ffebc3062ce45ae2",
+        "rag_profile_id": "praetorian-rag-ad29c7e2d9",
+        "repeat_hits": 15,
+        "first_seen_at": "2026-11-25T20:15:02Z",
+        "last_seen_at": "2026-11-25T20:15:02Z"
       }
     ]
   },
   "synthesized_tools": {
-    "count": 60,
+    "count": 65,
     "tools": [
       {
         "tool_id": "sentinel-auto-http-directory-traversal-etc-shadow-probe-ab190a",
@@ -5150,22 +5333,112 @@
         "synthesized_at": "2026-11-24T20:15:01Z",
         "description": "Autonomously synthesized by Praetorian Swarm across multi-source feeds to neutralize: KEV-ACTIVE: Drupal Core \u2014 Drupal Core Remote Code Execution Vulnerability (CVE-2026-132165)",
         "script_preview": "#!/bin/sh\n# Praetorian Autonomous MCP Guard: sentinel-auto-kev-drupal-core-cve-2026-132165-8f960a\n# Target Vector: KEV-ACTIVE: Drupal Core \u2014 Drupal Core Remote Code Execution Vulnerability (CVE-2026-132165)\n# Attestation SHA-256: 8f960a7ee22f7c9565f7aa9637d1c4c3\nlogger -t praetorian-mcp 'Enforcing deterministic guard sentinel-auto-kev-drupal-core-cve-2026-132165-8f960a'\n"
+      },
+      {
+        "tool_id": "sentinel-auto-kev-hewlett-packard-enterprise-hpe-juniper-e99d91",
+        "target_attack": "KEV-ACTIVE: Hewlett Packard Enterprise (HPE) Juniper Session Smart Conductor and Session Smart Router \u2014 Hewlett Packard Enterprise (HPE) Juniper Session Smart Conductor and Session Smart Router OS Command Injection Vulnerability (CVE-2026-103406)",
+        "attack_type": "exploit",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Hewlett Packard Enterprise (HPE) Juniper Session Smart Conductor and Session Smart Router)",
+        "sha256_receipt": "e99d912b31cb6bcbcf28659b74ddd02940e3761becbac9cabf34befc288d07a5",
+        "rag_profile_id": "praetorian-rag-e99d912b31",
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "synthesized_at": "2026-11-25T20:15:01Z",
+        "description": "Autonomously synthesized by Praetorian Swarm across multi-source feeds to neutralize: KEV-ACTIVE: Hewlett Packard Enterprise (HPE) Juniper Session Smart Conductor and Session Smart Router \u2014 Hewlett Packard Enterprise (HPE) Juniper Session Smart Conductor and Session Smart Router OS Command Injection Vulnerability (CVE-2026-103406)",
+        "script_preview": "#!/bin/sh\n# Praetorian Autonomous MCP Guard: sentinel-auto-kev-hewlett-packard-enterprise-hpe-juniper-e99d91\n# Target Vector: KEV-ACTIVE: Hewlett Packard Enterprise (HPE) Juniper Session Smart Conductor and Session Smart Router \u2014 Hewlett Packard Enterprise (HPE) Juniper Session Smart Conductor and Session Smart Router OS Command Injection Vulnerability (CVE-2026-103406)\n# Attestation SHA-256: e99d912b31cb6bcbcf28659b74ddd029\nlogger -t praetorian-mcp 'Enforcing deterministic guard sentinel-auto-kev-hewlett-packard-enterprise-hpe-juniper-e99d91'\n"
+      },
+      {
+        "tool_id": "sentinel-auto-kev-vates-xen-orchestra-cve-2026-133469-cc73dd",
+        "target_attack": "KEV-ACTIVE: Vates Xen Orchestra \u2014 Vates Xen Orchestra Improper Validation of Specified Type of Input Vulnerability (CVE-2026-133469)",
+        "attack_type": "exploit",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Vates Xen Orchestra)",
+        "sha256_receipt": "cc73dd2d6e631bc09002dfb8bae6147555d105c49cdd122cd73cab24d30931c8",
+        "rag_profile_id": "praetorian-rag-cc73dd2d6e",
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "synthesized_at": "2026-11-25T20:15:01Z",
+        "description": "Autonomously synthesized by Praetorian Swarm across multi-source feeds to neutralize: KEV-ACTIVE: Vates Xen Orchestra \u2014 Vates Xen Orchestra Improper Validation of Specified Type of Input Vulnerability (CVE-2026-133469)",
+        "script_preview": "#!/bin/sh\n# Praetorian Autonomous MCP Guard: sentinel-auto-kev-vates-xen-orchestra-cve-2026-133469-cc73dd\n# Target Vector: KEV-ACTIVE: Vates Xen Orchestra \u2014 Vates Xen Orchestra Improper Validation of Specified Type of Input Vulnerability (CVE-2026-133469)\n# Attestation SHA-256: cc73dd2d6e631bc09002dfb8bae61475\nlogger -t praetorian-mcp 'Enforcing deterministic guard sentinel-auto-kev-vates-xen-orchestra-cve-2026-133469-cc73dd'\n"
+      },
+      {
+        "tool_id": "sentinel-auto-kev-danfoss-ak-sm-800a-series-cve-2025-414-6006e3",
+        "target_attack": "KEV-ACTIVE: Danfoss AK-SM 800A Series \u2014 Danfoss AK-SM 800A Series Improper Authentication Vulnerability (CVE-2025-41450)",
+        "attack_type": "exploit",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Danfoss AK-SM 800A Series)",
+        "sha256_receipt": "6006e3f406c9ccb5e4a5e9d45edaefb5fa2a014924eb8f3abad910d6082f2e0f",
+        "rag_profile_id": "praetorian-rag-6006e3f406",
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "synthesized_at": "2026-11-25T20:15:01Z",
+        "description": "Autonomously synthesized by Praetorian Swarm across multi-source feeds to neutralize: KEV-ACTIVE: Danfoss AK-SM 800A Series \u2014 Danfoss AK-SM 800A Series Improper Authentication Vulnerability (CVE-2025-41450)",
+        "script_preview": "#!/bin/sh\n# Praetorian Autonomous MCP Guard: sentinel-auto-kev-danfoss-ak-sm-800a-series-cve-2025-414-6006e3\n# Target Vector: KEV-ACTIVE: Danfoss AK-SM 800A Series \u2014 Danfoss AK-SM 800A Series Improper Authentication Vulnerability (CVE-2025-41450)\n# Attestation SHA-256: 6006e3f406c9ccb5e4a5e9d45edaefb5\nlogger -t praetorian-mcp 'Enforcing deterministic guard sentinel-auto-kev-danfoss-ak-sm-800a-series-cve-2025-414-6006e3'\n"
+      },
+      {
+        "tool_id": "sentinel-auto-kev-danfoss-ak-sm-800a-series-cve-2023-259-d3fc29",
+        "target_attack": "KEV-ACTIVE: Danfoss AK-SM 800A Series \u2014 Danfoss AK-SM 800A Series Path Traversal Vulnerability (CVE-2023-25914)",
+        "attack_type": "exploit",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Danfoss AK-SM 800A Series)",
+        "sha256_receipt": "d3fc2956a017b155cc0ce9cb36d0dbecf73c5e18d3dff236b1e589b5841a31e2",
+        "rag_profile_id": "praetorian-rag-d3fc2956a0",
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "synthesized_at": "2026-11-25T20:15:01Z",
+        "description": "Autonomously synthesized by Praetorian Swarm across multi-source feeds to neutralize: KEV-ACTIVE: Danfoss AK-SM 800A Series \u2014 Danfoss AK-SM 800A Series Path Traversal Vulnerability (CVE-2023-25914)",
+        "script_preview": "#!/bin/sh\n# Praetorian Autonomous MCP Guard: sentinel-auto-kev-danfoss-ak-sm-800a-series-cve-2023-259-d3fc29\n# Target Vector: KEV-ACTIVE: Danfoss AK-SM 800A Series \u2014 Danfoss AK-SM 800A Series Path Traversal Vulnerability (CVE-2023-25914)\n# Attestation SHA-256: d3fc2956a017b155cc0ce9cb36d0dbec\nlogger -t praetorian-mcp 'Enforcing deterministic guard sentinel-auto-kev-danfoss-ak-sm-800a-series-cve-2023-259-d3fc29'\n"
+      },
+      {
+        "tool_id": "sentinel-auto-kev-danfoss-ak-sm-800a-series-cve-2023-259-9a5f20",
+        "target_attack": "KEV-ACTIVE: Danfoss AK-SM 800A Series \u2014 Danfoss AK-SM 800A Series Improper Input Validation Vulnerability (CVE-2023-25915)",
+        "attack_type": "exploit",
+        "severity": "CRITICAL",
+        "domain": "CISA KEV Zero-Trust Perimeter (Danfoss AK-SM 800A Series)",
+        "sha256_receipt": "9a5f2049b965a9ae1967bad53d387fec70f656e5c3969675e148e4e2a207a680",
+        "rag_profile_id": "praetorian-rag-9a5f2049b9",
+        "corroborated_feeds": [
+          "CISA-KEV",
+          "SANS-ISC-DSHIELD",
+          "GREYNOISE-COMMUNITY",
+          "SURICATA-ET-OPEN"
+        ],
+        "synthesized_at": "2026-11-25T20:15:01Z",
+        "description": "Autonomously synthesized by Praetorian Swarm across multi-source feeds to neutralize: KEV-ACTIVE: Danfoss AK-SM 800A Series \u2014 Danfoss AK-SM 800A Series Improper Input Validation Vulnerability (CVE-2023-25915)",
+        "script_preview": "#!/bin/sh\n# Praetorian Autonomous MCP Guard: sentinel-auto-kev-danfoss-ak-sm-800a-series-cve-2023-259-9a5f20\n# Target Vector: KEV-ACTIVE: Danfoss AK-SM 800A Series \u2014 Danfoss AK-SM 800A Series Improper Input Validation Vulnerability (CVE-2023-25915)\n# Attestation SHA-256: 9a5f2049b965a9ae1967bad53d387fec\nlogger -t praetorian-mcp 'Enforcing deterministic guard sentinel-auto-kev-danfoss-ak-sm-800a-series-cve-2023-259-9a5f20'\n"
       }
     ]
   },
   "artex_attribution_analytics": {
     "fbi_flash_bulletin": "FLASH-20261113-001 (Threat Overview of ARTEX Autonomous Penetration Testing Framework)",
-    "evaluated_threat_vectors_count": 154,
+    "evaluated_threat_vectors_count": 161,
     "breakdown": {
-      "AUTONOMOUS_SWARM_ARTEX": 141,
+      "AUTONOMOUS_SWARM_ARTEX": 148,
       "HUMAN_NATION_STATE_APT": 1,
       "COMMODITY_BOTNET_AUTOMATION": 9,
       "HYBRID_AGENTIC_PIPELINE": 0,
       "UNCLASSIFIED_HEURISTIC": 3
     },
-    "autonomous_swarm_prevalence_pct": 91.6,
-    "machine_vs_human_ratio": "141:1",
-    "last_classified_at": "2026-11-25T14:15:02.860118+00:00",
+    "autonomous_swarm_prevalence_pct": 91.9,
+    "machine_vs_human_ratio": "148:1",
+    "last_classified_at": "2026-11-25T20:15:03.451138+00:00",
     "top_artex_fingerprints": [
       {
         "signature_hash": "ab190a5f1d8e2762dd50014df880ecd8077f9cb7527ff353a8837626ba04983b",
@@ -7637,6 +7910,117 @@
         "key_indicators": [
           "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
           "High-frequency execution burst (3600.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "e99d912b31cb6bcbcf28659b74ddd02940e3761becbac9cabf34befc288d07a5",
+        "canonical_name": "KEV-ACTIVE: Hewlett Packard Enterprise (HPE) Juniper Session Smart Conductor and Session Smart Router \u2014 Hewlett Packard Enterprise (HPE) Juniper Session Smart Conductor and Session Smart Router OS Command Injection Vulnerability (CVE-2026-103406)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 95.8,
+        "artex_swarm_prob": 0.9583,
+        "human_apt_prob": 0.0208,
+        "commodity_botnet_prob": 0.0208,
+        "machine_velocity_index": 1.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "High-frequency execution burst (14400.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "cc73dd2d6e631bc09002dfb8bae6147555d105c49cdd122cd73cab24d30931c8",
+        "canonical_name": "KEV-ACTIVE: Vates Xen Orchestra \u2014 Vates Xen Orchestra Improper Validation of Specified Type of Input Vulnerability (CVE-2026-133469)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 95.8,
+        "artex_swarm_prob": 0.9583,
+        "human_apt_prob": 0.0208,
+        "commodity_botnet_prob": 0.0208,
+        "machine_velocity_index": 1.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "High-frequency execution burst (14400.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "6006e3f406c9ccb5e4a5e9d45edaefb5fa2a014924eb8f3abad910d6082f2e0f",
+        "canonical_name": "KEV-ACTIVE: Danfoss AK-SM 800A Series \u2014 Danfoss AK-SM 800A Series Improper Authentication Vulnerability (CVE-2025-41450)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 95.8,
+        "artex_swarm_prob": 0.9583,
+        "human_apt_prob": 0.0208,
+        "commodity_botnet_prob": 0.0208,
+        "machine_velocity_index": 1.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "High-frequency execution burst (14400.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "d3fc2956a017b155cc0ce9cb36d0dbecf73c5e18d3dff236b1e589b5841a31e2",
+        "canonical_name": "KEV-ACTIVE: Danfoss AK-SM 800A Series \u2014 Danfoss AK-SM 800A Series Path Traversal Vulnerability (CVE-2023-25914)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 96.8,
+        "artex_swarm_prob": 0.9683,
+        "human_apt_prob": 0.0159,
+        "commodity_botnet_prob": 0.0159,
+        "machine_velocity_index": 1.0,
+        "swarm_collision_metric": 0.75,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "High-frequency execution burst (14400.0 hits/hr)",
+          "Targeting peripheral credential/token store susceptible to agent collision"
+        ]
+      },
+      {
+        "signature_hash": "9a5f2049b965a9ae1967bad53d387fec70f656e5c3969675e148e4e2a207a680",
+        "canonical_name": "KEV-ACTIVE: Danfoss AK-SM 800A Series \u2014 Danfoss AK-SM 800A Series Improper Input Validation Vulnerability (CVE-2023-25915)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 95.8,
+        "artex_swarm_prob": 0.9583,
+        "human_apt_prob": 0.0208,
+        "commodity_botnet_prob": 0.0208,
+        "machine_velocity_index": 1.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "ARTEX TTP T1190 (Exploit Public-Facing Application (Peripheral Breadth))",
+          "High-frequency execution burst (14400.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "50a34e95afabc538411da5e67d4a01507c94262cfc2a6fd5e7ffc051c8b7509d",
+        "canonical_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 2222/TCP-UDP (210895 hits / 5662 sources)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 93.3,
+        "artex_swarm_prob": 0.9333,
+        "human_apt_prob": 0.0333,
+        "commodity_botnet_prob": 0.0333,
+        "machine_velocity_index": 1.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "High-frequency execution burst (54000.0 hits/hr)"
+        ]
+      },
+      {
+        "signature_hash": "ad29c7e2d9d4fa39164cdfc16c010827d340d04feccb51f5ffebc3062ce45ae2",
+        "canonical_name": "DSHIELD-SENSOR: Global Volumetric Probe on Port 8080/TCP-UDP (186981 hits / 5705 sources)",
+        "attack_type": "exploit",
+        "attribution_category": "AUTONOMOUS_SWARM_ARTEX",
+        "confidence_score": 93.3,
+        "artex_swarm_prob": 0.9333,
+        "human_apt_prob": 0.0333,
+        "commodity_botnet_prob": 0.0333,
+        "machine_velocity_index": 1.0,
+        "swarm_collision_metric": 0.0,
+        "key_indicators": [
+          "High-frequency execution burst (54000.0 hits/hr)"
         ]
       }
     ]
